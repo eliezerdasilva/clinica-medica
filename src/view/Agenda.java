@@ -17,6 +17,9 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import controler.AgendaController;
+
 import javax.swing.JScrollPane;
 
 public class Agenda extends JFrame {
@@ -24,7 +27,10 @@ public class Agenda extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
-	private JTextField textField_1;
+	private JTextField txtValor;
+	private JTextField txtData;
+	private JTextField txtHora;
+	private AgendaController controler;
 
 	/**
 	 * Launch the application.
@@ -46,7 +52,10 @@ public class Agenda extends JFrame {
 	 * Create the frame.
 	 */
 	public Agenda() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		controler = new AgendaController(this);
+		Iniciar();
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 598, 469);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,24 +69,24 @@ public class Agenda extends JFrame {
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nome :");
-		lblNewLabel.setBounds(23, 30, 46, 14);
+		lblNewLabel.setBounds(10, 30, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(66, 58, 184, 22);
-		contentPane.add(comboBox);
+		JComboBox CbxCliente = new JComboBox();
+		CbxCliente.setBounds(66, 58, 184, 22);
+		contentPane.add(CbxCliente);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
+		JLabel lblNewLabel_1 = new JLabel("Cliente");
 		lblNewLabel_1.setBounds(10, 66, 46, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Cadastrar");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		btnNewButton.setBounds(279, 233, 89, 23);
+		btnNewButton.setBounds(66, 233, 437, 23);
 		contentPane.add(btnNewButton);
 		
 		JTextArea textArea = new JTextArea();
@@ -92,24 +101,54 @@ public class Agenda extends JFrame {
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"Nome", "Id", "Servi\u00E7o", "Valor"
+				"Id", "Cliente", "Servi\u00E7o", "Valor", "Hora", "Data", "Observacao"
 			}
 		));
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(66, 91, 184, 22);
-		contentPane.add(comboBox_1);
+		JComboBox ComboxServiço = new JComboBox();
+		ComboxServiço.setBounds(66, 91, 184, 22);
+		contentPane.add(ComboxServiço);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(66, 124, 184, 22);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		txtValor = new JTextField();
+		txtValor.setBounds(66, 124, 184, 22);
+		contentPane.add(txtValor);
+		txtValor.setColumns(10);
+		
+		txtData = new JTextField();
+		txtData.setBounds(66, 157, 184, 20);
+		contentPane.add(txtData);
+		txtData.setColumns(10);
+		
+		txtHora = new JTextField();
+		txtHora.setBounds(66, 188, 184, 20);
+		contentPane.add(txtHora);
+		txtHora.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Serviço");
+		lblNewLabel_2.setBounds(10, 95, 46, 14);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Valor");
+		lblNewLabel_3.setBounds(23, 128, 46, 14);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Data");
+		lblNewLabel_4.setBounds(23, 157, 46, 14);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("Hora");
+		lblNewLabel_5.setBounds(23, 191, 46, 14);
+		contentPane.add(lblNewLabel_5);
+	}
+
+	private void Iniciar() {
+		controler.atualizaTabela();
 	}
 }
