@@ -101,11 +101,6 @@ public class Agenda extends JFrame {
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
 			},
 			new String[] {
 				"Id", "Cliente", "Servi\u00E7o", "Valor", "Hora", "Data", "Observacao"
@@ -151,4 +146,13 @@ public class Agenda extends JFrame {
 	private void Iniciar() {
 		controler.atualizaTabela();
 	}
+
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+	
 }

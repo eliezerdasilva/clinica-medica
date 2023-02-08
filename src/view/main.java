@@ -5,6 +5,7 @@ import model.Cliente;
 import model.Pessoa;
 import model.Servico;
 import model.Usuario;
+import model_DAO.AgendamentoDAO;
 
 public class main {
 	
@@ -24,6 +25,10 @@ public class main {
 		
 		Agendamento agendamento = new Agendamento(1, cliente, servico, 30, "24/05/25 05:12");
 		System.out.println(agendamento.getCliente().getNome() );
+		
+		AgendamentoDAO  agendamentos ;
+		
+		System.out.println(agendamento.getCliente().);
 	}
 
 }
