@@ -56,7 +56,7 @@ public class Agenda extends JFrame {
 		Iniciar();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 598, 469);
+		setBounds(100, 100, 1080, 630);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -90,7 +90,7 @@ public class Agenda extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setBounds(260, 25, 274, 197);
+		textArea.setBounds(552, 25, 274, 197);
 		contentPane.add(textArea);
 		
 		JScrollPane scrollPane = new JScrollPane();
