@@ -28,7 +28,7 @@ public class main {
 		
 		AgendamentoDAO  agendamentos ;
 		
-		System.out.println(agendamento.getCliente().);
+		System.out.println(agendamento.getCliente());
 	}
 
 }
