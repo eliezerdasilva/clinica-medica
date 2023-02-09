@@ -34,7 +34,7 @@ public class Servico {
 	}
 	@Override
 	public String toString() {
-		return "Servico [id=" + id + ", descricao=" + descricao + ", valor=" + valor + "]";
+		return getDescricao();
 	}
 	
 

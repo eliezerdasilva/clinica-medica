@@ -3,7 +3,7 @@
 import model.Usuario;
 import view.Login;
 
-public class LoginHelper {
+public class LoginHelper implements Ihelpe{
 	
 	private final Login view;
 	
@@ -27,6 +27,11 @@ public class LoginHelper {
 	public void limpartela() {
 		view.getTxtUsuario().setText("");
 		view.getTxtSenha().setText("");
+	}
+	@Override
+	public void limparTela() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

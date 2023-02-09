@@ -26,13 +26,16 @@ public class Agendamento {
 			e.printStackTrace();
 		}
 	}
+	
+	public Agendamento(int id, Cliente cliente, Servico servico, float valor, String date, String observacao) {
+		this(id, cliente, servico, valor, date);
+		this.observacao = observacao;
+	}
 
 
 	public int getId() {
 		return id;
 	}
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -71,6 +74,14 @@ public class Agendamento {
 	public Date getDate() {
 		return date;
 	}
+	public String getDataFormatada() {
+		return new SimpleDateFormat("dd/MM/yyyy").format(date);
+		
+	}
+	public String getHoraFormatada(){
+		return new SimpleDateFormat("HH:mm").format(date);
+		
+	}
 
 
 	public void setDate(Date date) {
@@ -90,7 +101,7 @@ public class Agendamento {
 
 	@Override
 	public String toString() {
-		return "Agendamento [id=" + id + ", cliente=" + cliente + ", servico=" + servico + ", valor=" + valor
+		return  cliente + ", servico=" + servico + ", valor=" + valor
 				+ ", date=" + date + ", observacao=" + observacao + "]";
 	}
 	

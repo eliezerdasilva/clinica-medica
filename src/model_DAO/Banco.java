@@ -48,10 +48,10 @@ public class Banco {
         Cliente cliente10 = new Cliente(10, "Elian Luis", 'M', "12/06/1999", "3021212478", "elian@gmail.com", "845713647", "Rua Flores 1023 margem esquerda NH",  "933000874");
         
         Servico servico1 = new Servico(1, "Consulta", 18);
-        Servico servico2 = new Servico(2, "Consulta", 30);
         Servico servico3 = new Servico(3, "tratamento", 15);
+        Servico servico2 = new Servico(2, " ;| ", 15);
         Servico servico4 = new Servico(4, "Consulta  e tratamento", 25);
-        Servico servico5 = new Servico(5, "Consulta", 10);
+        Servico servico5 = new Servico(5, "Cirurgia", 10);
         Servico servico6 = new Servico(6, "pos-tratamento", 3);
 
         Agendamento agendamento1 = new Agendamento(1, cliente1, servico2, 30, "17/05/2023 09:30");
