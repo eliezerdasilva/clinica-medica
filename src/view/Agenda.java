@@ -54,8 +54,7 @@ public class Agenda extends JFrame {
 	 */
 	public Agenda() {
 		controler = new AgendaController(this);
-		Iniciar();
-		
+				
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1080, 632);
 		contentPane = new JPanel();
@@ -148,6 +147,9 @@ public class Agenda extends JFrame {
 		lblNewLabel_5.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblNewLabel_5.setBounds(10, 190, 46, 14);
 		contentPane.add(lblNewLabel_5);
+		
+		Iniciar();
+
 	}
 
 	private void Iniciar() {
