@@ -55,20 +55,20 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Usuario ");
-		lblNewLabel.setBounds(57, 48, 46, 14);
+		lblNewLabel.setBounds(541, 209, 46, 14);
 		contentPane.add(lblNewLabel);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(36, 64, 86, 20);
+		txtUsuario.setBounds(388, 247, 365, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Senha");
-		lblNewLabel_1.setBounds(57, 101, 46, 14);
+		lblNewLabel_1.setBounds(527, 336, 46, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		txtSenha = new JTextField();
-		txtSenha.setBounds(36, 126, 86, 20);
+		txtSenha.setBounds(388, 354, 365, 20);
 		contentPane.add(txtSenha);
 		txtSenha.setColumns(10);
 		
@@ -80,7 +80,7 @@ public class Login extends JFrame {
 			
 			}
 		});
-		btnNewButton.setBounds(36, 157, 89, 23);
+		btnNewButton.setBounds(523, 465, 89, 23);
 		contentPane.add(btnNewButton);
 	}
 

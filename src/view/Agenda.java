@@ -88,7 +88,7 @@ public class Agenda extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		btnNewButton.setBounds(286, 328, 437, 23);
+		btnNewButton.setBounds(284, 327, 437, 23);
 		contentPane.add(btnNewButton);
 		
 		JTextArea textArea = new JTextArea();
