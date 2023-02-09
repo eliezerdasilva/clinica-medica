@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import controler.AgendaController;
 
 import javax.swing.JScrollPane;
+import java.awt.Font;
 
 public class Agenda extends JFrame {
 
@@ -53,10 +54,9 @@ public class Agenda extends JFrame {
 	 */
 	public Agenda() {
 		controler = new AgendaController(this);
-		Iniciar();
-		
+				
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 598, 469);
+		setBounds(100, 100, 1080, 632);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -64,20 +64,22 @@ public class Agenda extends JFrame {
 		contentPane.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(66, 27, 184, 20);
+		textField.setBounds(66, 33, 184, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nome :");
-		lblNewLabel.setBounds(10, 30, 46, 14);
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNewLabel.setBounds(10, 30, 64, 25);
 		contentPane.add(lblNewLabel);
 		
 		JComboBox CbxCliente = new JComboBox();
 		CbxCliente.setBounds(66, 58, 184, 22);
 		contentPane.add(CbxCliente);
 		
-		JLabel lblNewLabel_1 = new JLabel("Cliente");
-		lblNewLabel_1.setBounds(10, 66, 46, 14);
+		JLabel lblNewLabel_1 = new JLabel("Cliente:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(10, 58, 46, 18);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Cadastrar");
@@ -86,15 +88,15 @@ public class Agenda extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		btnNewButton.setBounds(66, 233, 437, 23);
+		btnNewButton.setBounds(284, 327, 437, 23);
 		contentPane.add(btnNewButton);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setBounds(260, 25, 274, 197);
+		textArea.setBounds(759, 25, 274, 197);
 		contentPane.add(textArea);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 277, 451, 108);
+		scrollPane.setBounds(201, 362, 619, 197);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -126,21 +128,28 @@ public class Agenda extends JFrame {
 		contentPane.add(txtHora);
 		txtHora.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Serviço");
-		lblNewLabel_2.setBounds(10, 95, 46, 14);
+		JLabel lblNewLabel_2 = new JLabel("Serviço:");
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(10, 94, 64, 14);
 		contentPane.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("Valor");
-		lblNewLabel_3.setBounds(23, 128, 46, 14);
+		JLabel lblNewLabel_3 = new JLabel("Valor:");
+		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNewLabel_3.setBounds(10, 127, 46, 14);
 		contentPane.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("Data");
-		lblNewLabel_4.setBounds(23, 157, 46, 14);
+		JLabel lblNewLabel_4 = new JLabel("Data:");
+		lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNewLabel_4.setBounds(10, 159, 46, 14);
 		contentPane.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_5 = new JLabel("Hora");
-		lblNewLabel_5.setBounds(23, 191, 46, 14);
+		JLabel lblNewLabel_5 = new JLabel("Hora:");
+		lblNewLabel_5.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNewLabel_5.setBounds(10, 190, 46, 14);
 		contentPane.add(lblNewLabel_5);
+		
+		Iniciar();
+
 	}
 
 	private void Iniciar() {

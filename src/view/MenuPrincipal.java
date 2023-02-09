@@ -49,15 +49,14 @@ public class MenuPrincipal extends JFrame {
 		MenuCadastro.setHorizontalAlignment(SwingConstants.RIGHT);
 		menuBar.add(MenuCadastro);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Cliente");
-		mntmNewMenuItem.setIcon(new ImageIcon("C:\\Users\\frete\\eclipse-workspace\\Clinica_Java\\src\\view_Imagens_icons\\cliente (1).png"));
-		mntmNewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0));
-		MenuCadastro.add(mntmNewMenuItem);
-		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Serviço");
 		mntmNewMenuItem_1.setBackground(SystemColor.menuText);
 		mntmNewMenuItem_1.setIcon(new ImageIcon("C:\\Users\\frete\\eclipse-workspace\\Clinica_Java\\src\\view_Imagens_icons\\servico.png"));
 		MenuCadastro.add(mntmNewMenuItem_1);
+		
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Paciente");
+		MenuCadastro.add(mntmNewMenuItem);
 		
 		JMenu mnNewMenu = new JMenu("Operação");
 		menuBar.add(mnNewMenu);

@@ -19,8 +19,15 @@ public class AgendaHelper {
 
 	public void preencherTabela(ArrayList<Agendamento> agendamentos) {
 		
-		DefaultTableModel  tableModel = (DefaultTableModel) view.getTable().getModel();
-		tableModel.setNumRows(0);
+		DefaultTableModel  tableModel = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Id", "Cliente", "Servi\u00E7o", "Valor", "Hora", "Data", "Observacao"
+				}
+			);
+		//(DefaultTableModel) view.getTable().getModel();
+		//tableModel.setNumRows(0);
 		
 		// Percorrer a lista da tabela
 		for (Agendamento agendamento : agendamentos) {
@@ -33,7 +40,7 @@ public class AgendaHelper {
 			agendamento.getDate(),
 			agendamento.getObservacao()});
 		}
-		
+		view.getTable().setModel(tableModel);		
 		
 	}
 	
