@@ -2,7 +2,6 @@ package controler;
 
 import view.Agenda;
 import view.MenuPrincipal;
-import view.TelaCadastroFuncionario;
 
 public class MenuPrincipalController {
 	

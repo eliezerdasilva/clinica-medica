@@ -1,14 +1,13 @@
 package controler;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-
 import view.MenuPrincipal;
-import view.TelaCadastroFuncionario;
+import view.TelaCadastroFuncionairo;
+
 
 public class TelaCadastroFuncionarioController {
 
 	MenuPrincipal menuPrincipal;
-	TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario();
+	TelaCadastroFuncionairo telaCadastroFuncionario = new TelaCadastroFuncionairo();
 	
 	public TelaCadastroFuncionarioController(MenuPrincipal menuPrincipal) {
 		this.menuPrincipal = menuPrincipal;
@@ -24,7 +23,7 @@ public class TelaCadastroFuncionarioController {
 		menuPrincipal.setVisible(false);;
 	}
 
-	public CadastrarFuncionario() {
+	public void CadastrarFuncionario() {
 		
 	}
 }

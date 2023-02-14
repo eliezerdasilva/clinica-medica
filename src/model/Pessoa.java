@@ -6,13 +6,13 @@ import java.util.Date;
 
 public abstract class Pessoa  {
 
-	protected  int id;
-	protected  String nome;
-	protected  char sexo;
-	protected  Date dataNascimento;
-	protected  String telefone;
-	protected  String email;
-	protected  String cpf;
+	private  int id;
+	private  String nome;
+	private  char sexo;
+	private  Date dataNascimento;
+	private  String telefone;
+	private  String email;
+	private  String cpf;
 	private Endereco endereco;
 	
 	public Pessoa(int id, String nome) {
@@ -33,7 +33,8 @@ public abstract class Pessoa  {
 		};
 		this.telefone = telefone;
 		this.email = email;
-		this.cpf = rg;
+		this.cpf = cpf;
+		this.endereco = endereco;
 	}
 
 	public int getId() {
