@@ -42,6 +42,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setExtendedState(MAXIMIZED_BOTH);
 		controler = new LoginController(this);
 		Banco.inicia();
 		

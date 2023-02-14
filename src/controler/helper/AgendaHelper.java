@@ -82,8 +82,8 @@ public class AgendaHelper implements Ihelpe {
 	public Agendamento obterModelo() {
 		
 		//ID
-		String idString = view.getTxtID().getText();
-		int id = Integer.parseInt(idString);
+		//String idString = view.getTxtID().getText();
+		//int id = Integer.parseInt(idString);
 		//Cliente
 		Cliente cliente = obterCliente();
 		//Servico
@@ -96,7 +96,7 @@ public class AgendaHelper implements Ihelpe {
 		String observacao = view.getTxtobservacao().getText();
 		
 		//criando o objeto
-		Agendamento agendamento = new Agendamento(id, cliente, servico, valor, datahora, observacao);
+		Agendamento agendamento = new Agendamento(cliente, servico, valor, datahora, observacao);
 		return agendamento;
 		
 	}

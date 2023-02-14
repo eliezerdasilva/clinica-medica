@@ -27,6 +27,10 @@ public class Agendamento {
 		}
 	}
 	
+
+	public Agendamento(Cliente cliente, Servico servico, float valor, String date, String observacao) {
+		this(0, cliente, servico, valor, date, observacao);
+	}
 	public Agendamento(int id, Cliente cliente, Servico servico, float valor, String date, String observacao) {
 		this(id, cliente, servico, valor, date);
 		this.observacao = observacao;

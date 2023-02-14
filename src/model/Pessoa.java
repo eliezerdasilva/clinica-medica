@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-abstract public class Pessoa  {
+public abstract class Pessoa  {
 
 	protected  int id;
 	protected  String nome;
@@ -12,7 +12,8 @@ abstract public class Pessoa  {
 	protected  Date dataNascimento;
 	protected  String telefone;
 	protected  String email;
-	protected  String rg;
+	protected  String cpf;
+	private Endereco endereco;
 	
 	public Pessoa(int id, String nome) {
 		super();
@@ -32,7 +33,7 @@ abstract public class Pessoa  {
 		};
 		this.telefone = telefone;
 		this.email = email;
-		this.rg = rg;
+		this.cpf = rg;
 	}
 
 	public int getId() {
@@ -82,14 +83,22 @@ abstract public class Pessoa  {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getRg() {
-		return rg;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setRg(String rg) {
-		this.rg = rg;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
 	
 	
 	

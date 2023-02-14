@@ -2,6 +2,7 @@ package controler;
 
 import view.Agenda;
 import view.MenuPrincipal;
+import view.TelaCadastroFuncionario;
 
 public class MenuPrincipalController {
 	
@@ -14,6 +15,9 @@ public class MenuPrincipalController {
 	public void navegarParaAgenda() {
 		Agenda agenda = new Agenda();
 		agenda.setVisible(true);
+	}
+	public void fecharTelaMenuPrincipal() {
+	    view.dispose();
 	}
 
 	

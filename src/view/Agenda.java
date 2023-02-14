@@ -43,6 +43,7 @@ public class Agenda extends JFrame {
 
 	
 	public Agenda() {
+		setExtendedState(MAXIMIZED_BOTH);
 		controler = new AgendaController(this);
 				
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
