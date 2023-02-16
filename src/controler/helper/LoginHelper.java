@@ -3,7 +3,7 @@
 import model.Usuario;
 import view.Login;
 
-public class LoginHelper implements Ihelpe{
+public class LoginHelper implements IPacienteDAO{
 	
 	private final Login view;
 	

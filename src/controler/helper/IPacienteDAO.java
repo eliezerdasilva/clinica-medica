@@ -1,6 +1,6 @@
 package controler.helper;
 
-public interface Ihelpe {
+public interface IPacienteDAO {
 	
 	public abstract Object obterModelo();
 	

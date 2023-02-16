@@ -11,7 +11,7 @@ import model.Cliente;
 import model.Servico;
 import view.Agenda;
 
-public class AgendaHelper implements Ihelpe {
+public class AgendaHelper implements IPacienteDAO {
 
 	private final Agenda view;
 

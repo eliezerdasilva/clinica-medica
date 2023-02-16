@@ -1,4 +1,5 @@
-/view/
-/controler/
 /model/
-/model_DAO/
+/controlerBD/
+/controllerBD/
+/controler/
+/view/
