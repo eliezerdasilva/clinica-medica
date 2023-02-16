@@ -35,7 +35,7 @@ public class PacienteDAO implements IPacienteDAO {
 
 	@Override
 	public Paciente obterModelo() {
-		String nome = view.
+		String nome = view.getNome().get
 		
 		return null;
 	}
