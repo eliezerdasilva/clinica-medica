@@ -10,9 +10,9 @@ public class Conexao {
 
 	private static Connection conexao;
 	private static Conexao instancia;
-	private static final String DATABASE = "jdbc";
+	private static final String DATABASE = "clinica";
 	private static final String USER = "root";
-	private static final String PSW = "Eliezer-2005";
+	private static final String PSW = "root";
 
 	private Conexao() {
 
@@ -25,7 +25,7 @@ public class Conexao {
 		return instancia;
 	}
 
-	public static Connection conectar() {
+	public Connection conectar() {
 		try {
 			conexao = DriverManager.getConnection("jdbc:mysql://localhost/" + DATABASE + "?serverTimezone=UTC", USER,
 					PSW);

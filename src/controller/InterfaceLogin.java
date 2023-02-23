@@ -4,7 +4,8 @@ import model.Usuario;
 
 public interface InterfaceLogin {
 	
-	public boolean consularLogin(Usuario usuario);
+	public Usuario consularLogin(Usuario usuario);
+	public Boolean preenchido(Usuario usuario);
 	
 
 }

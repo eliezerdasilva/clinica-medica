@@ -17,7 +17,7 @@ import controler.MenuPrincipalController;
 import controler.TelaCadastroFuncionarioController;
 
 public class MenuPrincipal extends JFrame {
-
+/*
 	private JPanel contentPane;
 	private MenuPrincipalController controller;
 	private TelaCadastroFuncionarioController telaCadastroFuncionarioController;
@@ -69,11 +69,14 @@ public class MenuPrincipal extends JFrame {
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.navegarParaAgenda();
+				
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
 		
 		JMenu mnNewMenu_1 = new JMenu("New menu");
 		menuBar.add(mnNewMenu_1);
+		
 	}
+	*/
 }

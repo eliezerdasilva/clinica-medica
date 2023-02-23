@@ -36,7 +36,7 @@ public class Agenda extends JFrame {
 	private JTextField txtValor;
 	private JTextField txtData;
 	private JTextField txtHora;
-	private AgendaController controler;
+	//private AgendaController controler;
 	private JComboBox comboBoxCliente; 
 	private JComboBox comboBoxServico; 
 	private JTextField txtobservacao;
@@ -44,7 +44,7 @@ public class Agenda extends JFrame {
 	
 	public Agenda() {
 		setExtendedState(MAXIMIZED_BOTH);
-		controler = new AgendaController(this);
+		//controler = new AgendaController(this);
 				
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1080, 632);
@@ -72,7 +72,7 @@ public class Agenda extends JFrame {
 		JButton btnNewButton = new JButton("Cadastrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controler.agendar();
+		//		controler.agendar();
 			}
 		});
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -147,7 +147,7 @@ public class Agenda extends JFrame {
 			
 
 			public void itemStateChanged(ItemEvent e) {
-				controler.atualizaValor();
+			//	controler.atualizaValor();
 			}
 		});
 		comboBoxServico.setBounds(66, 91, 184, 22);
@@ -167,10 +167,11 @@ public class Agenda extends JFrame {
 
 	}
 	private void Iniciar() {
-		controler.atualizaTabela();
+		/*controler.atualizaTabela();
 		controler.atualizaCliente();
 		controler.atualizaServico();
-		controler.atualizaValor();
+	
+		*///controler.atualizaValor();
 	}
 
 	public JTable getTable() {
