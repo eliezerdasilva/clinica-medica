@@ -5,9 +5,18 @@ public class Medico extends Pessoa {
 	private long crm;
 	private String especializacao;
 	
-	public Medico(int id, String nome, char sexo, String dataNascimento, String telefone, String email, String rg,
-			long crm, String especializacao) {
-		super(id, nome, sexo, dataNascimento, telefone, email, rg);
+	private  Usuario usuario;
+
+	public final Usuario getUsuario() {
+		return usuario;
+	}
+
+	public final void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	public Medico(long crm, String especializacao) {
+		super();
 		this.crm = crm;
 		this.especializacao = especializacao;
 	}

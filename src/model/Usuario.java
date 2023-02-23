@@ -2,38 +2,50 @@ package model;
 
 import java.util.Date;
 
-public final class  Usuario extends Pessoa{
+public abstract class  Usuario {
 	
-
+	private String usuario;
 	protected String senha;
-	protected String nivelAcesso;
-	
-	public Usuario(int id, String nome, char sexo, String dataNascimento, String telefone, String email, String rg,
-			String senha, String nivelAcesso) {
-		super(id, nome, sexo, dataNascimento, telefone, email, rg);
+	protected int nivelAcesso;
+
+	public Usuario(String usuario, String senha, int nivelAcesso) {
+		super();
+		this.usuario = usuario;
 		this.senha = senha;
 		this.nivelAcesso = nivelAcesso;
-	}	
-	public Usuario(int id, String nome, String senha) {
-		super(id, nome);
-		this.senha = senha;
-		
 	}
-	public String getSenha() {
+
+
+	public final String getUsuario() {
+		return usuario;
+	}
+
+
+	public final void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+
+	public final String getSenha() {
 		return senha;
 	}
 
-	public void setSenha(String senha) {
+
+	public final void setSenha(String senha) {
 		this.senha = senha;
 	}
 
-	public String getNivelAcesso() {
+
+	public final int getNivelAcesso() {
 		return nivelAcesso;
 	}
 
-	public void setNivelAcesso(String nivelAcesso) {
+
+	public final void setNivelAcesso(int nivelAcesso) {
 		this.nivelAcesso = nivelAcesso;
 	}
+
+	
 	
 	
 

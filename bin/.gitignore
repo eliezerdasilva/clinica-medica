@@ -1,5 +1,5 @@
-/model/
-/controlerBD/
+/view/
 /controllerBD/
 /controler/
-/view/
+/controller/
+/model/
