@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import controller.loginDao;
+import controller.LoginDao;
 import model.Usuario;
 
 public class TelaLogin extends JFrame {
@@ -22,7 +22,7 @@ public class TelaLogin extends JFrame {
 	private JTextField txtSenha;
 	private Usuario usuario = new Usuario();
 	
-	private loginDao loginDao = new loginDao();
+	private LoginDao loginDao = new LoginDao();
 	/**
 	 * Launch the application.
 	 */
@@ -73,32 +73,27 @@ public class TelaLogin extends JFrame {
 		JButton btnNewButton = new JButton("Entrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String Usuario = txtUsuario.getText();
-				String Senha = txtSenha.getText();
-				usuario.setUsuario(Usuario);
-				usuario.setSenha(Senha);
-				boolean retorno = loginDao.preenchido(usuario); 
+				   LoginDao loginDao = new LoginDao();
+				   Boolean login = loginDao.ConferirLogin(txtUsuario.getText(),txtSenha.getText());
 				
-				if(retorno == true) {
-					Usuario login = loginDao.consularLogin(usuario);
-					TelaCadastroFuncionairo telaFunc = new TelaCadastroFuncionairo();
+				if(login != false){
+					dispose();
+					MenuPrincipal telaFunc = new MenuPrincipal();
 					telaFunc.setLocationRelativeTo(null);
 					telaFunc.setVisible(true);
-					System.out.println("conectado");
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Senha ou usuario invalidos", "Erro",JOptionPane.ERROR_MESSAGE);
-				}
-						
-				
-				
 				
 				
 			}
-		});
+				else {
+			
+			           JOptionPane.showMessageDialog(null, "Senha incorreta!");
+			       }
+				}
+			});
+		
 		btnNewButton.setBounds(163, 190, 249, 23);
 		contentPane.add(btnNewButton);
 		
 		
 	}
-}
+	}

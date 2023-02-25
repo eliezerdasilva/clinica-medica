@@ -10,7 +10,7 @@ public class Conexao {
 
 	private static Connection conexao;
 	private static Conexao instancia;
-	private static final String DATABASE = "clinica";
+	private static final String DATABASE = "teste";
 	private static final String USER = "root";
 	private static final String PSW = "root";
 
@@ -27,7 +27,7 @@ public class Conexao {
 
 	public Connection conectar() {
 		try {
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost/" + DATABASE + "?serverTimezone=UTC", USER,
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3307/" + DATABASE + "?serverTimezone=UTC", USER,
 					PSW);
 			JOptionPane.showMessageDialog(null,"Conectado",null,JOptionPane.WARNING_MESSAGE);
 		} catch (SQLException e) {

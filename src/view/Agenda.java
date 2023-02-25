@@ -19,7 +19,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 
-import controler.AgendaController;
 
 import javax.swing.JScrollPane;
 import java.awt.Font;
