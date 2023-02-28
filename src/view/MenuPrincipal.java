@@ -13,13 +13,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import model.Usuario;
+import javax.swing.JLabel;
+
 
 public class MenuPrincipal extends JFrame {
 
 	private JPanel contentPane;
 
 
-	public MenuPrincipal() {		
+	public MenuPrincipal(Usuario login) {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -37,6 +40,14 @@ public class MenuPrincipal extends JFrame {
 		menuBar.add(MenuCadastro);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Paciente");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroPaciente telaCadastroPaciente = new TelaCadastroPaciente();
+				telaCadastroPaciente.setLocationRelativeTo(null);
+				telaCadastroPaciente.setVisible(true);
+				dispose();
+			}
+		});
 		mntmNewMenuItem_1.setBackground(SystemColor.menuText);
 		mntmNewMenuItem_1.setIcon(new ImageIcon("C:\\Users\\frete\\eclipse-workspace\\Clinica_Java\\src\\view_Imagens_icons\\servico.png"));
 		MenuCadastro.add(mntmNewMenuItem_1);
@@ -67,6 +78,14 @@ public class MenuPrincipal extends JFrame {
 		
 		JMenu mnNewMenu_1 = new JMenu("New menu");
 		menuBar.add(mnNewMenu_1);
+		
+		JLabel lblNewLabel = new JLabel("Usuario :");
+		lblNewLabel.setBounds(251, 247, 60, 14);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel(login.getUsuario());
+		lblNewLabel_1.setBounds(331, 247, 46, 14);
+		contentPane.add(lblNewLabel_1);
 		
 	}
 	

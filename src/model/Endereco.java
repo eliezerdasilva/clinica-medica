@@ -13,6 +13,13 @@ public class Endereco {
 	public Endereco() {
 	
 	}
+	
+
+
+	public Endereco(int cep) {
+		this.cep = cep;
+	}
+
 
 
 	public Endereco(String rua,String bairro) {

@@ -172,5 +172,13 @@ public class TelaCadastroFuncionairo extends JFrame {
 		});
 		btnNewButton.setBounds(167, 239, 85, 21);
 		contentPane.add(btnNewButton);
+		
+		JLabel lblNewLabel_12 = new JLabel("usuario");
+		lblNewLabel_12.setBounds(539, 11, 46, 14);
+		contentPane.add(lblNewLabel_12);
+		
+		JLabel lblNewLabel_13 = new JLabel("");
+		lblNewLabel_13.setBounds(595, 11, 46, 14);
+		contentPane.add(lblNewLabel_13);
 	}
 }

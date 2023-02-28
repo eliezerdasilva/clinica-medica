@@ -6,6 +6,6 @@ public interface IEnderecoDao {
 	
 	public Endereco ConsultarEndereco(Endereco endereco);
 	
-	public Endereco InserirEndereco(Endereco endereco);
+	public boolean InserirEndereco(Endereco endereco);
 
 }

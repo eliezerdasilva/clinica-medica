@@ -15,32 +15,35 @@ public class LoginDao implements InterfaceLogin {
 	public Usuario consultarLogin(Usuario usuario) {
 
 		try {
+
 			con = Conexao.getInstacia();
 			Connection c = con.conectar();
 			PreparedStatement ps = c.prepareStatement("select * from usuario where login = ? and senha = ?");
 			ps.setString(1, usuario.getUsuario());
 			ps.setString(2, usuario.getSenha());
-			
+
 			ResultSet rs = ps.executeQuery();
 			Usuario usuarioConectado = new Usuario();
-			while(rs.next()) {
+			while (rs.next()) {
 				int idUsuario = rs.getInt("idusuario");
 				String login = rs.getString("login");
 				String senha = rs.getString("senha");
 				int tipoUsuario = rs.getInt("tipo_usuario");
-				
+
 				usuarioConectado.setId(idUsuario);
 				usuarioConectado.setUsuario(login);
 				usuarioConectado.setSenha(senha);
 				usuarioConectado.setNivelAcesso(tipoUsuario);
-				
+
 				return usuarioConectado;
 			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		finally {
+
+		} finally {
+
 			con.fecharConexao();
 		}
 
@@ -49,7 +52,3 @@ public class LoginDao implements InterfaceLogin {
 
 
 }
-
-
-
-

@@ -21,8 +21,9 @@ public class TelaLogin extends JFrame {
 	private JTextField txtUsuario;
 	private JTextField txtSenha;
 	private Usuario usuario = new Usuario();
-	
+
 	private LoginDao loginDao = new LoginDao();
+
 	/**
 	 * Launch the application.
 	 */
@@ -53,26 +54,27 @@ public class TelaLogin extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("Login");
 		lblNewLabel.setBounds(239, 36, 46, 14);
 		contentPane.add(lblNewLabel);
-		
+
 		txtUsuario = new JTextField();
 		txtUsuario.setText("Usuario\r\n");
 		txtUsuario.setBounds(163, 103, 249, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
-		
+
 		txtSenha = new JTextField();
 		txtSenha.setText("Senha");
 		txtSenha.setBounds(163, 147, 249, 20);
 		contentPane.add(txtSenha);
 		txtSenha.setColumns(10);
-		
+
 		JButton btnNewButton = new JButton("Entrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				String Usuario = txtUsuario.getText();
 				String Senha = txtSenha.getText();
 				Usuario login = null;
@@ -83,13 +85,13 @@ public class TelaLogin extends JFrame {
 				
 				login = loginDao.consultarLogin(new Usuario(Usuario, Senha));
 
+
 				if (login != null) {
 					
-					MenuPrincipal telaFunc = new MenuPrincipal();
+					MenuPrincipal telaFunc = new MenuPrincipal(login);
 					telaFunc.setLocationRelativeTo(null);
 					telaFunc.setVisible(true);
 					dispose();
-
 
 				
 				}else {
@@ -108,9 +110,13 @@ public class TelaLogin extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		
-	}}
-		);
-		}
-		}
-	
-	
+
+			}
+		});
+
+		btnNewButton.setBounds(163, 190, 249, 23);
+		contentPane.add(btnNewButton);
+
+	}
+}
+
