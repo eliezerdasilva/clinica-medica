@@ -23,7 +23,7 @@ public class PacienteDao implements InterfacePacienteDao {
 			stm.setString(5, paciente.getTelefone());
 			stm.setString(6, paciente.getProfissao());
 			stm.setString(7, paciente.getConvenio());
-			stm.setDate(8, (Date) paciente.getDataNascimento());
+//			stm.setDate(8, (Date) paciente.getDataNascimento());
 //			stm.set
 			
 			
