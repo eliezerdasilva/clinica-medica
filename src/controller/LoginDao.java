@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import model.Usuario;
 
-public class loginDao implements InterfaceLogin {
+public class LoginDao implements InterfaceLogin {
 
 	private Conexao con;
 
@@ -62,5 +62,11 @@ public class loginDao implements InterfaceLogin {
 	}
 
 	@Override
+	public Usuario ConferirLogin(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
 
 }

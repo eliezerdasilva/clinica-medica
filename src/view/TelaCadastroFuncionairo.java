@@ -167,7 +167,7 @@ public class TelaCadastroFuncionairo extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String nome = txtNome.setText(getName());
+//				String nome = txtNome.setText(getName());
 			}
 		});
 		btnNewButton.setBounds(167, 239, 85, 21);

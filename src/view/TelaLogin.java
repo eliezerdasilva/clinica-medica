@@ -81,17 +81,17 @@ public class TelaLogin extends JFrame {
 					LoginDao loginDao;
 					loginDao = new LoginDao();
 				
-				if(retorno == true) {
-					Boolean login = loginDao.consularLogin(usuario);
-					if(login == true) {
-						TelaCadastroFuncionairo telaFunc = new TelaCadastroFuncionairo();
-						telaFunc.setLocationRelativeTo(null);
-						telaFunc.setVisible(true);
-						System.out.println("conectado");
-					}else {
-						System.out.println("erro");
-					}
-				}
+//				if(retorno == true) {
+//					Boolean login = loginDao.consularLogin(usuario);
+//					if(login == true) {
+//						TelaCadastroFuncionairo telaFunc = new TelaCadastroFuncionairo();
+//						telaFunc.setLocationRelativeTo(null);
+//						telaFunc.setVisible(true);
+//						System.out.println("conectado");
+//					}else {
+//						System.out.println("erro");
+//					}
+//				}
 				} else {
 
 					JOptionPane.showMessageDialog(null, "Senha ou Usuario não preenchidos!");
