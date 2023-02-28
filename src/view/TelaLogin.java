@@ -81,19 +81,16 @@ public class TelaLogin extends JFrame {
 					LoginDao loginDao;
 					loginDao = new LoginDao();
 				
-				login = loginDao.ConferirLogin(new Usuario(Usuario, Senha));
-
-				if (login != null) {
-					
-					MenuPrincipal telaFunc = new MenuPrincipal();
-					telaFunc.setLocationRelativeTo(null);
-					telaFunc.setVisible(true);
-					dispose();
-
-				
-				}else {
-					
-					JOptionPane.showMessageDialog(null, "Senha ou Usuario incorretos!");
+				if(retorno == true) {
+					Boolean login = loginDao.consularLogin(usuario);
+					if(login == true) {
+						TelaCadastroFuncionairo telaFunc = new TelaCadastroFuncionairo();
+						telaFunc.setLocationRelativeTo(null);
+						telaFunc.setVisible(true);
+						System.out.println("conectado");
+					}else {
+						System.out.println("erro");
+					}
 				}
 				} else {
 

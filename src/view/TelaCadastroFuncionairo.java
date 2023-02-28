@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaCadastroFuncionairo extends JFrame {
 
@@ -162,6 +164,12 @@ public class TelaCadastroFuncionairo extends JFrame {
 		txtCidade.setColumns(10);
 		
 		JButton btnNewButton = new JButton("cadastrar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String nome = txtNome.setText(getName());
+			}
+		});
 		btnNewButton.setBounds(167, 239, 85, 21);
 		contentPane.add(btnNewButton);
 	}

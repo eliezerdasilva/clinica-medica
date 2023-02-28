@@ -8,7 +8,7 @@ public abstract class Pessoa  {
 
 	private  int id;
 	private  String nome;
-	private  char sexo;
+	private  String sexo;
 	private  Date dataNascimento;
 	private  String telefone;
 	private  String email;
@@ -23,7 +23,7 @@ public abstract class Pessoa  {
 		this.nome = nome;
 	}
 
-	public Pessoa(int id, String nome, char sexo, Endereco endereco, Long cpf, String dataNascimento, String telefone, String email, String rg) {
+	public Pessoa(int id, String nome, String sexo, Endereco endereco, Long cpf, String dataNascimento, String telefone, String email, String rg) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -55,11 +55,11 @@ public abstract class Pessoa  {
 		this.nome = nome;
 	}
 
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(char sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 

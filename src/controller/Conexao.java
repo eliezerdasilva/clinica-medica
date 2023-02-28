@@ -10,9 +10,9 @@ public class Conexao {
 
 	private static Connection conexao;
 	private static Conexao instancia;
-	private static final String DATABASE = "teste";
+	private static final String DATABASE = "jdbc";
 	private static final String USER = "root";
-	private static final String PSW = "root";
+	private static final String PSW = "Eliezer-2005";
 
 	private Conexao() {
 

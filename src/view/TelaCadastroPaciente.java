@@ -1,15 +1,17 @@
 package view;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import model.Paciente;
 
 public class TelaCadastroPaciente extends JFrame {
 
@@ -181,6 +183,22 @@ public class TelaCadastroPaciente extends JFrame {
 		JButton btnNewButton = new JButton("cadastrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String nome = txtNome.getText();
+				String cpf = txtCpf.getText();
+				String sexo = txtSexo.getText();
+				String email = txtEmail.getText();
+				String telefone = txtTelefone.getText();
+				String profissao = txtProfissao.getText();
+				String convenio = txtConvenio.getText();
+				String DataNascimento = txtDataNasciemento.getText();
+				String rua = txtRua.getText();
+				String cep = txtCep.getText();
+				String numero = txtNumero.getText();
+				String bairro = txtBairro.getText();
+				String complemento =  txtComplemento.getText();
+				
+				Paciente paciente = new Paciente();
+				
 				
 			}
 		});
