@@ -1,2 +1,10 @@
+<<<<<<< Updated upstream
 /view/
 /controller/
+=======
+/.classpath
+/.project
+/controller/
+/model/
+/view/
+>>>>>>> Stashed changes
