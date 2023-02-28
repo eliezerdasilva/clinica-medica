@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public abstract class Pessoa {
 
-	private int id;
+
 	private Long cpf;
 	private String nome;
 	private LocalDate dataNascimento;
@@ -12,20 +12,22 @@ public abstract class Pessoa {
 	private String sexo;
 	private String telefone;
 	private Endereco endereco;
+	private int numero;
+	private String complemento;
 
 	public Pessoa() {
 	}
 
 	public Pessoa(int id, String nome) {
 		super();
-		this.id = id;
+	
 		this.nome = nome;
 	}
 
-	public Pessoa(int id, String nome, String sexo, Endereco endereco, Long cpf, String dataNascimento, String telefone,
+	public Pessoa( String nome, String sexo, Endereco endereco, Long cpf, String dataNascimento, String telefone,
 			String email, String rg) {
 		super();
-		this.id = id;
+	
 		this.nome = nome;
 		this.sexo = sexo;
 		// TODO corrigir data
@@ -38,15 +40,6 @@ public abstract class Pessoa {
 		this.cpf = cpf;
 		this.endereco = endereco;
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getNome() {
 		return nome;
 	}

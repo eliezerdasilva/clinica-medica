@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controller.EnderecoDao;
+import model.Endereco;
 import model.Paciente;
 
 public class TelaCadastroPaciente extends JFrame {
@@ -183,24 +185,48 @@ public class TelaCadastroPaciente extends JFrame {
 		JButton btnNewButton = new JButton("cadastrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
+			
 				String nome = txtNome.getText();
-				String cpf = txtCpf.getText();
+				Integer cpf = Integer.parseInt(txtCpf.getText());
 				String sexo = txtSexo.getText();
 				String email = txtEmail.getText();
 				String telefone = txtTelefone.getText();
 				String profissao = txtProfissao.getText();
 				String convenio = txtConvenio.getText();
-				String DataNascimento = txtDataNasciemento.getText();
+				String dataNascimento = txtDataNasciemento.getText();
 				String rua = txtRua.getText();
-				String cep = txtCep.getText();
+				Integer cep = Integer.parseInt(txtCep.getText());
 				String numero = txtNumero.getText();
 				String bairro = txtBairro.getText();
 				String complemento =  txtComplemento.getText();
 				
+				//Endereco consultaEndereco = new Endereco(cep);
+				
+				//Endereco enderecoNovo = new Endereco(cep,estado, bairro, cidade, rua);
+				
+				EnderecoDao enderecoDao = new EnderecoDao();
+				
+				//Endereco resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
+				
+				//if(resultado != null) {
+				
+				//Paciente paciente = new Paciente(nome,sexo,endereco, cpf, dataNascimento,
+					//	telefone, email,  rg,   profissao,  convenio) {
+					
+				}/*
+					super(id, nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg)
+						(nome,cpf,sexo,endereco, email,telefone,email,telefone,profissao,convenio, dataNascimento,);
+				//Endereco endereco = EnderecoDAO.buscarEnderecoPorCep();
+				}else
+					enderecoDao.
+				}
 				Paciente paciente = new Paciente();
+				paciente.setEndereco(endereco);
+				*/
 				
-				
-			}
+			//}
 		});
 		btnNewButton.setBounds(257, 408, 85, 21);
 		contentPane.add(btnNewButton);

@@ -1,6 +1,4 @@
- DROP DATABASE hospital;
--- -----------------------------------------------------
--- Schema hospital
+drop DATABASE hospital;
 -- -----------------------------------------------------
 CREATE DATABASE hospital;
 USE hospital;
@@ -12,9 +10,8 @@ CREATE TABLE  `hospital`.`endereco` (
   `cep` INT(8) NOT NULL AUTO_INCREMENT,
   `cidade` VARCHAR(30) NOT NULL,
   `bairro` VARCHAR(30) NOT NULL,
+  `estado` VARCHAR(30) NOT NULL,
   `rua` VARCHAR(30) NOT NULL,
-  `numero` INT(3) NOT NULL,
-  `complemento` VARCHAR(30) NULL DEFAULT NULL,
   PRIMARY KEY (`cep`));
 
 
@@ -31,6 +28,8 @@ CREATE TABLE `hospital`.`paciente` (
   `convenio` VARCHAR(30) NOT NULL,
   `data_nascimento` DATE NOT NULL,
   `endereco_cep` INT(8) NOT NULL,
+  `numero` INT(3) null DEFAULT  NULL,
+  `complemento` VARCHAR(30) NULL DEFAULT NULL,
   PRIMARY KEY (`cpf`),
     FOREIGN KEY (`endereco_cep`)
     REFERENCES `hospital`.`endereco` (`cep`));
@@ -96,4 +95,5 @@ CREATE TABLE  `hospital`.`funcionario` (
   PRIMARY KEY (`id`, `usuario_idusuario`),
     FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `hospital`.`usuario` (`idusuario`));
-
+    
+    insert into endereco (cep, cidade, bairro, rua) values (89110000,"Gaspar","centro","Maringa");
