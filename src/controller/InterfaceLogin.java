@@ -5,7 +5,7 @@ import model.Usuario;
 public interface InterfaceLogin {
 	
 	
-	public boolean ConferirLogin(String usuario, String senha);
+	public Usuario ConferirLogin(Usuario usuario);
 	
 
 }

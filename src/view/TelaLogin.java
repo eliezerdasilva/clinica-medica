@@ -73,27 +73,41 @@ public class TelaLogin extends JFrame {
 		JButton btnNewButton = new JButton("Entrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				   LoginDao loginDao = new LoginDao();
-				   Boolean login = loginDao.ConferirLogin(txtUsuario.getText(),txtSenha.getText());
+				String Usuario = txtUsuario.getText();
+				String Senha = txtSenha.getText();
+				Usuario login = null;
+
+				if(!Usuario.isEmpty() && !Senha.isEmpty()) {
+					LoginDao loginDao;
+					loginDao = new LoginDao();
 				
-				if(login != false){
-					dispose();
+				login = loginDao.ConferirLogin(new Usuario(Usuario, Senha));
+
+				if (login != null) {
+					
 					MenuPrincipal telaFunc = new MenuPrincipal();
 					telaFunc.setLocationRelativeTo(null);
 					telaFunc.setVisible(true);
+					dispose();
+
 				
-				
-			}
-				else {
-			
-			           JOptionPane.showMessageDialog(null, "Senha incorreta!");
-			       }
+				}else {
+					
+					JOptionPane.showMessageDialog(null, "Senha ou Usuario incorretos!");
 				}
-			});
+				} else {
+
+					JOptionPane.showMessageDialog(null, "Senha ou Usuario não preenchidos!");
+				}
+
 		
 		btnNewButton.setBounds(163, 190, 249, 23);
 		contentPane.add(btnNewButton);
 		
 		
-	}
-	}
+	}}
+		);
+		}
+		}
+	
+	
