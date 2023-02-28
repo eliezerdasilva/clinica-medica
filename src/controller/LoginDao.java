@@ -3,6 +3,7 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import model.Usuario;
 
@@ -11,62 +12,44 @@ public class LoginDao implements InterfaceLogin {
 	private Conexao con;
 
 	@Override
-	public Boolean consularLogin(Usuario usuario) {
-		con = Conexao.getInstacia();
-		Connection c = con.conectar();
+	public Usuario consultarLogin(Usuario usuario) {
+
 		try {
+			con = Conexao.getInstacia();
+			Connection c = con.conectar();
+			PreparedStatement ps = c.prepareStatement("select * from usuario where login = ? and senha = ?");
+			ps.setString(1, usuario.getUsuario());
+			ps.setString(2, usuario.getSenha());
 			
-			String query = "Select * from usuario where login = ? and senha ?";
-			PreparedStatement stm = c.prepareStatement(query);
-
-			stm.setString(1, usuario.getUsuario());
-			stm.setString(2, usuario.getSenha());
-
-			ResultSet rss = stm.executeQuery();
-
-			while (rss.next()) {
-
-				int id = rss.getInt("idusuario");
-				String login = rss.getString("usuario");
-				String senha = rss.getString("senha");
-				int nivel = rss.getInt("tipo_usuario");
-
-				usuario.setUsuario(login);
-				usuario.setId(id);
-				usuario.setSenha(senha);
-				usuario.setNivelAcesso(nivel);
-
-				return true;
+			ResultSet rs = ps.executeQuery();
+			Usuario usuarioConectado = new Usuario();
+			while(rs.next()) {
+				int idUsuario = rs.getInt("idusuario");
+				String login = rs.getString("login");
+				String senha = rs.getString("senha");
+				int tipoUsuario = rs.getInt("tipo_usuario");
+				
+				usuarioConectado.setId(idUsuario);
+				usuarioConectado.setUsuario(login);
+				usuarioConectado.setSenha(senha);
+				usuarioConectado.setNivelAcesso(tipoUsuario);
+				
+				return usuarioConectado;
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-
+		}
+		finally {
 			con.fecharConexao();
-
-		}
-		return false;
-
-	}
-
-	@Override
-	public Boolean preenchido(Usuario usuario) {
-
-		if (usuario.getUsuario() != null && usuario.getSenha() != null) {
-
-			return true;
-		} else {
-			return false;
 		}
 
-	}
-
-	@Override
-	public Usuario ConferirLogin(Usuario usuario) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-//	@Override
 
 }
+
+
+
+
