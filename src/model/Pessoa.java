@@ -1,38 +1,38 @@
 package model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
-public abstract class Pessoa  {
+public abstract class Pessoa {
 
-	private  int id;
-	private  String nome;
-	private  String sexo;
-	private  Date dataNascimento;
-	private  String telefone;
-	private  String email;
-	private  Long cpf;
+	private int id;
+	private Long cpf;
+	private String nome;
+	private LocalDate dataNascimento;
+	private String email;
+	private String sexo;
+	private String telefone;
 	private Endereco endereco;
-	
-	public Pessoa() {}
-	
+
+	public Pessoa() {
+	}
+
 	public Pessoa(int id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
 
-	public Pessoa(int id, String nome, String sexo, Endereco endereco, Long cpf, String dataNascimento, String telefone, String email, String rg) {
+	public Pessoa(int id, String nome, String sexo, Endereco endereco, Long cpf, String dataNascimento, String telefone,
+			String email, String rg) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.sexo = sexo;
-		try {
-			this.dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dataNascimento);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		};
+		// TODO corrigir data
+		int dia = 28;
+		int mes = 02;
+		int ano = 2023;
+		this.dataNascimento = LocalDate.of(ano, mes, dia);
 		this.telefone = telefone;
 		this.email = email;
 		this.cpf = cpf;
@@ -63,11 +63,11 @@ public abstract class Pessoa  {
 		this.sexo = sexo;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -86,6 +86,7 @@ public abstract class Pessoa  {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public Long getCpf() {
 		return cpf;
 	}
@@ -101,10 +102,5 @@ public abstract class Pessoa  {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
-	
-	
-	
 
 }
-

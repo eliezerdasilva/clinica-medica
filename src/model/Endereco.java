@@ -1,15 +1,15 @@
 package model;
 
 public class Endereco {
-	
-	private String rua;
-	private int numero;
+
+	private int cep;
+	private String estado;
 	private String bairro;
 	private String cidade;
-	private String estado;
+	private String rua;
+	private int numero;
 	private String complemento;
-	private int cep;
-	
+
 	public Endereco(String rua, int numero, String bairro, String complemento, int cep) {
 		super();
 		this.rua = rua;
@@ -58,20 +58,21 @@ public class Endereco {
 	public void setCep(int cep) {
 		this.cep = cep;
 	}
-	
+
 	public String getCidade() {
 		return cidade;
 	}
+
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	
+
 	public String getEstado() {
 		return estado;
 	}
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
 
 }

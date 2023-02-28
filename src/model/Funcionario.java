@@ -2,7 +2,7 @@ package model;
 
 public class Funcionario extends Pessoa {
 
-	private  Usuario usuario;
+	private Usuario usuario;
 
 	public final Usuario getUsuario() {
 		return usuario;
@@ -11,6 +11,5 @@ public class Funcionario extends Pessoa {
 	public final void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
 
 }
