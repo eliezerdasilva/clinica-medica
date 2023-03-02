@@ -151,8 +151,11 @@ public class TelaLogin extends JFrame {
 				String Usuario = txtUsuario.getText();
 				String Senha = txtSenha.getText();
 				Usuario login = null;
-
-				if (!Usuario.isEmpty() && !Senha.isEmpty()) {
+				MenuPrincipal telaFunc = new MenuPrincipal(login);
+				telaFunc.setLocationRelativeTo(null);
+				telaFunc.setVisible(true);
+				dispose();
+				/*if (!Usuario.isEmpty() && !Senha.isEmpty()) {
 					LoginDao loginDao;
 					loginDao = new LoginDao();
 
@@ -173,6 +176,8 @@ public class TelaLogin extends JFrame {
 
 					JOptionPane.showMessageDialog(null, "Senha ou Usuario não preenchidos!");
 				}
+
+*/
 
 			}
 		});
