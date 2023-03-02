@@ -37,7 +37,21 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 
 	@Override
 	public boolean excluirFuncionario(Funcionario funcionario) {
-		// TODO Auto-generated method stub
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		
+		try {
+			String query = "DELETE FROM funcionario WHERE cpf = ?";
+			PreparedStatement stm = c.prepareStatement(query);
+			stm.setLong(1, funcionario.getCpf());
+			stm.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
+		}
+		
 		return false;
 	}
 
