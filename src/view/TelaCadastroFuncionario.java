@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class TelaCadastroFuncionairo extends JFrame {
+public class TelaCadastroFuncionario extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -35,7 +35,7 @@ public class TelaCadastroFuncionairo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaCadastroFuncionairo frame = new TelaCadastroFuncionairo();
+					TelaCadastroFuncionario frame = new TelaCadastroFuncionario();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +47,7 @@ public class TelaCadastroFuncionairo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroFuncionairo() {
+	public TelaCadastroFuncionario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 715, 469);
 		contentPane = new JPanel();
