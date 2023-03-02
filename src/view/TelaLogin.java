@@ -31,6 +31,8 @@ import javax.swing.BorderFactory;
 import javax.swing.DropMode;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class TelaLogin extends JFrame {
 
@@ -80,14 +82,48 @@ public class TelaLogin extends JFrame {
 		setVisible(true);
 
 		txtUsuario = new RoundedJTextField(15);
+		txtUsuario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (txtUsuario.getText().equals("Usuario")) {
+					txtUsuario.setText("");
+					txtUsuario.setSelectedTextColor(Color.BLACK);
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (txtUsuario.getText().equals("")) {
+					txtUsuario.setText("Usuario");
+					txtUsuario.setSelectedTextColor(Color.GRAY);
+				}
+			}
+		});
 		txtUsuario.setForeground(new Color(0, 0, 51));
 		txtUsuario.setBackground(new Color(102, 204, 102));
-		txtUsuario.setText("Usuario\r\n");
+		txtUsuario.setText("Usuario");
 		txtUsuario.setBounds(162, 232, 249, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
 		txtSenha = new RoundedJTextField(15);
+		txtSenha.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (txtSenha.getText().equals("")) {
+					txtSenha.setText("Senha");
+					txtSenha.setSelectedTextColor(Color.GRAY);
+				}
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (txtSenha.getText().equals("Senha")) {
+					txtSenha.setText("");
+					txtSenha.setSelectedTextColor(Color.BLACK);
+				}
+			}
+		});
 		txtSenha.setForeground(new Color(0, 0, 51));
 		txtSenha.setBackground(new Color(102, 204, 102));
 		txtSenha.setText("Senha");
@@ -103,10 +139,11 @@ public class TelaLogin extends JFrame {
 		btnNewButton.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setBorder(new LineBorder(new Color(0, 128, 128), 10, true));
-		
+
 		btnNewButton.setBorder(null);
 		btnNewButton.setBorder(new BevelBorder(BevelBorder.LOWERED));
-		//btnNewButton.setBorder(BorderFactory.createBevelBorder(1, Color.black, Color.black));
+		// btnNewButton.setBorder(BorderFactory.createBevelBorder(1, Color.black,
+		// Color.black));
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -139,43 +176,47 @@ public class TelaLogin extends JFrame {
 
 					JOptionPane.showMessageDialog(null, "Senha ou Usuario não preenchidos!");
 				}
+
 */
-				
+
 			}
 		});
 
 		btnNewButton.setBounds(162, 364, 249, 23);
 		contentPane.add(btnNewButton);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.DARK_GRAY, 9, true));
 		panel.setBackground(new Color(240, 230, 140));
 		panel.setBounds(71, 22, 435, 585);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
-				JLabel lblNewLabel = new JLabel("Login");
-				lblNewLabel.setBounds(34, 67, 351, 71);
-				panel.add(lblNewLabel);
-				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel.setFont(new Font("Yu Gothic Medium", Font.BOLD, 32));
-				lblNewLabel.setForeground(new Color(0, 0, 51));
-				lblNewLabel.setBackground(UIManager.getColor("Button.disabledForeground"));
-				
-				JLabel lblNewLabel_1 = new JLabel("");
-				lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-usuário-homem-com-círculo-24.png"));
-				lblNewLabel_1.setBounds(344, 207, 46, 24);
-				panel.add(lblNewLabel_1);
-				
-				JLabel lblNewLabel_2 = new JLabel("");
-				lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-particular-2-24.png"));
-				lblNewLabel_2.setBounds(344, 271, 46, 34);
-				panel.add(lblNewLabel_2);
-				
-				JLabel lblNewLabel_3 = new JLabel("");
-				lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-login-arredondado-30.png"));
-				lblNewLabel_3.setBounds(344, 335, 36, 34);
-				panel.add(lblNewLabel_3);
+
+		JLabel lblNewLabel = new JLabel("Login");
+		lblNewLabel.setBounds(34, 67, 351, 71);
+		panel.add(lblNewLabel);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Yu Gothic Medium", Font.BOLD, 32));
+		lblNewLabel.setForeground(new Color(0, 0, 51));
+		lblNewLabel.setBackground(UIManager.getColor("Button.disabledForeground"));
+
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(
+				"C:\\Users\\eliez\\OneDrive\\Documentos\\repositorio\\src\\imagens\\icons8-usuário-homem-com-círculo-24.png"));
+		lblNewLabel_1.setBounds(344, 207, 46, 24);
+		panel.add(lblNewLabel_1);
+
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(
+				"C:\\Users\\eliez\\OneDrive\\Documentos\\repositorio\\src\\imagens\\icons8-particular-2-24.png"));
+		lblNewLabel_2.setBounds(344, 271, 46, 34);
+		panel.add(lblNewLabel_2);
+
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon(
+				"C:\\Users\\eliez\\OneDrive\\Documentos\\repositorio\\src\\imagens\\icons8-login-arredondado-30.png"));
+		lblNewLabel_3.setBounds(344, 335, 36, 34);
+		panel.add(lblNewLabel_3);
 
 	}
 }
