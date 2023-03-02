@@ -327,4 +327,98 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_15.setBounds(383, 53, 46, 14);
 		contentPane.add(lblNewLabel_15);
 	}
+	
+	String checkName(String name) {
+	
+	if(name == null || name.trim() == "" || name.isEmpty()) {
+		return "Nome Vazio";
+	}else {
+		return name;
+	}	
 }
+
+	String chackCPF(String cpf) {
+		
+		if(cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
+			return "Cpf vazio";
+		}else {
+			return cpf;	
+		}
+	}
+
+	String checkSexo(String sexo) {
+		
+		if(sexo == null || sexo.trim() == "" || sexo.isEmpty()) {
+			return "Sexo Vazio";
+		}else if(sexo != "F" && sexo != "M") {
+			return "Sexo inválido";
+		}else {
+			return sexo;
+		}		
+	}
+
+	String checkEmail(String email){
+		
+		if(email == null || email.trim() == "" || email.isEmpty()) {
+			return "E-mail vazio";
+		}
+		
+		return email;
+	}
+
+	String checkTelefone(String telefone) {
+		
+		if(telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
+			return "";
+		}
+		
+		return telefone;
+	}
+	
+    String checkProfissao(String profissao) {
+		
+		if(profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
+			return "";
+		}
+		
+		return profissao;
+	}
+    
+    String checkConvenio(String convenio) {
+		
+		if(convenio == null || convenio.trim() == "" || convenio.isEmpty()) {
+			return "";
+		}
+		
+		return convenio;
+	}
+    
+    String checkDataNascimento(String data) {
+		
+		if(data == null || data.trim() == "" || data.isEmpty()) {
+			return "";
+		}
+		
+		return data;
+	}
+	
+    String checkDataComplemento(String complemento) {
+		
+		if(complemento == null || complemento.trim() == "" || complemento.isEmpty()) {
+			return "";
+		}
+		
+		return complemento;
+	}
+
+    String checkDataNumero(String numero) {
+		
+		if(numero == null || numero.trim() == "" || numero.isEmpty()) {
+			return "";
+		}
+		
+		return numero;
+	}
+}
+
+
