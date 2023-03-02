@@ -95,7 +95,8 @@ CREATE TABLE  `clinica`.`funcionario` (
   PRIMARY KEY (`id`, `usuario_idusuario`),
     FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
-    
+        insert into usuario(idusuario, login, senha, tipo_usuario) values (1,"teste","teste",1);
+        insert into usuario(idusuario, login, senha, tipo_usuario) values (2,"teste","opa",2);
     insert into endereco (cep, cidade, bairro,estado, rua) values (89110000,"Gaspar","centro","Santa Catarina","Maringa");
 	insert into endereco (cep, cidade, bairro,estado, rua) values (89110001,"Gaspar","centro","Santa Catarina","Itajai");    
 	insert into endereco (cep, cidade, bairro,estado, rua) values (89110002,"Gaspar","centro","Santa Catarina","Bela vista");
