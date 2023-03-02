@@ -87,6 +87,7 @@ CREATE TABLE `clinica`.`consulta` (
 -- -----------------------------------------------------
 CREATE TABLE  `clinica`.`funcionario` (
   `id` INT(11) NOT NULL,
+  `cpf` BIGINT(20) NOT NULL,
   `nome` VARCHAR(45) NULL DEFAULT NULL,
   `sexo` CHAR(1) NULL DEFAULT NULL,
   `telefone` VARCHAR(12) NULL DEFAULT NULL,
