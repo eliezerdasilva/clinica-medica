@@ -57,7 +57,17 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 
 	@Override
 	public boolean alterarFuncionario(Funcionario funcionario) {
-		// TODO Auto-generated method stub
+		
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		try {
+			st = con.prepareStatement (
+					
+					"UPDATE seller" + "SET nome = ?, sexo = ?, telefone = ?, data_nascimento = ?,  "
+					
+					)
+		}
+		
 		return false;
 	}
 
