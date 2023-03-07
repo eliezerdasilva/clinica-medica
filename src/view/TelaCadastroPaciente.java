@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -19,7 +20,7 @@ import model.Paciente;
  * 
  * @author Eliezer da Silva
  * 
- * Classe resposavel por exibir Tela de cadastro de paciente 
+ *         Classe resposavel por exibir Tela de cadastro de paciente
  *
  */
 public class TelaCadastroPaciente extends JFrame {
@@ -200,7 +201,7 @@ public class TelaCadastroPaciente extends JFrame {
 				
 			
 				String nome = txtNome.getText();
-				Integer cpf = Integer.parseInt(txtCpf.getText());
+				String cpf = txtCpf.getText();
 				String sexo = txtSexo.getText();
 				String email = txtEmail.getText();
 				String telefone = txtTelefone.getText();
@@ -212,7 +213,95 @@ public class TelaCadastroPaciente extends JFrame {
 				
 				//String cep = String.valueOf(resultado.);
 				
-		
+					
+					if(nome == null || nome.trim() == "" || nome.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Nome Vazio", "Nome Vazio", JOptionPane.ERROR_MESSAGE);
+					}else {
+						//manipular nome
+					}
+					
+
+					if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
+							
+					} else {
+						//TRANSFORMAR EM STRING
+						//MANIPULAR CPF
+					}
+				
+
+						if (sexo == null || sexo.trim() == "" || sexo.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Vazio", JOptionPane.ERROR_MESSAGE);
+						} else if (sexo != "F" && sexo != "M") {
+							JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Invalido", JOptionPane.ERROR_MESSAGE);
+						} else {
+							//MANIPULAR SEXO
+						}
+			
+
+					
+
+						if (email == null || email.trim() == "" || email.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "E-mail Vazio" ,"E-mail Vazio", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR EMAIL
+						}
+					
+
+					
+
+						if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Telefone Vazio" ,"Telefone Vazio", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR TELEFONE
+						}
+
+					
+
+					
+
+						if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Profissao Vazia" ,"Profissao Vazia", JOptionPane.ERROR_MESSAGE);	
+						}else {
+							//MANIPULAR PROFISSAO
+						}
+
+						
+
+					
+
+						if (convenio == null || convenio.trim() == "" || convenio.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Convenio Vazia" ,"Convenio Vazia", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR CONVENIO
+						}
+
+					
+
+						if (dataNascimento == null || dataNascimento.trim() == "" || dataNascimento.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Data Vazia" ,"Data Vazia", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR DATA
+						}
+
+				
+						
+						if (complemento == null || complemento.trim() == "" || complemento.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Complemento Vazia" ,"Complemento Vazio", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR COMPLEMENTO
+						}
+
+
+					
+
+						if (numero == null || numero.trim() == "" || numero.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Numero Vazia" ,"Numero Vazio", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR NUMERO
+						}
+
+				
+				
 			
 				
 				
@@ -327,98 +416,5 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_15.setBounds(383, 53, 46, 14);
 		contentPane.add(lblNewLabel_15);
 	}
-	
-	String checkName(String name) {
-	
-	if(name == null || name.trim() == "" || name.isEmpty()) {
-		return "Nome Vazio";
-	}else {
-		return name;
-	}	
+
 }
-
-	String chackCPF(String cpf) {
-		
-		if(cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
-			return "Cpf vazio";
-		}else {
-			return cpf;	
-		}
-	}
-
-	String checkSexo(String sexo) {
-		
-		if(sexo == null || sexo.trim() == "" || sexo.isEmpty()) {
-			return "Sexo Vazio";
-		}else if(sexo != "F" && sexo != "M") {
-			return "Sexo inválido";
-		}else {
-			return sexo;
-		}		
-	}
-
-	String checkEmail(String email){
-		
-		if(email == null || email.trim() == "" || email.isEmpty()) {
-			return "E-mail vazio";
-		}
-		
-		return email;
-	}
-
-	String checkTelefone(String telefone) {
-		
-		if(telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
-			return "";
-		}
-		
-		return telefone;
-	}
-	
-    String checkProfissao(String profissao) {
-		
-		if(profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
-			return "";
-		}
-		
-		return profissao;
-	}
-    
-    String checkConvenio(String convenio) {
-		
-		if(convenio == null || convenio.trim() == "" || convenio.isEmpty()) {
-			return "";
-		}
-		
-		return convenio;
-	}
-    
-    String checkDataNascimento(String data) {
-		
-		if(data == null || data.trim() == "" || data.isEmpty()) {
-			return "";
-		}
-		
-		return data;
-	}
-	
-    String checkDataComplemento(String complemento) {
-		
-		if(complemento == null || complemento.trim() == "" || complemento.isEmpty()) {
-			return "";
-		}
-		
-		return complemento;
-	}
-
-    String checkDataNumero(String numero) {
-		
-		if(numero == null || numero.trim() == "" || numero.isEmpty()) {
-			return "";
-		}
-		
-		return numero;
-	}
-}
-
-
