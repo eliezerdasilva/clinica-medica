@@ -14,6 +14,15 @@ import javax.swing.border.EmptyBorder;
 import controller.EnderecoDao;
 import model.Endereco;
 import model.Paciente;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.JRadioButton;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 
 /**
  * 
@@ -25,29 +34,28 @@ import model.Paciente;
 public class TelaCadastroPaciente extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtNome;
-	private JTextField txtCpf;
-	private JTextField txtSexo;
-	private JTextField txtEmail;
-	private JTextField txtTelefone;
-	private JTextField txtProfissao;
-	private JTextField txtConvenio;
-	private JTextField txtDataNasciemento;
-	private JTextField txtRua;
-	private JLabel lblNewLabel_9;
-	private JTextField txtCep;
-	private JLabel lblNewLabel_10;
-	private JTextField txtNumero;
-	private JLabel lblNewLabel_11;
-	private JTextField txtBairro;
-	private JLabel lblNewLabel_12;
-	private JTextField txtComplemento;
-	private JTextField txt;
 	Endereco enderecoPronto = null;
-	private JTextField txtCidade;
-	private JLabel lblNewLabel_14;
-	private JTextField txtEstado;
-	private JLabel lblNewLabel_15;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JPanel panel_4;
+	private JPanel panel_5;
+	private JPanel panel_6;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
+	private JTextField textField;
+	private JLabel lblNewLabel_2;
+	private JTextField textField_1;
+	private JLabel lblNewLabel_3;
+	private JRadioButton rdbtnNewRadioButton;
+	private JLabel lblNewLabel_4;
+	private JTextField textField_2;
+	private JRadioButton rdbtnNewRadioButton_1;
+	private JLabel lblNewLabel_5;
+	private JTextField textField_3;
+	private JLabel lblNewLabel_6;
+	private JTextField textField_5;
 
 	/**
 	 * Create the frame.
@@ -55,276 +63,98 @@ public class TelaCadastroPaciente extends JFrame {
 	public TelaCadastroPaciente() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1001, 717);
+		setExtendedState(MAXIMIZED_BOTH);
+		setBounds(100, 100, 2000, 1050);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
-		JLabel lblNewLabel = new JLabel("nome");
-		lblNewLabel.setBounds(57, 96, 45, 13);
-		contentPane.add(lblNewLabel);
+		panel = new JPanel();
+		contentPane.add(panel, "cell 0 0,grow");
+		panel.setLayout(new BorderLayout(0, 0));
 		
-		txtNome = new JTextField();
-		txtNome.setBounds(93, 93, 96, 19);
-		contentPane.add(txtNome);
-		txtNome.setColumns(10);
+		panel_1 = new JPanel();
+		panel_1.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
+		panel.add(panel_1, BorderLayout.CENTER);
+		panel_1.setLayout(new MigLayout("", "[grow]", "[grow][grow][grow]"));
 		
-		JLabel lblNewLabel_1 = new JLabel("cpf");
-		lblNewLabel_1.setBounds(42, 145, 45, 13);
-		contentPane.add(lblNewLabel_1);
+		panel_2 = new JPanel();
+		panel_2.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
+		panel_1.add(panel_2, "cell 0 0,grow");
+		panel_2.setLayout(new MigLayout("", "[grow]", "[20:n:20,grow][75:n:75,grow]"));
 		
-		txtCpf = new JTextField();
-		txtCpf.setBounds(93, 142, 96, 19);
-		contentPane.add(txtCpf);
-		txtCpf.setColumns(10);
+		panel_5 = new JPanel();
+		panel_2.add(panel_5, "cell 0 0,grow");
+		panel_5.setLayout(new CardLayout(0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel("sexo");
-		lblNewLabel_2.setBounds(42, 200, 45, 13);
-		contentPane.add(lblNewLabel_2);
+		lblNewLabel = new JLabel("Cadastros Pessoais");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		panel_5.add(lblNewLabel, "name_13133227365500");
 		
-		txtSexo = new JTextField();
+		panel_6 = new JPanel();
+		panel_6.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
+		panel_2.add(panel_6, "cell 0 1,grow");
+		panel_6.setLayout(new MigLayout("", "[180:n:180,grow][100:n:100][170:n:170,grow][100px:n:100px][150:n:150][100px:n:100px][100px:n:100px][100px:n:100px][150:n:150,grow][100px:n:100px][150:n:150,grow]", "[][][]"));
 		
-		txtSexo.setBounds(93, 197, 96, 19);
-		contentPane.add(txtSexo);
-		txtSexo.setColumns(10);
+		lblNewLabel_1 = new JLabel("Nome :");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel_6.add(lblNewLabel_1, "cell 0 0");
 		
-		JLabel lblNewLabel_3 = new JLabel("email");
-		lblNewLabel_3.setBounds(42, 259, 45, 13);
-		contentPane.add(lblNewLabel_3);
+		lblNewLabel_4 = new JLabel("E-mail :");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_6.add(lblNewLabel_4, "cell 2 0");
 		
-		txtEmail = new JTextField();
-		txtEmail.setBounds(93, 256, 96, 19);
-		contentPane.add(txtEmail);
-		txtEmail.setColumns(10);
+		lblNewLabel_2 = new JLabel("Cpf :");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel_6.add(lblNewLabel_2, "cell 4 0");
 		
-		txtTelefone = new JTextField();
-		txtTelefone.setBounds(93, 306, 96, 19);
-		contentPane.add(txtTelefone);
-		txtTelefone.setColumns(10);
+		lblNewLabel_3 = new JLabel("Sexo :");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_6.add(lblNewLabel_3, "cell 6 0");
 		
-		txtProfissao = new JTextField();
-		txtProfissao.setBounds(93, 355, 96, 19);
-		contentPane.add(txtProfissao);
-		txtProfissao.setColumns(10);
+		lblNewLabel_5 = new JLabel("Telefone");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_6.add(lblNewLabel_5, "cell 8 0");
 		
-		txtConvenio = new JTextField();
-		txtConvenio.setBounds(93, 409, 96, 19);
-		contentPane.add(txtConvenio);
-		txtConvenio.setColumns(10);
+		lblNewLabel_6 = new JLabel("Data Nascimento");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_6.add(lblNewLabel_6, "cell 10 0");
 		
-		JLabel lblNewLabel_4 = new JLabel("telefone");
-		lblNewLabel_4.setBounds(38, 309, 45, 13);
-		contentPane.add(lblNewLabel_4);
+		textField = new JTextField();
+		panel_6.add(textField, "cell 0 1,grow");
+		textField.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("profissao");
-		lblNewLabel_5.setBounds(27, 358, 45, 13);
-		contentPane.add(lblNewLabel_5);
+		textField_2 = new JTextField();
+		panel_6.add(textField_2, "cell 2 1,growx");
+		textField_2.setColumns(10);
 		
-		JLabel lblNewLabel_6 = new JLabel("convenio");
-		lblNewLabel_6.setBounds(27, 412, 45, 13);
-		contentPane.add(lblNewLabel_6);
+		textField_1 = new JTextField();
+		panel_6.add(textField_1, "cell 4 1,growx");
+		textField_1.setColumns(10);
 		
-		txtDataNasciemento = new JTextField();
-		txtDataNasciemento.setBounds(93, 445, 96, 19);
-		contentPane.add(txtDataNasciemento);
-		txtDataNasciemento.setColumns(10);
+		rdbtnNewRadioButton_1 = new JRadioButton("M");
+		panel_6.add(rdbtnNewRadioButton_1, "flowx,cell 6 1,growx");
 		
-		JLabel lblNewLabel_7 = new JLabel("data nascimento");
-		lblNewLabel_7.setBounds(27, 449, 45, 13);
-		contentPane.add(lblNewLabel_7);
+		rdbtnNewRadioButton = new JRadioButton("F");
+		panel_6.add(rdbtnNewRadioButton, "cell 6 1,growx");
 		
-		txtRua = new JTextField();
-		txtRua.setBounds(470, 141, 96, 19);
-		contentPane.add(txtRua);
-		txtRua.setColumns(10);
+		textField_3 = new JTextField();
+		panel_6.add(textField_3, "cell 8 1,growx");
+		textField_3.setColumns(10);
 		
-		JLabel lblNewLabel_8 = new JLabel("rua");
-		lblNewLabel_8.setBounds(415, 145, 45, 13);
-		contentPane.add(lblNewLabel_8);
+		textField_5 = new JTextField();
+		panel_6.add(textField_5, "cell 10 1,growx");
+		textField_5.setColumns(10);
 		
-		lblNewLabel_9 = new JLabel("cep");
-		lblNewLabel_9.setBounds(415, 186, 45, 13);
-		contentPane.add(lblNewLabel_9);
+		panel_3 = new JPanel();
+		panel_3.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
+		panel_1.add(panel_3, "cell 0 1,grow");
 		
-		txtCep = new JTextField();
-		txtCep.setBounds(470, 196, 96, 19);
-		contentPane.add(txtCep);
-		txtCep.setColumns(10);
-		
-		lblNewLabel_10 = new JLabel("Nuemro");
-		lblNewLabel_10.setBounds(415, 235, 45, 13);
-		contentPane.add(lblNewLabel_10);
-		
-		txtNumero = new JTextField();
-		txtNumero.setBounds(470, 231, 96, 19);
-		contentPane.add(txtNumero);
-		txtNumero.setColumns(10);
-		
-		lblNewLabel_11 = new JLabel("Bairro");
-		lblNewLabel_11.setBounds(415, 275, 45, 13);
-		contentPane.add(lblNewLabel_11);
-		
-		txtBairro = new JTextField();
-		txtBairro.setBounds(470, 271, 96, 19);
-		contentPane.add(txtBairro);
-		txtBairro.setColumns(10);
-		
-		lblNewLabel_12 = new JLabel("complemento");
-		lblNewLabel_12.setBounds(415, 310, 45, 13);
-		contentPane.add(lblNewLabel_12);
-		
-		txtComplemento = new JTextField();
-		txtComplemento.setBounds(470, 306, 96, 19);
-		contentPane.add(txtComplemento);
-		txtComplemento.setColumns(10);
-		
-
-		txtCidade = new JTextField();
-		txtCidade.setBounds(473, 92, 86, 20);
-		contentPane.add(txtCidade);
-		txtCidade.setColumns(10);
-		
-		txtEstado = new JTextField();
-		txtEstado.setBounds(473, 50, 86, 20);
-		contentPane.add(txtEstado);
-		txtEstado.setColumns(10);
-		
-		
-		
-		JButton btnNewButton = new JButton("cadastrar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			
-				String nome = txtNome.getText();
-				Integer cpf = Integer.parseInt(txtCpf.getText());
-				String sexo = txtSexo.getText();
-				String email = txtEmail.getText();
-				String telefone = txtTelefone.getText();
-				String profissao = txtProfissao.getText();
-				String convenio = txtConvenio.getText();
-				String dataNascimento = txtDataNasciemento.getText();
-				String complemento =  txtComplemento.getText();
-				String numero = txtNumero.getText();
-				
-				//String cep = String.valueOf(resultado.);
-				
-		
-			
-				
-				
-			
-				//Endereco resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
-				
-				//if(resultado != null) {
-				
-				//Paciente paciente = new Paciente(nome,sexo,endereco, cpf, dataNascimento,
-					//	telefone, email,  rg,   profissao,  convenio) {
-					
-				}/*
-					super(id, nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg)
-						(nome,cpf,sexo,endereco, email,telefone,email,telefone,profissao,convenio, dataNascimento,);
-				//Endereco endereco = EnderecoDAO.buscarEnderecoPorCep();
-				}else
-					enderecoDao.
-				}
-				Paciente paciente = new Paciente();
-				paciente.setEndereco(endereco);
-				*/
-				
-			//}
-		});
-		btnNewButton.setBounds(214, 581, 85, 21);
-		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("buscar");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				//TODO Cidade
-				String rua = txtRua.getText();
-				Integer cep = Integer.parseInt(txtCep.getText());
-				String bairro = txtBairro.getText();
-				String cidade = txtCidade.getText();
-				String estado = txtEstado.getText();
-			
-				//TODO instância para os get e setrs do endereco
-				Endereco consultaEndereco = new Endereco(cep);
-				
-				//TODO instâcia para cadastrar um endereco novo
-				Endereco cadastroEndereco;
-				
-				//TODO instância para consultar cep cadastrado
-				EnderecoDao enderecoDao = new EnderecoDao();
-			
-				//TODO instância para ver o resultado da busca de cep
-				Endereco resultado = new Endereco();
-				// TODO metodo de consulta
-				
-				resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
-				 
-				 //TODO Setar resultado do banco, se acasso o cep existir 
-				if(resultado != null) {
-					int cepNovo = resultado.getCep();
-					String ruaNova = resultado.getRua();
-					String bairroNovo = resultado.getBairro();
-					String cidadeNova = resultado.getCidade();
-					String estadoNovo = resultado.getEstado();
-					
-					enderecoPronto = new Endereco();
-					enderecoPronto.setCep(cepNovo);
-					enderecoPronto.setCidade(cidadeNova);
-					enderecoPronto.setEstado(estadoNovo);
-					enderecoPronto.setRua(ruaNova);
-					enderecoPronto.setBairro(bairroNovo);
-					System.out.println("foi");
-							
-				//TODO Cadastrar novo cep 
-				}else {
-				
-					cadastroEndereco = new Endereco(cep , estado, bairro, cidade, rua);
-					Boolean veroficacaoNovoEndereco = enderecoDao.InserirEndereco(cadastroEndereco);
-					System.out.println("nqa");
-					
-					
-				}
-				
-			}
-		});
-		btnNewButton_1.setBounds(470, 408, 89, 23);
-		contentPane.add(btnNewButton_1);
-		
-		JLabel lblNewLabel_13 = new JLabel("Estado");
-		lblNewLabel_13.setBounds(415, 338, 46, 14);
-		contentPane.add(lblNewLabel_13);
-		
-		txt = new JTextField();
-		txt.setBounds(480, 336, 86, 20);
-		contentPane.add(txt);
-		txt.setColumns(10);
-		
-		JButton btnNewButton_2 = new JButton("limpar");
-		btnNewButton_2.setBounds(67, 496, 89, 23);
-		contentPane.add(btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("excluir");
-		btnNewButton_3.setBounds(180, 496, 89, 23);
-		contentPane.add(btnNewButton_3);
-		
-		JButton btnNewButton_4 = new JButton("voltar");
-		btnNewButton_4.setBounds(727, 591, 89, 23);
-		contentPane.add(btnNewButton_4);
-		
-		lblNewLabel_14 = new JLabel("cidade");
-		lblNewLabel_14.setBounds(383, 95, 46, 14);
-		contentPane.add(lblNewLabel_14);
-		
-		
-		lblNewLabel_15 = new JLabel("estado");
-		lblNewLabel_15.setBounds(383, 53, 46, 14);
-		contentPane.add(lblNewLabel_15);
+		panel_4 = new JPanel();
+		panel_4.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
+		panel_1.add(panel_4, "cell 0 2,grow");
 	}
 }
