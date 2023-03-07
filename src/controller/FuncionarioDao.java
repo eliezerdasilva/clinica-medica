@@ -60,12 +60,24 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 		
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
+		PreparedStatement stm = null;
 		try {
-			st = con.prepareStatement (
+			stm = c.prepareStatement (
 					
-					"UPDATE seller" + "SET nome = ?, sexo = ?, telefone = ?, data_nascimento = ?,  "
-					
-					)
+					"UPDATE seller SET nome = ?, sexo = ?, telefone = ?, data_nascimento = ? WHERE cpf = ?"
+					);
+			
+			stm.setString(1, funcionario.getNome());
+			stm.setString(2, funcionario.getSexo());
+			stm.setString(3, funcionario.getTelefone());
+			stm.setDate(4, Date.valueOf(funcionario.getDataNascimento()));
+				
+			stm.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
 		}
 		
 		return false;
