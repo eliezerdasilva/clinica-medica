@@ -79,7 +79,8 @@ public class TelaLogin extends JFrame {
 		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+
+
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
 		contentPane.setBackground(new Color(0, 0, 0));
