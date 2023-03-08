@@ -91,6 +91,9 @@ public class TelaCadastroPaciente extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
+		
+		JButton btnNewButton_3 = new JButton("New button");
+		panel_1.add(btnNewButton_3);
 	}
 }
 
