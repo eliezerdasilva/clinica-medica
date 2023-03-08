@@ -26,7 +26,7 @@ public class teste extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField  textField_3;
 
 	/**
 	 * Launch the application.
