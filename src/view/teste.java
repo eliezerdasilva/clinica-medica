@@ -19,14 +19,18 @@ import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
+import javax.swing.border.LineBorder;
+import java.awt.GridLayout;
+import net.miginfocom.swing.MigLayout;
 
 public class teste extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel panel_2;
 	private JTextField textField;
 	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField  textField_3;
 
 	/**
 	 * Launch the application.
@@ -56,34 +60,23 @@ public class teste extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
+		panel.setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
-		JButton btnNewButton = new JButton("New button");
+		panel_1 = new JPanel();
+		panel.add(panel_1, "cell 0 0,grow");
+		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		
-		JButton btnNewButton_2 = new JButton("New button");
+		panel_2 = new JPanel();
+		panel_1.add(panel_2, BorderLayout.CENTER);
 		
 		textField = new JTextField();
+		panel_2.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
+		panel_2.add(textField_1);
 		textField_1.setColumns(10);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		panel.add(btnNewButton);
-		panel.add(btnNewButton_1);
-		panel.add(btnNewButton_2);
-		panel.add(textField);
-		panel.add(textField_1);
-		panel.add(textField_2);
-		panel.add(textField_3);
 	}
-
 }

@@ -102,10 +102,14 @@ public class TelaLogin extends JFrame {
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(204, 255, 204));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(panel,
-				GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(panel,
-				Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1914, Short.MAX_VALUE)
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
+		);
 		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[185.00][657.00,grow][226.00]"));
 
 		JPanel panel_1 = new JPanel();
@@ -128,7 +132,7 @@ public class TelaLogin extends JFrame {
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 40));
 
-		JLabel lblNewLabel = new JLabel("Login");
+		JLabel lblNewLabel = new JLabel("Login"); 
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 32));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblNewLabel, "name_169020969106100");
@@ -220,7 +224,7 @@ public class TelaLogin extends JFrame {
 				String Senha = txtSenha.getText();
 				Usuario login = null;
 				
-				
+				/*
 				if (!Usuario.isEmpty() && !Senha.isEmpty()) {
 					LoginDao loginDao;
 					loginDao = new LoginDao();
@@ -228,12 +232,12 @@ public class TelaLogin extends JFrame {
 					login = loginDao.consultarLogin(new Usuario(Usuario, Senha));
 
 					if (login != null) {
-
-						MenuPrincipal telaFunc = new MenuPrincipal(login);
+*/
+						TelaCadastro telaFunc = new TelaCadastro();
 						telaFunc.setLocationRelativeTo(null);
 						telaFunc.setVisible(true);
 						dispose();
-
+/*
 					} else {
 
 						JOptionPane.showMessageDialog(null, "Senha ou Usuario incorretos!");
@@ -241,7 +245,7 @@ public class TelaLogin extends JFrame {
 				} else {
 
 					JOptionPane.showMessageDialog(null, "Senha ou Usuario não preenchidos!");
-				}
+				}*/
 			}
 		});
 
