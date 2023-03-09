@@ -8,7 +8,7 @@ public abstract class Pessoa {
 
 	private Long cpf;
 	private String nome;
-	private LocalDate dataNascimento;
+	private Date dataNascimento;
 	private String email;
 	private String sexo;
 	private String telefone;
@@ -25,7 +25,7 @@ public abstract class Pessoa {
 		this.nome = nome;
 	}
 
-	public Pessoa( String nome, String sexo, Endereco endereco, Long cpf, String dataNascimento, String telefone,
+	public Pessoa( String nome, String sexo, Endereco endereco, Long cpf, Date dataNascimento, String telefone,
 			String email, String rg) {
 		super();
 	
@@ -35,7 +35,7 @@ public abstract class Pessoa {
 		int dia = 28;
 		int mes = 02;
 		int ano = 2023;
-		this.dataNascimento = LocalDate.of(ano, mes, dia);
+		this.dataNascimento = dataNascimento;
 		this.telefone = telefone;
 		this.email = email;
 		this.cpf = cpf;
@@ -57,11 +57,11 @@ public abstract class Pessoa {
 		this.sexo = sexo;
 	}
 
-	public LocalDate getDataNascimento() {
+	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
+	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

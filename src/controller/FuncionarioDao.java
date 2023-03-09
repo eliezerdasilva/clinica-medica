@@ -3,7 +3,12 @@ package controller;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 
+import model.Endereco;
 import model.Funcionario;
 
 public class FuncionarioDao implements IntefaceFuncionarioDao {
@@ -23,7 +28,7 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 			stm.setString(2, funcionario.getNome());
 			stm.setString(3, funcionario.getSexo());
 			stm.setString(4, funcionario.getTelefone());
-			stm.setDate(5, Date.valueOf(funcionario.getDataNascimento()));
+			stm.setDate(5, funcionario.getDataNascimento());
 			retorno = stm.executeUpdate();
 
 		} catch (Exception e) {
@@ -70,7 +75,7 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 			stm.setString(1, funcionario.getNome());
 			stm.setString(2, funcionario.getSexo());
 			stm.setString(3, funcionario.getTelefone());
-			stm.setDate(4, Date.valueOf(funcionario.getDataNascimento()));
+			stm.setDate(4, funcionario.getDataNascimento());
 				
 			stm.executeUpdate();
 			return true;
@@ -85,7 +90,48 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 
 	@Override
 	public Funcionario consultarFuncionario(Funcionario funcionario) {
-		// TODO Auto-generated method stub
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		
+		try {
+			Statement stm = c.prepareStatement(null);
+			String query = "SELECT * FROM funcionario f INNER JOIN endereco e WHERE f.endereco_cep = e.cep";
+			ResultSet rs = stm.executeQuery(query);
+			
+			while (rs.next()) {
+				Long cpf = rs.getLong("cpf");
+				String nome = rs.getString("nome");
+				String sexo = rs.getString("sexo");
+				String telefone = rs.getString("telefone");
+				Date dataNascimento = rs.getDate("datA");
+				int endereco = rs.getInt("endereco_cep");
+				rs.getArray(endereco)
+				int numero = rs.getInt("numero");
+				String complemento = rs.getString("complemento");
+				
+				
+				Funcionario f = new Funcionario();
+				f.setComplemento(complemento);
+				f.setCpf(cpf);
+				f.setDataNascimento(dataNascimento);
+				f.setNome(nome);
+				f.setNumero(numero);
+				f.setSexo(sexo);
+				f.setTelefone(telefone);
+				
+				Endereco e = new Endereco();
+				e.setBairro(complemento);
+				f.setEndereco(e);
+				
+				
+				
+			}			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
+		}
+		
 		return null;
 	}
 
