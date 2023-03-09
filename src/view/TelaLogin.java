@@ -233,7 +233,7 @@ public class TelaLogin extends JFrame {
 
 					if (login != null) {
 */
-						TelaCadastro telaFunc = new TelaCadastro();
+						TelaCadastroPacient telaFunc = new TelaCadastroPacient();
 						telaFunc.setLocationRelativeTo(null);
 						telaFunc.setVisible(true);
 						dispose();

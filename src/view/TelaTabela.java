@@ -17,9 +17,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
