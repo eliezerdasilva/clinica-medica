@@ -349,7 +349,7 @@ public class TelaCadastroPaciente extends JFrame {
 				
 				
 			
-				String nome = txtNome.getText();
+			/*	String nome = txtNome.getText();
 				String cpf = txtCpf.getText();
 				String sexo = txtSexo.getText();
 				String email = txtEmail.getText();
