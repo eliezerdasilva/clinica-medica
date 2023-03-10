@@ -1,45 +1,50 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.Shape;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.LoginDao;
 import model.Usuario;
+import net.miginfocom.swing.MigLayout;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
-import javax.swing.ImageIcon;
-import javax.swing.BorderFactory;
-import javax.swing.DropMode;
-import java.awt.Font;
-import javax.swing.SwingConstants;
 
 public class TelaLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private JTextField txtSenha;
-	private Usuario usuario = new Usuario();
-
-	private LoginDao loginDao = new LoginDao();
+	private JPasswordField txtSenha;
 
 	/**
 	 * Launch the application.
@@ -49,8 +54,8 @@ public class TelaLogin extends JFrame {
 			public void run() {
 				try {
 					TelaLogin frame = new TelaLogin();
-					frame.setLocationRelativeTo(null);
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					frame.setMinimumSize(new Dimension(1000, 400));
+					frame.setExtendedState(MAXIMIZED_BOTH);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,57 +69,165 @@ public class TelaLogin extends JFrame {
 	 */
 	public TelaLogin() {
 
-		setTitle("Tela de Login");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
+		setTitle("Tela de login");
+
+		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
+		if (resourceIcon != null) {
+			Image imgIcon = Toolkit.getDefaultToolkit().getImage(resourceIcon);
+			setIconImage(imgIcon);
+		} else {
+			JOptionPane.showMessageDialog(null, "Erro no caminho da imagem");
+		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1103, 741);
+		 
+
+
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(34, 139, 34));
-		contentPane.setForeground(new Color(0, 0, 102));
+		setExtendedState(MAXIMIZED_BOTH);
+		contentPane.setBackground(new Color(0, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setBounds(100, 100, 2000, 1050);
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 
-		setLocationRelativeTo(null);
-		setVisible(true);
+		BufferedImage bg = null;
 
-		txtUsuario = new RoundedJTextField(15);
-		txtUsuario.setForeground(new Color(0, 0, 51));
-		txtUsuario.setBackground(new Color(102, 204, 102));
-		txtUsuario.setText("Usuario\r\n");
-		txtUsuario.setBounds(162, 232, 249, 20);
-		contentPane.add(txtUsuario);
+		try {
+			bg = ImageIO.read(new File("src/imagens/fundoLogin.jpeg"));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		JPanel panel = new FundoImagemLogin(bg);
+		panel.setBackground(new Color(204, 255, 204));
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1914, Short.MAX_VALUE)
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
+		);
+		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[185.00][657.00,grow][226.00]"));
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
+		panel.add(panel_1, "cell 1 1,grow");
+		panel_1.setLayout(new BorderLayout(0, 0));
+
+		BufferedImage filc = null;
+
+		try {
+			filc = ImageIO.read(new File("src/imagens/fundoVerde.jpeg"));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		JPanel panel_2 = new FundoImagemLoginCabecario(filc);
+		panel_2.setBackground(new Color(51, 153, 0));
+		panel_1.add(panel_2, BorderLayout.NORTH);
+		panel_2.setLayout(new CardLayout(0, 40));
+
+		JLabel lblNewLabel = new JLabel("Login"); 
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 32));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_2.add(lblNewLabel, "name_169020969106100");
+
+		JPanel panel_4 = new JPanel();
+		panel_1.add(panel_4, BorderLayout.CENTER);
+		panel_4.setLayout(new MigLayout("", "[383.00][192.00][933.00,grow][416.00][]",
+				"[73.00][44.00][62.00][45.00][][72.00][grow][55.00,grow]"));
+
+		JLabel lblNewLabel_1 = new JLabel("Usuario ");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 22));
+		panel_4.add(lblNewLabel_1, "cell 2 1");
+
+		txtUsuario = new RoundJTextField(15);	
+
+		txtUsuario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (txtUsuario.getText().equals("Usuario")) {
+					txtUsuario.setText("");
+					txtUsuario.setSelectedTextColor(Color.BLACK);
+
+				}
+
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (txtUsuario.getText().equals("")) {
+					txtUsuario.setText("Usuario");
+					txtUsuario.setSelectedTextColor(Color.GRAY);
+
+				}
+
+			}
+		});
+		panel_4.add(txtUsuario, "cell 2 2,growx,aligny center");
 		txtUsuario.setColumns(10);
 
-		txtSenha = new RoundedJTextField(15);
-		txtSenha.setForeground(new Color(0, 0, 51));
-		txtSenha.setBackground(new Color(102, 204, 102));
-		txtSenha.setText("Senha");
-		txtSenha.setBounds(162, 299, 249, 20);
-		contentPane.add(txtSenha);
-		txtSenha.setColumns(10);
+		JLabel lblNewLabel_2 = new JLabel("Senha\r\n");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 22));
+		panel_4.add(lblNewLabel_2, "cell 2 3");
 
-		// TODO alteracao no estilo do Botao
+		txtSenha = new RoundJTextPassword(15);
+		txtSenha.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (txtSenha.getText().equals("Senha")) {
+					txtSenha.setText("");
+					txtSenha.setSelectedTextColor(Color.BLACK);
 
-		JButton btnNewButton = new JButton("Entrar");
-		btnNewButton.setVerticalAlignment(SwingConstants.TOP);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
-		btnNewButton.setBackground(Color.LIGHT_GRAY);
-		btnNewButton.setBorder(new LineBorder(new Color(0, 128, 128), 10, true));
-		
-		btnNewButton.setBorder(null);
-		btnNewButton.setBorder(new BevelBorder(BevelBorder.LOWERED));
-		//btnNewButton.setBorder(BorderFactory.createBevelBorder(1, Color.black, Color.black));
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (txtSenha.getText().equals("")) {
+					txtSenha.setText("Senha");
+					txtSenha.setSelectedTextColor(Color.GRAY);
+
+				}
+			}
+		});
+		panel_4.add(txtSenha, "cell 2 4,growx");
+
+		JPanel panel_3 = new JPanel();
+		panel_4.add(panel_3, "cell 2 6,grow");
+		panel_3.setLayout(new MigLayout("", "[316.00][275.00][287.00]", "[10.00][39.00][10.00]"));
+
+		JButton btnNewButton = new RoundButton("Entrar");
+		btnNewButton.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-login-arredondado-30.png"));
+
+		btnNewButton.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				btnNewButton.setBackground(new Color(00, 255, 00));
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				btnNewButton.setBackground(new Color(51, 153, 51));
+			}
+		});
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
 				String Usuario = txtUsuario.getText();
 				String Senha = txtSenha.getText();
 				Usuario login = null;
-
+				
+				/*
 				if (!Usuario.isEmpty() && !Senha.isEmpty()) {
 					LoginDao loginDao;
 					loginDao = new LoginDao();
@@ -122,12 +235,12 @@ public class TelaLogin extends JFrame {
 					login = loginDao.consultarLogin(new Usuario(Usuario, Senha));
 
 					if (login != null) {
-
-						MenuPrincipal telaFunc = new MenuPrincipal(login);
+*/
+						MenuPrincipal telaFunc = new MenuPrincipal();
 						telaFunc.setLocationRelativeTo(null);
 						telaFunc.setVisible(true);
 						dispose();
-
+/*
 					} else {
 
 						JOptionPane.showMessageDialog(null, "Senha ou Usuario incorretos!");
@@ -135,54 +248,28 @@ public class TelaLogin extends JFrame {
 				} else {
 
 					JOptionPane.showMessageDialog(null, "Senha ou Usuario não preenchidos!");
-				}
-
-				
+				}*/
 			}
 		});
 
-		btnNewButton.setBounds(162, 364, 249, 23);
-		contentPane.add(btnNewButton);
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.DARK_GRAY, 9, true));
-		panel.setBackground(new Color(240, 230, 140));
-		panel.setBounds(71, 22, 435, 585);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-				JLabel lblNewLabel = new JLabel("Login");
-				lblNewLabel.setBounds(34, 67, 351, 71);
-				panel.add(lblNewLabel);
-				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel.setFont(new Font("Yu Gothic Medium", Font.BOLD, 32));
-				lblNewLabel.setForeground(new Color(0, 0, 51));
-				lblNewLabel.setBackground(UIManager.getColor("Button.disabledForeground"));
-				
-				JLabel lblNewLabel_1 = new JLabel("");
-				lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-usuário-homem-com-círculo-24.png"));
-				lblNewLabel_1.setBounds(344, 207, 46, 24);
-				panel.add(lblNewLabel_1);
-				
-				JLabel lblNewLabel_2 = new JLabel("");
-				lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-particular-2-24.png"));
-				lblNewLabel_2.setBounds(344, 271, 46, 34);
-				panel.add(lblNewLabel_2);
-				
-				JLabel lblNewLabel_3 = new JLabel("");
-				lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-login-arredondado-30.png"));
-				lblNewLabel_3.setBounds(344, 335, 36, 34);
-				panel.add(lblNewLabel_3);
+		btnNewButton.setBackground(new Color(50, 205, 50));
+		btnNewButton.setBackground(new Color(51, 153, 51));
+		panel_3.add(btnNewButton, "cell 1 1,grow");
+		contentPane.setLayout(gl_contentPane);
+	}
 
+	private void setMinimumSize(int i, int j) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
-class RoundedJTextField extends JTextField {
+class RoundJTextField extends JTextField {
 	private Shape shape;
 
-	public RoundedJTextField(int size) {
+	public RoundJTextField(int size) {
 		super(size);
-		setOpaque(false);
+		setOpaque(false); // As suggested by @AVD in comment.
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -201,5 +288,114 @@ class RoundedJTextField extends JTextField {
 			shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
 		}
 		return shape.contains(x, y);
+	}
+}
+
+class RoundJTextPassword extends JPasswordField {
+	private Shape shape;
+
+	public RoundJTextPassword(int size) {
+		super(size);
+		setOpaque(false); // As suggested by @AVD in comment.
+	}
+
+	protected void paintComponent(Graphics g) {
+		g.setColor(getBackground());
+		g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
+		super.paintComponent(g);
+	}
+
+	protected void paintBorder(Graphics g) {
+		g.setColor(getForeground());
+		g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
+	}
+
+	public boolean contains(int x, int y) {
+		if (shape == null || !shape.getBounds().equals(getBounds())) {
+			shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
+		}
+		return shape.contains(x, y);
+	}
+}
+
+class RoundButton extends JButton {
+	private static final long serialVersionUID = 1L;
+	private Shape shape;
+
+	public RoundButton(String label) {
+		super(label);
+		setOpaque(false);
+	}
+
+	public RoundButton(int i) {
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void paintComponent(Graphics g) {
+		g.setColor(getBackground());
+		g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
+		super.paintComponent(g);
+	}
+
+	protected void paintBorder(Graphics g) {
+		g.setColor(getForeground());
+		g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
+	}
+
+	public boolean contains(int x, int y) {
+		if (shape == null || !shape.getBounds().equals(getBounds())) {
+			shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
+		}
+		return shape.contains(x, y);
+	}
+
+}
+
+//Tela de inicio
+class FundoImagemLogin extends JPanel {
+
+	Image bg;
+
+	FundoImagemLogin(Image bg) {
+		this.bg = bg;
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
+	}
+}
+
+//cabecario login
+class FundoImagemLoginCabecario extends JPanel {
+
+	Image bg;
+
+	FundoImagemLoginCabecario(Image bg) {
+		this.bg = bg;
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
+	}
+}
+
+class botao extends JButton {
+	private Shape shape;
+	Image bg;
+
+	botao(Image bg, String label) {
+		super(label);
+		setOpaque(false);
+		this.bg = bg;
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
 	}
 }

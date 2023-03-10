@@ -86,15 +86,21 @@ CREATE TABLE `clinica`.`consulta` (
 -- Table `hospital`.`funcionario`
 -- -----------------------------------------------------
 CREATE TABLE  `clinica`.`funcionario` (
-  `id` INT(11) NOT NULL,
+  `cpf` BIGINT(20) NOT NULL,
   `nome` VARCHAR(45) NULL DEFAULT NULL,
   `sexo` CHAR(1) NULL DEFAULT NULL,
   `telefone` VARCHAR(12) NULL DEFAULT NULL,
   `data_nascimento` DATE NULL DEFAULT NULL,
   `usuario_idusuario` INT NOT NULL,
-  PRIMARY KEY (`id`, `usuario_idusuario`),
-    FOREIGN KEY (`usuario_idusuario`)
+  `data_nascimento` DATE NOT NULL,
+  `endereco_cep` INT(8) NOT NULL,
+  `numero` INT(3) null DEFAULT  NULL,
+  `complemento` VARCHAR(30) NULL DEFAULT NULL,
+  PRIMARY KEY (`cpf`),
+    FOREIGN KEY (`endereco_cep`)
+    REFERENCES `clinica`.`endereco` (`cep`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
+
         insert into usuario(idusuario, login, senha, tipo_usuario) values (1,"teste","teste",1);
         insert into usuario(idusuario, login, senha, tipo_usuario) values (2,"teste","opa",2);
     insert into endereco (cep, cidade, bairro,estado, rua) values (89110000,"Gaspar","centro","Santa Catarina","Maringa");

@@ -1,15 +1,30 @@
 package model;
 
+import java.sql.Date;
+
 public class Funcionario extends Pessoa {
 
 	private Usuario usuario;
+	
 
-	public final Usuario getUsuario() {
+	public Funcionario() {
+	
+	}
+
+	public Funcionario(String nome, String sexo, Endereco endereco, int endereco_cep, int numero, String complemento, Long cpf, Date dataNascimento, String telefone,
+			String email, String rg, Usuario usuario) {
+		super(nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg);
+		this.usuario = usuario;
+	}
+
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public final void setUsuario(Usuario usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	
 
 }
