@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Point;
@@ -59,7 +60,7 @@ import java.awt.Image;
  *         Classe resposavel por exibir Tela de cadastro de paciente
  *
  */
-public class TelaCadastroPacient extends JFrame {
+public class TelaCadastroFuncionario extends JFrame {
 	private JPanel contentPane;
 	Endereco enderecoPronto = null;
 	private JTextField textField;
@@ -69,15 +70,25 @@ public class TelaCadastroPacient extends JFrame {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private JTextField textField_7;
 	private JTextField textField_8;
+	private JTextField textField_9;
+	private JTextField textField_10;
+	private JTextField textField_11;
+	private JTextField textField_12;
+	private JTextField textField_7;
+	private JTextField textField_13;
+	private JTextField textField_16;
+	private JPasswordField passwordField;
+	
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroPacient() {
+	public TelaCadastroFuncionario() {
+		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
-		setTitle("Tala de login");
+		setTitle("Tela Cadastro de Funcionario");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
@@ -148,13 +159,13 @@ public class TelaCadastroPacient extends JFrame {
 
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.CENTER);
-		panel_4.setLayout(new MigLayout("", "[1280:n:1280,grow]", "[150:n:150px,grow][44.00,grow][62.00,grow]"));
+		panel_4.setLayout(new MigLayout("", "[1280:n:1280,grow]", "[150:n:150px,grow][160:n:160,grow][100:n:100,grow][330:n:330,grow]"));
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(107, 142, 35), 4));
 		panel_3.setBackground(new Color(240, 255, 240));
 		panel_4.add(panel_3, "cell 0 0,grow");
-		panel_3.setLayout(new MigLayout("", "[][300:n:300,grow][][300:n:300][][][150:n:150,grow]", "[][30:n:30][][30:n:30][][30:n:30]"));
+		panel_3.setLayout(new MigLayout("", "[][300:n:300,grow][][300:n:300][][][150:n:150,grow]", "[][30:n:30][][30:n:30][][30:n:30][]"));
 		
 		JLabel lblNewLabel_1 = new JLabel("Nome : ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -227,41 +238,164 @@ public class TelaCadastroPacient extends JFrame {
 		panel_5.setBackground(new Color(240, 255, 240));
 		panel_5.setBorder(new LineBorder(new Color(107, 142, 35), 5));
 		panel_4.add(panel_5, "cell 0 1,grow");
-		panel_5.setLayout(new MigLayout("", "[80:n:80][150:n:150,grow][150:n:150][150:n:150,grow]", "[][5:n:5][30:n:30]"));
+		panel_5.setLayout(new MigLayout("", "[80:n:80][150:n:150,grow][150:n:150][150:n:150,grow][100:n:100][180:n:180,grow][70:n:70][200:n:200px,grow][150:n:150]", "[5:n:5][][5:n:5][30:n:30][5:n:5][30:n:30][5:n:5]"));
 		
 		JLabel lblNewLabel_9 = new JLabel("CEP :");
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_5.add(lblNewLabel_9, "cell 0 0,alignx trailing");
+		panel_5.add(lblNewLabel_9, "cell 0 1,alignx trailing");
 		
 		textField_6 = new JTextField();
-		panel_5.add(textField_6, "cell 1 0,grow");
+		panel_5.add(textField_6, "cell 1 1 2 1,grow");
 		textField_6.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("Buscar");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_5.add(btnNewButton_1, "cell 2 0,growx");
+		panel_5.add(btnNewButton_1, "cell 3 1 2 1,grow");
 		
 		JLabel lblNewLabel_10 = new JLabel("Estado :");
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_10.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_5.add(lblNewLabel_10, "cell 0 2,alignx trailing");
+		panel_5.add(lblNewLabel_10, "cell 0 3,alignx trailing");
 		
-		textField_7 = new JTextField();
-		panel_5.add(textField_7, "cell 1 2,grow");
-		textField_7.setColumns(10);
+		JComboBox comboBox_1 = new JComboBox();
+		panel_5.add(comboBox_1, "cell 1 3,grow");
 		
 		JLabel lblNewLabel_11 = new JLabel("Municipio :");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_11.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_5.add(lblNewLabel_11, "cell 2 2,alignx trailing");
+		panel_5.add(lblNewLabel_11, "cell 2 3,alignx center");
 		
 		textField_8 = new JTextField();
-		panel_5.add(textField_8, "cell 3 2,grow");
+		panel_5.add(textField_8, "cell 3 3,grow");
 		textField_8.setColumns(10);
 		
+		JLabel lblNewLabel_12 = new JLabel("Bairro: ");
+		lblNewLabel_12.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_5.add(lblNewLabel_12, "cell 4 3,alignx trailing,growy");
+		
+		textField_9 = new JTextField();
+		panel_5.add(textField_9, "cell 5 3,grow");
+		textField_9.setColumns(10);
+		
+		JLabel lblNewLabel_13 = new JLabel("Rua : ");
+		lblNewLabel_13.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_5.add(lblNewLabel_13, "cell 6 3,alignx trailing");
+		
+		textField_10 = new JTextField();
+		panel_5.add(textField_10, "cell 7 3,grow");
+		textField_10.setColumns(10);
+		
+		JLabel lblNewLabel_14 = new JLabel("N :");
+		lblNewLabel_14.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_5.add(lblNewLabel_14, "cell 0 5,alignx trailing");
+		
+		textField_11 = new JTextField();
+		panel_5.add(textField_11, "cell 1 5,grow");
+		textField_11.setColumns(10);
+		
+		JLabel lblNewLabel_15 = new JLabel("Complemento :");
+		lblNewLabel_15.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_5.add(lblNewLabel_15, "cell 2 5,alignx center");
+		
+		textField_12 = new JTextField();
+		panel_5.add(textField_12, "cell 3 5 2 1,grow");
+		textField_12.setColumns(10);
+		
+		JPanel panel_9 = new JPanel();
+		panel_9.setBackground(new Color(240, 255, 240));
+		panel_9.setBorder(new LineBorder(new Color(107, 142, 35), 4));
+		panel_4.add(panel_9, "cell 0 2,grow");
+		panel_9.setLayout(new MigLayout("", "[80:n:80][200:n:200,grow][130:n:130][200:n:200,grow][20:n:20][][][][220:n:220]", "[30:n:30][30:n:30]"));
+		
+		JLabel lblNewLabel_23 = new JLabel("Login");
+		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_23.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_9.add(lblNewLabel_23, "cell 0 0 9 1,alignx center");
+		
+		JLabel lblNewLabel_20 = new JLabel("Senha :");
+		lblNewLabel_20.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_9.add(lblNewLabel_20, "cell 0 1,alignx trailing");
+		
+		textField_16 = new JTextField();
+		panel_9.add(textField_16, "cell 1 1,grow");
+		textField_16.setColumns(10);
+		
+		JLabel lblNewLabel_21 = new JLabel("Usuario : ");
+		lblNewLabel_21.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_9.add(lblNewLabel_21, "cell 2 1,alignx trailing");
+		
+		passwordField = new JPasswordField();
+		panel_9.add(passwordField, "cell 3 1,grow");
+		
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Administrador");
+		rdbtnNewRadioButton_2.setBackground(new Color(240, 255, 240));
+		rdbtnNewRadioButton_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_9.add(rdbtnNewRadioButton_2, "cell 5 1");
+		
+		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Funcionario");
+		rdbtnNewRadioButton_3.setBackground(new Color(240, 255, 240));
+		rdbtnNewRadioButton_3.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_9.add(rdbtnNewRadioButton_3, "cell 6 1");
+		
+		JButton btnNewButton_7 = new JButton("Cadastrar Novo Médico ");
+		btnNewButton_7.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_9.add(btnNewButton_7, "cell 8 1,grow");
+		
 		JPanel panel_6 = new JPanel();
-		panel_4.add(panel_6, "cell 0 2,grow");
+		panel_6.setBackground(new Color(240, 255, 240));
+		panel_6.setBorder(new LineBorder(new Color(85, 107, 47), 4));
+		panel_4.add(panel_6, "cell 0 3,grow");
+		panel_6.setLayout(new MigLayout("", "[80:n:80][200:n:200,grow][][100:n:100][200:n:200,grow][][220:n:220][350:n:350]", "[30:n:30][30:n:30][][180:n:180,grow][5:n:5][30:n:30]"));
+		
+		JLabel lblNewLabel_22 = new JLabel("Editar");
+		lblNewLabel_22.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_22.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(lblNewLabel_22, "cell 0 0 8 1,alignx center");
+		
+		JLabel lblNewLabel_16 = new JLabel("CPF :\r\n");
+		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(lblNewLabel_16, "cell 0 1,alignx trailing");
+		
+		textField_7 = new JTextField();
+		panel_6.add(textField_7, "cell 1 1,grow");
+		textField_7.setColumns(10);
+		
+		JLabel lblNewLabel_17 = new JLabel("Nome :");
+		lblNewLabel_17.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(lblNewLabel_17, "cell 3 1,alignx trailing");
+		
+		textField_13 = new JTextField();
+		panel_6.add(textField_13, "cell 4 1,grow");
+		textField_13.setColumns(10);
+		
+		JButton btnNewButton_3 = new JButton("Buscar");
+		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(btnNewButton_3, "cell 6 1,grow");
+		
+		JPanel panel_7 = new JPanel();
+		panel_7.setBorder(new LineBorder(new Color(107, 142, 35), 4));
+		panel_6.add(panel_7, "cell 1 3 7 1,grow");
+		
+		JButton btnNewButton_4 = new JButton("Editar");
+		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(btnNewButton_4, "cell 1 5,grow");
+		
+		JButton btnNewButton_5 = new JButton("Excluir");
+		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(btnNewButton_5, "cell 4 5,grow");
+		
+		JButton btnNewButton_6 = new JButton("     Voltar       ");
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuPrincipal mp = new MenuPrincipal();
+				mp.setLocationRelativeTo(null);
+				mp.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_6.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(btnNewButton_6, "cell 7 5,alignx trailing,growy");
 
 		JButton btnNewButton = new RoundButton("Entrar");
 		btnNewButton.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-login-arredondado-30.png"));

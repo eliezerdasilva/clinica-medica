@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -53,6 +54,7 @@ public class TelaLogin extends JFrame {
 			public void run() {
 				try {
 					TelaLogin frame = new TelaLogin();
+					frame.setMinimumSize(new Dimension(1000, 400));
 					frame.setExtendedState(MAXIMIZED_BOTH);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -68,7 +70,7 @@ public class TelaLogin extends JFrame {
 	public TelaLogin() {
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
-		setTitle("Tala de login");
+		setTitle("Tela de login");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
@@ -79,6 +81,7 @@ public class TelaLogin extends JFrame {
 		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 
 
 
 		contentPane = new JPanel();
@@ -233,7 +236,7 @@ public class TelaLogin extends JFrame {
 
 					if (login != null) {
 */
-						TelaCadastroPacient telaFunc = new TelaCadastroPacient();
+						MenuPrincipal telaFunc = new MenuPrincipal();
 						telaFunc.setLocationRelativeTo(null);
 						telaFunc.setVisible(true);
 						dispose();
@@ -253,6 +256,11 @@ public class TelaLogin extends JFrame {
 		btnNewButton.setBackground(new Color(51, 153, 51));
 		panel_3.add(btnNewButton, "cell 1 1,grow");
 		contentPane.setLayout(gl_contentPane);
+	}
+
+	private void setMinimumSize(int i, int j) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

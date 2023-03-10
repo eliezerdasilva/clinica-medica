@@ -105,7 +105,7 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 				String telefone = rs.getString("telefone");
 				Date dataNascimento = rs.getDate("datA");
 				int endereco = rs.getInt("endereco_cep");
-				rs.getArray(endereco)
+				rs.getArray(endereco);
 				int numero = rs.getInt("numero");
 				String complemento = rs.getString("complemento");
 				

@@ -45,6 +45,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -59,23 +60,13 @@ public class Agenda extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Agenda frame = new Agenda();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	
 	public Agenda() {
+		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
-		setTitle("Tala de login");
+		setTitle("Tela de Cadastro de Consulta");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
@@ -197,6 +188,14 @@ public class Agenda extends JFrame {
 		panel_3.add(horizontalStrut_1, "cell 0 8");
 		
 		JButton btnNewButton_1 = new JButton("Voltar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuPrincipal mp = new MenuPrincipal();
+				mp.setLocationRelativeTo(null);
+				mp.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_3.add(btnNewButton_1, "cell 0 8,grow");
 		

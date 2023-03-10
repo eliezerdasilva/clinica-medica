@@ -35,6 +35,8 @@ import javax.swing.Box;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaTabela extends JFrame {
 
@@ -64,7 +66,7 @@ public class TelaTabela extends JFrame {
 	 */
 	public TelaTabela() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
-		setTitle("Tala de login");
+		setTitle("Tela lista de Usuário");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
@@ -178,6 +180,16 @@ public class TelaTabela extends JFrame {
 		panel_3.add(horizontalStrut_1, "cell 1 5");
 		
 		JButton btnNewButton_1 = new JButton("Voltar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				MenuPrincipal mp = new MenuPrincipal();
+				mp.setLocationRelativeTo(null);
+				mp.setVisible(true);
+				dispose();
+			
+			}
+		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_3.add(btnNewButton_1, "cell 1 5,grow");
 		contentPane.setLayout(gl_contentPane);

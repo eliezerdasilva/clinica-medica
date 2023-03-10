@@ -56,7 +56,7 @@ public abstract class Pessoa {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-
+	
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -64,6 +64,8 @@ public abstract class Pessoa {
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+
+	
 
 	public String getTelefone() {
 		return telefone;
