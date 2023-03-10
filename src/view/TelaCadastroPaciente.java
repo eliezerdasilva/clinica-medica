@@ -345,11 +345,139 @@ public class TelaCadastroPaciente extends JFrame {
 		JButton btnNewButton_6 = new JButton("     Voltar       ");
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuPrincipal mp = new MenuPrincipal();
-				mp.setLocationRelativeTo(null);
-				mp.setVisible(true);
-				dispose();
+
+				
+				
+			
+				String nome = txtNome.getText();
+				String cpf = txtCpf.getText();
+				String sexo = txtSexo.getText();
+				String email = txtEmail.getText();
+				String telefone = txtTelefone.getText();
+				String profissao = txtProfissao.getText();
+				String convenio = txtConvenio.getText();
+				String dataNascimento = txtDataNasciemento.getText();
+				String complemento =  txtComplemento.getText();
+				String numero = txtNumero.getText();
+				
+				//String cep = String.valueOf(resultado.);
+				
+					
+					if(nome == null || nome.trim() == "" || nome.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Nome Vazio", "Nome Vazio", JOptionPane.ERROR_MESSAGE);
+					}else {
+						//manipular nome
+					}
+					
+
+					if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
+							
+					} else {
+						//TRANSFORMAR EM STRING
+						//MANIPULAR CPF
+					}
+				
+
+						if (sexo == null || sexo.trim() == "" || sexo.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Vazio", JOptionPane.ERROR_MESSAGE);
+						} else if (sexo != "F" && sexo != "M") {
+							JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Invalido", JOptionPane.ERROR_MESSAGE);
+						} else {
+							//MANIPULAR SEXO
+						}
+			
+
+					
+
+						if (email == null || email.trim() == "" || email.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "E-mail Vazio" ,"E-mail Vazio", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR EMAIL
+						}
+					
+
+					
+
+						if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Telefone Vazio" ,"Telefone Vazio", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR TELEFONE
+						}
+
+					
+
+					
+
+						if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Profissao Vazia" ,"Profissao Vazia", JOptionPane.ERROR_MESSAGE);	
+						}else {
+							//MANIPULAR PROFISSAO
+						}
+
+						
+
+					
+
+						if (convenio == null || convenio.trim() == "" || convenio.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Convenio Vazia" ,"Convenio Vazia", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR CONVENIO
+						}
+
+					
+
+						if (dataNascimento == null || dataNascimento.trim() == "" || dataNascimento.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Data Vazia" ,"Data Vazia", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR DATA
+						}
+
+				
+						
+						if (complemento == null || complemento.trim() == "" || complemento.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Complemento Vazia" ,"Complemento Vazio", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR COMPLEMENTO
+						}
+
+
+					
+
+						if (numero == null || numero.trim() == "" || numero.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Numero Vazia" ,"Numero Vazio", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//MANIPULAR NUMERO
+						}
+
+				
+				
+			
+				
+				
+			
+				//Endereco resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
+				
+				//if(resultado != null) {
+				
+				//Paciente paciente = new Paciente(nome,sexo,endereco, cpf, dataNascimento,
+					//	telefone, email,  rg,   profissao,  convenio) {
+					
+				}/*
+					super(id, nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg)
+						(nome,cpf,sexo,endereco, email,telefone,email,telefone,profissao,convenio, dataNascimento,);
+				//Endereco endereco = EnderecoDAO.buscarEnderecoPorCep();
+				}else
+					enderecoDao.
+				}
+				Paciente paciente = new Paciente();
+				paciente.setEndereco(endereco);
+				*/
+				
+			//}
+
+	
 			}
+
 		});
 		btnNewButton_6.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton_6, "cell 7 5,alignx trailing,growy");
@@ -369,6 +497,7 @@ public class TelaCadastroPaciente extends JFrame {
 			}
 		});
 	}
+
 }
 
 
