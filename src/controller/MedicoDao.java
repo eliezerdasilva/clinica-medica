@@ -37,7 +37,7 @@ public class MedicoDao implements InterfaceMedico{
 
 	@Override
 	public boolean alterarMedico(Medico medico) {
-		// TODO Auto-generated method stub
+		//teste
 		return false;
 	}
 
