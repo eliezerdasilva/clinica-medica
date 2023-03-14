@@ -349,7 +349,7 @@ public class TelaCadastroPaciente extends JFrame {
 				
 				
 			
-			/*	String nome = txtNome.getText();
+				String nome = txtNome.getText();
 				String cpf = txtCpf.getText();
 				String sexo = txtSexo.getText();
 				String email = txtEmail.getText();
@@ -359,19 +359,20 @@ public class TelaCadastroPaciente extends JFrame {
 				String dataNascimento = txtDataNasciemento.getText();
 				String complemento =  txtComplemento.getText();
 				String numero = txtNumero.getText();
+				String erro;
 				
 				//String cep = String.valueOf(resultado.);
 				
 					
 					if(nome == null || nome.trim() == "" || nome.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nome Vazio", "Nome Vazio", JOptionPane.ERROR_MESSAGE);
+						erro = "Nome Vazio";
 					}else {
 						//manipular nome
 					}
 					
 
 					if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
-							
+						erro += "CPF Vazio";
 					} else {
 						//TRANSFORMAR EM STRING
 						//MANIPULAR CPF
@@ -379,9 +380,9 @@ public class TelaCadastroPaciente extends JFrame {
 				
 
 						if (sexo == null || sexo.trim() == "" || sexo.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Vazio", JOptionPane.ERROR_MESSAGE);
+							erro += "Sexo Vazio";
 						} else if (sexo != "F" && sexo != "M") {
-							JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Invalido", JOptionPane.ERROR_MESSAGE);
+							erro += "Sexo Inválido";
 						} else {
 							//MANIPULAR SEXO
 						}
@@ -390,7 +391,7 @@ public class TelaCadastroPaciente extends JFrame {
 					
 
 						if (email == null || email.trim() == "" || email.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "E-mail Vazio" ,"E-mail Vazio", JOptionPane.ERROR_MESSAGE);
+							erro += "Email Vazio";
 						}else {
 							//MANIPULAR EMAIL
 						}
@@ -399,7 +400,7 @@ public class TelaCadastroPaciente extends JFrame {
 					
 
 						if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Telefone Vazio" ,"Telefone Vazio", JOptionPane.ERROR_MESSAGE);
+							erro += "Telefone Vazio";
 						}else {
 							//MANIPULAR TELEFONE
 						}
@@ -409,7 +410,7 @@ public class TelaCadastroPaciente extends JFrame {
 					
 
 						if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Profissao Vazia" ,"Profissao Vazia", JOptionPane.ERROR_MESSAGE);	
+							erro += "Profissão Vazia";	
 						}else {
 							//MANIPULAR PROFISSAO
 						}
@@ -419,7 +420,7 @@ public class TelaCadastroPaciente extends JFrame {
 					
 
 						if (convenio == null || convenio.trim() == "" || convenio.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Convenio Vazia" ,"Convenio Vazia", JOptionPane.ERROR_MESSAGE);
+							erro += "Convenio Vazio";
 						}else {
 							//MANIPULAR CONVENIO
 						}
@@ -427,7 +428,7 @@ public class TelaCadastroPaciente extends JFrame {
 					
 
 						if (dataNascimento == null || dataNascimento.trim() == "" || dataNascimento.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Data Vazia" ,"Data Vazia", JOptionPane.ERROR_MESSAGE);
+							erro += "Data de Nascimento Vazia";
 						}else {
 							//MANIPULAR DATA
 						}
@@ -435,7 +436,7 @@ public class TelaCadastroPaciente extends JFrame {
 				
 						
 						if (complemento == null || complemento.trim() == "" || complemento.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Complemento Vazia" ,"Complemento Vazio", JOptionPane.ERROR_MESSAGE);
+							erro += "Complemento Vazio";	
 						}else {
 							//MANIPULAR COMPLEMENTO
 						}
@@ -444,17 +445,21 @@ public class TelaCadastroPaciente extends JFrame {
 					
 
 						if (numero == null || numero.trim() == "" || numero.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Numero Vazia" ,"Numero Vazio", JOptionPane.ERROR_MESSAGE);
+							erro += "Numero Vazio";
 						}else {
 							//MANIPULAR NUMERO
 						}
 
-				
+						
+						
+						if (erro != null || erro.trim() != "") {
+							JOptionPane.showMessageDialog(null, "erro", erro, JOptionPane.ERROR_MESSAGE);
+						}
 				
 			
 				
 				
-			
+			/*
 				//Endereco resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
 				
 				//if(resultado != null) {
