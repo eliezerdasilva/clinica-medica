@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Endereco;
+import model.Estado;
 
 public interface IEnderecoDao {
 	
@@ -12,6 +13,6 @@ public interface IEnderecoDao {
 	
 	public boolean InserirEndereco(Endereco endereco);
 	
-	public ArrayList<String> ConsultaEstadoCidade();
+	public ArrayList<Estado> ConsultaEstadoCidade();
 
 }

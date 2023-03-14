@@ -25,7 +25,7 @@ public class MedicoDao implements InterfaceMedico{
 			stm.setString(5 , medico.getTelefone());
 			stm.setLong(6, medico.getCrm());
 			stm.setString(7, medico.getEspecializacao());
-			stm.setDate(8,medico.getDataNascimento());
+			//stm.setDate(8,medico.getDataNascimento());
 			retorno = stm.executeUpdate();
 			
 		} catch (Exception e) {

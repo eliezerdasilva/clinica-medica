@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Paciente extends Pessoa {
 
@@ -18,7 +19,7 @@ public class Paciente extends Pessoa {
 		this.profissao = profissao;
 		this.convenio = convenio;
 	}
-	public Paciente(String nome, String sexo, Endereco endereco, Long cpf, Date dataNascimento, String telefone,
+	public Paciente(String nome, String sexo, Endereco endereco, Long cpf, LocalDate dataNascimento, String telefone,
 			String email, String rg, String observacao, String profissao, String convenio) {
 		super(nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg);
 		this.observacao = observacao;

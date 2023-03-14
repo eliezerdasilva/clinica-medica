@@ -3,10 +3,10 @@ package model;
 public class Endereco {
 
 	private int cep;
-	private String estado;
 	private String bairro;
 	private String cidade;
 	private String rua;
+	private Estado estado;
 	
 
 	
@@ -30,7 +30,7 @@ public class Endereco {
 	}
 	
 
-	public Endereco(int cep, String estado, String bairro, String cidade, String rua) {
+	public Endereco(int cep, Estado estado, String bairro, String cidade, String rua) {
 		super();
 		this.cep = cep;
 		this.estado = estado;
@@ -82,11 +82,11 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 

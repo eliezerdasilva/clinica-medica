@@ -28,7 +28,7 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 			stm.setString(2, funcionario.getNome());
 			stm.setString(3, funcionario.getSexo());
 			stm.setString(4, funcionario.getTelefone());
-			stm.setDate(5, funcionario.getDataNascimento());
+			//stm.setDate(5, funcionario.getDataNascimento());
 			retorno = stm.executeUpdate();
 
 		} catch (Exception e) {
@@ -75,7 +75,7 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 			stm.setString(1, funcionario.getNome());
 			stm.setString(2, funcionario.getSexo());
 			stm.setString(3, funcionario.getTelefone());
-			stm.setDate(4, funcionario.getDataNascimento());
+			//stm.setDate(4, funcionario.getDataNascimento());
 				
 			stm.executeUpdate();
 			return true;
@@ -113,7 +113,7 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 				Funcionario f = new Funcionario();
 				f.setComplemento(complemento);
 				f.setCpf(cpf);
-				f.setDataNascimento(dataNascimento);
+			//	f.setDataNascimento(dataNascimento);
 				f.setNome(nome);
 				f.setNumero(numero);
 				f.setSexo(sexo);

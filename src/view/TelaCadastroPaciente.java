@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
@@ -33,13 +32,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 import controller.EnderecoDao;
+import controller.PacienteDao;
 import model.Endereco;
+import model.Estado;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.AncestorEvent;
 
 /**
  * 
@@ -52,6 +52,7 @@ public class TelaCadastroPaciente extends JFrame {
 	private JPanel contentPane;
 	EnderecoDao enderecoDao = new EnderecoDao();
 	Endereco enderecoPronto = null;
+	PacienteDao pacienteDao = new PacienteDao();
 	private JTextField txtNome;
 	private JTextField txtEmail;
 	private JTextField txtProfissao;
@@ -66,8 +67,7 @@ public class TelaCadastroPaciente extends JFrame {
 	private JTextField txtComplemento;
 	private JTextField txtBuscaCep;
 	private JTextField txtBuscaNome;
-	
-	
+	protected String[] convenios;
 
 	/**
 	 * Create the frame.
@@ -75,7 +75,7 @@ public class TelaCadastroPaciente extends JFrame {
 	public TelaCadastroPaciente() {
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
-		setTitle("Tala de login");
+		setTitle("Tela cadastro de paciente");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
@@ -171,6 +171,23 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_3.add(lblNewLabel_7, "cell 5 1,alignx trailing");
 		
 		JComboBox cbxConvenio = new JComboBox();
+		cbxConvenio.addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent event) {
+				ArrayList<String> convenios = new ArrayList<>();
+				convenios = pacienteDao.consultaConvenio();
+				for(String convenio : convenios) {
+					cbxConvenio.addItem(convenio);
+				}
+
+
+			}
+			public void ancestorMoved(AncestorEvent event) {
+			}
+			public void ancestorRemoved(AncestorEvent event) {
+			}
+		});
+		
+		
 		panel_3.add(cbxConvenio, "cell 6 1,grow");
 		
 		JLabel lblNewLabel_2 = new JLabel("E-mail :");
@@ -244,11 +261,10 @@ public class TelaCadastroPaciente extends JFrame {
 		JComboBox cbxEstado = new JComboBox();
 		cbxEstado.addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent event) {
-				ArrayList<String> estados = new ArrayList<>();
+				ArrayList<Estado> estados = new ArrayList<>();
 				estados = enderecoDao.ConsultaEstadoCidade();
-				for(String estado : estados) {
-					cbxEstado.addItem(estado);
-				}
+				EstadoComboBoxModel estadoComboBoxModel = new EstadoComboBoxModel(estados);
+				cbxEstado.setModel(estadoComboBoxModel);
 
 			}
 			public void ancestorMoved(AncestorEvent event) {
@@ -313,7 +329,8 @@ public class TelaCadastroPaciente extends JFrame {
 				Integer cep = Integer.parseInt(txtCep.getText());
 				String bairro = txtBairro.getText();
 				String cidade = txtMunicipio.getText();
-				String estado = cbxEstado.getToolTipText();
+				Estado estado = (Estado) cbxEstado.getSelectedItem();
+				
 
 				//TODO instância para os get e setrs do endereco
 				Endereco consultaEndereco = new Endereco(cep);
@@ -336,7 +353,7 @@ public class TelaCadastroPaciente extends JFrame {
 					String ruaNova = resultado.getRua();
 					String bairroNovo = resultado.getBairro();
 					String cidadeNova = resultado.getCidade();
-					String estadoNovo = resultado.getEstado();
+					Estado estadoNovo = resultado.getEstado();
 
 					enderecoPronto = new Endereco();
 					enderecoPronto.setCep(cepNovo);
@@ -348,6 +365,9 @@ public class TelaCadastroPaciente extends JFrame {
 					txtMunicipio.setText(enderecoPronto.getCidade());
 					txtBairro.setText(enderecoPronto.getBairro());
 					txtRua.setText(enderecoPronto.getRua());
+					System.out.println(enderecoPronto.getEstado());
+					cbxEstado.setSelectedItem(enderecoPronto.getEstado());
+			
 					//cbxEstado.setText()
 					
 					
@@ -372,11 +392,139 @@ public class TelaCadastroPaciente extends JFrame {
 		JButton btnCadastra = new JButton("Cadastrar");
 		btnCadastra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+					String nome = txtNome.getText();
+					String cpf = txtCpf.getText();
+					if (jrbMasc.isSelected()) {
+						  
+	                    String sexo = "Masculino";
+	                }
+	  
+	                else if (jrbFemi.isSelected()) {
+	  
+	                	String sexo = "Feminino";
+	                }
+					String email = txtEmail.getText();
+					String telefone = txtTelefone.getText();
+					String profissao = txtProfissao.getText();
+					//String convenio = txtConvenio.getText();
+					//String dataNascimento = txtDataNasciemento.getText();
+					String complemento =  txtComplemento.getText();
+					//String numero = txtNumero.getText();
+					
+					//String cep = String.valueOf(resultado.);
+					
+						
+						if(nome == null || nome.trim() == "" || nome.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Nome Vazio", "Nome Vazio", JOptionPane.ERROR_MESSAGE);
+						}else {
+							//manipular nome
+						}
+						
+
+						if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
+								
+						} else {
+							//TRANSFORMAR EM STRING
+							//MANIPULAR CPF
+						}
+					
+
+							/*if (sexo == null || sexo.trim() == "" || sexo.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Vazio", JOptionPane.ERROR_MESSAGE);
+							} else if (sexo != "F" && sexo != "M") {
+								JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Invalido", JOptionPane.ERROR_MESSAGE);
+							} else {
+								//MANIPULAR SEXO
+							}*/
 				
+
+						
+
+							if (email == null || email.trim() == "" || email.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "E-mail Vazio" ,"E-mail Vazio", JOptionPane.ERROR_MESSAGE);
+							}else {
+								//MANIPULAR EMAIL
+							}
+						
+
+						
+
+							if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Telefone Vazio" ,"Telefone Vazio", JOptionPane.ERROR_MESSAGE);
+							}else {
+								//MANIPULAR TELEFONE
+							}
+
+						
+
+						
+
+							if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Profissao Vazia" ,"Profissao Vazia", JOptionPane.ERROR_MESSAGE);	
+							}else {
+								//MANIPULAR PROFISSAO
+							}
+
+							
+
+						
+
+						/*	if (convenio == null || convenio.trim() == "" || convenio.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Convenio Vazia" ,"Convenio Vazia", JOptionPane.ERROR_MESSAGE);
+							}else {
+								//MANIPULAR CONVENIO
+							}
+
+						
+
+							if (dataNascimento == null || dataNascimento.trim() == "" || dataNascimento.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Data Vazia" ,"Data Vazia", JOptionPane.ERROR_MESSAGE);
+							}else {
+								//MANIPULAR DATA
+							}*/
+
+					
+							
+							if (complemento == null || complemento.trim() == "" || complemento.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Complemento Vazia" ,"Complemento Vazio", JOptionPane.ERROR_MESSAGE);
+							}else {
+								//MANIPULAR COMPLEMENTO
+							}
+
+
+						
+
+							/*if (numero == null || numero.trim() == "" || numero.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Numero Vazia" ,"Numero Vazio", JOptionPane.ERROR_MESSAGE);
+							}else {
+								//MANIPULAR NUMERO
+							}*/
+
+					
+					
 				
-				
-				
-				
+					
+					
+				/*
+					Endereco resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
+					
+					if(resultado != null) {
+					
+					Paciente paciente = new Paciente(nome,sexo,endereco, cpf, dataNascimento,
+							telefone, email,  rg,   profissao,  convenio) {
+						
+					}
+						super(id, nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg)
+							(nome,cpf,sexo,endereco, email,telefone,email,telefone,profissao,convenio, dataNascimento,);
+					Endereco endereco = EnderecoDAO.buscarEnderecoPorCep();
+					}else
+						enderecoDao.
+					}
+					Paciente paciente = new Paciente();
+					paciente.setEndereco(endereco);
+				*/
+					
 			}
 		});
 		btnCadastra.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -422,138 +570,12 @@ public class TelaCadastroPaciente extends JFrame {
 		
 		JButton btnNewButton_6 = new JButton("     Voltar       ");
 		btnNewButton_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+
+	public void actionPerformed(ActionEvent e) {
 
 				
 				
 			
-			/*	String nome = txtNome.getText();
-				String cpf = txtCpf.getText();
-				String sexo = txtSexo.getText();
-				String email = txtEmail.getText();
-				String telefone = txtTelefone.getText();
-				String profissao = txtProfissao.getText();
-				String convenio = txtConvenio.getText();
-				String dataNascimento = txtDataNasciemento.getText();
-				String complemento =  txtComplemento.getText();
-				String numero = txtNumero.getText();
-				
-				//String cep = String.valueOf(resultado.);
-				
-					
-					if(nome == null || nome.trim() == "" || nome.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nome Vazio", "Nome Vazio", JOptionPane.ERROR_MESSAGE);
-					}else {
-						//manipular nome
-					}
-					
-
-					if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
-							
-					} else {
-						//TRANSFORMAR EM STRING
-						//MANIPULAR CPF
-					}
-				
-
-						if (sexo == null || sexo.trim() == "" || sexo.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Vazio", JOptionPane.ERROR_MESSAGE);
-						} else if (sexo != "F" && sexo != "M") {
-							JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Invalido", JOptionPane.ERROR_MESSAGE);
-						} else {
-							//MANIPULAR SEXO
-						}
-			
-
-					
-
-						if (email == null || email.trim() == "" || email.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "E-mail Vazio" ,"E-mail Vazio", JOptionPane.ERROR_MESSAGE);
-						}else {
-							//MANIPULAR EMAIL
-						}
-					
-
-					
-
-						if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Telefone Vazio" ,"Telefone Vazio", JOptionPane.ERROR_MESSAGE);
-						}else {
-							//MANIPULAR TELEFONE
-						}
-
-					
-
-					
-
-						if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Profissao Vazia" ,"Profissao Vazia", JOptionPane.ERROR_MESSAGE);	
-						}else {
-							//MANIPULAR PROFISSAO
-						}
-
-						
-
-					
-
-						if (convenio == null || convenio.trim() == "" || convenio.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Convenio Vazia" ,"Convenio Vazia", JOptionPane.ERROR_MESSAGE);
-						}else {
-							//MANIPULAR CONVENIO
-						}
-
-					
-
-						if (dataNascimento == null || dataNascimento.trim() == "" || dataNascimento.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Data Vazia" ,"Data Vazia", JOptionPane.ERROR_MESSAGE);
-						}else {
-							//MANIPULAR DATA
-						}
-
-				
-						
-						if (complemento == null || complemento.trim() == "" || complemento.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Complemento Vazia" ,"Complemento Vazio", JOptionPane.ERROR_MESSAGE);
-						}else {
-							//MANIPULAR COMPLEMENTO
-						}
-
-
-					
-
-						if (numero == null || numero.trim() == "" || numero.isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Numero Vazia" ,"Numero Vazio", JOptionPane.ERROR_MESSAGE);
-						}else {
-							//MANIPULAR NUMERO
-						}
-
-				
-				
-			
-				
-				
-			
-				//Endereco resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
-				
-				//if(resultado != null) {
-				
-				//Paciente paciente = new Paciente(nome,sexo,endereco, cpf, dataNascimento,
-					//	telefone, email,  rg,   profissao,  convenio) {
-					
-				}/*
-					super(id, nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg)
-						(nome,cpf,sexo,endereco, email,telefone,email,telefone,profissao,convenio, dataNascimento,);
-				//Endereco endereco = EnderecoDAO.buscarEnderecoPorCep();
-				}else
-					enderecoDao.
-				}
-				Paciente paciente = new Paciente();
-				paciente.setEndereco(endereco);
-				*/
-				
-			//}
-
-	
 			}
 
 		});
@@ -577,5 +599,3 @@ public class TelaCadastroPaciente extends JFrame {
 	}
 
 }
-
-

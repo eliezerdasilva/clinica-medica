@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.Paciente;
 
 public interface InterfacePacienteDao {
@@ -12,6 +14,8 @@ public interface InterfacePacienteDao {
 	public boolean alterarPaciente(Paciente paciente);
 	
 	public Paciente consultarPaciente(Paciente paciente);
+	
+	public ArrayList<String> consultaConvenio();
 	
 
 

@@ -1,16 +1,13 @@
 package controller;
 
-import java.sql.Array;
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import model.Endereco;
-import model.Usuario;
+import model.Estado;
 
 /**
  * Classe que representa o controller de endereço
@@ -35,7 +32,7 @@ public class EnderecoDao implements IEnderecoDao {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
-			PreparedStatement ps = c.prepareStatement("select * from endereco where cep = ? ");
+			PreparedStatement ps = c.prepareStatement("select endereco.*, estados.id as id_estado, estados.nome as nome_estado, estados.uf as uf_estado from endereco inner join estados on estados.id = endereco.id_estado where cep = ? ");
 			ps.setInt(1, endereco.getCep());
 
 			ResultSet rs = ps.executeQuery();
@@ -45,18 +42,27 @@ public class EnderecoDao implements IEnderecoDao {
 				int cep = rs.getInt("cep");
 				String cidade = rs.getString("cidade");
 				String bairro = rs.getString("bairro");
-				String estado = rs.getString("estado");
 				String rua = rs.getString("rua");
-
+				
+				String nome_estado = rs.getString("nome_estado");
+				String uf_estado = rs.getString("uf_estado");
+				int id_estado = rs.getInt("id_estado");
+				
+				Estado e = new Estado();
+				e.setId(id_estado);
+				e.setNome(nome_estado);
+				e.setUf(uf_estado);
+				
 				enderecoConfirmado.setCep(cep);
 				enderecoConfirmado.setCidade(cidade);
 				enderecoConfirmado.setBairro(bairro);
-				enderecoConfirmado.setEstado(estado);
+				enderecoConfirmado.setEstado(e);
 				enderecoConfirmado.setRua(rua);
 
 				return enderecoConfirmado;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			// TODO: handle exception
 		}
 		return null;
@@ -68,13 +74,13 @@ public class EnderecoDao implements IEnderecoDao {
 		Connection c = con.conectar();
 		PreparedStatement st = null;
 		try {
-			String query = "INSERT INTO endereco (cep, cidade,bairro,estado,rua)values(?,?,?,?,?);";
+			String query = "INSERT INTO endereco (cep, cidade,bairro,id_estado,rua)values(?,?,?,?,?);";
 			PreparedStatement stm = c.prepareStatement(query);
 
 			stm.setLong(1, endereco.getCep());
 			stm.setString(2, endereco.getCidade());
 			stm.setString(3, endereco.getBairro());
-			stm.setString(4, endereco.getEstado());
+			stm.setInt(4, endereco.getEstado().getId());
 			stm.setString(5, endereco.getRua());
 
 			int valida = stm.executeUpdate();
@@ -88,7 +94,7 @@ public class EnderecoDao implements IEnderecoDao {
 	}
 
 	@Override
-	public ArrayList<String> ConsultaEstadoCidade() {
+	public ArrayList<Estado> ConsultaEstadoCidade() {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
@@ -96,9 +102,14 @@ public class EnderecoDao implements IEnderecoDao {
 
 			ResultSet rs = ps.executeQuery();
 
-			ArrayList<String> endereco = new ArrayList<>();
+			ArrayList<Estado> endereco = new ArrayList<Estado>();
 			while (rs.next()) {
-				endereco.add(rs.getString("nome"));
+				Estado estado = new Estado();
+				
+				estado.setId(rs.getInt("id"));
+				estado.setNome(rs.getString("nome"));
+				estado.setUf(rs.getString("uf"));
+				endereco.add(estado);
 
 			}
 			return endereco;
