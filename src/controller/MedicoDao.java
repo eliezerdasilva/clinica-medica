@@ -45,14 +45,19 @@ public class MedicoDao implements InterfaceMedico {
 		try {
 			stm = c.prepareStatement (
 					
-					"UPDATE seller SET nome = ?, sexo = ?, telefone = ?, data_nascimento = ? WHERE cpf = ?"
+					"UPDATE medico SET nome = ?, sexo = ?, email = ?, telefone = ?, crm = ?, especializacao = ?, data_nascimento = ? WHERE cpf = ?"
 					);
 			
 			stm.setString(1, medico.getNome());
 			stm.setString(2, medico.getSexo());
-			stm.setString(3, medico.getTelefone());
-			stm.setDate(4, medico.getDataNascimento());
+			stm.setString(3, medico.getEmail());
+			stm.setString(4, medico.getTelefone());
+			stm.setLong(5, medico.getCrm());
+			stm.setString(6, medico.getEspecializacao());
+			stm.setDate(7, medico.getDataNascimento());
+			stm.setLong(8, medico.getCpf());
 				
+			
 			stm.executeUpdate();
 			return true;
 		} catch (Exception e) {
