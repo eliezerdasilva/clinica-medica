@@ -1,10 +1,13 @@
 package controller;
 
+import java.sql.Array;
 import java.sql.Connection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Endereco;
 import model.Usuario;
@@ -82,6 +85,28 @@ public class EnderecoDao implements IEnderecoDao {
 		}
 		con.fecharConexao();
 		return false;
+	}
+
+	@Override
+	public ArrayList<String> ConsultaEstadoCidade() {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		try {
+			PreparedStatement ps = c.prepareStatement("select * from estados");
+
+			ResultSet rs = ps.executeQuery();
+
+			ArrayList<String> endereco = new ArrayList<>();
+			while (rs.next()) {
+				endereco.add(rs.getString("nome"));
+
+			}
+			return endereco;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
 	}
 
 }

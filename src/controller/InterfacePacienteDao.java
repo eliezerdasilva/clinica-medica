@@ -12,6 +12,7 @@ public interface InterfacePacienteDao {
 	public boolean alterarPaciente(Paciente paciente);
 	
 	public Paciente consultarPaciente(Paciente paciente);
+	
 
 
 }

@@ -10,7 +10,7 @@ public class Endereco {
 	
 
 	
-	public Endereco() {
+	public Endereco(String string) {
 	
 	}
 	
@@ -38,6 +38,16 @@ public class Endereco {
 		this.cidade = cidade;
 		this.rua = rua;
 	}
+
+
+
+
+
+
+	public Endereco() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 
 	public String getRua() {

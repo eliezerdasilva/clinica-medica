@@ -101,9 +101,48 @@ CREATE TABLE  `clinica`.`funcionario` (
     REFERENCES `clinica`.`endereco` (`cep`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
 
+   
+CREATE TABLE IF NOT EXISTS `estados` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(75) DEFAULT NULL,
+  `uf` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) 
+
+
         insert into usuario(idusuario, login, senha, tipo_usuario) values (1,"teste","teste",1);
         insert into usuario(idusuario, login, senha, tipo_usuario) values (2,"teste","opa",2);
     insert into endereco (cep, cidade, bairro,estado, rua) values (89110000,"Gaspar","centro","Santa Catarina","Maringa");
 	insert into endereco (cep, cidade, bairro,estado, rua) values (89110001,"Gaspar","centro","Santa Catarina","Itajai");    
 	insert into endereco (cep, cidade, bairro,estado, rua) values (89110002,"Gaspar","centro","Santa Catarina","Bela vista");
 	insert into endereco (cep, cidade, bairro,estado, rua) values (89110003,"Gaspar","centro","Santa Catarina","Margem Esquerda");
+
+
+INSERT INTO `estados` (`id`, `nome`, `uf`) VALUES
+(1, 'Acre', 'AC'),
+(2, 'Alagoas', 'AL'),
+(3, 'Amazonas', 'AM'),
+(4, 'AmapÃ¡', 'AP'),
+(5, 'Bahia', 'BA'),
+(6, 'CearÃ¡', 'CE'),
+(7, 'Distrito Federal', 'DF'),
+(8, 'EspÃ­rito Santo', 'ES'),
+(9, 'GoiÃ¡s', 'GO'),
+(10, 'MaranhÃ£o', 'MA'),
+(11, 'Minas Gerais', 'MG'),
+(12, 'Mato Grosso do Sul', 'MS'),
+(13, 'Mato Grosso', 'MT'),
+(14, 'ParÃ¡', 'PA'),
+(15, 'ParaÃ­ba', 'PB'),
+(16, 'Pernambuco', 'PE'),
+(17, 'PiauÃ­', 'PI'),
+(18, 'ParanÃ¡', 'PR'),
+(19, 'Rio de Janeiro', 'RJ'),
+(20, 'Rio Grande do Norte', 'RN'),
+(21, 'RondÃ´nia', 'RO'),
+(22, 'Roraima', 'RR'),
+(23, 'Rio Grande do Sul', 'RS'),
+(24, 'Santa Catarina', 'SC'),
+(25, 'Sergipe', 'SE'),
+(26, 'SÃ£o Paulo', 'SP'),
+(27, 'Tocantins', 'TO');

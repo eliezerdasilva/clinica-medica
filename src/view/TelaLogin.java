@@ -227,20 +227,20 @@ public class TelaLogin extends JFrame {
 				String Senha = txtSenha.getText();
 				Usuario login = null;
 				
-				/*
+				
 				if (!Usuario.isEmpty() && !Senha.isEmpty()) {
 					LoginDao loginDao;
 					loginDao = new LoginDao();
 
 					login = loginDao.consultarLogin(new Usuario(Usuario, Senha));
 
-					if (login != null) {
-*/
+				if (login != null) {
+
 						MenuPrincipal telaFunc = new MenuPrincipal();
 						telaFunc.setLocationRelativeTo(null);
 						telaFunc.setVisible(true);
 						dispose();
-/*
+
 					} else {
 
 						JOptionPane.showMessageDialog(null, "Senha ou Usuario incorretos!");
@@ -248,7 +248,7 @@ public class TelaLogin extends JFrame {
 				} else {
 
 					JOptionPane.showMessageDialog(null, "Senha ou Usuario não preenchidos!");
-				}*/
+				}
 			}
 		});
 

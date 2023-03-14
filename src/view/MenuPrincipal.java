@@ -106,9 +106,9 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Paciente");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroPaciente telaFunc = new TelaCadastroPaciente();
-				telaFunc.setLocationRelativeTo(null);
-				telaFunc.setVisible(true);
+				TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente();
+				telaPaciente.setLocationRelativeTo(null);
+				telaPaciente.setVisible(true);
 				dispose();
 			}
 		});

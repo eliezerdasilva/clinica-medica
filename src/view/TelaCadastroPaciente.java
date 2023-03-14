@@ -1,57 +1,45 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Point;
+import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ComponentEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
+import javax.imageio.ImageIO;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import controller.EnderecoDao;
 import model.Endereco;
-import javax.swing.JSeparator;
-import javax.swing.JTextPane;
-import javax.swing.border.MatteBorder;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.Component;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import java.awt.Panel;
-import java.awt.GridLayout;
 import net.miginfocom.swing.MigLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Image;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
 
 /**
  * 
@@ -62,21 +50,22 @@ import java.awt.Image;
  */
 public class TelaCadastroPaciente extends JFrame {
 	private JPanel contentPane;
+	EnderecoDao enderecoDao = new EnderecoDao();
 	Endereco enderecoPronto = null;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_7;
-	private JTextField textField_13;
+	private JTextField txtNome;
+	private JTextField txtEmail;
+	private JTextField txtProfissao;
+	private JTextField txtData;
+	private JTextField txtCpf;
+	private JTextField txtTelefone;
+	private JTextField txtCep;
+	private JTextField txtMunicipio;
+	private JTextField txtBairro;
+	private JTextField txtRua;
+	private JTextField txtNCasa;
+	private JTextField txtComplemento;
+	private JTextField txtBuscaCep;
+	private JTextField txtBuscaNome;
 	
 	
 
@@ -169,9 +158,9 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_1, "cell 0 1,alignx center,growy");
 		
-		textField = new JTextField();
-		panel_3.add(textField, "cell 1 1,grow");
-		textField.setColumns(10);
+		txtNome = new JTextField();
+		panel_3.add(txtNome, "cell 1 1,grow");
+		txtNome.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Data :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -181,16 +170,16 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_7, "cell 5 1,alignx trailing");
 		
-		JComboBox comboBox = new JComboBox();
-		panel_3.add(comboBox, "cell 6 1,grow");
+		JComboBox cbxConvenio = new JComboBox();
+		panel_3.add(cbxConvenio, "cell 6 1,grow");
 		
 		JLabel lblNewLabel_2 = new JLabel("E-mail :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_2, "cell 0 3,alignx center");
 		
-		textField_1 = new JTextField();
-		panel_3.add(textField_1, "cell 1 3,grow");
-		textField_1.setColumns(10);
+		txtEmail = new JTextField();
+		panel_3.add(txtEmail, "cell 1 3,grow");
+		txtEmail.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Cpf :    ");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -200,37 +189,37 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_8, "cell 5 3");
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("M");
-		rdbtnNewRadioButton.setBackground(new Color(240, 255, 240));
-		panel_3.add(rdbtnNewRadioButton, "flowx,cell 6 3,grow");
+		JRadioButton jrbMasc = new JRadioButton("M");
+		jrbMasc.setBackground(new Color(240, 255, 240));
+		panel_3.add(jrbMasc, "flowx,cell 6 3,grow");
 		
 		JLabel lblNewLabel_3 = new JLabel("Profissão :");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_3, "cell 0 5,alignx trailing");
 		
-		textField_2 = new JTextField();
-		panel_3.add(textField_2, "cell 1 5,grow");
-		textField_2.setColumns(10);
+		txtProfissao = new JTextField();
+		panel_3.add(txtProfissao, "cell 1 5,grow");
+		txtProfissao.setColumns(10);
 		
-		textField_3 = new JTextField();
-		panel_3.add(textField_3, "cell 3 1,grow");
-		textField_3.setColumns(22);
+		txtData = new JTextField();
+		panel_3.add(txtData, "cell 3 1,grow");
+		txtData.setColumns(22);
 		
-		textField_4 = new JTextField();
-		panel_3.add(textField_4, "cell 3 3,grow");
-		textField_4.setColumns(23);
+		txtCpf = new JTextField();
+		panel_3.add(txtCpf, "cell 3 3,grow");
+		txtCpf.setColumns(23);
 		
 		JLabel lblNewLabel_6 = new JLabel("Telefone :");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_6, "flowx,cell 3 5");
 		
-		textField_5 = new JTextField();
-		panel_3.add(textField_5, "cell 3 5,grow");
-		textField_5.setColumns(10);
+		txtTelefone = new JTextField();
+		panel_3.add(txtTelefone, "cell 3 5,grow");
+		txtTelefone.setColumns(10);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("F");
-		rdbtnNewRadioButton_1.setBackground(new Color(240, 255, 240));
-		panel_3.add(rdbtnNewRadioButton_1, "cell 6 3,grow");
+		JRadioButton jrbFemi = new JRadioButton("F");
+		jrbFemi.setBackground(new Color(240, 255, 240));
+		panel_3.add(jrbFemi, "cell 6 3,grow");
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
@@ -243,66 +232,155 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_9, "cell 0 1,alignx trailing");
 		
-		textField_6 = new JTextField();
-		panel_5.add(textField_6, "cell 1 1 2 1,grow");
-		textField_6.setColumns(10);
-		
-		JButton btnNewButton_1 = new JButton("Buscar");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_5.add(btnNewButton_1, "cell 3 1 2 1,grow");
+		txtCep = new JTextField();
+		panel_5.add(txtCep, "cell 1 1 2 1,grow");
+		txtCep.setColumns(10);
 		
 		JLabel lblNewLabel_10 = new JLabel("Estado :");
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_10.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_10, "cell 0 3,alignx trailing");
 		
-		JComboBox comboBox_1 = new JComboBox();
-		panel_5.add(comboBox_1, "cell 1 3,grow");
+		JComboBox cbxEstado = new JComboBox();
+		cbxEstado.addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent event) {
+				ArrayList<String> estados = new ArrayList<>();
+				estados = enderecoDao.ConsultaEstadoCidade();
+				for(String estado : estados) {
+					cbxEstado.addItem(estado);
+				}
+
+			}
+			public void ancestorMoved(AncestorEvent event) {
+			}
+			public void ancestorRemoved(AncestorEvent event) {
+			}
+		});
+	
+	
+	
+		panel_5.add(cbxEstado, "cell 1 3,grow");
 		
 		JLabel lblNewLabel_11 = new JLabel("Municipio :");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_11.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_11, "cell 2 3,alignx center");
 		
-		textField_8 = new JTextField();
-		panel_5.add(textField_8, "cell 3 3,grow");
-		textField_8.setColumns(10);
+		txtMunicipio = new JTextField();
+	
+		
+		panel_5.add(txtMunicipio, "cell 3 3,grow");
+		txtMunicipio.setColumns(10);
 		
 		JLabel lblNewLabel_12 = new JLabel("Bairro: ");
 		lblNewLabel_12.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_12, "cell 4 3,alignx trailing,growy");
 		
-		textField_9 = new JTextField();
-		panel_5.add(textField_9, "cell 5 3,grow");
-		textField_9.setColumns(10);
+		txtBairro = new JTextField();
+		panel_5.add(txtBairro, "cell 5 3,grow");
+		txtBairro.setColumns(10);
 		
 		JLabel lblNewLabel_13 = new JLabel("Rua : ");
 		lblNewLabel_13.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_13, "cell 6 3,alignx trailing");
 		
-		textField_10 = new JTextField();
-		panel_5.add(textField_10, "cell 7 3,grow");
-		textField_10.setColumns(10);
+		txtRua = new JTextField();
+		panel_5.add(txtRua, "cell 7 3,grow");
+		txtRua.setColumns(10);
 		
 		JLabel lblNewLabel_14 = new JLabel("N :");
 		lblNewLabel_14.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_14, "cell 0 5,alignx trailing");
 		
-		textField_11 = new JTextField();
-		panel_5.add(textField_11, "cell 1 5,grow");
-		textField_11.setColumns(10);
+		txtNCasa = new JTextField();
+		
+		panel_5.add(txtNCasa, "cell 1 5,grow");
+		txtNCasa.setColumns(10);
 		
 		JLabel lblNewLabel_15 = new JLabel("Complemento :");
 		lblNewLabel_15.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_5.add(lblNewLabel_15, "cell 2 5,alignx center");
 		
-		textField_12 = new JTextField();
-		panel_5.add(textField_12, "cell 3 5 2 1,grow");
-		textField_12.setColumns(10);
+		txtComplemento = new JTextField();
+		panel_5.add(txtComplemento, "cell 3 5 2 1,grow");
+		txtComplemento.setColumns(10);
 		
-		JButton btnNewButton_2 = new JButton("Cadastrar");
-		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_5.add(btnNewButton_2, "cell 1 7 2 1,grow");
+		JButton txtBuscarCep = new JButton("Buscar");
+		txtBuscarCep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO Cidade
+				String rua = txtRua.getText();
+				Integer cep = Integer.parseInt(txtCep.getText());
+				String bairro = txtBairro.getText();
+				String cidade = txtMunicipio.getText();
+				String estado = cbxEstado.getToolTipText();
+
+				//TODO instância para os get e setrs do endereco
+				Endereco consultaEndereco = new Endereco(cep);
+
+				//TODO instâcia para cadastrar um endereco novo
+				Endereco cadastroEndereco;
+
+				//TODO instância para consultar cep cadastrado
+				
+
+				//TODO instância para ver o resultado da busca de cep
+				Endereco resultado = new Endereco();
+				// TODO metodo de consulta
+
+				resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
+
+				 //TODO Setar resultado do banco, se acasso o cep existir 
+				if(resultado != null) {
+					int cepNovo = resultado.getCep();
+					String ruaNova = resultado.getRua();
+					String bairroNovo = resultado.getBairro();
+					String cidadeNova = resultado.getCidade();
+					String estadoNovo = resultado.getEstado();
+
+					enderecoPronto = new Endereco();
+					enderecoPronto.setCep(cepNovo);
+					enderecoPronto.setCidade(cidadeNova);
+					enderecoPronto.setEstado(estadoNovo);
+					enderecoPronto.setRua(ruaNova);
+					enderecoPronto.setBairro(bairroNovo);
+					
+					txtMunicipio.setText(enderecoPronto.getCidade());
+					txtBairro.setText(enderecoPronto.getBairro());
+					txtRua.setText(enderecoPronto.getRua());
+					//cbxEstado.setText()
+					
+					
+					System.out.println("foi");
+
+				//TODO Cadastrar novo cep 
+				}else {
+
+					cadastroEndereco = new Endereco(cep , estado, bairro, cidade, rua);
+					Boolean veroficacaoNovoEndereco = enderecoDao.InserirEndereco(cadastroEndereco);
+					System.out.println("nqa");
+
+
+				}
+			}
+		});
+		txtBuscarCep.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_5.add(txtBuscarCep, "cell 3 1 2 1,grow");
+		
+		
+		
+		JButton btnCadastra = new JButton("Cadastrar");
+		btnCadastra.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+				
+			}
+		});
+		btnCadastra.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_5.add(btnCadastra, "cell 1 7 2 1,grow");
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(240, 255, 240));
@@ -314,21 +392,21 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_16, "cell 0 1,alignx trailing");
 		
-		textField_7 = new JTextField();
-		panel_6.add(textField_7, "cell 1 1,grow");
-		textField_7.setColumns(10);
+		txtBuscaCep = new JTextField();
+		panel_6.add(txtBuscaCep, "cell 1 1,grow");
+		txtBuscaCep.setColumns(10);
 		
 		JLabel lblNewLabel_17 = new JLabel("Nome :");
 		lblNewLabel_17.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_17, "cell 3 1,alignx trailing");
 		
-		textField_13 = new JTextField();
-		panel_6.add(textField_13, "cell 4 1,grow");
-		textField_13.setColumns(10);
+		txtBuscaNome = new JTextField();
+		panel_6.add(txtBuscaNome, "cell 4 1,grow");
+		txtBuscaNome.setColumns(10);
 		
-		JButton btnNewButton_3 = new JButton("Buscar");
-		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_6.add(btnNewButton_3, "cell 6 1,grow");
+		JButton btnBuscaPaciente = new JButton("Buscar");
+		btnBuscaPaciente.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_6.add(btnBuscaPaciente, "cell 6 1,grow");
 		
 		JPanel panel_7 = new JPanel();
 		panel_7.setBorder(new LineBorder(new Color(107, 142, 35), 4));
