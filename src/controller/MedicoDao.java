@@ -48,17 +48,13 @@ public class MedicoDao implements InterfaceMedico {
 		try {
 			stm = c.prepareStatement(
 
-					"UPDATE medico SET nome = ?, sexo = ?, email = ?, telefone = ?, data_nascimento = ?, crm = ?, especializacao = ? cpf = ?, crm_uf = ? WHERE id = ?");
+					"UPDATE medico SET nome = ?, sexo = ?, email = ?, telefone = ?, especializacao = ? WHERE id = ?");
 
 			stm.setString(1, medico.getNome());
 			stm.setString(2, medico.getSexo());
 			stm.setString(3, medico.getEmail());
 			stm.setString(4, medico.getTelefone());
-			stm.setDate(5, Date.valueOf(medico.getDataNascimento()));
-			stm.setLong(6, medico.getCrm());
-			stm.setString(7, medico.getEspecializacao());
-			stm.setLong(8, medico.getCpf());
-			stm.setString(9, medico.getCrmUf());
+			stm.setString(5, medico.getEspecializacao());
 
 			stm.executeUpdate();
 			return true;
@@ -121,9 +117,9 @@ public class MedicoDao implements InterfaceMedico {
 		Connection c = con.conectar();
 
 		try {
-			String query = "DELETE FROM medico WHERE nome = ?";
+			String query = "DELETE FROM medico WHERE cpf = ?";
 			PreparedStatement stm = c.prepareStatement(query);
-			stm.setString(1, medico.getNome());
+			stm.setLong(1, medico.getCpf());
 			stm.executeUpdate();
 			return true;
 		} catch (Exception e) {

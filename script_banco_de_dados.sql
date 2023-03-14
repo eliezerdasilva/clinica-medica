@@ -50,7 +50,6 @@ CREATE TABLE `clinica`.`usuario` (
 -- Table `hospital`.`medico`
 -- -----------------------------------------------------
 CREATE TABLE `clinica`.`medico` (
-  `id` INT(11) NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `sexo` CHAR(1) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -61,7 +60,7 @@ CREATE TABLE `clinica`.`medico` (
   `cpf` BIGINT(20) NOT NULL,
   `crm_uf` CHAR(2) NOT NULL,
   `usuario_idusuario` INT NOT NULL,
-  PRIMARY KEY (`id`, `usuario_idusuario`),
+  PRIMARY KEY (`cpf`),
     FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
 
