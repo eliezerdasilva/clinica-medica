@@ -28,7 +28,7 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 			stm.setString(2, funcionario.getNome());
 			stm.setString(3, funcionario.getSexo());
 			stm.setString(4, funcionario.getTelefone());
-			stm.setDate(5, funcionario.getDataNascimento());
+			stm.setDate(5, Date.valueOf(funcionario.getDataNascimento()));
 			retorno = stm.executeUpdate();
 
 		} catch (Exception e) {
@@ -69,13 +69,14 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 		try {
 			stm = c.prepareStatement (
 					
-					"UPDATE seller SET nome = ?, sexo = ?, telefone = ?, data_nascimento = ? WHERE cpf = ?"
+					"UPDATE funcionario SET nome = ?, sexo = ?, telefone = ?, data_nascimento = ? WHERE cpf = ?"
 					);
 			
 			stm.setString(1, funcionario.getNome());
 			stm.setString(2, funcionario.getSexo());
+			stm.setString(2, funcionario.getSexo());
 			stm.setString(3, funcionario.getTelefone());
-			stm.setDate(4, funcionario.getDataNascimento());
+			stm.setDate(4, Date.valueOf(funcionario.getDataNascimento()));
 				
 			stm.executeUpdate();
 			return true;
@@ -103,7 +104,8 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 				String nome = rs.getString("nome");
 				String sexo = rs.getString("sexo");
 				String telefone = rs.getString("telefone");
-				Date dataNascimento = rs.getDate("datA");
+				Date data = rs.getDate("data");
+				LocalDate dataNascimento = LocalDate.of(data.getYear(), data.getMonth(), data.getDay());
 				int endereco = rs.getInt("endereco_cep");
 				rs.getArray(endereco);
 				int numero = rs.getInt("numero");

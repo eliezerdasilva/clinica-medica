@@ -3,6 +3,7 @@ package model;
 public class Medico extends Pessoa {
 
 	private long crm;
+	private String crmUf;
 	private String especializacao;
 	private Usuario usuario;
 
@@ -13,6 +14,8 @@ public class Medico extends Pessoa {
 	public final void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	public Medico() {}
 
 	public Medico(long crm, String especializacao) {
 		super();
@@ -34,6 +37,14 @@ public class Medico extends Pessoa {
 
 	public final void setEspecializacao(String especializacao) {
 		this.especializacao = especializacao;
+	}
+
+	public String getCrmUf() {
+		return crmUf;
+	}
+
+	public void setCrmUf(String crmUf) {
+		this.crmUf = crmUf;
 	}
 
 }

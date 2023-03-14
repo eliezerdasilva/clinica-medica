@@ -3,10 +3,13 @@ package controller;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import model.Medico;
 
-public class MedicoDao implements InterfaceMedico{
+public class MedicoDao implements InterfaceMedico {
 
 	private Conexao con;
 
@@ -20,14 +23,14 @@ public class MedicoDao implements InterfaceMedico{
 			PreparedStatement stm = c.prepareStatement(query);
 			stm.setString(1, medico.getNome());
 			stm.setLong(2, medico.getCpf());
-			stm.setString(3,medico.getSexo());
+			stm.setString(3, medico.getSexo());
 			stm.setString(4, medico.getEmail());
-			stm.setString(5 , medico.getTelefone());
+			stm.setString(5, medico.getTelefone());
 			stm.setLong(6, medico.getCrm());
 			stm.setString(7, medico.getEspecializacao());
-			stm.setDate(8,medico.getDataNascimento());
+			stm.setDate(8, Date.valueOf(medico.getDataNascimento()));
 			retorno = stm.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -37,20 +40,98 @@ public class MedicoDao implements InterfaceMedico{
 
 	@Override
 	public boolean alterarMedico(Medico medico) {
-		// TODO Auto-generated method stub
+
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		PreparedStatement stm = null;
+
+		try {
+			stm = c.prepareStatement(
+
+					"UPDATE medico SET nome = ?, sexo = ?, email = ?, telefone = ?, data_nascimento = ?, crm = ?, especializacao = ? cpf = ?, crm_uf = ? WHERE id = ?");
+
+			stm.setString(1, medico.getNome());
+			stm.setString(2, medico.getSexo());
+			stm.setString(3, medico.getEmail());
+			stm.setString(4, medico.getTelefone());
+			stm.setDate(5, Date.valueOf(medico.getDataNascimento()));
+			stm.setLong(6, medico.getCrm());
+			stm.setString(7, medico.getEspecializacao());
+			stm.setLong(8, medico.getCpf());
+			stm.setString(9, medico.getCrmUf());
+
+			stm.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
+		}
+
 		return false;
 	}
 
 	@Override
 	public Medico consultarMedico(Medico medico) {
-		// TODO Auto-generated method stub
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+
+		try {
+			Statement stm = c.prepareStatement(null);
+			String query = "SELECT * FROM medico";
+			ResultSet rs = stm.executeQuery(query);
+
+			while (rs.next()) {
+				String nome = rs.getString("nome");
+				String sexo = rs.getString("sexo");
+				String email = rs.getString("email");
+				String telefone = rs.getString("telefone");
+				Date data = rs.getDate("data");
+				LocalDate dataNascimento = LocalDate.of(data.getYear(), data.getMonth(), data.getDay());
+				int crm = rs.getInt("crm");
+				String especializacao = rs.getString("especializacao");
+				Long cpf = rs.getLong("cpf");
+				String crmUf = rs.getString("crm_uf");
+
+				Medico m = new Medico();
+				
+				m.setNome(nome);
+				m.setSexo(sexo);
+				m.setEmail(email);
+				m.setTelefone(telefone);
+				m.setDataNascimento(dataNascimento);
+				m.setCrm(crm);
+				m.setEspecializacao(especializacao);
+				m.setCpf(cpf);
+				m.setCrmUf(crmUf);
+			
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
+		}
 		return null;
 	}
 
 	@Override
 	public boolean excluirMedico(Medico medico) {
-		// TODO Auto-generated method stub
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+
+		try {
+			String query = "DELETE FROM medico WHERE nome = ?";
+			PreparedStatement stm = c.prepareStatement(query);
+			stm.setString(1, medico.getNome());
+			stm.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
+		}
 		return false;
 	}
-	
+
 }

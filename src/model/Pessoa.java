@@ -8,7 +8,7 @@ public abstract class Pessoa {
 
 	private Long cpf;
 	private String nome;
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	private String email;
 	private String sexo;
 	private String telefone;
@@ -25,7 +25,7 @@ public abstract class Pessoa {
 		this.nome = nome;
 	}
 
-	public Pessoa( String nome, String sexo, Endereco endereco, Long cpf, Date dataNascimento, String telefone,
+	public Pessoa( String nome, String sexo, Endereco endereco, Long cpf, LocalDate dataNascimento, String telefone,
 			String email, String rg) {
 		super();
 	
@@ -58,11 +58,11 @@ public abstract class Pessoa {
 	}
 	
 	
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
