@@ -394,6 +394,7 @@ public class TelaCadastroPaciente extends JFrame {
 		JButton btnCadastra = new JButton("Cadastrar");
 		btnCadastra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//
 
 					String nome = txtNome.getText();
 					String cpf = txtCpf.getText();
