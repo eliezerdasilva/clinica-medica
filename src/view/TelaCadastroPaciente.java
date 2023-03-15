@@ -378,7 +378,7 @@ public class TelaCadastroPaciente extends JFrame {
 				//TODO Cadastrar novo cep 
 				}else {
 
-					cadastroEndereco = new Endereco(cep , estado, bairro, cidade, rua);
+					//cadastroEndereco = new Endereco(cep , estado, bairro, cidade, rua);
 					Boolean veroficacaoNovoEndereco = enderecoDao.InserirEndereco(cadastroEndereco);
 					System.out.println("nqa");
 
