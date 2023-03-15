@@ -11,7 +11,7 @@ public class EstadoComboBoxModel extends AbstractListModel implements ComboBoxMo
 
 	private ArrayList<Estado> estados;
 	private Estado estadoSelecionado;
-	
+	 
 	public EstadoComboBoxModel(ArrayList<Estado> estados) {
 		this.estados = estados;
 	}

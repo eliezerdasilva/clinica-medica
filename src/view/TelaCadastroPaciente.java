@@ -15,6 +15,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -325,11 +327,9 @@ public class TelaCadastroPaciente extends JFrame {
 		txtBuscarCep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO Cidade
-				String rua = txtRua.getText();
+				
 				Integer cep = Integer.parseInt(txtCep.getText());
-				String bairro = txtBairro.getText();
-				String cidade = txtMunicipio.getText();
-				Estado estado = (Estado) cbxEstado.getSelectedItem();
+				
 				
 
 				//TODO instância para os get e setrs do endereco
@@ -365,8 +365,10 @@ public class TelaCadastroPaciente extends JFrame {
 					txtMunicipio.setText(enderecoPronto.getCidade());
 					txtBairro.setText(enderecoPronto.getBairro());
 					txtRua.setText(enderecoPronto.getRua());
-					System.out.println(enderecoPronto.getEstado());
-					cbxEstado.setSelectedItem(enderecoPronto.getEstado());
+				
+					System.out.println(enderecoPronto.getEstado().getNome());
+					System.out.println("estouaqui");
+					cbxEstado.addItem(enderecoPronto.getEstado().getNome());
 			
 					//cbxEstado.setText()
 					
@@ -395,26 +397,41 @@ public class TelaCadastroPaciente extends JFrame {
 
 					String nome = txtNome.getText();
 					String cpf = txtCpf.getText();
+					String dataN = txtData.getText();
+					 String sexo = null;
 					if (jrbMasc.isSelected()) {
 						  
-	                    String sexo = "Masculino";
+	                     sexo = "Masculino";
 	                }
 	  
-	                else if (jrbFemi.isSelected()) {
+					if (jrbFemi.isSelected()) {
 	  
-	                	String sexo = "Feminino";
+	                	 sexo = "Feminino";
+	                }if(jrbFemi==null || jrbMasc == null) {
+	                	 sexo = null;
 	                }
 					String email = txtEmail.getText();
 					String telefone = txtTelefone.getText();
 					String profissao = txtProfissao.getText();
+					LocalDate dataNascimento = null;	
+					//DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					// LocalDate.parse(dataN, formatacao);
 					//String convenio = txtConvenio.getText();
 					//String dataNascimento = txtDataNasciemento.getText();
-					String complemento =  txtComplemento.getText();
+					//String complemento =  txtComplemento.getText();
 					//String numero = txtNumero.getText();
 					
 					//String cep = String.valueOf(resultado.);
 					
 						
+					
+					if(nome.isEmpty() || cpf.isEmpty() || sexo == null || email.isEmpty() || dataNascimento.equals("  /  /    ") || telefone.isEmpty()  || profissao.isEmpty()){ {
+						if(nome.isEmpty()) {
+							txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						}
+					}
+						
+					}/*
 						if(nome == null || nome.trim() == "" || nome.isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Nome Vazio", "Nome Vazio", JOptionPane.ERROR_MESSAGE);
 						}else {
@@ -436,7 +453,7 @@ public class TelaCadastroPaciente extends JFrame {
 								JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Invalido", JOptionPane.ERROR_MESSAGE);
 							} else {
 								//MANIPULAR SEXO
-							}*/
+							}
 				
 
 						
@@ -482,7 +499,7 @@ public class TelaCadastroPaciente extends JFrame {
 								JOptionPane.showMessageDialog(null, "Data Vazia" ,"Data Vazia", JOptionPane.ERROR_MESSAGE);
 							}else {
 								//MANIPULAR DATA
-							}*/
+							}
 
 					
 							

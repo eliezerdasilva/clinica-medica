@@ -1,25 +1,35 @@
 drop database clinica;
--- -----------------------------------------------------
-CREATE DATABASE clinica;
-USE clinica;
+
+CREATE SCHEMA IF NOT EXISTS `clinica` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `clinica` ;
 
 -- -----------------------------------------------------
--- Table `hospital`.`endereco`
+-- Table `clinica`.`estados`
 -- -----------------------------------------------------
-CREATE TABLE  `clinica`.`endereco` (
-  `cep` INT(8) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `clinica`.`estados` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(75) NULL DEFAULT NULL,
+  `uf` VARCHAR(5) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE IF NOT EXISTS `clinica`.`endereco` (
+  `cep` INT NOT NULL AUTO_INCREMENT,
   `cidade` VARCHAR(30) NOT NULL,
   `bairro` VARCHAR(30) NOT NULL,
-  `estado` VARCHAR(30) NOT NULL,
   `rua` VARCHAR(30) NOT NULL,
-  PRIMARY KEY (`cep`));
+  `id_estado` INT NOT NULL,
+  PRIMARY KEY (`cep`),
+  INDEX `hfhg_idx` (`id_estado` ASC) VISIBLE,
+  CONSTRAINT `fk_idestado_endereco`
+    FOREIGN KEY (`id_estado`)
+    REFERENCES `clinica`.`estados` (`id`));
 
 
 -- -----------------------------------------------------
--- Table `hospital`.`paciente`
+-- Table `clinica`.`paciente`
 -- -----------------------------------------------------
-CREATE TABLE `clinica`.`paciente` (
-  `cpf` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `clinica`.`paciente` (
+  `cpf` INT NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `sexo` CHAR(1) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -27,87 +37,102 @@ CREATE TABLE `clinica`.`paciente` (
   `profissao` VARCHAR(50) NOT NULL,
   `convenio` VARCHAR(30) NOT NULL,
   `data_nascimento` DATE NOT NULL,
-  `endereco_cep` INT(8) NOT NULL,
-  `numero` INT(3) null DEFAULT  NULL,
+  `endereco_cep` INT NOT NULL,
+  `numero` INT NULL DEFAULT NULL,
   `complemento` VARCHAR(30) NULL DEFAULT NULL,
   PRIMARY KEY (`cpf`),
+  INDEX `endereco_cep` (`endereco_cep` ASC) VISIBLE,
+  CONSTRAINT `paciente_ibfk_1`
     FOREIGN KEY (`endereco_cep`)
     REFERENCES `clinica`.`endereco` (`cep`));
 
 
 -- -----------------------------------------------------
--- Table `hospital`.`usuario`
+-- Table `clinica`.`usuario`
 -- -----------------------------------------------------
-CREATE TABLE `clinica`.`usuario` (
+CREATE TABLE IF NOT EXISTS `clinica`.`usuario` (
   `idusuario` INT NOT NULL,
   `login` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   `tipo_usuario` INT NOT NULL,
-  PRIMARY KEY (`idusuario`));
+  PRIMARY KEY (`idusuario`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `hospital`.`medico`
+-- Table `clinica`.`medico`
 -- -----------------------------------------------------
-CREATE TABLE `clinica`.`medico` (
-  `id` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
+  `id` INT NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `sexo` CHAR(1) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(12) NOT NULL,
   `data_nascimento` DATE NOT NULL,
-  `crm` INT(6) NOT NULL,
+  `crm` INT NOT NULL,
   `especializacao` VARCHAR(45) NOT NULL,
-  `cpf` BIGINT(20) NOT NULL,
+  `cpf` BIGINT NOT NULL,
   `crm_uf` CHAR(2) NOT NULL,
   `usuario_idusuario` INT NOT NULL,
   PRIMARY KEY (`id`, `usuario_idusuario`),
+  INDEX `usuario_idusuario` (`usuario_idusuario` ASC) VISIBLE,
+  CONSTRAINT `medico_ibfk_1`
     FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
 
 
--- -----------------------------------------------------
--- Table `hospital`.`consulta`
--- -----------------------------------------------------
-CREATE TABLE `clinica`.`consulta` (
-  `id_consulta` INT(11) NOT NULL AUTO_INCREMENT,
+
+CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
+  `id_consulta` INT NOT NULL AUTO_INCREMENT,
   `data_consulta` DATETIME NOT NULL,
-  `paciente_cpf` INT(11) NOT NULL,
-  `medico_id` INT(11) NOT NULL,
+  `paciente_cpf` INT NOT NULL,
+  `medico_id` INT NOT NULL,
   `medico_usuario_idusuario` INT NOT NULL,
   PRIMARY KEY (`id_consulta`, `paciente_cpf`, `medico_id`, `medico_usuario_idusuario`),
+  INDEX `paciente_cpf` (`paciente_cpf` ASC) VISIBLE,
+  INDEX `medico_id` (`medico_id` ASC, `medico_usuario_idusuario` ASC) VISIBLE,
+  CONSTRAINT `consulta_ibfk_1`
     FOREIGN KEY (`paciente_cpf`)
     REFERENCES `clinica`.`paciente` (`cpf`),
+  CONSTRAINT `consulta_ibfk_2`
     FOREIGN KEY (`medico_id` , `medico_usuario_idusuario`)
     REFERENCES `clinica`.`medico` (`id` , `usuario_idusuario`));
 
 
 -- -----------------------------------------------------
--- Table `hospital`.`funcionario`
+-- Table `clinica`.`convenio`
 -- -----------------------------------------------------
-CREATE TABLE  `clinica`.`funcionario` (
-  `cpf` BIGINT(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `clinica`.`convenio` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `convenio` VARCHAR(75) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`));
+
+
+-- -----------------------------------------------------
+-- Table `clinica`.`funcionario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
+  `cpf` BIGINT NOT NULL,
   `nome` VARCHAR(45) NULL DEFAULT NULL,
   `sexo` CHAR(1) NULL DEFAULT NULL,
   `telefone` VARCHAR(12) NULL DEFAULT NULL,
   `data_nascimento` DATE NULL DEFAULT NULL,
   `usuario_idusuario` INT NOT NULL,
-  `data_nascimento` DATE NOT NULL,
-  `endereco_cep` INT(8) NOT NULL,
-  `numero` INT(3) null DEFAULT  NULL,
+  `endereco_cep` INT NOT NULL,
+  `numero` INT NULL DEFAULT NULL,
   `complemento` VARCHAR(30) NULL DEFAULT NULL,
   PRIMARY KEY (`cpf`),
+  INDEX `endereco_cep` (`endereco_cep` ASC) VISIBLE,
+  INDEX `usuario_idusuario` (`usuario_idusuario` ASC) VISIBLE,
+  CONSTRAINT `funcionario_ibfk_1`
     FOREIGN KEY (`endereco_cep`)
-    REFERENCES `clinica`.`endereco` (`cep`)
+    REFERENCES `clinica`.`endereco` (`cep`),
+  CONSTRAINT `funcionario_ibfk_2`
+    FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
 
-   
-CREATE TABLE IF NOT EXISTS `estados` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(75) DEFAULT NULL,
-  `uf` varchar(5) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) 
 
 
         insert into usuario(idusuario, login, senha, tipo_usuario) values (1,"teste","teste",1);

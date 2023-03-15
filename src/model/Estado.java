@@ -28,7 +28,7 @@ public class Estado {
 public String toString() {
 	// TODO Auto-generated method stub
 	System.out.println("211211 "+nome);
-	return nome;
+	return this.nome;
 }
 
 
