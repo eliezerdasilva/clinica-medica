@@ -4,9 +4,9 @@
 ![layont](https://user-images.githubusercontent.com/110643682/224567051-80c63878-014b-4c5f-9f30-6d477384daa1.jpg)
 
 
-# É oque 💻 ? 
+# O que é 💻 ? 
 
-É trabalho acadêmico da unidade curricular "projeto Integrador II" no qual tem o objetivo gerenciar uma clínica medica, cadastrando consultas, médicos e funcionários. Para o desenvolvimento do sistema foi utilizado  a linguagem Java como back-end, o framework Swing para interface e banco de dados Sql.
+É trabalho acadêmico da unidade curricular "Projeto Integrador II". O qual tem o objetivo gerenciar uma clínica medica, cadastrando consultas, médicos e funcionários. Para o desenvolvimento do sistema foi utilizado a linguagem Java como back-end, o framework Swing para interface e banco de dados SQL.
 
 # Como compilar? 
 
