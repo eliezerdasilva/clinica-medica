@@ -121,11 +121,12 @@ CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
     REFERENCES `clinica`.`usuario` (`idusuario`));
 
 
+
 INSERT INTO `estados` (`id`, `nome`, `uf`) VALUES
 (1, 'Acre', 'AC'),
 (2, 'Alagoas', 'AL'),
 (3, 'Amazonas', 'AM'),
-(4, 'AmapÃ¡', 'AP'),
+(4, 'Amapá', 'AP'),
 (5, 'Bahia', 'BA'),
 (6, 'CearÃ¡', 'CE'),
 (7, 'Distrito Federal', 'DF'),
@@ -153,9 +154,19 @@ INSERT INTO `estados` (`id`, `nome`, `uf`) VALUES
 
 	insert into usuario(idusuario, login, senha, tipo_usuario) values (1,"teste","teste",1);
 	insert into usuario(idusuario, login, senha, tipo_usuario) values (2,"teste","opa",2);
-    insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110000,"Gaspar","centro", 24,"Maringa");
+  insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110000,"Gaspar","centro", 24,"Maringa");
 	insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110001,"Gaspar","centro", 24,"Itajai");    
 	insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110002,"Gaspar","centro", 24,"Bela vista");
 	insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110003,"Gaspar","centro", 24,"Margem Esquerda");
+
+
+INSERT INTO convenio(id,convenio) VALUES (1, "Unimed");
+INSERT INTO convenio(id,convenio) VALUES (2, "SulAmérica");
+INSERT INTO convenio(id,convenio) VALUES (3, "Bradesco Saúde");
+INSERT INTO convenio(id,convenio) VALUES (4, "Cartão de todos");
+INSERT INTO convenio(id,convenio) values (5, "Notre Dame Intermédica");
+INSERT INTO convenio(id,convenio) values (6, "Anjos da Vida");
+INSERT INTO convenio(id,convenio) values (7, "Salvamed");
+INSERT INTO convenio(id,convenio) values (8, "Intermédica Saúde");
 
 
