@@ -17,7 +17,7 @@ File/Import/Git/Project from git /Clone URI
 ![clone](https://user-images.githubusercontent.com/110643682/224566917-a86ac664-f7d6-4669-84c6-9f1071e4682a.jpg)
 
 
-URi : https://github.com/eliezerdasilva/clinica-medica/tree/master/src 
+URi: https://github.com/eliezerdasilva/clinica-medica/tree/master/src 
 
 Next/Finish
 
