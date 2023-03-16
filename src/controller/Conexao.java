@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 public class Conexao {
 
 	private static Connection conexao;
@@ -13,7 +11,7 @@ public class Conexao {
 
 	private static final String DATABASE = "clinica";
 	private static final String USER = "root";
-	private static final String PSW = "root";
+	private static final String PSW = "Eliezer-2005";
 
 	private Conexao() {
 
@@ -28,9 +26,8 @@ public class Conexao {
 
 	public Connection conectar() {
 		try {
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3307/" + DATABASE + "?serverTimezone=UTC", USER,
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost/" + DATABASE + "?serverTimezone=UTC", USER,
 					PSW);
-			JOptionPane.showMessageDialog(null,"Conectado",null,JOptionPane.WARNING_MESSAGE);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

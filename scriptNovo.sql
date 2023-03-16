@@ -27,9 +27,9 @@ INSERT INTO `estados` (`id`, `nome`, `uf`) VALUES
 (25, 'Sergipe', 'SE'),
 (26, 'SÃ£o Paulo', 'SP'),
 (27, 'Tocantins', 'TO');
-    insert into endereco (cep, cidade, bairro,estado, rua) values (89110000,"Gaspar","centro",24,"Maringa");
-	insert into endereco (cep, cidade, bairro,estado, rua) values (89110001,"Gaspar","centro",24,"Itajai");    
-	insert into endereco (cep, cidade, bairro,estado, rua) values (89110002,"Gaspar","centro",24,"Bela vista");
-	insert into endereco (cep, cidade, bairro,estado, rua) values (89110003,"Gaspar","centro",24,"Margem Esquerda");
+    insert into endereco (cep, cidade, bairro,id_estado, rua) values (89110000,"Gaspar","centro",24,"Maringa");
+	insert into endereco (cep, cidade, bairro,id_estado, rua) values (89110001,"Gaspar","centro",24,"Itajai");    
+	insert into endereco (cep, cidade, bairro,id_estado, rua) values (89110002,"Gaspar","centro",24,"Bela vista");
+	insert into endereco (cep, cidade, bairro,id_estado, rua) values (89110003,"Gaspar","centro",24,"Margem Esquerda");
 
 
