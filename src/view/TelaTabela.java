@@ -41,8 +41,8 @@ import java.awt.event.ActionEvent;
 public class TelaTabela extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtNome;
+	private JTextField txtCpf;
 	private JTable table;
 
 	/**
@@ -137,24 +137,24 @@ public class TelaTabela extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_2, "flowx,cell 1 1");
 		
-		textField = new JTextField();
-		panel_3.add(textField, "cell 1 1,growy");
-		textField.setColumns(20);
+		txtNome = new JTextField();
+		panel_3.add(txtNome, "cell 1 1,growy");
+		txtNome.setColumns(20);
 		
 		JLabel lblNewLabel_3 = new JLabel("   Cpf :    ");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_3, "cell 1 1");
 		
-		textField_1 = new JTextField();
-		panel_3.add(textField_1, "cell 1 1,growy");
-		textField_1.setColumns(20);
+		txtCpf = new JTextField();
+		panel_3.add(txtCpf, "cell 1 1,growy");
+		txtCpf.setColumns(20);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(50);
 		panel_3.add(horizontalStrut, "cell 1 1");
 		
-		JButton btnNewButton = new JButton("    Buscar    ");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(btnNewButton, "cell 1 1,grow");
+		JButton btnBuscar = new JButton("    Buscar    ");
+		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(btnBuscar, "cell 1 1,grow");
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -165,22 +165,22 @@ public class TelaTabela extends JFrame {
 		table.setBounds(10, 11, 751, 378);
 		panel_4.add(table);
 		
-		JButton btnNewButton_2 = new JButton("Editar ");
-		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_3.add(btnNewButton_2, "flowx,cell 1 5,grow");
+		JButton btnEditar = new JButton("Editar ");
+		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnEditar, "flowx,cell 1 5,grow");
 		
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 		panel_3.add(horizontalStrut_2, "cell 1 5");
 		
-		JButton btnNewButton_3 = new JButton("Excluir");
-		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_3.add(btnNewButton_3, "cell 1 5,grow");
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnExcluir, "cell 1 5,grow");
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(400);
 		panel_3.add(horizontalStrut_1, "cell 1 5");
 		
-		JButton btnNewButton_1 = new JButton("Voltar");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				MenuPrincipal mp = new MenuPrincipal();
@@ -190,8 +190,8 @@ public class TelaTabela extends JFrame {
 			
 			}
 		});
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_3.add(btnNewButton_1, "cell 1 5,grow");
+		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnVoltar, "cell 1 5,grow");
 		contentPane.setLayout(gl_contentPane);
 	}
 }

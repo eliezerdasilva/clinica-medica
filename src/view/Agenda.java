@@ -53,12 +53,12 @@ import javax.swing.Box;
 public class Agenda extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtNome;
+	private JTextField textCpf;
 	private JTable table;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField textConsulta;
+	private JTextField textData;
+	private JTextField textObservacao;
 	
 	
 
@@ -137,24 +137,24 @@ public class Agenda extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_2, "flowx,cell 0 1");
 		
-		textField = new JTextField();
-		panel_3.add(textField, "cell 0 1,grow");
-		textField.setColumns(20);
+		txtNome = new JTextField();
+		panel_3.add(txtNome, "cell 0 1,grow");
+		txtNome.setColumns(20);
 		
 		JLabel lblNewLabel_3 = new JLabel("   Cpf :    ");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_3, "cell 0 1");
 		
-		textField_1 = new JTextField();
-		panel_3.add(textField_1, "cell 0 1,grow");
-		textField_1.setColumns(20);
+		textCpf = new JTextField();
+		panel_3.add(textCpf, "cell 0 1,grow");
+		textCpf.setColumns(20);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(50);
 		panel_3.add(horizontalStrut, "cell 0 1");
 		
-		JButton btnNewButton = new JButton("    Buscar  ");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(btnNewButton, "cell 0 1,grow");
+		JButton btnBuscar = new JButton("    Buscar  ");
+		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(btnBuscar, "cell 0 1,grow");
 		
 		JLabel lblNewLabel_4 = new JLabel("Médico :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -173,22 +173,22 @@ public class Agenda extends JFrame {
 		table.setBounds(10, 11, 1205, 478);
 		panel_4.add(table);
 		
-		JButton btnNewButton_2 = new JButton("Editar ");
-		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_3.add(btnNewButton_2, "flowx,cell 0 8,grow");
+		JButton btnEditar = new JButton("Editar ");
+		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnEditar, "flowx,cell 0 8,grow");
 		
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 		panel_3.add(horizontalStrut_2, "cell 0 8");
 		
-		JButton btnNewButton_3 = new JButton("Excluir");
-		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_3.add(btnNewButton_3, "cell 0 8,grow");
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnExcluir, "cell 0 8,grow");
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(400);
 		panel_3.add(horizontalStrut_1, "cell 0 8");
 		
-		JButton btnNewButton_1 = new JButton("Voltar");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuPrincipal mp = new MenuPrincipal();
 				mp.setLocationRelativeTo(null);
@@ -196,40 +196,40 @@ public class Agenda extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_3.add(btnNewButton_1, "cell 0 8,grow");
+		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnVoltar, "cell 0 8,grow");
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"                                               "}));
-		panel_3.add(comboBox, "cell 0 3,growy");
+		JComboBox cbxMedico = new JComboBox();
+		cbxMedico.setModel(new DefaultComboBoxModel(new String[] {"                                               "}));
+		panel_3.add(cbxMedico, "cell 0 3,growy");
 		
 		JLabel lblNewLabel_5 = new JLabel("Tipo de Consulta : ");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_5.setForeground(new Color(0, 0, 0));
 		panel_3.add(lblNewLabel_5, "cell 0 3");
 		
-		textField_2 = new JTextField();
-		panel_3.add(textField_2, "cell 0 3,grow");
-		textField_2.setColumns(20);
+		textConsulta = new JTextField();
+		panel_3.add(textConsulta, "cell 0 3,grow");
+		textConsulta.setColumns(20);
 		
 		JLabel lblNewLabel_6 = new JLabel("Data : ");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_6, "cell 0 3");
 		
-		textField_3 = new JTextField();
-		panel_3.add(textField_3, "cell 0 3,grow");
-		textField_3.setColumns(15);
+		textData = new JTextField();
+		panel_3.add(textData, "cell 0 3,grow");
+		textData.setColumns(15);
 		
-		textField_4 = new JTextField();
-		panel_3.add(textField_4, "cell 0 5,grow");
-		textField_4.setColumns(25);
+		textObservacao = new JTextField();
+		panel_3.add(textObservacao, "cell 0 5,grow");
+		textObservacao.setColumns(25);
 		
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);
 		panel_3.add(horizontalStrut_3, "cell 0 5");
 		
-		JButton btnNewButton_4 = new JButton("         Cadastrar            ");
-		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(btnNewButton_4, "cell 0 5,grow");
+		JButton btnCadastrar = new JButton("         Cadastrar            ");
+		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(btnCadastrar, "cell 0 5,grow");
 		contentPane.setLayout(gl_contentPane);
 		
 		
