@@ -109,11 +109,11 @@ public class Agenda extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
 		);
-		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[100px:n:100px][800:n:800,grow][100px:n:100px]"));
+		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[800:n:800,grow]"));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 4));
-		panel.add(panel_1, "cell 1 1,grow");
+		panel.add(panel_1, "cell 1 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_2 = new JPanel();
@@ -131,7 +131,7 @@ public class Agenda extends JFrame {
 		
 		JPanel panel_3 = new JPanel();
 		panel_1.add(panel_3, BorderLayout.CENTER);
-		panel_3.setLayout(new MigLayout("", "[933.00,grow][]", "[20:n:20][35:n:35][][35:n:35][][35:n:35][][500:n:500,grow][35px:n:35px]"));
+		panel_3.setLayout(new MigLayout("", "[933.00,grow][]", "[20:n:20][35:n:35][][35:n:35][][35:n:35][][350:n:350,grow][35px:n:35px]"));
 		
 		JLabel lblNewLabel_2 = new JLabel("Nome : ");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -170,7 +170,7 @@ public class Agenda extends JFrame {
 		panel_4.setLayout(null);
 		
 		table = new JTable();
-		table.setBounds(10, 11, 1205, 478);
+		table.setBounds(10, 11, 1205, 329);
 		panel_4.add(table);
 		
 		JButton btnNewButton_2 = new JButton("Editar ");
