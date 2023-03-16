@@ -54,7 +54,7 @@ public class EnderecoDao implements IEnderecoDao {
 				return enderecoConfirmado;
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return null;
 	}
