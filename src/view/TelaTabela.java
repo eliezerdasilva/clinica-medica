@@ -83,7 +83,7 @@ public class TelaTabela extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setBounds(100, 100, 2000, 1050);
+		setBounds(100, 100, 1800, 900);
 
 		setContentPane(contentPane);
 		
@@ -100,20 +100,22 @@ public class TelaTabela extends JFrame {
 		JPanel panel = new FundoImagemLogin(bg);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1906, Short.MAX_VALUE)
-					.addGap(8))
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGap(20)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1510, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 792, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(43, Short.MAX_VALUE))
 		);
-		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[185.00][700:n:700,grow][226.00]"));
+		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[700:n:700,grow]"));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 4));
-		panel.add(panel_1, "cell 1 1,grow");
+		panel.add(panel_1, "cell 1 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_2 = new JPanel();
