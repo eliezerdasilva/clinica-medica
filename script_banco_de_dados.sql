@@ -1,4 +1,4 @@
-drop database clinica;
+-- drop database clinica;
 
 CREATE SCHEMA IF NOT EXISTS `clinica` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `clinica` ;
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`endereco` (
 -- Table `clinica`.`paciente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`paciente` (
-  `cpf` INT NOT NULL,
+  `cpf` LONG NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `sexo` CHAR(1) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -55,10 +55,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`usuario` (
   `login` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   `tipo_usuario` INT NOT NULL,
-  PRIMARY KEY (`idusuario`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`idusuario`));
 
 
 -- -----------------------------------------------------
@@ -73,12 +70,15 @@ CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
   `data_nascimento` DATE NOT NULL,
   `crm` INT NOT NULL,
   `especializacao` VARCHAR(45) NOT NULL,
-  `cpf` BIGINT NOT NULL,
+  `cpf` LONG NOT NULL,
   `crm_uf` CHAR(2) NOT NULL,
   `usuario_idusuario` INT NOT NULL,
+  `endereco_cep` INT NOT NULL,
+  `numero` INT NULL DEFAULT NULL,
+  `complemento` VARCHAR(30) NULL DEFAULT NULL,
   PRIMARY KEY (`id`, `usuario_idusuario`),
-  INDEX `usuario_idusuario` (`usuario_idusuario` ASC) VISIBLE,
-  CONSTRAINT `medico_ibfk_1`
+    FOREIGN KEY (`endereco_cep`)
+    REFERENCES `clinica`.`endereco` (`cep`),
     FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
 
@@ -86,17 +86,14 @@ CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
 
 CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
   `id_consulta` INT NOT NULL AUTO_INCREMENT,
-  `data_consulta` DATETIME NOT NULL,
+  `data_consulta` DATE NOT NULL,
+  `hora_consulta` TIME NOT NULL,
   `paciente_cpf` INT NOT NULL,
   `medico_id` INT NOT NULL,
   `medico_usuario_idusuario` INT NOT NULL,
   PRIMARY KEY (`id_consulta`, `paciente_cpf`, `medico_id`, `medico_usuario_idusuario`),
-  INDEX `paciente_cpf` (`paciente_cpf` ASC) VISIBLE,
-  INDEX `medico_id` (`medico_id` ASC, `medico_usuario_idusuario` ASC) VISIBLE,
-  CONSTRAINT `consulta_ibfk_1`
     FOREIGN KEY (`paciente_cpf`)
     REFERENCES `clinica`.`paciente` (`cpf`),
-  CONSTRAINT `consulta_ibfk_2`
     FOREIGN KEY (`medico_id` , `medico_usuario_idusuario`)
     REFERENCES `clinica`.`medico` (`id` , `usuario_idusuario`));
 
@@ -114,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`convenio` (
 -- Table `clinica`.`funcionario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
-  `cpf` BIGINT NOT NULL,
+  `cpf` LONG NOT NULL,
   `nome` VARCHAR(45) NULL DEFAULT NULL,
   `sexo` CHAR(1) NULL DEFAULT NULL,
   `telefone` VARCHAR(12) NULL DEFAULT NULL,
@@ -124,50 +121,58 @@ CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
   `numero` INT NULL DEFAULT NULL,
   `complemento` VARCHAR(30) NULL DEFAULT NULL,
   PRIMARY KEY (`cpf`),
-  INDEX `endereco_cep` (`endereco_cep` ASC) VISIBLE,
-  INDEX `usuario_idusuario` (`usuario_idusuario` ASC) VISIBLE,
-  CONSTRAINT `funcionario_ibfk_1`
     FOREIGN KEY (`endereco_cep`)
     REFERENCES `clinica`.`endereco` (`cep`),
-  CONSTRAINT `funcionario_ibfk_2`
     FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
 
-
-
-        insert into usuario(idusuario, login, senha, tipo_usuario) values (1,"teste","teste",1);
-        insert into usuario(idusuario, login, senha, tipo_usuario) values (2,"teste","opa",2);
-    insert into endereco (cep, cidade, bairro,estado, rua) values (89110000,"Gaspar","centro","Santa Catarina","Maringa");
-	insert into endereco (cep, cidade, bairro,estado, rua) values (89110001,"Gaspar","centro","Santa Catarina","Itajai");    
-	insert into endereco (cep, cidade, bairro,estado, rua) values (89110002,"Gaspar","centro","Santa Catarina","Bela vista");
-	insert into endereco (cep, cidade, bairro,estado, rua) values (89110003,"Gaspar","centro","Santa Catarina","Margem Esquerda");
 
 
 INSERT INTO `estados` (`id`, `nome`, `uf`) VALUES
 (1, 'Acre', 'AC'),
 (2, 'Alagoas', 'AL'),
 (3, 'Amazonas', 'AM'),
-(4, 'AmapÃ¡', 'AP'),
+(4, 'Amapá', 'AP'),
 (5, 'Bahia', 'BA'),
-(6, 'CearÃ¡', 'CE'),
+(6, 'Ceará', 'CE'),
 (7, 'Distrito Federal', 'DF'),
-(8, 'EspÃ­rito Santo', 'ES'),
-(9, 'GoiÃ¡s', 'GO'),
-(10, 'MaranhÃ£o', 'MA'),
+(8, 'Espí­rito Santo', 'ES'),
+(9, 'Goiás', 'GO'),
+(10, 'Maranhão', 'MA'),
 (11, 'Minas Gerais', 'MG'),
 (12, 'Mato Grosso do Sul', 'MS'),
 (13, 'Mato Grosso', 'MT'),
-(14, 'ParÃ¡', 'PA'),
-(15, 'ParaÃ­ba', 'PB'),
+(14, 'Pará', 'PA'),
+(15, 'Paraí­ba', 'PB'),
 (16, 'Pernambuco', 'PE'),
-(17, 'PiauÃ­', 'PI'),
-(18, 'ParanÃ¡', 'PR'),
+(17, 'Piauí­', 'PI'),
+(18, 'Paraná', 'PR'),
 (19, 'Rio de Janeiro', 'RJ'),
 (20, 'Rio Grande do Norte', 'RN'),
-(21, 'RondÃ´nia', 'RO'),
+(21, 'Rondônia', 'RO'),
 (22, 'Roraima', 'RR'),
 (23, 'Rio Grande do Sul', 'RS'),
 (24, 'Santa Catarina', 'SC'),
 (25, 'Sergipe', 'SE'),
-(26, 'SÃ£o Paulo', 'SP'),
+(26, 'São Paulo', 'SP'),
 (27, 'Tocantins', 'TO');
+
+
+	insert into usuario(idusuario, login, senha, tipo_usuario) values (1,"teste","teste",1);
+	insert into usuario(idusuario, login, senha, tipo_usuario) values (2,"teste","opa",2);
+  insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110000,"Gaspar","centro", 24,"Maringa");
+	insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110001,"Gaspar","centro", 24,"Itajai");    
+	insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110002,"Gaspar","centro", 24,"Bela vista");
+	insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110003,"Gaspar","centro", 24,"Margem Esquerda");
+
+
+INSERT INTO convenio(id,convenio) VALUES (1, "Unimed");
+INSERT INTO convenio(id,convenio) VALUES (2, "SulAmérica");
+INSERT INTO convenio(id,convenio) VALUES (3, "Bradesco Saúde");
+INSERT INTO convenio(id,convenio) VALUES (4, "Cartão de todos");
+INSERT INTO convenio(id,convenio) values (5, "Notre Dame Intermédica");
+INSERT INTO convenio(id,convenio) values (6, "Anjos da Vida");
+INSERT INTO convenio(id,convenio) values (7, "Salvamed");
+INSERT INTO convenio(id,convenio) values (8, "Intermédica Saúde");
+
+
