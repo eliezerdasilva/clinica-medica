@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 public class Conexao {
 
 	private static Connection conexao;
@@ -30,7 +28,6 @@ public class Conexao {
 		try {
 			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3307/" + DATABASE + "?serverTimezone=UTC", USER,
 					PSW);
-			JOptionPane.showMessageDialog(null,"Conectado",null,JOptionPane.WARNING_MESSAGE);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
