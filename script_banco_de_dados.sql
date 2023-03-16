@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`endereco` (
 -- Table `clinica`.`paciente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`paciente` (
-  `cpf` INT NOT NULL,
+  `cpf` LONG NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `sexo` CHAR(1) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -70,10 +70,15 @@ CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
   `data_nascimento` DATE NOT NULL,
   `crm` INT NOT NULL,
   `especializacao` VARCHAR(45) NOT NULL,
-  `cpf` BIGINT NOT NULL,
+  `cpf` LONG NOT NULL,
   `crm_uf` CHAR(2) NOT NULL,
   `usuario_idusuario` INT NOT NULL,
+  `endereco_cep` INT NOT NULL,
+  `numero` INT NULL DEFAULT NULL,
+  `complemento` VARCHAR(30) NULL DEFAULT NULL,
   PRIMARY KEY (`id`, `usuario_idusuario`),
+    FOREIGN KEY (`endereco_cep`)
+    REFERENCES `clinica`.`endereco` (`cep`),
     FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
 
@@ -81,7 +86,8 @@ CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
 
 CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
   `id_consulta` INT NOT NULL AUTO_INCREMENT,
-  `data_consulta` DATETIME NOT NULL,
+  `data_consulta` DATE NOT NULL,
+  `hora_consulta` TIME NOT NULL,
   `paciente_cpf` INT NOT NULL,
   `medico_id` INT NOT NULL,
   `medico_usuario_idusuario` INT NOT NULL,
@@ -105,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`convenio` (
 -- Table `clinica`.`funcionario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
-  `cpf` BIGINT NOT NULL,
+  `cpf` LONG NOT NULL,
   `nome` VARCHAR(45) NULL DEFAULT NULL,
   `sexo` CHAR(1) NULL DEFAULT NULL,
   `telefone` VARCHAR(12) NULL DEFAULT NULL,
@@ -128,27 +134,27 @@ INSERT INTO `estados` (`id`, `nome`, `uf`) VALUES
 (3, 'Amazonas', 'AM'),
 (4, 'Amapá', 'AP'),
 (5, 'Bahia', 'BA'),
-(6, 'CearÃ¡', 'CE'),
+(6, 'Ceará', 'CE'),
 (7, 'Distrito Federal', 'DF'),
-(8, 'EspÃ­rito Santo', 'ES'),
-(9, 'GoiÃ¡s', 'GO'),
-(10, 'MaranhÃ£o', 'MA'),
+(8, 'Espí­rito Santo', 'ES'),
+(9, 'Goiás', 'GO'),
+(10, 'Maranhão', 'MA'),
 (11, 'Minas Gerais', 'MG'),
 (12, 'Mato Grosso do Sul', 'MS'),
 (13, 'Mato Grosso', 'MT'),
-(14, 'ParÃ¡', 'PA'),
-(15, 'ParaÃ­ba', 'PB'),
+(14, 'Pará', 'PA'),
+(15, 'Paraí­ba', 'PB'),
 (16, 'Pernambuco', 'PE'),
-(17, 'PiauÃ­', 'PI'),
-(18, 'ParanÃ¡', 'PR'),
+(17, 'Piauí­', 'PI'),
+(18, 'Paraná', 'PR'),
 (19, 'Rio de Janeiro', 'RJ'),
 (20, 'Rio Grande do Norte', 'RN'),
-(21, 'RondÃ´nia', 'RO'),
+(21, 'Rondônia', 'RO'),
 (22, 'Roraima', 'RR'),
 (23, 'Rio Grande do Sul', 'RS'),
 (24, 'Santa Catarina', 'SC'),
 (25, 'Sergipe', 'SE'),
-(26, 'SÃ£o Paulo', 'SP'),
+(26, 'São Paulo', 'SP'),
 (27, 'Tocantins', 'TO');
 
 
