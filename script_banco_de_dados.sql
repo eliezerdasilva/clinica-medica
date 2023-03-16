@@ -1,4 +1,4 @@
-drop database clinica;
+-- drop database clinica;
 
 CREATE SCHEMA IF NOT EXISTS `clinica` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `clinica` ;
@@ -55,10 +55,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`usuario` (
   `login` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   `tipo_usuario` INT NOT NULL,
-  PRIMARY KEY (`idusuario`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`idusuario`));
 
 
 -- -----------------------------------------------------
@@ -77,8 +74,6 @@ CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
   `crm_uf` CHAR(2) NOT NULL,
   `usuario_idusuario` INT NOT NULL,
   PRIMARY KEY (`id`, `usuario_idusuario`),
-  INDEX `usuario_idusuario` (`usuario_idusuario` ASC) VISIBLE,
-  CONSTRAINT `medico_ibfk_1`
     FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
 
@@ -91,12 +86,8 @@ CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
   `medico_id` INT NOT NULL,
   `medico_usuario_idusuario` INT NOT NULL,
   PRIMARY KEY (`id_consulta`, `paciente_cpf`, `medico_id`, `medico_usuario_idusuario`),
-  INDEX `paciente_cpf` (`paciente_cpf` ASC) VISIBLE,
-  INDEX `medico_id` (`medico_id` ASC, `medico_usuario_idusuario` ASC) VISIBLE,
-  CONSTRAINT `consulta_ibfk_1`
     FOREIGN KEY (`paciente_cpf`)
     REFERENCES `clinica`.`paciente` (`cpf`),
-  CONSTRAINT `consulta_ibfk_2`
     FOREIGN KEY (`medico_id` , `medico_usuario_idusuario`)
     REFERENCES `clinica`.`medico` (`id` , `usuario_idusuario`));
 
@@ -124,23 +115,10 @@ CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
   `numero` INT NULL DEFAULT NULL,
   `complemento` VARCHAR(30) NULL DEFAULT NULL,
   PRIMARY KEY (`cpf`),
-  INDEX `endereco_cep` (`endereco_cep` ASC) VISIBLE,
-  INDEX `usuario_idusuario` (`usuario_idusuario` ASC) VISIBLE,
-  CONSTRAINT `funcionario_ibfk_1`
     FOREIGN KEY (`endereco_cep`)
     REFERENCES `clinica`.`endereco` (`cep`),
-  CONSTRAINT `funcionario_ibfk_2`
     FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `clinica`.`usuario` (`idusuario`));
-
-
-
-        insert into usuario(idusuario, login, senha, tipo_usuario) values (1,"teste","teste",1);
-        insert into usuario(idusuario, login, senha, tipo_usuario) values (2,"teste","opa",2);
-    insert into endereco (cep, cidade, bairro,estado, rua) values (89110000,"Gaspar","centro","Santa Catarina","Maringa");
-	insert into endereco (cep, cidade, bairro,estado, rua) values (89110001,"Gaspar","centro","Santa Catarina","Itajai");    
-	insert into endereco (cep, cidade, bairro,estado, rua) values (89110002,"Gaspar","centro","Santa Catarina","Bela vista");
-	insert into endereco (cep, cidade, bairro,estado, rua) values (89110003,"Gaspar","centro","Santa Catarina","Margem Esquerda");
 
 
 INSERT INTO `estados` (`id`, `nome`, `uf`) VALUES
@@ -171,3 +149,13 @@ INSERT INTO `estados` (`id`, `nome`, `uf`) VALUES
 (25, 'Sergipe', 'SE'),
 (26, 'SÃ£o Paulo', 'SP'),
 (27, 'Tocantins', 'TO');
+
+
+	insert into usuario(idusuario, login, senha, tipo_usuario) values (1,"teste","teste",1);
+	insert into usuario(idusuario, login, senha, tipo_usuario) values (2,"teste","opa",2);
+    insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110000,"Gaspar","centro", 24,"Maringa");
+	insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110001,"Gaspar","centro", 24,"Itajai");    
+	insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110002,"Gaspar","centro", 24,"Bela vista");
+	insert into endereco (cep, cidade, bairro, id_estado, rua) values (89110003,"Gaspar","centro", 24,"Margem Esquerda");
+
+

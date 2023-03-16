@@ -377,10 +377,10 @@ public class TelaCadastroPaciente extends JFrame {
 
 				//TODO Cadastrar novo cep 
 				}else {
-
-					cadastroEndereco = new Endereco(cep , estado, bairro, cidade, rua);
-					Boolean veroficacaoNovoEndereco = enderecoDao.InserirEndereco(cadastroEndereco);
-					System.out.println("nqa");
+//
+//					cadastroEndereco = new Endereco(cep , estado, bairro, cidade, rua);
+//					Boolean veroficacaoNovoEndereco = enderecoDao.InserirEndereco(cadastroEndereco);
+//					System.out.println("nqa");
 
 
 				}
@@ -429,6 +429,36 @@ public class TelaCadastroPaciente extends JFrame {
 						if(nome.isEmpty()) {
 							txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 						}
+						
+						if(cpf.isEmpty()) {
+							txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						}
+						
+						if(sexo.isEmpty()) {
+							jrbMasc.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							jrbFemi.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						}
+						
+						if(cpf.isEmpty()) {
+							txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						}
+						
+						if(email.isEmpty()) {
+							txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						}
+						
+						if(dataNascimento == null) {
+							txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						}
+						
+						if(telefone.isEmpty()) {
+							txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						}
+						
+						if(profissao.isEmpty()) {
+							txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						}
+						
 					}
 						
 					}/*
