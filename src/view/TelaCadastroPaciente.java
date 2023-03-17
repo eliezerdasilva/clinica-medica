@@ -56,7 +56,9 @@ public class TelaCadastroPaciente extends JFrame {
 	private JPanel contentPane;
 	EnderecoDao enderecoDao = new EnderecoDao();
 	Endereco enderecoPronto = null;
+
 	PacienteDao pacienteDao = new PacienteDao();
+
 	private JTextField txtNome;
 	private JTextField txtEmail;
 	private JTextField txtProfissao;
@@ -67,11 +69,17 @@ public class TelaCadastroPaciente extends JFrame {
 	private JTextField txtMunicipio;
 	private JTextField txtBairro;
 	private JTextField txtRua;
+
 	private JTextField txtNCasa;
 	private JTextField txtComplemento;
 	private JTextField txtBuscaCep;
 	private JTextField txtBuscaNome;
 	protected String[] convenios;
+
+	private JTextField txtBuscarCpf;
+	private JTextField txtBuscarNome;
+	
+
 	
 	ArrayList<Estado> estados = new ArrayList<>();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -163,9 +171,11 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_1, "cell 0 1,alignx center,growy");
 
+
 		txtNome = new JTextField();
 		panel_3.add(txtNome, "cell 1 1,grow");
 		txtNome.setColumns(10);
+
 
 		JLabel lblNewLabel_4 = new JLabel("Data :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -174,6 +184,7 @@ public class TelaCadastroPaciente extends JFrame {
 		JLabel lblNewLabel_7 = new JLabel("Convênio :");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_7, "cell 5 1,alignx trailing");
+
 
 		JComboBox cbxConvenio = new JComboBox();
 		cbxConvenio.addAncestorListener(new AncestorListener() {
@@ -210,6 +221,7 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_8, "cell 5 3");
 
+
 		JRadioButton jrbMasc = new JRadioButton("M");
 		buttonGroup.add(jrbMasc);
 		jrbMasc.setBackground(new Color(240, 255, 240));
@@ -243,6 +255,7 @@ public class TelaCadastroPaciente extends JFrame {
 		buttonGroup.add(jrbFemi);
 		jrbFemi.setBackground(new Color(240, 255, 240));
 		panel_3.add(jrbFemi, "cell 6 3,grow");
+		
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
@@ -255,16 +268,27 @@ public class TelaCadastroPaciente extends JFrame {
 		JLabel lblNewLabel_9 = new JLabel("CEP :");
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_5.add(lblNewLabel_9, "cell 0 1,alignx trailing");
+		
+		JLabel lblNewLabel_18 = new JLabel("Cep : ");
+		lblNewLabel_18.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_5.add(lblNewLabel_18, "cell 0 1,alignx trailing");
 
+
+		
 		txtCep = new JTextField();
 		panel_5.add(txtCep, "cell 1 1 2 1,grow");
 		txtCep.setColumns(10);
+		
+		JButton btnBuscarCep = new JButton("Buscar");
+		btnBuscarCep.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_5.add(btnBuscarCep, "cell 3 1 2 1,grow");
+		
 
 		JLabel lblNewLabel_10 = new JLabel("Estado :");
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_10.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_10, "cell 0 3,alignx trailing");
+
 
 		JComboBox<Estado> cbxEstado = new JComboBox<>();
 		cbxEstado.addAncestorListener(new AncestorListener() {
@@ -285,13 +309,16 @@ public class TelaCadastroPaciente extends JFrame {
 			public void ancestorRemoved(AncestorEvent event) {
 			}
 		});
-
 		panel_5.add(cbxEstado, "cell 1 3,grow");
+
+		
+		
 
 		JLabel lblNewLabel_11 = new JLabel("Municipio :");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_11.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_11, "cell 2 3,alignx center");
+
 
 		txtMunicipio = new JTextField();
 
@@ -302,17 +329,9 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_12.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_12, "cell 4 3,alignx trailing,growy");
 
-		txtBairro = new JTextField();
-		panel_5.add(txtBairro, "cell 5 3,grow");
-		txtBairro.setColumns(10);
-
 		JLabel lblNewLabel_13 = new JLabel("Rua : ");
 		lblNewLabel_13.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_13, "cell 6 3,alignx trailing");
-
-		txtRua = new JTextField();
-		panel_5.add(txtRua, "cell 7 3,grow");
-		txtRua.setColumns(10);
 
 		JLabel lblNewLabel_14 = new JLabel("N :");
 		lblNewLabel_14.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -330,69 +349,6 @@ public class TelaCadastroPaciente extends JFrame {
 		txtComplemento = new JTextField();
 		panel_5.add(txtComplemento, "cell 3 5 2 1,grow");
 		txtComplemento.setColumns(10);
-
-		JButton txtBuscarCep = new JButton("Buscar");
-		txtBuscarCep.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// TODO Cidade
-
-				Integer cep = Integer.parseInt(txtCep.getText());
-
-				// TODO instância para os get e setrs do endereco
-				Endereco consultaEndereco = new Endereco(cep);
-
-				// TODO instâcia para cadastrar um endereco novo
-				Endereco cadastroEndereco;
-
-				// TODO instância para consultar cep cadastrado
-
-				// TODO instância para ver o resultado da busca de cep
-				Endereco resultado = new Endereco();
-				// TODO metodo de consulta
-
-				resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
-
-				// TODO Setar resultado do banco, se acasso o cep existir
-				if (resultado != null) {
-					int cepNovo = resultado.getCep();
-					String ruaNova = resultado.getRua();
-					String bairroNovo = resultado.getBairro();
-					String cidadeNova = resultado.getCidade();
-					Estado estadoNovo = resultado.getEstado();
-
-					enderecoPronto = new Endereco();
-					enderecoPronto.setCep(cepNovo);
-					enderecoPronto.setCidade(cidadeNova);
-					enderecoPronto.setEstado(estadoNovo);
-					enderecoPronto.setRua(ruaNova);
-					enderecoPronto.setBairro(bairroNovo);
-
-					txtMunicipio.setText(enderecoPronto.getCidade());
-					txtBairro.setText(enderecoPronto.getBairro());
-					txtRua.setText(enderecoPronto.getRua());
-
-					System.out.println(enderecoPronto.getEstado().getNome());
-					System.out.println("estouaqui");
-					cbxEstado.setSelectedIndex(enderecoPronto.getEstado().getId() - 1);
-
-					// cbxEstado.setText()
-
-					System.out.println("foi");
-
-					// TODO Cadastrar novo cep
-				} else {
-
-					// cadastroEndereco = new Endereco(cep, estado, bairro, cidade, rua);
-					// Boolean veroficacaoNovoEndereco =
-					// enderecoDao.InserirEndereco(cadastroEndereco);
-					System.out.println("nqa");
-
-				//TODO Cadastrar novo cep 
-				}
-			}
-		});
-		txtBuscarCep.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_5.add(txtBuscarCep, "cell 3 1 2 1,grow");
 
 		JButton btnCadastra = new JButton("Cadastrar");
 		btnCadastra.addActionListener(new ActionListener() {
@@ -567,6 +523,14 @@ public class TelaCadastroPaciente extends JFrame {
 		});
 		btnCadastra.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(btnCadastra, "cell 1 7 2 1,grow");
+		
+		txtBairro = new JTextField();
+		panel_5.add(txtBairro, "cell 5 3,grow");
+		txtBairro.setColumns(10);
+		
+		txtRua = new JTextField();
+		panel_5.add(txtRua, "cell 7 3,grow");
+		txtRua.setColumns(10);
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(240, 255, 240));
@@ -579,6 +543,7 @@ public class TelaCadastroPaciente extends JFrame {
 		JLabel lblNewLabel_16 = new JLabel("CPF :\r\n");
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_16, "cell 0 1,alignx trailing");
+
 
 		txtBuscaCep = new JTextField();
 		panel_6.add(txtBuscaCep, "cell 1 1,grow");
@@ -607,9 +572,40 @@ public class TelaCadastroPaciente extends JFrame {
 		JButton btnNewButton_5 = new JButton("Excluir");
 		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton_5, "cell 4 5,grow");
-
+		/*
 		JButton btnNewButton_6 = new JButton("     Voltar       ");
-		btnNewButton_6.addActionListener(new ActionListener() {
+		btnNewButton_6.addActionListener(new ActionListener() /*{
+
+		txtBuscarCpf = new JTextField();
+		panel_6.add(txtBuscarCpf, "cell 1 1,grow");
+		txtBuscarCpf.setColumns(10);
+		
+		JLabel lblNewLabel_17 = new JLabel("Nome :");
+		lblNewLabel_17.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(lblNewLabel_17, "cell 3 1,alignx trailing");
+		
+		txtBuscarNome = new JTextField();
+		panel_6.add(txtBuscarNome, "cell 4 1,grow");
+		txtBuscarNome.setColumns(10);
+		
+		JButton btnBuscarPaciente = new JButton("Buscar");
+		btnBuscarPaciente.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_6.add(btnBuscarPaciente, "cell 6 1,grow");
+		
+		JPanel panel_7 = new JPanel();
+		panel_7.setBorder(new LineBorder(new Color(107, 142, 35), 4));
+		panel_6.add(panel_7, "cell 1 3 7 1,grow");
+		
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(btnEditar, "cell 1 5,grow");
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(btnExcluir, "cell 4 5,grow");
+		
+		JButton btnVoltar = new JButton("     Voltar       ");
+		btnVoltar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				MenuPrincipal mp = new MenuPrincipal();
@@ -617,11 +613,142 @@ public class TelaCadastroPaciente extends JFrame {
 				mp.setVisible(true);
 				dispose();
 
-			}
+/*
+				String nome = txtNome.getText();
+				String cpf = txtCpf.getText();
+				String sexo = txtSexo.getText();
+				String email = txtEmail.getText();
+				String telefone = txtTelefone.getText();
+				String profissao = txtProfissao.getText();
+				String convenio = txtConvenio.getText();
+				String dataNascimento = txtDataNasciemento.getText();
+				String complemento =  txtComplemento.getText();
+				String numero = txtNumero.getText();
+				String erro;
+				
+				//String cep = String.valueOf(resultado.);
+				
+					
+					if(nome == null || nome.trim() == "" || nome.isEmpty()) {
+						erro = "Nome Vazio";
+					}else {
+						//manipular nome
+					}
+					
 
+					if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
+						erro += "CPF Vazio";
+					} else {
+						//TRANSFORMAR EM STRING
+						//MANIPULAR CPF
+					}
+				
+
+						if (sexo == null || sexo.trim() == "" || sexo.isEmpty()) {
+							erro += "Sexo Vazio";
+						} else if (sexo != "F" && sexo != "M") {
+							erro += "Sexo Inválido";
+						} else {
+							//MANIPULAR SEXO
+						}
+			
+
+					
+
+						if (email == null || email.trim() == "" || email.isEmpty()) {
+							erro += "Email Vazio";
+						}else {
+							//MANIPULAR EMAIL
+						}
+					
+
+					
+
+						if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
+							erro += "Telefone Vazio";
+						}else {
+							//MANIPULAR TELEFONE
+						}
+
+					
+
+					
+
+						if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
+							erro += "Profissão Vazia";	
+						}else {
+							//MANIPULAR PROFISSAO
+						}
+
+						
+
+					
+
+						if (convenio == null || convenio.trim() == "" || convenio.isEmpty()) {
+							erro += "Convenio Vazio";
+						}else {
+							//MANIPULAR CONVENIO
+						}
+
+					
+
+						if (dataNascimento == null || dataNascimento.trim() == "" || dataNascimento.isEmpty()) {
+							erro += "Data de Nascimento Vazia";
+						}else {
+							//MANIPULAR DATA
+						}
+
+				
+						
+						if (complemento == null || complemento.trim() == "" || complemento.isEmpty()) {
+							erro += "Complemento Vazio";	
+						}else {
+							//MANIPULAR COMPLEMENTO
+						}
+
+
+					
+
+						if (numero == null || numero.trim() == "" || numero.isEmpty()) {
+							erro += "Numero Vazio";
+						}else {
+							//MANIPULAR NUMERO
+						}
+
+						
+						
+						if (erro != null || erro.trim() != "") {
+							JOptionPane.showMessageDialog(null, "erro", erro, JOptionPane.ERROR_MESSAGE);
+						}
+				
+			
+				
+				
+			/*
+				//Endereco resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
+				
+				//if(resultado != null) {
+				
+				//Paciente paciente = new Paciente(nome,sexo,endereco, cpf, dataNascimento,
+					//	telefone, email,  rg,   profissao,  convenio) {
+					
+				}/*
+					super(id, nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg)
+						(nome,cpf,sexo,endereco, email,telefone,email,telefone,profissao,convenio, dataNascimento,);
+				//Endereco endereco = EnderecoDAO.buscarEnderecoPorCep();
+				}else
+					enderecoDao.
+				}
+				Paciente paciente = new Paciente();
+				paciente.setEndereco(endereco);
+				
+				
+			//}
+
+			
 		});
-		btnNewButton_6.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_6.add(btnNewButton_6, "cell 7 5,alignx trailing,growy");
+		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(btnVoltar, "cell 7 5,alignx trailing,growy");
 
 		JButton btnNewButton = new RoundButton("Entrar");
 		btnNewButton.setIcon(new ImageIcon(
@@ -637,7 +764,8 @@ public class TelaCadastroPaciente extends JFrame {
 			public void focusLost(FocusEvent e) {
 				btnNewButton.setBackground(new Color(51, 153, 51));
 			}
-		});
-	}
+		});*/
+	
 
+}
 }
