@@ -17,27 +17,36 @@ public class PacienteDao implements InterfacePacienteDao {
 
 	@Override
 	public boolean cadastrarPaciente(Paciente paciente) {
-		int retorno = 0;
+		boolean retorno = false;
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
+		
+	
 		try {
-			String query = "INSERT INTO paciente(nome, cpf , sexo,email,telefone,profissao,convenio,data_nascimento,endereco_cep) values(?,?,?,?,?,?,?,?,?);";
+			String query = "INSERT INTO paciente(cpf, nome,sexo,email,telefone,profissao,convenio_id,data_nascimento,endereco_cep,numero,complemento) values(?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stm = c.prepareStatement(query);
-			stm.setString(1, paciente.getNome());
-			stm.setLong(2, paciente.getCpf());
+			stm.setInt(1, paciente.getCpf());
+			stm.setString(2, paciente.getNome());
 			stm.setString(3, paciente.getSexo());
 			stm.setString(4, paciente.getEmail());
 			stm.setString(5, paciente.getTelefone());
-			stm.setString(6, paciente.getConvenio());
-			stm.setDate(7, Date.valueOf(paciente.getDataNascimento()));
-			stm.setInt(8, paciente.getEndereco().getCep());
-			retorno = stm.executeUpdate();
+			stm.setString(6, paciente.getProfissao());	
+			stm.setInt(7,paciente.getConvenio().getId());
+	
+			stm.setDate(8, Date.valueOf(paciente.getDataNascimento()));
+			stm.setInt(9, paciente.getEndereco().getCep());
+			stm.setInt(10, paciente.getNumero());
+			stm.setString(11, paciente.getComplemento());
+			stm.executeUpdate();
+
+			retorno = true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return retorno;
 
-		return (retorno == 0 ? false : true);
+		
 	}
 
 	@Override

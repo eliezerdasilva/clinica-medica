@@ -22,7 +22,7 @@ public class MedicoDao implements InterfaceMedico {
 			String query = "INSERT INTO paciente(nome, cpf , sexo, email, telefone, crm, especializacao, data_nascimento) values(?,?,?,?,?,?,?,?);";
 			PreparedStatement stm = c.prepareStatement(query);
 			stm.setString(1, medico.getNome());
-			stm.setLong(2, medico.getCpf());
+			stm.setInt(2, medico.getCpf());
 			stm.setString(3, medico.getSexo());
 			stm.setString(4, medico.getEmail());
 			stm.setString(5, medico.getTelefone());
@@ -93,7 +93,7 @@ public class MedicoDao implements InterfaceMedico {
 				String telefone = rs.getString("telefone");
 				Date data_nascimento = rs.getDate("data_nascimento");
 				String especializacao = rs.getString("especializacao");
-				Long cpf = rs.getLong("cpf");		
+				int cpf = rs.getInt("cpf");		
 
 			   LocalDate localDate = data_nascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				medico1.setCrm(crm);

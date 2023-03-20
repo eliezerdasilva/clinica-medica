@@ -1,4 +1,4 @@
--- drop database clinica;
+ drop database clinica;
 
 CREATE SCHEMA IF NOT EXISTS `clinica` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `clinica` ;
@@ -11,6 +11,11 @@ CREATE TABLE IF NOT EXISTS `clinica`.`estados` (
   `nome` VARCHAR(75) NULL DEFAULT NULL,
   `uf` VARCHAR(5) NULL DEFAULT NULL,
   PRIMARY KEY (`id`));
+  
+  CREATE TABLE IF NOT EXISTS `clinica`.`convenio` (
+  `id` INT NOT NULL AUTO_INCREMENT primary key,
+  `convenio` VARCHAR(75) NULL DEFAULT NULL
+ );
 
 CREATE TABLE IF NOT EXISTS `clinica`.`endereco` (
   `cep` INT NOT NULL AUTO_INCREMENT,
@@ -29,22 +34,23 @@ CREATE TABLE IF NOT EXISTS `clinica`.`endereco` (
 -- Table `clinica`.`paciente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`paciente` (
-  `cpf` LONG NOT NULL,
+  `cpf` int primary key,
   `nome` VARCHAR(45) NOT NULL,
-  `sexo` CHAR(1) NOT NULL,
+  `sexo` VARCHAR(35) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(12) NOT NULL,
   `profissao` VARCHAR(50) NOT NULL,
-  `convenio` VARCHAR(30) NOT NULL,
+  `convenio_id` int  NOT NULL,
   `data_nascimento` DATE NOT NULL,
   `endereco_cep` INT NOT NULL,
   `numero` INT NULL DEFAULT NULL,
   `complemento` VARCHAR(30) NULL DEFAULT NULL,
-  PRIMARY KEY (`cpf`),
-  INDEX `endereco_cep` (`endereco_cep` ASC) VISIBLE,
-  CONSTRAINT `paciente_ibfk_1`
+
+
     FOREIGN KEY (`endereco_cep`)
-    REFERENCES `clinica`.`endereco` (`cep`));
+    REFERENCES endereco (cep),
+    FOREIGN KEY (`convenio_id`)
+    REFERENCES convenio (id));
 
 
 -- -----------------------------------------------------
@@ -64,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`usuario` (
 CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
   `id` INT NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
-  `sexo` CHAR(1) NOT NULL,
+   `sexo` VARCHAR(35) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(12) NOT NULL,
   `data_nascimento` DATE NOT NULL,
@@ -101,19 +107,16 @@ CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
 -- -----------------------------------------------------
 -- Table `clinica`.`convenio`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `clinica`.`convenio` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `convenio` VARCHAR(75) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`));
+
 
 
 -- -----------------------------------------------------
 -- Table `clinica`.`funcionario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
-  `cpf` LONG NOT NULL,
+  `cpf` int NOT NULL,
   `nome` VARCHAR(45) NULL DEFAULT NULL,
-  `sexo` CHAR(1) NULL DEFAULT NULL,
+  `sexo`  VARCHAR(45) NULL DEFAULT NULL,
   `telefone` VARCHAR(12) NULL DEFAULT NULL,
   `data_nascimento` DATE NULL DEFAULT NULL,
   `usuario_idusuario` INT NOT NULL,

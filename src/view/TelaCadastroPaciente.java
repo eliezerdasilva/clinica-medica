@@ -9,22 +9,19 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -48,7 +45,6 @@ import model.Endereco;
 import model.Estado;
 import model.Paciente;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.ButtonGroup;
 
 /**
  * 
@@ -71,7 +67,7 @@ public class TelaCadastroPaciente extends JFrame {
 	private JTextField txtData;
 	private JTextField txtCpf;
 	private JTextField txtTelefone;
-	 private MaskFormatter mascaraCep = null;
+	private MaskFormatter mascaraCep = null;
 	private JTextField txtMunicipio;
 	private JTextField txtBairro;
 	private JTextField txtRua;
@@ -264,7 +260,12 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_5.add(txtRua, "cell 7 3,grow");
 		txtRua.setColumns(10);
 
-		txtData = new JTextField();
+		try {
+			txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (ParseException e2) {
+			JOptionPane.showMessageDialog(null, "Data inválida");
+			e2.printStackTrace();
+		}
 		panel_3.add(txtData, "cell 3 1,grow");
 		txtData.setColumns(22);
 
@@ -432,15 +433,16 @@ public class TelaCadastroPaciente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				 MaskFormatter mascaraCep = null;
 				 
-				//String cepString = txtCep.getText();
-				//Integer cep = Integer.parseInt(cepString);
+				String cepString = txtCep.getText();
+				Integer cep = Integer.parseInt(cepString);
+				
 				String nome = txtNome.getText();
+				
 				String cpfTxt = txtCpf.getText();
-				Long cpf = Long.parseLong(cpfTxt);
-				String sexo = null;
-
+				
+			
+				String sexo = "ma";
 				if (jrbMasc.isSelected()) {
 
 					sexo = "Masculino";
@@ -455,134 +457,128 @@ public class TelaCadastroPaciente extends JFrame {
 				}
 			
 				String email = txtEmail.getText();
+				
 				String telefone = txtTelefone.getText();
+				
 				String profissao = txtProfissao.getText();
-
+				
 				String dataN = txtData.getText();
-				dataN = dataN.replace("/", ""); // limpar as barras digitadas
-				String dia = dataN.substring(0, 2);
-				String mes = dataN.substring(2, 4);
-				String ano = dataN.substring(4, 8);
-				LocalDate dataNascimento = LocalDate.of(Integer.valueOf(ano), Integer.valueOf(mes),
-						Integer.valueOf(dia));
-
 				
+				String complemento = txtComplemento.getText();
 				
-				 LocalDate data = LocalDate.of(12, Month.JANUARY, 25);
+				String n = txtNCasa.getText();
 				
-				int pos = cbxEstado.getSelectedIndex();
-				Estado estadoselecionado = estados.get(pos);
 
 				// TODO Construindo Objeto
 				Paciente p = new Paciente();
-				p.setNome(nome);
-				p.setCpf(cpf);
-				p.setSexo(sexo);
-				p.setEmail(email);
-				p.setDataNascimento(dataNascimento);
 				
-
 				
-
-				// String cep = String.valueOf(resultado.);
-				/*
-				 * if (nome.isEmpty() || cpf.isEmpty() || sexo == null || email.isEmpty() ||
-				 * dataNascimento.equals("  /  /    ") || telefone.isEmpty() ||
-				 * profissao.isEmpty()) { { if (nome.isEmpty()) { txtNome.setBorder(new
-				 * LineBorder(new Color(255, 00, 00), 4)); }
-				 * 
-				 * if (cpf.isEmpty()) { txtCpf.setBorder(new LineBorder(new Color(255, 00, 00),
-				 * 4)); }
-				 * 
-				 * /* if(sexo.isEmpty()) { jrbMasc.setBorder(new LineBorder(new Color(255, 00,
-				 * 00), 4)); jrbFemi.setBorder(new LineBorder(new Color(255, 00, 00), 4)); }
-				 * 
-				 * 
-				 * if (cpf.isEmpty()) { txtCpf.setBorder(new LineBorder(new Color(255, 00, 00),
-				 * 4)); }
-				 * 
-				 * if (email.isEmpty()) { txtEmail.setBorder(new LineBorder(new Color(255, 00,
-				 * 00), 4)); }
-				 * 
-				 * if (dataNascimento == null) { txtCpf.setBorder(new LineBorder(new Color(255,
-				 * 00, 00), 4)); }
-				 * 
-				 * if (telefone.isEmpty()) { txtTelefone.setBorder(new LineBorder(new Color(255,
-				 * 00, 00), 4)); }
-				 * 
-				 * if (profissao.isEmpty()) { txtProfissao.setBorder(new LineBorder(new
-				 * Color(255, 00, 00), 4)); }
-				 * 
-				 * }
-				 * 
-				 * } /* if(nome == null || nome.trim() == "" || nome.isEmpty()) {
-				 * JOptionPane.showMessageDialog(null, "Nome Vazio", "Nome Vazio",
-				 * JOptionPane.ERROR_MESSAGE); }else { //manipular nome }
-				 * 
-				 * 
-				 * if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
-				 * 
-				 * } else { //TRANSFORMAR EM STRING //MANIPULAR CPF }
-				 * 
-				 * 
-				 * /*if (sexo == null || sexo.trim() == "" || sexo.isEmpty()) {
-				 * JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Vazio",
-				 * JOptionPane.ERROR_MESSAGE); } else if (sexo != "F" && sexo != "M") {
-				 * JOptionPane.showMessageDialog(null, "Sexo Vazio" ,"Sexo Invalido",
-				 * JOptionPane.ERROR_MESSAGE); } else { //MANIPULAR SEXO }
-				 * 
-				 * 
-				 * 
-				 * 
-				 * if (email == null || email.trim() == "" || email.isEmpty()) {
-				 * JOptionPane.showMessageDialog(null, "E-mail Vazio" ,"E-mail Vazio",
-				 * JOptionPane.ERROR_MESSAGE); }else { //MANIPULAR EMAIL }
-				 * 
-				 * 
-				 * 
-				 * 
-				 * if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
-				 * JOptionPane.showMessageDialog(null, "Telefone Vazio" ,"Telefone Vazio",
-				 * JOptionPane.ERROR_MESSAGE); }else { //MANIPULAR TELEFONE }
-				 * 
-				 * 
-				 * 
-				 * 
-				 * 
-				 * if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
-				 * JOptionPane.showMessageDialog(null, "Profissao Vazia" ,"Profissao Vazia",
-				 * JOptionPane.ERROR_MESSAGE); }else { //MANIPULAR PROFISSAO }
-				 * 
-				 * 
-				 * 
-				 * 
-				 * 
-				 * /* if (convenio == null || convenio.trim() == "" || convenio.isEmpty()) {
-				 * JOptionPane.showMessageDialog(null, "Convenio Vazia" ,"Convenio Vazia",
-				 * JOptionPane.ERROR_MESSAGE); }else { //MANIPULAR CONVENIO }
-				 * 
-				 * 
-				 * 
-				 * if (dataNascimento == null || dataNascimento.trim() == "" ||
-				 * dataNascimento.isEmpty()) { JOptionPane.showMessageDialog(null, "Data Vazia"
-				 * ,"Data Vazia", JOptionPane.ERROR_MESSAGE); }else { //MANIPULAR DATA }
-				 * 
-				 * 
-				 * 
-				 * if (complemento == null || complemento.trim() == "" || complemento.isEmpty())
-				 * { JOptionPane.showMessageDialog(null, "Complemento Vazia"
-				 * ,"Complemento Vazio", JOptionPane.ERROR_MESSAGE); }else { //MANIPULAR
-				 * COMPLEMENTO }
-				 * 
-				 * 
-				 * 
-				 * 
-				 * /*if (numero == null || numero.trim() == "" || numero.isEmpty()) {
-				 * JOptionPane.showMessageDialog(null, "Numero Vazia" ,"Numero Vazio",
-				 * JOptionPane.ERROR_MESSAGE); }else { //MANIPULAR NUMERO 
-*/
+				  //TODO nova validacao nome 
+				  if(nome == null || nome.trim() == "" || nome.isEmpty()) {
+					  txtNome.setBorder(new LineBorder(new Color(255, 00, 00),4));
+				      JOptionPane.showMessageDialog(null, "Nome Vazio","ok", JOptionPane.ERROR_MESSAGE, null); 
+				  }
+				  else {
+					  p.setNome(nome);
+				  }
+				  //cpf
+				  
+				  
+				  if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
+					  txtCpf.setBorder(new LineBorder(new Color(255, 00, 00),4));
+					  JOptionPane.showMessageDialog(null, "CPF Vazio","ok", JOptionPane.ERROR_MESSAGE);
+				  } else { 
+					  
+					  Integer cpf = Integer.parseInt(cpfTxt);
+					  p.setCpf(cpf);
+				  }
+				  //sexo
+					  
+				  
+				  
+				  
+				 if (sexo == null || sexo.isEmpty()) {
+				  JOptionPane.showMessageDialog(null, "Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null); 
+				 jrbFemi.setBorder(new LineBorder(new Color(255, 00, 00),4)) ;
+				 jrbMasc.setBorder(new LineBorder(new Color(255, 00, 00),4));
+				 } else {
+					 p.setSexo(sexo);
+				 }
+				 //email
+				 if (email == null || email.trim() == "" || email.isEmpty()) {
+				  JOptionPane.showMessageDialog(null, "E-mail Vazio","ok", JOptionPane.ERROR_MESSAGE, null); 
+				  txtEmail.setBorder(new LineBorder(new Color(255, 00, 00),4));
+				  }
+				 else
+				  {
+					 p.setEmail(email);
+				  } 	
+				 //telefone
+				  if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
+				  JOptionPane.showMessageDialog(null, "Telefone Vazio","ok", JOptionPane.ERROR_MESSAGE, null); 
+				  txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00),4));
+				  }else { 
+					  p.setTelefone(telefone); 
+					  
+				  }
+				 		//profissao  
+				  if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
+				  JOptionPane.showMessageDialog(null, "Profissao Vazia","ok", JOptionPane.ERROR_MESSAGE, null);
+				  txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00),4));
+				  }else { 
+					p.setProfissao(profissao);
+				  }			
+				  //convenio
+				  if (convenio == null || convenio.isEmpty()) {
+					  cbxConvenio.setBorder(new LineBorder(new Color(255, 00, 00),4));
+					  JOptionPane.showMessageDialog(null, "Convenio Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					  }else {
+						  
+						  Convenio convenios = (Convenio) cbxConvenio.getSelectedItem();
+							int id = convenios.getId();
+							String convenio = convenios.getConvenio();
+							
+							
+							
+							
+							
+							p.setConvenio(convenios);
+										  
+					  }
+						 
+					 
+				  
+				  
+				//data Nascimento
+				  if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) { 
+					  JOptionPane.showMessageDialog(null, "Data Vazia", "ok", JOptionPane.ERROR_MESSAGE, null); 
+					  txtData.setBorder(new LineBorder(new Color(255, 00, 00),4));
+					  }else {
+						  
+						  String data = "25/01/2016";
+						    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+						    LocalDate date = LocalDate.parse(data,formatter);
+						  
+						  p.setDataNascimento(date);
+						  
+					  }
+				  
+				  
+				  //Complemento
+				  p.setComplemento(complemento);
+				  
 				
-			//TODO CADASTRO DO CEP NAO CADASTRADO 		
+				  
+				  
+				 if (n == null || n.trim() == "" || n.isEmpty()) {
+				  JOptionPane.showMessageDialog(null, "Numero Vazia" ,"ok", JOptionPane.ERROR_MESSAGE, null); 
+				  txtNCasa.setBorder(new LineBorder(new Color(255, 00, 00),4));
+				  }else {
+					  Integer nCasa = Integer.valueOf(n);
+					  p.setNumero(nCasa);	
+				  }
+				 //TODO CADASTRO DO CEP NAO CADASTRADO 
+	
 				String bairro = txtBairro.getText();
 				String cidade = txtMunicipio.getText();
 				String rua = txtRua.getText();
@@ -601,18 +597,38 @@ public class TelaCadastroPaciente extends JFrame {
 				estadoSel.setNome(nomeEstado);
 				estadoSel.setUf(uf);
 				
+				// Cria o objeto endereco
+				cadastroEndereco = new Endereco(cep, estadoSel, bairro, cidade, rua);
 				
 				
-				//cadastroEndereco = new Endereco(cep, estadoSel, bairro, cidade, rua);
+				//TODO cadastro do endereço
+				boolean resuEnd = false;
+				try {
+					resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
 				
-
-				System.out.println(cadastroEndereco);
-				boolean resu = enderecoDao.InserirEndereco(cadastroEndereco);
-				if(resu != false) {
-				System.out.println("cadastrado");
 				
+				//TODO cadastrar no Banco
+				boolean cds = false;
+				if(resuEnd != false) {
+				try {
+					//Inserir o endereco no paciente 
+					p.setEndereco(cadastroEndereco);
+					 cds = pacienteDao.cadastrarPaciente(p);
+				}
+				catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+				if(cds == false ) {
+					JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamente");
+				}else {
+					JOptionPane.showMessageDialog(null, "Cadastrado");
+				}
 			}
-			}});
+		}});
 
 		btnCadastra.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(btnCadastra, "cell 1 7 2 1,grow");
@@ -663,6 +679,13 @@ public class TelaCadastroPaciente extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton, "cell 7 5,growx");
-
+		/*dataN = dataN.replace("/", ""); // limpar as barras digitadas
+		String dia = dataN.substring(0, 2);
+		String mes = dataN.substring(2, 4);
+		String ano = dataN.substring(4, 8);
+		*/
+		//LocalDate dataNascimento = LocalDate.of(Integer.valueOf(ano), Integer.valueOf(mes),
+		//Integer.valueOf(dia));
 	}
+				 
 }

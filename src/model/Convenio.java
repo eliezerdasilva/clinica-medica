@@ -6,6 +6,16 @@ public class Convenio {
 	private String convenio;
 	
 	
+	
+	
+	public Convenio() {
+		super();
+	}
+	public Convenio(int id, String convenio) {
+		super();
+		this.id = id;
+		this.convenio = convenio;
+	}
 	public int getId() {
 		return id;
 	}

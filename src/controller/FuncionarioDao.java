@@ -99,7 +99,7 @@ public class FuncionarioDao implements IntefaceFuncionarioDao {
 			ResultSet rs = stm.executeQuery(query);
 			
 			while (rs.next()) {
-				Long cpf = rs.getLong("cpf");
+				int cpf = rs.getInt("cpf");
 				String nome = rs.getString("nome");
 				String sexo = rs.getString("sexo");
 				String telefone = rs.getString("telefone");

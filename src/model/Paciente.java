@@ -6,20 +6,20 @@ public class Paciente extends Pessoa {
 
 	private String observacao;
 	private String profissao;
-	private String convenio;
+	private Convenio convenio;
 
 	public Paciente() {
 		super();
 	}
 
-	public Paciente(String observacao, String profissao, String convenio) {
+	public Paciente(String observacao, String profissao, Convenio convenio) {
 		super();
 		this.observacao = observacao;
 		this.profissao = profissao;
 		this.convenio = convenio;
 	}
-	public Paciente(String nome, String sexo, Endereco endereco, Long cpf, LocalDate dataNascimento, String telefone,
-			String email, String rg, String observacao, String profissao, String convenio) {
+	public Paciente(String nome, String sexo, Endereco endereco, int cpf, LocalDate dataNascimento, String telefone,
+			String email, String rg, String observacao, String profissao, Convenio convenio) {
 		super(nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg);
 		this.observacao = observacao;
 		this.profissao = profissao;
@@ -42,12 +42,16 @@ public class Paciente extends Pessoa {
 		this.profissao = profissao;
 	}
 
-	public final String getConvenio() {
+	public Convenio getConvenio() {
 		return convenio;
 	}
 
-	public final void setConvenio(String convenio) {
+	public void setConvenio(Convenio convenio) {
 		this.convenio = convenio;
 	}
+	
 
+
+
+	
 }
