@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import model.Convenio;
 import model.Paciente;
 
 public class PacienteDao implements InterfacePacienteDao {
@@ -58,7 +59,7 @@ public class PacienteDao implements InterfacePacienteDao {
 	}
 
 	@Override
-	public ArrayList<String> consultaConvenio() {
+	public ArrayList<Convenio> consultaConvenio() {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
@@ -66,12 +67,16 @@ public class PacienteDao implements InterfacePacienteDao {
 
 			ResultSet rs = ps.executeQuery();
 
-			ArrayList<String> convenio = new ArrayList<>();
+			ArrayList<Convenio> convenios = new ArrayList<>();
 			while (rs.next()) {
-				convenio.add(rs.getString("convenio"));
+				Convenio convenio = new Convenio();
+				
+				convenio.setId(rs.getInt("id"));
+				convenio.setConvenio(rs.getString("convenio"));
+				convenios.add(convenio);
 
 			}
-			return convenio;
+			return convenios;
 
 		} catch (Exception e) {
 			// TODO: handle exception

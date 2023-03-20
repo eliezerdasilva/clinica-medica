@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
-import model.Endereco;
 import model.Medico;
 
 public class MedicoDao implements InterfaceMedico {
@@ -27,11 +28,9 @@ public class MedicoDao implements InterfaceMedico {
 			stm.setString(5, medico.getTelefone());
 			stm.setLong(6, medico.getCrm());
 			stm.setString(7, medico.getEspecializacao());
-<<<<<<< HEAD
-			//stm.setDate(8,medico.getDataNascimento());
-=======
-			stm.setDate(8, medico.getDataNascimento());
->>>>>>> dff2b15926b428df34524ed0285e1e0e6b1c6ef8
+
+			stm.setDate(8, Date.valueOf(medico.getDataNascimento()));
+
 			retorno = stm.executeUpdate();
 
 		} catch (Exception e) {
@@ -43,9 +42,7 @@ public class MedicoDao implements InterfaceMedico {
 
 	@Override
 	public boolean alterarMedico(Medico medico) {
-<<<<<<< HEAD
-		//teste
-=======
+
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		PreparedStatement stm = null;
@@ -61,7 +58,7 @@ public class MedicoDao implements InterfaceMedico {
 			stm.setString(4, medico.getTelefone());
 			stm.setLong(5, medico.getCrm());
 			stm.setString(6, medico.getEspecializacao());
-			stm.setDate(7, medico.getDataNascimento());
+			stm.setDate(7, Date.valueOf(medico.getDataNascimento()));
 			stm.setLong(8, medico.getCpf());
 				
 			
@@ -73,7 +70,7 @@ public class MedicoDao implements InterfaceMedico {
 			con.fecharConexao();
 		}
 		
->>>>>>> dff2b15926b428df34524ed0285e1e0e6b1c6ef8
+
 		return false;
 	}
 
@@ -98,12 +95,13 @@ public class MedicoDao implements InterfaceMedico {
 				String especializacao = rs.getString("especializacao");
 				Long cpf = rs.getLong("cpf");		
 
+			   LocalDate localDate = data_nascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				medico1.setCrm(crm);
 				medico1.setNome(nome);
 				medico1.setSexo(sexo);
 				medico1.setEmail(email);
 				medico1.setTelefone(telefone);
-				medico1.setDataNascimento(data_nascimento);
+				medico1.setDataNascimento(localDate);
 				medico1.setEspecializacao(especializacao);
 				medico1.setCpf(cpf);
 			}

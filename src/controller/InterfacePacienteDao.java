@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import model.Convenio;
 import model.Paciente;
 
 public interface InterfacePacienteDao {
@@ -15,7 +16,7 @@ public interface InterfacePacienteDao {
 	
 	public Paciente consultarPaciente(Paciente paciente);
 	
-	public ArrayList<String> consultaConvenio();
+	public ArrayList<Convenio> consultaConvenio();
 	
 
 
