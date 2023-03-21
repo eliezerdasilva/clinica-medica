@@ -8,6 +8,25 @@
 
 É trabalho acadêmico da unidade curricular "Projeto Integrador II". O qual tem o objetivo gerenciar uma clínica medica, cadastrando consultas, médicos e funcionários. Para o desenvolvimento do sistema foi utilizado a linguagem Java como back-end, o framework Swing para interface e banco de dados SQL.
 
+# Funções  
+Realizar o cadastro de pacientes.
+Realizar o agendamento de consultas.
+Os funcionários irão efetuar a chegada do paciente.
+Os funcionários podem verificar os dados de total de consultas, agendamentos e faltas.
+Os médicos podem inserir e alterar as observações no relatório do paciente.
+Os médicos terão permissão para visuaizar os dados do paciente.
+O administrador poderá cadastrar funcionários.
+O administrador pode gerar um relatório de dados da clínica.
+O administrador pode cadastrar um médico.
+O administrador pode editar e excluir como funcionário, paciente, médico e especialização.
+O administrador pode inserir especialização médica.
+Os médicos terão um usuário e senha específicos para sua função e suas permissões.
+Os asministradores terão um usuário e senha específicos para sua função e suas permissões.
+O sistema deve não ser acessado por usuário não autorizados.
+O sistema é capaz de trabalhar sem interrupções por causa de falta de desempenho.
+O sistema deve funcionar apenas em horário comercial.
+O sistema deverá ser de fácil entendimento.
+
 # Como compilar? 
 
 ### Para melhor visualização é necessário utilizar a IDE eclipse com o Swing baixado.
