@@ -74,7 +74,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 	private JTextField txtNCasa;
 	private JTextField txtComplemento;
-	private JTextField txtBuscaCep;
+	private JTextField txtBuscaCpf;
 	private JTextField txtBuscaNome;
 	protected String[] convenios;
 	private Estado estado;
@@ -235,7 +235,7 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_3.add(txtEmail, "cell 1 3,grow");
 		txtEmail.setColumns(10);
 
-		JLabel lblNewLabel_5 = new JLabel("Cpf :    ");
+		JLabel lblNewLabel_5 = new JLabel("CPF :    ");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_5, "flowx,cell 3 3,grow");
 
@@ -256,7 +256,12 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_3.add(txtProfissao, "cell 1 5,grow");
 		txtProfissao.setColumns(10);
 		
-		txtCep = new JTextField();
+		try {
+			txtCep = new JFormattedTextField(new MaskFormatter("#####-###"));
+		} catch (ParseException e4) {
+			JOptionPane.showMessageDialog(null,"CEP inválido");
+			e4.printStackTrace();
+		}
 		panel_5.add(txtCep, "cell 1 1,grow");
 		txtCep.setColumns(10);
 		
@@ -276,16 +281,27 @@ public class TelaCadastroPaciente extends JFrame {
 		}
 		panel_3.add(txtData, "cell 3 1,grow");
 		txtData.setColumns(22);
-
-		txtCpf = new JTextField();
+		
+		try {
+			txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (ParseException e3) {
+			JOptionPane.showMessageDialog(null,"CPF inválido");
+			e3.printStackTrace();
+		}
 		panel_3.add(txtCpf, "cell 3 3,grow");
 		txtCpf.setColumns(23);
 
 		JLabel lblNewLabel_6 = new JLabel("Telefone :");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_6, "flowx,cell 3 5");
-
-		txtTelefone = new JTextField();
+		
+		
+		try {
+			txtTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
+		} catch (ParseException e4) {
+			JOptionPane.showMessageDialog(null,"Telefone inválido");
+			e4.printStackTrace();
+		}
 		panel_3.add(txtTelefone, "cell 3 5,grow");
 		txtTelefone.setColumns(10);
 
@@ -294,12 +310,7 @@ public class TelaCadastroPaciente extends JFrame {
 		jrbFemi.setBackground(new Color(240, 255, 240));
 		panel_3.add(jrbFemi, "cell 6 3,grow");
 
-		
-		JLabel lblNewLabel_9 = new JLabel("CEP :");
-		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
-
-		JLabel lblNewLabel_18 = new JLabel("Cep : ");
+		JLabel lblNewLabel_18 = new JLabel("CEP: ");
 		lblNewLabel_18.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_18, "cell 0 1,alignx trailing");
 
@@ -324,9 +335,15 @@ public class TelaCadastroPaciente extends JFrame {
 		});
 		panel_5.add(cbxEstado, "cell 1 3,grow");
 		
-		txtBuscaCep = new JTextField();
-		panel_6.add(txtBuscaCep, "cell 1 1,grow");
-		txtBuscaCep.setColumns(10);
+		
+		try {
+			txtBuscaCpf = new JFormattedTextField(new MaskFormatter("###.####.###-##"));
+		} catch (ParseException e4) {
+			JOptionPane.showMessageDialog(null,"CPF inválido");
+			e4.printStackTrace();
+		}
+		panel_6.add(txtBuscaCpf, "cell 1 1,grow");
+		txtBuscaCpf.setColumns(10);
 
 	
 
@@ -418,7 +435,7 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_13.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_13, "cell 6 3,alignx trailing");
 
-		JLabel lblNewLabel_14 = new JLabel("N :");
+		JLabel lblNewLabel_14 = new JLabel("N° :");
 		lblNewLabel_14.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_14, "cell 0 5,alignx trailing");
 
