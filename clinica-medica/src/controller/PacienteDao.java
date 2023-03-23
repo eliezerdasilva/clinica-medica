@@ -25,7 +25,7 @@ public class PacienteDao implements InterfacePacienteDao {
 		try {
 			String query = "INSERT INTO paciente(cpf, nome,sexo,email,telefone,profissao,convenio_id,data_nascimento,endereco_cep,numero,complemento) values(?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stm = c.prepareStatement(query);
-			stm.setInt(1, paciente.getCpf());
+			stm.setLong(1, paciente.getCpf());
 			stm.setString(2, paciente.getNome());
 			stm.setString(3, paciente.getSexo());
 			stm.setString(4, paciente.getEmail());

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public abstract class Pessoa {
 
 
-	private int cpf;
+	private Long cpf;
 	private String nome;
 	private LocalDate dataNascimento;
 	private String email;
@@ -25,7 +25,7 @@ public abstract class Pessoa {
 		this.nome = nome;
 	}
 
-	public Pessoa( String nome, String sexo, Endereco endereco, int cpf, LocalDate dataNascimento, String telefone,
+	public Pessoa( String nome, String sexo, Endereco endereco, Long cpf, LocalDate dataNascimento, String telefone,
 			String email, String rg) {
 		super();
 	
@@ -82,11 +82,11 @@ public abstract class Pessoa {
 		this.email = email;
 	}
 
-	public int getCpf() {
+	public Long getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(int cpf) {
+	public void setCpf(Long cpf) {
 		this.cpf = cpf;
 	}
 

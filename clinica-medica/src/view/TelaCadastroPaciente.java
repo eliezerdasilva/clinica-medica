@@ -78,7 +78,7 @@ public class TelaCadastroPaciente extends JFrame {
 	private JTextField txtBuscaNome;
 	protected String[] convenios;
 	private Estado estado;
-	Endereco cadastroEndereco;
+	private Endereco cadastroEndereco;
 
 	ArrayList<Estado> estados = new ArrayList<>();
 	ArrayList<Convenio> convenio = new ArrayList<>();
@@ -124,18 +124,14 @@ public class TelaCadastroPaciente extends JFrame {
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(204, 255, 204));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1408, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(177, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1408, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(177, Short.MAX_VALUE)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(5))
-		);
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGap(5)));
 		panel.setLayout(new MigLayout("", "[100px:n:100px][1286.00,grow][100px:n:100px]", "[800:n:800,grow,top][]"));
 
 		JPanel panel_1 = new JPanel();
@@ -210,7 +206,7 @@ public class TelaCadastroPaciente extends JFrame {
 		});
 
 		panel_3.add(cbxConvenio, "cell 6 1,grow");
-		
+
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(240, 255, 240));
 		panel_6.setBorder(new LineBorder(new Color(85, 107, 47), 4));
@@ -219,13 +215,13 @@ public class TelaCadastroPaciente extends JFrame {
 				new MigLayout("", "[80:n:80][200:n:200,grow][][100px:n:100px][200:n:200,grow][][150:n:150][400:n:400]",
 						"[5:n:5][30:n:30][][200:n:200,grow][5:n:5][30:n:30]"));
 
-		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
 		panel_5.setBorder(new LineBorder(new Color(107, 142, 35), 4));
 		panel_4.add(panel_5, "cell 0 1,grow");
-		panel_5.setLayout(new MigLayout("", "[80:n:80][150:n:150,grow][150:n:150][150:n:150,grow][100:n:100][180:n:180,grow][70:n:70][200:n:200px,grow][100px:n:100px]", "[5:n:5][][5:n:5][30:n:30][5:n:5][30:n:30][5:n:5][30:n:30]"));
-
+		panel_5.setLayout(new MigLayout("",
+				"[80:n:80][150:n:150,grow][150:n:150][150:n:150,grow][100:n:100][180:n:180,grow][70:n:70][200:n:200px,grow][100px:n:100px]",
+				"[5:n:5][][5:n:5][30:n:30][5:n:5][30:n:30][5:n:5][30:n:30]"));
 
 		JLabel lblNewLabel_2 = new JLabel("E-mail :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -255,11 +251,11 @@ public class TelaCadastroPaciente extends JFrame {
 		txtProfissao = new JTextField();
 		panel_3.add(txtProfissao, "cell 1 5,grow");
 		txtProfissao.setColumns(10);
-		
+
 		txtCep = new JTextField();
 		panel_5.add(txtCep, "cell 1 1,grow");
 		txtCep.setColumns(10);
-		
+
 		txtBairro = new JTextField();
 		panel_5.add(txtBairro, "cell 5 3,grow");
 		txtBairro.setColumns(10);
@@ -294,7 +290,6 @@ public class TelaCadastroPaciente extends JFrame {
 		jrbFemi.setBackground(new Color(240, 255, 240));
 		panel_3.add(jrbFemi, "cell 6 3,grow");
 
-		
 		JLabel lblNewLabel_9 = new JLabel("CEP :");
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -323,12 +318,10 @@ public class TelaCadastroPaciente extends JFrame {
 			}
 		});
 		panel_5.add(cbxEstado, "cell 1 3,grow");
-		
+
 		txtBuscaCep = new JTextField();
 		panel_6.add(txtBuscaCep, "cell 1 1,grow");
 		txtBuscaCep.setColumns(10);
-
-	
 
 		JButton btnBuscarCep = new JButton("Buscar");
 		btnBuscarCep.addActionListener(new ActionListener() {
@@ -338,13 +331,11 @@ public class TelaCadastroPaciente extends JFrame {
 				// TODO Cidade
 				String cepString = txtCep.getText();
 				Integer cep = Integer.parseInt(cepString);
-				
 
 				// TODO instância para os get e setrs do endereco
 				Endereco consultaEndereco = new Endereco(cep);
 
 				// TODO instâcia para cadastrar um endereco novo
-				
 
 				// TODO instância para consultar cep cadastrado
 
@@ -356,7 +347,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 				// TODO Setar resultado do banco, se acasso o cep existir
 				if (resultado != null) {
-					
+
 					int cepNovo = resultado.getCep();
 					String ruaNova = resultado.getRua();
 					String bairroNovo = resultado.getBairro();
@@ -374,20 +365,13 @@ public class TelaCadastroPaciente extends JFrame {
 					txtBairro.setText(enderecoPronto.getBairro());
 					txtRua.setText(enderecoPronto.getRua());
 
-					
-					
-					
-
 					cbxEstado.setSelectedIndex(enderecoPronto.getEstado().getId() - 1);
 					System.out.println("nao faz setnioo");
-					
-				}else {
-					JOptionPane.showMessageDialog(null, "Cep não cadastrado");
-					
-					
-					}
 
-				
+				} else {
+					JOptionPane.showMessageDialog(null, "Cep não cadastrado");
+
+				}
 
 			}
 
@@ -439,22 +423,16 @@ public class TelaCadastroPaciente extends JFrame {
 		btnCadastra.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				 
-				String cepString = txtCep.getText();
-				Integer cep = Integer.parseInt(cepString);
-				
+
 				String nome = txtNome.getText();
-				
+
 				String cpfTxt = txtCpf.getText();
-				
-			
+
 				String sexo = "ma";
 				if (jrbMasc.isSelected()) {
 
 					sexo = "Masculino";
-				} 
+				}
 
 				if (jrbFemi.isSelected()) {
 
@@ -463,192 +441,214 @@ public class TelaCadastroPaciente extends JFrame {
 				if (jrbFemi == null || jrbMasc == null) {
 					sexo = null;
 				}
-			
+
 				String email = txtEmail.getText();
-				
+
 				String telefone = txtTelefone.getText();
-				
+
 				String profissao = txtProfissao.getText();
-				
+
 				String dataN = txtData.getText();
-				
+
 				String complemento = txtComplemento.getText();
-				
+
 				String n = txtNCasa.getText();
-				
 
 				// TODO Construindo Objeto
 				Paciente p = new Paciente();
-				
-				
-				  //TODO nova validacao nome 
-				  if(nome == null || nome.trim() == "" || nome.isEmpty()) {
-					  txtNome.setBorder(new LineBorder(new Color(255, 00, 00),4));
-				      JOptionPane.showMessageDialog(null, "Nome Vazio","ok", JOptionPane.ERROR_MESSAGE, null); 
-				  }
-				  else {
-					  p.setNome(nome);
-				  }
-				  //cpf
-				  
-				  
-				  if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
-					  txtCpf.setBorder(new LineBorder(new Color(255, 00, 00),4));
-					  JOptionPane.showMessageDialog(null, "CPF Vazio","ok", JOptionPane.ERROR_MESSAGE);
-				  } else { 
-					  
-					  Integer cpf = Integer.parseInt(cpfTxt);
-					  p.setCpf(cpf);
-				  }
-				  //sexo
-					  
-				  
-				  
-				  
-				 if (sexo == null || sexo.isEmpty()) {
-				  JOptionPane.showMessageDialog(null, "Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null); 
-				 jrbFemi.setBorder(new LineBorder(new Color(255, 00, 00),4)) ;
-				 jrbMasc.setBorder(new LineBorder(new Color(255, 00, 00),4));
-				 } else {
-					 p.setSexo(sexo);
-				 }
-				 //email
-				 if (email == null || email.trim() == "" || email.isEmpty()) {
-				  JOptionPane.showMessageDialog(null, "E-mail Vazio","ok", JOptionPane.ERROR_MESSAGE, null); 
-				  txtEmail.setBorder(new LineBorder(new Color(255, 00, 00),4));
-				  }
-				 else
-				  {
-					 p.setEmail(email);
-				  } 	
-				 //telefone
-				  if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
-				  JOptionPane.showMessageDialog(null, "Telefone Vazio","ok", JOptionPane.ERROR_MESSAGE, null); 
-				  txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00),4));
-				  }else { 
-					  p.setTelefone(telefone); 
-					  
-				  }
-				 		//profissao  
-				  if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
-				  JOptionPane.showMessageDialog(null, "Profissao Vazia","ok", JOptionPane.ERROR_MESSAGE, null);
-				  txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00),4));
-				  }else { 
+
+				// TODO nova validacao nome
+				if (nome == null || nome.trim() == "" || nome.isEmpty()) {
+					txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					JOptionPane.showMessageDialog(null, "Nome Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+					return;
+				} else {
+					p.setNome(nome);
+				}
+				// cpf
+
+				if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
+					txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					JOptionPane.showMessageDialog(null, "CPF Vazio", "ok", JOptionPane.ERROR_MESSAGE);
+					return;
+				} else {
+					Long cpf = Long.valueOf(cpfTxt);
+					p.setCpf(cpf);
+				}
+				// sexo
+
+				if (sexo == null || sexo.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+					jrbFemi.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					jrbMasc.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					return;
+				} else {
+					p.setSexo(sexo);
+				}
+				// email
+				if (email == null || email.trim() == "" || email.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "E-mail Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+					txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					return;
+				} else {
+					p.setEmail(email);
+				}
+				// telefone
+				if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Telefone Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+					txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					return;
+				} else {
+					p.setTelefone(telefone);
+
+				}
+				// profissao
+				if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Profissao Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					return;
+				} else {
 					p.setProfissao(profissao);
-				  }			
-				  //convenio
-				  if (convenio == null || convenio.isEmpty()) {
-					  cbxConvenio.setBorder(new LineBorder(new Color(255, 00, 00),4));
-					  JOptionPane.showMessageDialog(null, "Convenio Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
-					  }else {
-						  
-						  Convenio convenios = (Convenio) cbxConvenio.getSelectedItem();
-							int id = convenios.getId();
-							String convenio = convenios.getConvenio();
-							
-							
-							
-							
-							
-							p.setConvenio(convenios);
-										  
-					  }
-						 
-					 
-				  
-				  
-				//data Nascimento
-				  if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) { 
-					  JOptionPane.showMessageDialog(null, "Data Vazia", "ok", JOptionPane.ERROR_MESSAGE, null); 
-					  txtData.setBorder(new LineBorder(new Color(255, 00, 00),4));
-					  }else {
-						  
-						  String data = "25/01/2016";
-						    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-						    LocalDate date = LocalDate.parse(data,formatter);
-						  
-						  p.setDataNascimento(date);
-						  
-					  }
-				  
-				  
-				  //Complemento
-				  p.setComplemento(complemento);
-				  
-				
-				  
-				  
-				 if (n == null || n.trim() == "" || n.isEmpty()) {
-				  JOptionPane.showMessageDialog(null, "Numero Vazia" ,"ok", JOptionPane.ERROR_MESSAGE, null); 
-				  txtNCasa.setBorder(new LineBorder(new Color(255, 00, 00),4));
-				  }else {
-					  Integer nCasa = Integer.valueOf(n);
-					  p.setNumero(nCasa);	
-				  }
-				 //TODO CADASTRO DO CEP NAO CADASTRADO 
-	
+				}
+				// convenio
+				if (convenio == null || convenio.isEmpty()) {
+					cbxConvenio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					JOptionPane.showMessageDialog(null, "Convenio Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					return;
+				} else {
+
+					Convenio convenios = (Convenio) cbxConvenio.getSelectedItem();
+					int id = convenios.getId();
+					String convenio = convenios.getConvenio();
+
+					p.setConvenio(convenios);
+
+				}
+
+				// data Nascimento
+				if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Data Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					return;
+				} else {
+
+					String data = "25/01/2016";
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					LocalDate date = LocalDate.parse(data, formatter);
+
+					p.setDataNascimento(date);
+
+				}
+
+				// Complemento
+				p.setComplemento(complemento);
+
+				if (n == null || n.trim() == "" || n.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Numero Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					txtNCasa.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					return;
+				} else {
+					Integer nCasa = Integer.valueOf(n);
+					p.setNumero(nCasa);
+				}
+				// TODO CADASTRO DO CEP NAO CADASTRADO
+
+				// Validacao endereco
+				String cepString = txtCep.getText();
 				String bairro = txtBairro.getText();
 				String cidade = txtMunicipio.getText();
 				String rua = txtRua.getText();
-				
-				
-				
-				Estado estado = (Estado) cbxEstado.getSelectedItem();
-				int id = estado.getId();
-				String nomeEstado = estado.getNome();
-				String uf = estado.getUf();
-				System.out.println(id);
-				
-			
-				Estado estadoSel = new  Estado();
-				estadoSel.setId(id);;
-				estadoSel.setNome(nomeEstado);
-				estadoSel.setUf(uf);
-				
-				// Cria o objeto endereco
-				cadastroEndereco = new Endereco(cep, estadoSel, bairro, cidade, rua);
-				
-				
-				//TODO cadastro do endereço
-				boolean resuEnd = false;
-				try {
-					resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
-				} catch (Exception e2) {
-					e2.printStackTrace();
+
+				if (cadastroEndereco == null) {
+					cadastroEndereco = new Endereco();
 				}
-				
-				
-				//TODO cadastrar no Banco
-				boolean cds = false;
-				if(resuEnd != false) {
-				try {
-					//Inserir o endereco no paciente 
-					p.setEndereco(cadastroEndereco);
-					 cds = pacienteDao.cadastrarPaciente(p);
+
+				EnderecoDao endereco = new EnderecoDao();
+
+				if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					return;
+				} else {
+					Integer cep = Integer.valueOf(cepString);
+					cadastroEndereco.setCep(cep);
 				}
-				catch (Exception e1) {
-					e1.printStackTrace();
+
+				if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					return;
+				} else {
+					cadastroEndereco.setBairro(bairro);
 				}
-				
-				if(cds == false ) {
-					JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamente");
-				}else {
-					JOptionPane.showMessageDialog(null, "Cadastrado");
+				if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					return;
+				} else {
+					cadastroEndereco.setCidade(cidade);
+				}
+				if (rua == null || rua.trim() == "" || rua.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					return;
+				} else {
+					cadastroEndereco.setRua(rua);
+				}
+				Endereco resultado = new Endereco();
+				resultado = endereco.ConsultarEndereco(cadastroEndereco);
+
+				if (resultado == null) {
+					Estado estado = (Estado) cbxEstado.getSelectedItem();
+					int id = estado.getId();
+					String nomeEstado = estado.getNome();
+					String uf = estado.getUf();
+					System.out.println(id);
+
+					Estado estadoSel = new Estado();
+					estadoSel.setId(id);
+					;
+					estadoSel.setNome(nomeEstado);
+					estadoSel.setUf(uf);
+
+					// Cria o objeto endereco
+
+					// TODO cadastro do endereço
+					boolean resuEnd = false;
+					try {
+						resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+
+				}
+				if (resultado != null) {
+					boolean cds = false;
+
+					try {
+						// Inserir o endereco no paciente
+						p.setEndereco(cadastroEndereco);
+						cds = pacienteDao.cadastrarPaciente(p);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+
+					if (cds == false) {
+						JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamente");
+					} else {
+						JOptionPane.showMessageDialog(null, "Cadastrado");
+					}
 				}
 			}
-		}});
+
+		});
 
 		btnCadastra.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(btnCadastra, "cell 1 7 2 1,grow");
 
-		
-
-		
 		JLabel lblNewLabel_16 = new JLabel("CPF :\r\n");
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_16, "cell 0 1,alignx trailing");
-
-		
 
 		JLabel lblNewLabel_17 = new JLabel("Nome :");
 		lblNewLabel_17.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -687,13 +687,14 @@ public class TelaCadastroPaciente extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton, "cell 7 5,growx");
-		/*dataN = dataN.replace("/", ""); // limpar as barras digitadas
-		String dia = dataN.substring(0, 2);
-		String mes = dataN.substring(2, 4);
-		String ano = dataN.substring(4, 8);
-		*/
-		//LocalDate dataNascimento = LocalDate.of(Integer.valueOf(ano), Integer.valueOf(mes),
-		//Integer.valueOf(dia));
+		/*
+		 * dataN = dataN.replace("/", ""); // limpar as barras digitadas String dia =
+		 * dataN.substring(0, 2); String mes = dataN.substring(2, 4); String ano =
+		 * dataN.substring(4, 8);
+		 */
+		// LocalDate dataNascimento = LocalDate.of(Integer.valueOf(ano),
+		// Integer.valueOf(mes),
+		// Integer.valueOf(dia));
 	}
-				 
+
 }

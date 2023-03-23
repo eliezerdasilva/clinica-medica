@@ -63,9 +63,10 @@ public class EnderecoDao implements IEnderecoDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
+			return null;
 		}
 		return null;
+		
 	}
 
 	@Override

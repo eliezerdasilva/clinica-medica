@@ -52,6 +52,9 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Image;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * 
@@ -79,6 +82,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTextField txtBuscarNome;
 	private JTextField txtSenha;
 	private JPasswordField passwordField;
+	private JTable table;
 	
 	
 
@@ -134,11 +138,11 @@ public class TelaCadastroFuncionario extends JFrame {
 					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(21))
 		);
-		panel.setLayout(new MigLayout("", "[100px:n:100px][1286.00,grow][100px:n:100px]", "[810:n:810,grow]"));
+		panel.setLayout(new MigLayout("", "[1286.00,grow]", "[810:n:810,grow]"));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
-		panel.add(panel_1, "cell 1 0,grow");
+		panel.add(panel_1, "cell 0 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		BufferedImage filc = null;
@@ -373,6 +377,22 @@ public class TelaCadastroFuncionario extends JFrame {
 		JPanel panel_7 = new JPanel();
 		panel_7.setBorder(new LineBorder(new Color(107, 142, 35), 4));
 		panel_6.add(panel_7, "cell 1 3 7 1,grow");
+		panel_7.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 1124, 78);
+		panel_7.add(scrollPane);
+		
+		table = new JTable();
+		DefaultTableModel dataModel = (new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"CPF", "Nome", "Email"
+			}
+		));
+		table.setModel(null);
+		scrollPane.setViewportView(table);
 		
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
