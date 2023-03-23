@@ -443,6 +443,7 @@ public class TelaCadastroPaciente extends JFrame {
 				
 				 
 				String cepString = txtCep.getText();
+				
 				Integer cep = Integer.parseInt(cepString);
 				
 				String nome = txtNome.getText();
@@ -489,8 +490,8 @@ public class TelaCadastroPaciente extends JFrame {
 				  else {
 					  p.setNome(nome);
 				  }
-				  //cpf
 				  
+				  //cpf
 				  
 				  if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
 					  txtCpf.setBorder(new LineBorder(new Color(255, 00, 00),4));
@@ -500,10 +501,8 @@ public class TelaCadastroPaciente extends JFrame {
 					  Integer cpf = Integer.parseInt(cpfTxt);
 					  p.setCpf(cpf);
 				  }
+				  
 				  //sexo
-					  
-				  
-				  
 				  
 				 if (sexo == null || sexo.isEmpty()) {
 				  JOptionPane.showMessageDialog(null, "Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null); 
@@ -512,6 +511,7 @@ public class TelaCadastroPaciente extends JFrame {
 				 } else {
 					 p.setSexo(sexo);
 				 }
+				 
 				 //email
 				 if (email == null || email.trim() == "" || email.isEmpty()) {
 				  JOptionPane.showMessageDialog(null, "E-mail Vazio","ok", JOptionPane.ERROR_MESSAGE, null); 
@@ -635,8 +635,10 @@ public class TelaCadastroPaciente extends JFrame {
 				}else {
 					JOptionPane.showMessageDialog(null, "Cadastrado");
 				}
-			}
-		}});
+			  }
+		    }
+		  }
+		);
 
 		btnCadastra.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(btnCadastra, "cell 1 7 2 1,grow");
