@@ -45,6 +45,9 @@ import model.Endereco;
 import model.Estado;
 import model.Paciente;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * 
@@ -84,6 +87,7 @@ public class TelaCadastroPaciente extends JFrame {
 	ArrayList<Convenio> convenio = new ArrayList<>();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField txtCep;
+	private JTable table;
 
 	/**
 	 * Create the frame.
@@ -665,6 +669,20 @@ public class TelaCadastroPaciente extends JFrame {
 		JPanel panel_7 = new JPanel();
 		panel_7.setBorder(new LineBorder(new Color(107, 142, 35), 4));
 		panel_6.add(panel_7, "cell 1 3 7 1,grow");
+		panel_7.setLayout(new CardLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel_7.add(scrollPane, "name_15770559949500");
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome", "CPF", "Email"
+			}
+		));
+		scrollPane.setViewportView(table);
 
 		JButton btnNewButton_4 = new JButton("Editar");
 		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -687,14 +705,7 @@ public class TelaCadastroPaciente extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton, "cell 7 5,growx");
-		/*
-		 * dataN = dataN.replace("/", ""); // limpar as barras digitadas String dia =
-		 * dataN.substring(0, 2); String mes = dataN.substring(2, 4); String ano =
-		 * dataN.substring(4, 8);
-		 */
-		// LocalDate dataNascimento = LocalDate.of(Integer.valueOf(ano),
-		// Integer.valueOf(mes),
-		// Integer.valueOf(dia));
+	
 	}
 
 }
