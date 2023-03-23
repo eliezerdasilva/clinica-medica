@@ -258,9 +258,9 @@ public class TelaCadastroPaciente extends JFrame {
 		
 		try {
 			txtCep = new JFormattedTextField(new MaskFormatter("#####-###"));
-		} catch (ParseException e4) {
+		} catch (ParseException e2) {
 			JOptionPane.showMessageDialog(null,"CEP inválido");
-			e4.printStackTrace();
+			e2.printStackTrace();
 		}
 		panel_5.add(txtCep, "cell 1 1,grow");
 		txtCep.setColumns(10);
@@ -275,18 +275,18 @@ public class TelaCadastroPaciente extends JFrame {
 
 		try {
 			txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		} catch (ParseException e2) {
+		} catch (ParseException e3) {
 			JOptionPane.showMessageDialog(null, "Data inválida");
-			e2.printStackTrace();
+			e3.printStackTrace();
 		}
 		panel_3.add(txtData, "cell 3 1,grow");
 		txtData.setColumns(22);
 		
 		try {
 			txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
-		} catch (ParseException e3) {
+		} catch (ParseException e4) {
 			JOptionPane.showMessageDialog(null,"CPF inválido");
-			e3.printStackTrace();
+			e4.printStackTrace();
 		}
 		panel_3.add(txtCpf, "cell 3 3,grow");
 		txtCpf.setColumns(23);
@@ -298,9 +298,9 @@ public class TelaCadastroPaciente extends JFrame {
 		
 		try {
 			txtTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
-		} catch (ParseException e4) {
+		} catch (ParseException e5) {
 			JOptionPane.showMessageDialog(null,"Telefone inválido");
-			e4.printStackTrace();
+			e5.printStackTrace();
 		}
 		panel_3.add(txtTelefone, "cell 3 5,grow");
 		txtTelefone.setColumns(10);
@@ -338,9 +338,9 @@ public class TelaCadastroPaciente extends JFrame {
 		
 		try {
 			txtBuscaCpf = new JFormattedTextField(new MaskFormatter("###.####.###-##"));
-		} catch (ParseException e4) {
+		} catch (ParseException e6) {
 			JOptionPane.showMessageDialog(null,"CPF inválido");
-			e4.printStackTrace();
+			e6.printStackTrace();
 		}
 		panel_6.add(txtBuscaCpf, "cell 1 1,grow");
 		txtBuscaCpf.setColumns(10);
@@ -630,8 +630,8 @@ public class TelaCadastroPaciente extends JFrame {
 				boolean resuEnd = false;
 				try {
 					resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
-				} catch (Exception e2) {
-					e2.printStackTrace();
+				} catch (Exception e8) {
+					e8.printStackTrace();
 				}
 				
 				

@@ -183,12 +183,17 @@ public class TelaCadastroMedico extends JFrame {
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_4, "flowx,cell 3 1,growx");
 		
-		JLabel lblNewLabel_7 = new JLabel("Convênio :");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_7, "cell 5 1,alignx trailing");
+		JLabel lblNewLabel_8 = new JLabel("Sexo :");
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(lblNewLabel_8, "cell 5 1");
 		
-		JComboBox cbxConvenio = new JComboBox();
-		panel_3.add(cbxConvenio, "cell 6 1,grow");
+		JRadioButton rdbtnFeminino = new JRadioButton("F");
+		rdbtnFeminino.setBackground(new Color(240, 255, 240));
+		panel_3.add(rdbtnFeminino, "flowx,cell 6 1,grow");
+		
+		JRadioButton rdbtnMasculino = new JRadioButton("M");
+		rdbtnMasculino.setBackground(new Color(240, 255, 240));
+		panel_3.add(rdbtnMasculino, "cell 6 1,grow");
 		
 		JLabel lblNewLabel_2 = new JLabel("E-mail :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -198,17 +203,9 @@ public class TelaCadastroMedico extends JFrame {
 		panel_3.add(txtEmail, "cell 1 3,grow");
 		txtEmail.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("Cpf :    ");
+		JLabel lblNewLabel_5 = new JLabel("CPF :    ");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_5, "flowx,cell 3 3,grow");
-		
-		JLabel lblNewLabel_8 = new JLabel("Sexo :");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_8, "cell 5 3");
-		
-		JRadioButton rdbtnMasculino = new JRadioButton("M");
-		rdbtnMasculino.setBackground(new Color(240, 255, 240));
-		panel_3.add(rdbtnMasculino, "flowx,cell 6 3,grow");
 		
 		JLabel lblNewLabel_3 = new JLabel("Profissão :");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -233,10 +230,6 @@ public class TelaCadastroMedico extends JFrame {
 		txtTelefone = new JTextField();
 		panel_3.add(txtTelefone, "cell 3 5,grow");
 		txtTelefone.setColumns(10);
-		
-		JRadioButton rdbtnFeminino = new JRadioButton("F");
-		rdbtnFeminino.setBackground(new Color(240, 255, 240));
-		panel_3.add(rdbtnFeminino, "cell 6 3,grow");
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
