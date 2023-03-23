@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="clinica-medica/src"/>
+	<classpathentry kind="lib" path="miglayout15-swing.jar"/>
+	<classpathentry kind="output" path="clinica-medica/bin"/>
+</classpath>
