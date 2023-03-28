@@ -48,6 +48,9 @@ import model.Endereco;
 import model.Estado;
 import model.Paciente;
 import net.miginfocom.swing.MigLayout;
+import utils.RoundFormattedJTextField;
+import utils.TipoFormatacao;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -73,9 +76,8 @@ public class TelaCadastroPaciente extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtProfissao;
 	private JTextField txtData;
-	private JTextField txtCpf;
+	private JFormattedTextField txtCpf;
 	private JTextField txtTelefone;
-	private MaskFormatter mascaraCep = null;
 	private JTextField txtMunicipio;
 	private JTextField txtBairro;
 	private JTextField txtRua;
@@ -87,11 +89,13 @@ public class TelaCadastroPaciente extends JFrame {
 	protected String[] convenios;
 	private Estado estado;
 	private Endereco cadastroEndereco;
+	
+	private RoundFormattedJTextField txtCep;
 
 	ArrayList<Estado> estados = new ArrayList<>();
 	ArrayList<Convenio> convenio = new ArrayList<>();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTextField txtCep;
+	
 	private JTable table;
 	private ArrayList<Paciente> listaPaciente = new ArrayList<>();
 	private ArrayList<Paciente> listaEndereco = new ArrayList<>();
@@ -139,15 +143,20 @@ public class TelaCadastroPaciente extends JFrame {
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(204, 255, 204));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1408, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(177, Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGap(52)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1671, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(191, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGap(5)));
-		panel.setLayout(new MigLayout("", "[100px:n:100px][1286.00,grow][100px:n:100px]", "[800:n:800,grow,top][]"));
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(153))
+		);
+		panel.setLayout(new MigLayout("", "[300:n:300][1286.00,grow][300:n:300]", "[800:n:800,grow,top][]"));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
@@ -267,12 +276,7 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_3.add(txtProfissao, "cell 1 5,grow");
 		txtProfissao.setColumns(10);
 		
-		try {
-			txtCep = new JFormattedTextField(new MaskFormatter("#####-###"));
-		} catch (ParseException e2) {
-			JOptionPane.showMessageDialog(null,"CEP inválido");
-			e2.printStackTrace();
-		}
+		txtCep = new RoundFormattedJTextField(15, TipoFormatacao.CEP);
 		panel_5.add(txtCep, "cell 1 1,grow");
 		txtCep.setColumns(10);
 
@@ -363,7 +367,9 @@ public class TelaCadastroPaciente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				// TODO Cidade
-				String cepString = txtCep.getText();
+
+
+				String cepString =txtCep.getText().replace("-", "");  ;;
 				Integer cep = Integer.parseInt(cepString);
 
 				// TODO instância para os get e setrs do endereco
@@ -460,7 +466,10 @@ public class TelaCadastroPaciente extends JFrame {
 
 				String nome = txtNome.getText();
 
+				txtCpf.setFormatterFactory(null); 
+
 				String cpfTxt = txtCpf.getText();
+				System.out.println(cpfTxt);
 
 				String sexo = "ma";
 				if (jrbMasc.isSelected()) {
@@ -592,31 +601,9 @@ public class TelaCadastroPaciente extends JFrame {
 				String bairro = txtBairro.getText();
 				String cidade = txtMunicipio.getText();
 				String rua = txtRua.getText();
-				
-				
-				
-				Estado estado = (Estado) cbxEstado.getSelectedItem();
-				int id = estado.getId();
-				String nomeEstado = estado.getNome();
-				String uf = estado.getUf();
-				System.out.println(id);
-				
-			
-				Estado estadoSel = new  Estado();
-				estadoSel.setId(id);;
-				estadoSel.setNome(nomeEstado);
-				estadoSel.setUf(uf);
-				
-				// Cria o objeto endereco
-				cadastroEndereco = new Endereco(cep, estadoSel, bairro, cidade, rua);
-				
-				
-				//TODO cadastro do endereço
-				boolean resuEnd = false;
-				try {
-					resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
-				} catch (Exception e8) {
-					e8.printStackTrace();
+
+				if (cadastroEndereco == null) {
+					cadastroEndereco = new Endereco();
 				}
 
 				EnderecoDao endereco = new EnderecoDao();
@@ -764,9 +751,9 @@ public class TelaCadastroPaciente extends JFrame {
 					String sexo = pacienteClick.getSexo();
 					System.out.println(sexo);
 					if(sexo == "m") {
-						jrbFemi.isSelected();
+						jrbFemi.setSelected(true);
 					}else {
-						jrbMasc.isSelected();
+						jrbMasc.setSelected(true);
 					}
 					cbxConvenio.setSelectedIndex(pacienteClick.getConvenio().getId());
 					

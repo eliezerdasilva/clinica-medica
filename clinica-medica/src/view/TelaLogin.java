@@ -38,7 +38,9 @@ import javax.swing.border.LineBorder;
 import controller.LoginDao;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
-
+import utils.RoundButton;
+import utils.RoundJTextField;
+import utils.RoundJTextPassword;
 
 public class TelaLogin extends JFrame {
 
@@ -81,8 +83,6 @@ public class TelaLogin extends JFrame {
 		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 
-
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
@@ -105,14 +105,10 @@ public class TelaLogin extends JFrame {
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(204, 255, 204));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1914, Short.MAX_VALUE)
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
-		);
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(panel,
+				GroupLayout.DEFAULT_SIZE, 1914, Short.MAX_VALUE));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(panel,
+				GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE));
 		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[185.00][657.00,grow][226.00]"));
 
 		JPanel panel_1 = new JPanel();
@@ -135,7 +131,7 @@ public class TelaLogin extends JFrame {
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 40));
 
-		JLabel lblNewLabel = new JLabel("Login"); 
+		JLabel lblNewLabel = new JLabel("Login");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 32));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblNewLabel, "name_169020969106100");
@@ -149,7 +145,7 @@ public class TelaLogin extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_4.add(lblNewLabel_1, "cell 2 1");
 
-		txtUsuario = new RoundJTextField(15);	
+		txtUsuario = new RoundJTextField(15);
 
 		txtUsuario.addFocusListener(new FocusAdapter() {
 			@Override
@@ -206,7 +202,8 @@ public class TelaLogin extends JFrame {
 		panel_3.setLayout(new MigLayout("", "[316.00][275.00][287.00]", "[10.00][39.00][10.00]"));
 
 		JButton btnNewButton = new RoundButton("Entrar");
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-login-arredondado-30.png"));
+		btnNewButton.setIcon(new ImageIcon(
+				"C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-login-arredondado-30.png"));
 
 		btnNewButton.addFocusListener(new FocusAdapter() {
 			@Override
@@ -222,19 +219,18 @@ public class TelaLogin extends JFrame {
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String Usuario = txtUsuario.getText();
 				String Senha = txtSenha.getText();
 				Usuario login = null;
-				
-				
+
 				if (!Usuario.isEmpty() && !Senha.isEmpty()) {
 					LoginDao loginDao;
 					loginDao = new LoginDao();
 
 					login = loginDao.consultarLogin(new Usuario(Usuario, Senha));
 
-				if (login != null) {
+					if (login != null) {
 
 						MenuPrincipal telaFunc = new MenuPrincipal();
 						telaFunc.setLocationRelativeTo(null);
@@ -260,95 +256,8 @@ public class TelaLogin extends JFrame {
 
 	private void setMinimumSize(int i, int j) {
 		// TODO Auto-generated method stub
-		
+
 	}
-}
-
-class RoundJTextField extends JTextField {
-	private Shape shape;
-
-	public RoundJTextField(int size) {
-		super(size);
-		setOpaque(false); // As suggested by @AVD in comment.
-	}
-
-	protected void paintComponent(Graphics g) {
-		g.setColor(getBackground());
-		g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
-		super.paintComponent(g);
-	}
-
-	protected void paintBorder(Graphics g) {
-		g.setColor(getForeground());
-		g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
-	}
-
-	public boolean contains(int x, int y) {
-		if (shape == null || !shape.getBounds().equals(getBounds())) {
-			shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
-		}
-		return shape.contains(x, y);
-	}
-}
-
-class RoundJTextPassword extends JPasswordField {
-	private Shape shape;
-
-	public RoundJTextPassword(int size) {
-		super(size);
-		setOpaque(false); // As suggested by @AVD in comment.
-	}
-
-	protected void paintComponent(Graphics g) {
-		g.setColor(getBackground());
-		g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
-		super.paintComponent(g);
-	}
-
-	protected void paintBorder(Graphics g) {
-		g.setColor(getForeground());
-		g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
-	}
-
-	public boolean contains(int x, int y) {
-		if (shape == null || !shape.getBounds().equals(getBounds())) {
-			shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
-		}
-		return shape.contains(x, y);
-	}
-}
-
-class RoundButton extends JButton {
-	private static final long serialVersionUID = 1L;
-	private Shape shape;
-
-	public RoundButton(String label) {
-		super(label);
-		setOpaque(false);
-	}
-
-	public RoundButton(int i) {
-		// TODO Auto-generated constructor stub
-	}
-
-	protected void paintComponent(Graphics g) {
-		g.setColor(getBackground());
-		g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
-		super.paintComponent(g);
-	}
-
-	protected void paintBorder(Graphics g) {
-		g.setColor(getForeground());
-		g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
-	}
-
-	public boolean contains(int x, int y) {
-		if (shape == null || !shape.getBounds().equals(getBounds())) {
-			shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
-		}
-		return shape.contains(x, y);
-	}
-
 }
 
 //Tela de inicio
