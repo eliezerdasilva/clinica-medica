@@ -15,6 +15,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -30,6 +33,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import model.Endereco;
+import model.Funcionario;
+
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.border.MatteBorder;
@@ -84,8 +89,11 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JPasswordField passwordField;
 	private JTable table;
 	
+	private ArrayList<Funcionario> listaFuncionario = new ArrayList<>();
+	private ArrayList<Funcionario> listaEndereco = new ArrayList<>();
 	
-
+	
+	
 	/**
 	 * Create the frame.
 	 */
@@ -370,7 +378,94 @@ public class TelaCadastroFuncionario extends JFrame {
 				
 				String n = txtNumero.getText();
 			}
-		});
+			//TODO Construindo Objeto
+			Funcionario p = new Funcionario();
+			
+			//TODO nova validacao nome
+			if (nome == null || nome.trim() == "" || nome.isEmpty()) {
+				txtNome.setBorder(new LineBorder (new Color (255, 00, 00), 4));
+				JOptionPane.showMessageDialog(null,  "Nome Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+				return;
+			} else {
+				p.setNome(nome);
+			}
+			// cpf
+			
+		if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
+			//txtCpf.setBorder(new LineBorder(new Color(255, 00, 00, 4));
+			JOptionPane.showMessageDialog(null,"CPF Vazio", "ok", JOptionPane.ERROR_MESSAGE);
+			return;
+		}else {
+			Long cpf = Long.valueOf(cpfTxt);
+			p.setCpf(cpf);
+		}
+		// sexo
+		
+		if (sexo == null || sexo.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+			rdbtnFeminino.setBorder(new LineBorder(new Color(255, 00, 00),4));
+			rdbtnMasculino.setBorder(new LineBorder(new Color(255, 00, 00),4));
+			return;
+		}else {
+			p.setSexo(Sexo);
+		}
+		//email
+		if (email == null || email.trim() ==  "" || email.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+		txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		return;
+		}else {
+			p.setEmail(email);
+		}
+		// telefone
+		if (telefone == null || telefone.trim()== "" || telefone.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Telefone Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+			txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			return;
+		}else {
+			p.setTelefone(telefone);
+		}
+		//profissao
+		if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Profissao Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+			txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			return;
+		}else {
+			p.setProfissao(profissao);
+		}
+		// data nascimento
+		if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Data Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+			txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			return;
+		}else {
+			String data = "25/01/2016";
+			Date TimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate date = LocalDate.parse(data, formatter);
+			
+			p.setDataNascimento(date);
+			
+			if (n == null || n.trim() == "" || n.isEmpty()) {
+				JOptionPane.showMessageDialog(null,"Numero Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+				txtNCasa.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				return;
+			}else {
+				Integer nCasa = Integer.valueOf(n);
+				p.setNumero(nCasa);
+			}
+			// TODO CADASTRO DO CEP NAO CADASTRADO
+			
+			//Validação endereco
+			String cepString = txtCep.getText();
+			String bairro = txtBairro.getText();
+			String cidade = txtMunicipio.getText();
+			String rua = txtRua.getText();
+			
+			}
+		//Complemento
+		p.setComplemento(complemento);
+		
+		};
 		btnCadastrarUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(btnCadastrarUsuario, "cell 8 1,grow");
 		
@@ -459,7 +554,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				btnNewButton.setBackground(new Color(51, 153, 51));
 			}
 		});
-	}
-}
+	
+		}}
 
 
