@@ -15,10 +15,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,6 +35,7 @@ import model.Endereco;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.border.MatteBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.Component;
@@ -150,9 +153,9 @@ public class TelaCadastroFuncionario extends JFrame {
 		try {
 			filc = ImageIO.read(new File("src/imagens/fundoVerde.jpeg"));
 
-		} catch (IOException e) {
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
 
 		JPanel panel_2 = new FundoImagemLoginCabecario(filc);
@@ -215,11 +218,21 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_3.add(txtProfissao, "cell 1 5,grow");
 		txtProfissao.setColumns(10);
 		
-		txtData = new JTextField();
+		try {
+			txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (ParseException e2) {
+			JOptionPane.showMessageDialog(null,"Data inválida");
+			e2.printStackTrace();
+		}
 		panel_3.add(txtData, "cell 3 1,grow");
 		txtData.setColumns(22);
 		
-		txtCpf = new JTextField();
+		try {
+			txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (ParseException e3) {
+			JOptionPane.showMessageDialog(null,"CPF inválido");
+			e3.printStackTrace();
+		}
 		panel_3.add(txtCpf, "cell 3 3,grow");
 		txtCpf.setColumns(23);
 		
@@ -227,7 +240,12 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_6, "flowx,cell 3 5");
 		
-		txtTelefone = new JTextField();
+		try {
+			txtTelefone = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
+		} catch (ParseException e4) {
+			JOptionPane.showMessageDialog(null,"Telefone inválido");
+			e4.printStackTrace();
+		}
 		panel_3.add(txtTelefone, "cell 3 5,grow");
 		txtTelefone.setColumns(10);
 		
@@ -246,7 +264,12 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_9, "cell 0 1,alignx trailing");
 		
-		txtCep = new JTextField();
+		try {
+			txtCep = new JFormattedTextField(new MaskFormatter("#####-###"));
+		} catch (ParseException e5) {
+			JOptionPane.showMessageDialog(null,"CEP inválido");
+			e5.printStackTrace();
+		}
 		panel_5.add(txtCep, "cell 1 1 2 1,grow");
 		txtCep.setColumns(10);
 		
@@ -358,7 +381,12 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_16, "cell 0 1,alignx trailing");
 		
-		txtBuscarCpf = new JTextField();
+		try {
+			txtBuscarCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (ParseException e6) {
+			JOptionPane.showMessageDialog(null,"CPF inválido");
+			e6.printStackTrace();
+		}
 		panel_6.add(txtBuscarCpf, "cell 1 1,grow");
 		txtBuscarCpf.setColumns(10);
 		
