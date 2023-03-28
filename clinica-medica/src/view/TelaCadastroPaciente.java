@@ -13,12 +13,15 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.lang.model.util.SimpleAnnotationValueVisitor14;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -48,6 +51,8 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -88,11 +93,17 @@ public class TelaCadastroPaciente extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField txtCep;
 	private JTable table;
+	private ArrayList<Paciente> listaPaciente = new ArrayList<>();
+	private ArrayList<Paciente> listaEndereco = new ArrayList<>();
+	private Paciente pacienteClick;
+	private Endereco enderecoClink;
 
 	/**
 	 * Create the frame.
+	 * @param listaPaciente 
 	 */
-	public TelaCadastroPaciente() {
+	public TelaCadastroPaciente(ArrayList<Paciente> listaPaciente) {
+		this.listaPaciente = listaPaciente;
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Tela cadastro de paciente");
@@ -267,7 +278,8 @@ public class TelaCadastroPaciente extends JFrame {
 		txtRua = new JTextField();
 		panel_5.add(txtRua, "cell 7 3,grow");
 		txtRua.setColumns(10);
-
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		} catch (ParseException e2) {
@@ -672,9 +684,19 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_7.setLayout(new CardLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		panel_7.add(scrollPane, "name_15770559949500");
+		
+		panel_7.add(scrollPane, "name");
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int position = table.getSelectedRow();
+				pacienteClick = listaPaciente.get(position);
+				
+				
+			}
+		});
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -682,9 +704,49 @@ public class TelaCadastroPaciente extends JFrame {
 				"Nome", "CPF", "Email"
 			}
 		));
+		atualizarTabela();
 		scrollPane.setViewportView(table);
 
 		JButton btnNewButton_4 = new JButton("Editar");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(pacienteClick != null) {
+					txtNome.setText(pacienteClick.getNome());
+					txtEmail.setText(pacienteClick.getEmail());
+					txtTelefone.setText(pacienteClick.getTelefone());	
+					txtComplemento.setText(pacienteClick.getComplemento());
+					txtNCasa.setText(String.valueOf(pacienteClick.getNumero()));
+					txtCpf.setText(String.valueOf(pacienteClick.getCpf()));
+					Date  data = Date.valueOf(pacienteClick.getDataNascimento());
+					txtData.setText(format.format(data));
+					txtProfissao.setText(pacienteClick.getProfissao());
+					
+					String sexo = pacienteClick.getSexo();
+					System.out.println(sexo);
+					if(sexo == "m") {
+						jrbFemi.isSelected();
+					}else {
+						jrbMasc.isSelected();
+					}
+					cbxConvenio.setSelectedIndex(pacienteClick.getConvenio().getId());
+					
+					Integer cep =pacienteClick.getEndereco().getCep();
+					EnderecoDao enderecoDao = new EnderecoDao();
+					Endereco endereco = new Endereco(cep);
+					Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
+					txtCep.setText(String.valueOf(enderecoDoBanco.getCep()));
+					txtBairro.setText(enderecoDoBanco.getBairro());
+					txtMunicipio.setText(enderecoDoBanco.getCidade());
+					txtRua.setText(enderecoDoBanco.getRua());
+					
+					cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId());
+			
+				
+					
+					
+				}
+			}
+		});
 		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton_4, "cell 1 5,grow");
 
@@ -706,6 +768,27 @@ public class TelaCadastroPaciente extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton, "cell 7 5,growx");
 	
+	}
+	private void atualizarTabela() {
+		DefaultTableModel tabela = new DefaultTableModel(
+				new Object [][] {
+				},
+				new String[] {
+						"Nome", "CPF", "Email"
+				}
+				
+				);
+		for (int i = 0; i < listaPaciente.size(); i++) {
+			Paciente paciente = listaPaciente.get(i);
+			tabela.addRow(new Object[] {
+					paciente.getNome(),
+					paciente.getCpf(),
+					paciente.getEmail()
+					
+				
+			});;					
+		}
+		table.setModel(tabela);
 	}
 
 }

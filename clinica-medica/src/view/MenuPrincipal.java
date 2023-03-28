@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import model.Paciente;
 import model.Usuario;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -35,10 +36,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.awt.CardLayout;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import controller.PacienteDao;
+
 import javax.swing.border.MatteBorder;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -106,7 +111,11 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Paciente");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente();
+				PacienteDao pacienteDao = new PacienteDao();
+				ArrayList<Paciente> listaPaciente = pacienteDao.consultarPaciente();
+				
+				
+				TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente(listaPaciente);
 				telaPaciente.setLocationRelativeTo(null);
 				telaPaciente.setVisible(true);
 				dispose();
@@ -116,6 +125,7 @@ public class MenuPrincipal extends JFrame {
 		mntmNewMenuItem_3.setBorder(new MatteBorder(2, 4, 2, 4, (Color) new Color(0, 0, 0)));
 		mnNewMenu.add(mntmNewMenuItem_3);
 
+		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Médico");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

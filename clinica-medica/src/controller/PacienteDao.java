@@ -5,10 +5,10 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.Convenio;
+import model.Endereco;
 import model.Paciente;
 
 public class PacienteDao implements InterfacePacienteDao {
@@ -62,9 +62,48 @@ public class PacienteDao implements InterfacePacienteDao {
 	}
 
 	@Override
-	public Paciente consultarPaciente(Paciente paciente) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Paciente> consultarPaciente() {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		ArrayList<Paciente> listaPacientes = new ArrayList<>();
+		try {
+			PreparedStatement ps = c.prepareStatement("Select * from paciente");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				
+		
+				
+				
+				int endereco_cep = rs.getInt("endereco_cep");
+				int numero = rs.getInt("numero");
+				String complemento = rs.getString("complemento");
+				
+				Paciente paciente  =  new Paciente();
+				Convenio convenio = new Convenio();
+				Endereco endereco = new Endereco();
+				
+				paciente.setCpf(rs.getLong("cpf"));
+				paciente.setNome(rs.getString("nome"));
+				paciente.setSexo(rs.getString("sexo"));
+				paciente.setEmail(rs.getString("email"));
+				paciente.setTelefone(rs.getString("telefone"));
+				paciente.setProfissao(rs.getString("profissao"));
+				convenio.setId(rs.getInt("convenio_id")); 
+				paciente.setConvenio(convenio);
+				paciente.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				endereco.setCep(rs.getInt("endereco_cep"));
+				paciente.setEndereco(endereco);
+				paciente.setNumero(rs.getInt("numero"));
+				paciente.setComplemento(rs.getString("complemento"));
+				
+				listaPacientes.add(paciente);
+				
+						 
+			}
+		}catch (Exception e) {
+		e.printStackTrace();
+		}
+		return listaPacientes;
 	}
 
 	@Override
