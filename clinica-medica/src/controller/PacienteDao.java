@@ -133,4 +133,38 @@ public class PacienteDao implements InterfacePacienteDao {
 
 	}
 
+	@SuppressWarnings("unused")
+	@Override
+	public boolean ConsultaCpfPaciente(Long cpfConsulta) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		boolean resultado = false; 
+		try {
+			PreparedStatement ps = c.prepareStatement("select * from paciente");
+
+			ResultSet rs = ps.executeQuery();
+
+			ArrayList<Paciente> paciente = new ArrayList<>();
+			Paciente paciente2 = new Paciente();
+			while (rs.next()) {
+				paciente2.setCpf(rs.getLong("cpf"));
+				paciente.add(paciente2);
+				
+				
+			}
+			for (Paciente p : paciente) {
+				if(paciente2.getCpf().equals(cpfConsulta)) {
+					resultado = false;
+				}else {
+					resultado = true;
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return resultado;
+		
+	}
+
+
 }

@@ -105,10 +105,18 @@ public class TelaLogin extends JFrame {
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(204, 255, 204));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(panel,
-				GroupLayout.DEFAULT_SIZE, 1914, Short.MAX_VALUE));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(panel,
-				GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1914, Short.MAX_VALUE)
+					.addGap(20))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
+					.addContainerGap())
+		);
 		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[185.00][657.00,grow][226.00]"));
 
 		JPanel panel_1 = new JPanel();

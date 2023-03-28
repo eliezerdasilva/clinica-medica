@@ -48,14 +48,12 @@ import model.Endereco;
 import model.Estado;
 import model.Paciente;
 import net.miginfocom.swing.MigLayout;
-import utils.RoundFormattedJTextField;
-import utils.TipoFormatacao;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SpringLayout;
 
 /**
  * 
@@ -76,26 +74,25 @@ public class TelaCadastroPaciente extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtProfissao;
 	private JTextField txtData;
-	private JFormattedTextField txtCpf;
+	private JTextField txtCpf;
 	private JTextField txtTelefone;
+	private MaskFormatter mascaraCep = null;
 	private JTextField txtMunicipio;
 	private JTextField txtBairro;
 	private JTextField txtRua;
 
 	private JTextField txtNCasa;
 	private JTextField txtComplemento;
-	private JTextField txtBuscaCpf;
+	private JTextField txtBuscaCep;
 	private JTextField txtBuscaNome;
 	protected String[] convenios;
 	private Estado estado;
 	private Endereco cadastroEndereco;
-	
-	private RoundFormattedJTextField txtCep;
 
 	ArrayList<Estado> estados = new ArrayList<>();
 	ArrayList<Convenio> convenio = new ArrayList<>();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	
+	private JTextField txtCep;
 	private JTable table;
 	private ArrayList<Paciente> listaPaciente = new ArrayList<>();
 	private ArrayList<Paciente> listaEndereco = new ArrayList<>();
@@ -104,7 +101,8 @@ public class TelaCadastroPaciente extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param listaPaciente 
+	 * 
+	 * @param listaPaciente
 	 */
 	public TelaCadastroPaciente(ArrayList<Paciente> listaPaciente) {
 		this.listaPaciente = listaPaciente;
@@ -142,25 +140,11 @@ public class TelaCadastroPaciente extends JFrame {
 
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(204, 255, 204));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(52)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1671, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(191, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(153))
-		);
-		panel.setLayout(new MigLayout("", "[300:n:300][1286.00,grow][300:n:300]", "[800:n:800,grow,top][]"));
+		panel.setLayout(new MigLayout("", "[300:n:300][1286.00,grow][250:n:250]", "[60:n:60][830:n:830,grow,top][80:n:80]"));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
-		panel.add(panel_1, "cell 1 0,grow");
+		panel.add(panel_1, "cell 1 1,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		BufferedImage filc = null;
@@ -186,7 +170,7 @@ public class TelaCadastroPaciente extends JFrame {
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.SOUTH);
 		panel_4.setLayout(
-				new MigLayout("", "[1280:n:1280,grow]", "[150:n:150px,grow][200:n:200,grow][300:n:300,grow]"));
+				new MigLayout("", "[1280:n:1280,grow]", "[150:n:150px,grow][200:n:200,grow][350:n:350,grow]"));
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(107, 142, 35), 4));
@@ -236,8 +220,7 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_6.setBorder(new LineBorder(new Color(85, 107, 47), 4));
 		panel_4.add(panel_6, "cell 0 2,grow");
 		panel_6.setLayout(
-				new MigLayout("", "[80:n:80][200:n:200,grow][][100px:n:100px][200:n:200,grow][][150:n:150][400:n:400]",
-						"[5:n:5][30:n:30][][200:n:200,grow][5:n:5][30:n:30]"));
+				new MigLayout("", "[80:n:80][200:n:200,grow][][100px:n:100px][200:n:200,grow][][150:n:150][400:n:400]", "[5:n:5][30:n:30][][230:n:230,grow][5:n:5][30:n:30]"));
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
@@ -255,7 +238,7 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_3.add(txtEmail, "cell 1 3,grow");
 		txtEmail.setColumns(10);
 
-		JLabel lblNewLabel_5 = new JLabel("CPF :    ");
+		JLabel lblNewLabel_5 = new JLabel("Cpf :    ");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_5, "flowx,cell 3 3,grow");
 
@@ -275,8 +258,13 @@ public class TelaCadastroPaciente extends JFrame {
 		txtProfissao = new JTextField();
 		panel_3.add(txtProfissao, "cell 1 5,grow");
 		txtProfissao.setColumns(10);
-		
-		txtCep = new RoundFormattedJTextField(15, TipoFormatacao.CEP);
+
+		try {
+			txtCep = new JFormattedTextField(new MaskFormatter("#####-###"));
+		} catch (ParseException e3) {
+			JOptionPane.showMessageDialog(null, "CEP inválido");
+			e3.printStackTrace();
+		}
 		panel_5.add(txtCep, "cell 1 1,grow");
 		txtCep.setColumns(10);
 
@@ -287,17 +275,17 @@ public class TelaCadastroPaciente extends JFrame {
 		txtRua = new JTextField();
 		panel_5.add(txtRua, "cell 7 3,grow");
 		txtRua.setColumns(10);
-		
+
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		} catch (ParseException e3) {
+		} catch (ParseException e2) {
 			JOptionPane.showMessageDialog(null, "Data inválida");
-			e3.printStackTrace();
+			e2.printStackTrace();
 		}
 		panel_3.add(txtData, "cell 3 1,grow");
 		txtData.setColumns(22);
-		
+
 		try {
 			txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
 		} catch (ParseException e4) {
@@ -310,8 +298,7 @@ public class TelaCadastroPaciente extends JFrame {
 		JLabel lblNewLabel_6 = new JLabel("Telefone :");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_6, "flowx,cell 3 5");
-		
-		
+
 		try {
 			txtTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
 		} catch (ParseException e5) {
@@ -326,7 +313,11 @@ public class TelaCadastroPaciente extends JFrame {
 		jrbFemi.setBackground(new Color(240, 255, 240));
 		panel_3.add(jrbFemi, "cell 6 3,grow");
 
-		JLabel lblNewLabel_18 = new JLabel("CEP: ");
+		JLabel lblNewLabel_9 = new JLabel("CEP :");
+		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
+
+		JLabel lblNewLabel_18 = new JLabel("Cep : ");
 		lblNewLabel_18.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_18, "cell 0 1,alignx trailing");
 
@@ -350,16 +341,10 @@ public class TelaCadastroPaciente extends JFrame {
 			}
 		});
 		panel_5.add(cbxEstado, "cell 1 3,grow");
-		
-		
-		try {
-			txtBuscaCpf = new JFormattedTextField(new MaskFormatter("###.####.###-##"));
-		} catch (ParseException e6) {
-			JOptionPane.showMessageDialog(null,"CPF inválido");
-			e6.printStackTrace();
-		}
-		panel_6.add(txtBuscaCpf, "cell 1 1,grow");
-		txtBuscaCpf.setColumns(10);
+
+		txtBuscaCep = new JTextField();
+		panel_6.add(txtBuscaCep, "cell 1 1,grow");
+		txtBuscaCep.setColumns(10);
 
 		JButton btnBuscarCep = new JButton("Buscar");
 		btnBuscarCep.addActionListener(new ActionListener() {
@@ -367,9 +352,8 @@ public class TelaCadastroPaciente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				// TODO Cidade
+				String cepString = txtCep.getText().replace("-", "");
 
-
-				String cepString =txtCep.getText().replace("-", "");  ;;
 				Integer cep = Integer.parseInt(cepString);
 
 				// TODO instância para os get e setrs do endereco
@@ -442,7 +426,7 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_13.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_13, "cell 6 3,alignx trailing");
 
-		JLabel lblNewLabel_14 = new JLabel("N° :");
+		JLabel lblNewLabel_14 = new JLabel("N :");
 		lblNewLabel_14.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_14, "cell 0 5,alignx trailing");
 
@@ -465,11 +449,8 @@ public class TelaCadastroPaciente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				String nome = txtNome.getText();
-
-				txtCpf.setFormatterFactory(null); 
-
+				Long cpfConsulta;
 				String cpfTxt = txtCpf.getText();
-				System.out.println(cpfTxt);
 
 				String sexo = "ma";
 				if (jrbMasc.isSelected()) {
@@ -516,6 +497,7 @@ public class TelaCadastroPaciente extends JFrame {
 					return;
 				} else {
 					Long cpf = Long.valueOf(cpfTxt);
+					cpfConsulta = Long.valueOf(cpfTxt);
 					p.setCpf(cpf);
 				}
 				// sexo
@@ -597,7 +579,7 @@ public class TelaCadastroPaciente extends JFrame {
 				// TODO CADASTRO DO CEP NAO CADASTRADO
 
 				// Validacao endereco
-				String cepString = txtCep.getText();
+				String cepString = txtCep.getText().replace("-", "");
 				String bairro = txtBairro.getText();
 				String cidade = txtMunicipio.getText();
 				String rua = txtRua.getText();
@@ -665,22 +647,34 @@ public class TelaCadastroPaciente extends JFrame {
 					}
 
 				}
-				if (resultado != null) {
-					boolean cds = false;
 
-					try {
-						// Inserir o endereco no paciente
-						p.setEndereco(cadastroEndereco);
-						cds = pacienteDao.cadastrarPaciente(p);
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
+				// TODO ver se paciente existe
+				boolean resultadoPacienteCadastrado = pacienteDao.ConsultaCpfPaciente(cpfConsulta);
 
-					if (cds == false) {
-						JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamente");
-					} else {
-						JOptionPane.showMessageDialog(null, "Cadastrado");
+				if (resultadoPacienteCadastrado != false) {
+
+					if (resultado != null) {
+						boolean cds = false;
+
+						try {
+							// Inserir o endereco no paciente
+							p.setEndereco(cadastroEndereco);
+							cds = pacienteDao.cadastrarPaciente(p);
+							limparTela();
+							
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+
+						if (cds == false) {
+							JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamente");
+						} else {
+							JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+							atualizarTabela();
+						}
 					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Paciente Cadastrado");
 				}
 			}
 
@@ -697,7 +691,12 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_17.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_17, "cell 3 1,alignx trailing");
 
-		txtBuscaNome = new JTextField();
+		try {
+			txtBuscaNome = new JFormattedTextField(new MaskFormatter("###.####.###-##"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();	
+		}
 		panel_6.add(txtBuscaNome, "cell 4 1,grow");
 		txtBuscaNome.setColumns(10);
 
@@ -709,55 +708,48 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_7.setBorder(new LineBorder(new Color(107, 142, 35), 4));
 		panel_6.add(panel_7, "cell 1 3 7 1,grow");
 		panel_7.setLayout(new CardLayout(0, 0));
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		
+
 		panel_7.add(scrollPane, "name");
-		
+
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int position = table.getSelectedRow();
 				pacienteClick = listaPaciente.get(position);
-				
-				
+
 			}
 		});
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nome", "CPF", "Email"
-			}
-		));
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "CPF", "Email" }));
 		atualizarTabela();
 		scrollPane.setViewportView(table);
 
 		JButton btnNewButton_4 = new JButton("Editar");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(pacienteClick != null) {
+				if (pacienteClick != null) {
 					txtNome.setText(pacienteClick.getNome());
 					txtEmail.setText(pacienteClick.getEmail());
-					txtTelefone.setText(pacienteClick.getTelefone());	
+					txtTelefone.setText(pacienteClick.getTelefone());
 					txtComplemento.setText(pacienteClick.getComplemento());
 					txtNCasa.setText(String.valueOf(pacienteClick.getNumero()));
 					txtCpf.setText(String.valueOf(pacienteClick.getCpf()));
-					Date  data = Date.valueOf(pacienteClick.getDataNascimento());
+					Date data = Date.valueOf(pacienteClick.getDataNascimento());
 					txtData.setText(format.format(data));
 					txtProfissao.setText(pacienteClick.getProfissao());
-					
+
 					String sexo = pacienteClick.getSexo();
 					System.out.println(sexo);
-					if(sexo == "m") {
-						jrbFemi.setSelected(true);
-					}else {
-						jrbMasc.setSelected(true);
+					if (sexo == "m") {
+						jrbFemi.isSelected();
+					} else {
+						jrbMasc.isSelected();
 					}
 					cbxConvenio.setSelectedIndex(pacienteClick.getConvenio().getId());
-					
-					Integer cep =pacienteClick.getEndereco().getCep();
+
+					Integer cep = pacienteClick.getEndereco().getCep();
 					EnderecoDao enderecoDao = new EnderecoDao();
 					Endereco endereco = new Endereco(cep);
 					Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
@@ -765,12 +757,9 @@ public class TelaCadastroPaciente extends JFrame {
 					txtBairro.setText(enderecoDoBanco.getBairro());
 					txtMunicipio.setText(enderecoDoBanco.getCidade());
 					txtRua.setText(enderecoDoBanco.getRua());
-					
+
 					cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId());
-			
-				
-					
-					
+
 				}
 			}
 		});
@@ -792,30 +781,44 @@ public class TelaCadastroPaciente extends JFrame {
 
 			}
 		});
+		SpringLayout sl_contentPane = new SpringLayout();
+		sl_contentPane.putConstraint(SpringLayout.NORTH, panel, 0, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, panel, 0, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, panel, 0, SpringLayout.EAST, contentPane);
+		contentPane.setLayout(sl_contentPane);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton, "cell 7 5,growx");
-	
+		contentPane.add(panel);
+
 	}
+
 	private void atualizarTabela() {
-		DefaultTableModel tabela = new DefaultTableModel(
-				new Object [][] {
-				},
-				new String[] {
-						"Nome", "CPF", "Email"
-				}
-				
-				);
+		DefaultTableModel tabela = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "CPF", "Email" }
+
+		);
 		for (int i = 0; i < listaPaciente.size(); i++) {
 			Paciente paciente = listaPaciente.get(i);
-			tabela.addRow(new Object[] {
-					paciente.getNome(),
-					paciente.getCpf(),
-					paciente.getEmail()
-					
-				
-			});;					
+			tabela.addRow(new Object[] { paciente.getNome(), paciente.getCpf(), paciente.getEmail()
+
+			});
+			;
 		}
 		table.setModel(tabela);
+	}
+	private void limparTela() {
+		txtNome.setText("");
+		txtEmail.setText("");
+		txtTelefone.setText("");
+		txtComplemento.setText("");
+		txtNCasa.setText("");
+		txtCpf.setText("");
+		txtData.setText("");
+		txtProfissao.setText("");
+		txtCep.setText("");
+		txtBairro.setText("");
+		txtMunicipio.setText("");
+		txtRua.setText("");
 	}
 
 }

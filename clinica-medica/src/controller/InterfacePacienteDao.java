@@ -17,7 +17,8 @@ public interface InterfacePacienteDao {
 	public ArrayList<Paciente>  consultarPaciente();
 	
 	public ArrayList<Convenio> consultaConvenio();
-
+	
+	public boolean ConsultaCpfPaciente(Long cpfConsulta);
 
 	
 
