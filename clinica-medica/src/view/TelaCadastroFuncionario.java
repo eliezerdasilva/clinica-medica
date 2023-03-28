@@ -340,6 +340,37 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_9.add(rdbtnFuncionario, "cell 6 1");
 		
 		JButton btnCadastrarUsuario = new JButton("Cadastrar Novo Funcionario");
+		btnCadastrarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String nome = txtNome.getText();
+				
+				String cpfTxt = txtCpf.getText();
+				
+				String sexo = "ma";
+				if (rdbtnMasculino.isSelected()) {
+					
+					sexo = "Masulino";
+				}
+				if (rdbtnFeminino.isSelected()) {
+					sexo = "Feminino";
+				}
+				if (rdbtnFeminino == null || rdbtnMasculino == null) {
+					sexo = null;
+				}
+				String email = txtEmail.getText();
+				
+				String telefone = txtTelefone.getText();
+				
+				String profissao = txtProfissao.getText();
+				
+				String dataN = txtData.getText();
+				
+				String complemento = txtComplemento.getText();
+				
+				String n = txtNumero.getText();
+			}
+		});
 		btnCadastrarUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(btnCadastrarUsuario, "cell 8 1,grow");
 		
