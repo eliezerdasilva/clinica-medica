@@ -170,7 +170,7 @@ public class TelaCadastroPaciente extends JFrame {
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.SOUTH);
 		panel_4.setLayout(
-				new MigLayout("", "[1280:n:1280,grow]", "[150:n:150px,grow][200:n:200,grow][350:n:350,grow]"));
+				new MigLayout("", "[1310:n:1310,grow]", "[150:n:150px,grow][200:n:200,grow][350:n:350,grow]"));
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(107, 142, 35), 4));
