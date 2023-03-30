@@ -1,57 +1,39 @@
 package view;
 
-import java.awt.SystemColor;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
-import model.Paciente;
-import model.Usuario;
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import net.miginfocom.swing.MigLayout;
-import java.awt.Insets;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Color;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.awt.CardLayout;
-import javax.swing.JTextField;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
-import controller.PacienteDao;
-
-import javax.swing.border.MatteBorder;
-import javax.imageio.ImageIO;
-import javax.swing.Box;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.JButton;
-import java.awt.Choice;
-import javax.swing.JScrollBar;
+import net.miginfocom.swing.MigLayout;
 
 public class MenuPrincipal extends JFrame {
 
@@ -111,11 +93,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Paciente");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PacienteDao pacienteDao = new PacienteDao();
-				ArrayList<Paciente> listaPaciente = pacienteDao.consultarPaciente();
-				
-				
-				TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente(listaPaciente);
+				TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente();
 				telaPaciente.setLocationRelativeTo(null);
 				telaPaciente.setVisible(true);
 				dispose();
@@ -125,7 +103,6 @@ public class MenuPrincipal extends JFrame {
 		mntmNewMenuItem_3.setBorder(new MatteBorder(2, 4, 2, 4, (Color) new Color(0, 0, 0)));
 		mnNewMenu.add(mntmNewMenuItem_3);
 
-		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Médico");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
