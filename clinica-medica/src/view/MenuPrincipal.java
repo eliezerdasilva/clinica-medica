@@ -117,7 +117,7 @@ public class MenuPrincipal extends JFrame {
 		mntmNewMenuItem_2.setBorder(new MatteBorder(2, 4, 4, 4, (Color) new Color(0, 0, 0)));
 		mnNewMenu.add(mntmNewMenuItem_2);
 
-		JMenu mnNewMenu_1 = new JMenu("                                                            Agendar");
+		JMenu mnNewMenu_1 = new JMenu("                                                           Agendar");
 		mnNewMenu_1.setBackground(new Color(0, 128, 0));
 		mnNewMenu_1.setForeground(Color.BLACK);
 

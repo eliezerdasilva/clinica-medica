@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Convenio;
@@ -51,9 +52,21 @@ public class PacienteDao implements InterfacePacienteDao {
 	}
 
 	@Override
-	public boolean excluirPaciente(Paciente paciente) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean excluirPaciente(Long cpf) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int valida = 0;
+		try {   
+		    String sql = "DELETE FROM paciente where cpf = ?";
+			    PreparedStatement stmt = c.prepareStatement(sql);
+			    stmt.setLong(1, cpf);
+	 
+			   
+			      stmt.execute();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return (valida == 0 ? false : true);
 	}
 
 	@Override
