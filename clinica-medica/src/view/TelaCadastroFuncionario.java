@@ -1,14 +1,14 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Point;
+import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ComponentEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.image.BufferedImage;
@@ -19,47 +19,30 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
+import javax.imageio.ImageIO;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
-import model.Endereco;
-import model.Funcionario;
-
-import javax.swing.JSeparator;
-import javax.swing.JTextPane;
-import javax.swing.border.MatteBorder;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.Component;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import java.awt.Panel;
-import java.awt.GridLayout;
-import net.miginfocom.swing.MigLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Image;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import controller.EnderecoDao;
+import model.Endereco;
+import model.Funcionario;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * 
@@ -88,6 +71,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTextField txtSenha;
 	private JPasswordField passwordField;
 	private JTable table;
+	private Endereco cadastroEndereco;
 	
 	private ArrayList<Funcionario> listaFuncionario = new ArrayList<>();
 	private ArrayList<Funcionario> listaEndereco = new ArrayList<>();
@@ -377,7 +361,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				String complemento = txtComplemento.getText();
 				
 				String n = txtNumero.getText();
-			}
+			
 			//TODO Construindo Objeto
 			Funcionario p = new Funcionario();
 			
@@ -407,7 +391,7 @@ public class TelaCadastroFuncionario extends JFrame {
 			rdbtnMasculino.setBorder(new LineBorder(new Color(255, 00, 00),4));
 			return;
 		}else {
-			p.setSexo(Sexo);
+			p.setSexo(sexo);
 		}
 		//email
 		if (email == null || email.trim() ==  "" || email.isEmpty()) {
@@ -425,29 +409,25 @@ public class TelaCadastroFuncionario extends JFrame {
 		}else {
 			p.setTelefone(telefone);
 		}
-		//profissao
-		if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
-			JOptionPane.showMessageDialog(null,"Profissao Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
-			txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			return;
-		}else {
-			p.setProfissao(profissao);
-		}
 		// data nascimento
 		if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
 			JOptionPane.showMessageDialog(null,"Data Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
 			txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			return;
 		}else {
-			String data = "25/01/2016";
-			Date TimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			LocalDate date = LocalDate.parse(data, formatter);
+		
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate date = LocalDate.parse(dataN, formatter);
 			
 			p.setDataNascimento(date);
 			
+			// Complmento
+			p.setComplemento(complemento);
+			
 			if (n == null || n.trim() == "" || n.isEmpty()) {
 				JOptionPane.showMessageDialog(null,"Numero Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
-				txtNCasa.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				txtNumero.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 				return;
 			}else {
 				Integer nCasa = Integer.valueOf(n);
@@ -461,11 +441,44 @@ public class TelaCadastroFuncionario extends JFrame {
 			String cidade = txtMunicipio.getText();
 			String rua = txtRua.getText();
 			
+			if (cadastroEndereco == null) {
+				cadastroEndereco = new Endereco();	
 			}
-		//Complemento
-		p.setComplemento(complemento);
-		
-		};
+			
+			EnderecoDao endereco = new EnderecoDao();
+			
+			if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
+				JOptionPane.showInternalMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+				txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				return;
+			}else {
+				Integer cep = Integer.valueOf(cepString);
+				cadastroEndereco.setCep(cep);
+			}
+			
+			if (bairro == null || bairro.trim()== "" || bairro.isEmpty()) {
+				JOptionPane.showInternalMessageDialog(null,"cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+				txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				return;
+			}else {
+				cadastroEndereco.setBairro(bairro);
+			}
+			if (cidade == null || cidade.trim() == "" || cidade.isEmpty()){
+				JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+				txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				return;
+			}else {
+				cadastroEndereco.setCidade(cidade);
+			}
+			if(rua == null || rua.trim() == "" || rua.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+				txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				return;
+			}else {
+				cadastroEndereco.setRua(rua);
+			}
+			}
+			}});
 		btnCadastrarUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(btnCadastrarUsuario, "cell 8 1,grow");
 		
