@@ -6,6 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jdbc"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jre"/>
 	<classpathentry kind="src" path="clinica-medica/src"/>
 	<classpathentry kind="lib" path="miglayout15-swing.jar"/>
 	<classpathentry kind="output" path="clinica-medica/bin"/>
