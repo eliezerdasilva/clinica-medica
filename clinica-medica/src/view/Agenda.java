@@ -87,17 +87,8 @@ public class Agenda extends JFrame {
 
 		setContentPane(contentPane);
 		
-		BufferedImage bg = null;
-
-		try {
-			bg = ImageIO.read(new File("src/imagens/fundoLogin.jpeg"));
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		JPanel panel = new FundoImagemLogin(bg);
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(240, 255, 240));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -118,31 +109,35 @@ public class Agenda extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new MatteBorder(0, 0, 4, 0, (Color) new Color(0, 0, 0)));
-		panel_2.setBackground(new Color(0, 128, 0));
+		panel_2.setBackground(new Color(60, 179, 113));
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 40));
 		
 		JLabel lblNewLabel = new JLabel("Agenda");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 50));
 		panel_2.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		panel_2.add(lblNewLabel_1);
 		
 		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(152, 251, 152));
 		panel_1.add(panel_3, BorderLayout.CENTER);
 		panel_3.setLayout(new MigLayout("", "[933.00,grow][]", "[20:n:20][35:n:35][][35:n:35][][35:n:35][][350:n:350,grow][35px:n:35px]"));
 		
 		JLabel lblNewLabel_2 = new JLabel("Nome : ");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_2.setForeground(new Color(0, 0, 0));
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_2, "flowx,cell 0 1");
 		
 		txtNome = new JTextField();
+		txtNome.setBackground(new Color(255, 255, 255));
 		panel_3.add(txtNome, "cell 0 1,grow");
 		txtNome.setColumns(20);
 		
-		JLabel lblNewLabel_3 = new JLabel("   Cpf :    ");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JLabel lblNewLabel_3 = new JLabel("   CPF :    ");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_3, "cell 0 1");
 		
 		textCpf = new JTextField();
@@ -157,11 +152,11 @@ public class Agenda extends JFrame {
 		panel_3.add(btnBuscar, "cell 0 1,grow");
 		
 		JLabel lblNewLabel_4 = new JLabel("Médico :");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_4, "flowx,cell 0 3");
 		
 		JLabel lblNewLabel_7 = new JLabel("Observação\r\n");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_7, "flowx,cell 0 5");
 		
 		JPanel panel_4 = new JPanel();
@@ -170,10 +165,11 @@ public class Agenda extends JFrame {
 		panel_4.setLayout(null);
 		
 		table = new JTable();
-		table.setBounds(10, 11, 1205, 329);
+		table.setBounds(10, 11, 1077, 329);
 		panel_4.add(table);
 		
 		JButton btnEditar = new JButton("Editar ");
+		btnEditar.setBackground(new Color(240, 255, 240));
 		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_3.add(btnEditar, "flowx,cell 0 8,grow");
 		
@@ -181,6 +177,7 @@ public class Agenda extends JFrame {
 		panel_3.add(horizontalStrut_2, "cell 0 8");
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setBackground(new Color(240, 240, 240));
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_3.add(btnExcluir, "cell 0 8,grow");
 		
@@ -188,6 +185,8 @@ public class Agenda extends JFrame {
 		panel_3.add(horizontalStrut_1, "cell 0 8");
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setBackground(new Color(240, 255, 240));
+		btnVoltar.setForeground(new Color(0, 0, 0));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuPrincipal mp = new MenuPrincipal();
@@ -204,7 +203,7 @@ public class Agenda extends JFrame {
 		panel_3.add(cbxMedico, "cell 0 3,growy");
 		
 		JLabel lblNewLabel_5 = new JLabel("Tipo de Consulta : ");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_5.setForeground(new Color(0, 0, 0));
 		panel_3.add(lblNewLabel_5, "cell 0 3");
 		
@@ -213,7 +212,7 @@ public class Agenda extends JFrame {
 		textConsulta.setColumns(20);
 		
 		JLabel lblNewLabel_6 = new JLabel("Data : ");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_6, "cell 0 3");
 		
 		textData = new JTextField();
@@ -228,6 +227,11 @@ public class Agenda extends JFrame {
 		panel_3.add(horizontalStrut_3, "cell 0 5");
 		
 		JButton btnCadastrar = new JButton("         Cadastrar            ");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCadastrar.setBackground(new Color(240, 255, 240));
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnCadastrar, "cell 0 5,grow");
 		contentPane.setLayout(gl_contentPane);
