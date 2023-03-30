@@ -384,7 +384,7 @@ public class TelaCadastroFuncionario extends JFrame {
 			e6.printStackTrace();
 		}
 		panel_6.add(txtBuscarCpf, "cell 1 1,grow");
-		txtBuscarCpf.setColumns(10);
+		txtBuscarCpf.setColumns(10);2
 		
 		JLabel lblNewLabel_17 = new JLabel("Nome :");
 		lblNewLabel_17.setFont(new Font("Tahoma", Font.BOLD, 16));
