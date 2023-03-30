@@ -40,7 +40,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controller.EnderecoDao;
+import controller.FuncionarioDao;
 import model.Endereco;
+import model.Estado;
 import model.Funcionario;
 import net.miginfocom.swing.MigLayout;
 
@@ -72,6 +74,9 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JPasswordField passwordField;
 	private JTable table;
 	private Endereco cadastroEndereco;
+	
+	EnderecoDao enderecoDao = new EnderecoDao();
+	FuncionarioDao funcionarioDao = new FuncionarioDao(); 
 	
 	private ArrayList<Funcionario> listaFuncionario = new ArrayList<>();
 	private ArrayList<Funcionario> listaEndereco = new ArrayList<>();
@@ -477,7 +482,48 @@ public class TelaCadastroFuncionario extends JFrame {
 			}else {
 				cadastroEndereco.setRua(rua);
 			}
+			Endereco resultado = new Endereco();
+			resultado = endereco.ConsultarEndereco(cadastroEndereco);
+			
+			if (resultado == null) {
+				Estado estado = (Estado) cbxEstado.getSelectedItem();
+				int id = estado.getId();
+				String nomeEstado = estado.getNome();
+				String uf = estado.getUf();
+				System.out.println(id);
+				
+				Estado estadoSel = new Estado();
+				estadoSel.setId(id);
+				;
+				estadoSel.setNome(nomeEstado);
+				estadoSel.setUf(uf);
+				
+				//Cria o objeto endereco
+				
+				// TODO cadastro do endereco
+				boolean resuEnd = false;
+				try {
+					resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
+					
+				}catch (Exception e2) {
+					e2.printStackTrace();
+				}
 			}
+			if (resultado != null) {
+				boolean cds = false;
+				try {
+					//Inserir o endereco no funcionario
+					p.setEndereco(cadastroEndereco);
+					cds = funcionarioDao.cadastrarFuncionario(p);
+				}catch (Exception el) {
+					el.printStackTrace();
+				}
+				if (cds == false) {
+					JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamete");
+					JOptionPane.showInternalMessageDialog(null, "cadastrado");
+				}
+			}
+		}
 			}});
 		btnCadastrarUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(btnCadastrarUsuario, "cell 8 1,grow");
