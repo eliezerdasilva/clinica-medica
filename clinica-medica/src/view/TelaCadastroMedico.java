@@ -86,13 +86,18 @@ public class TelaCadastroMedico extends JFrame {
 	private JTextField txtEspecializacao;
 	private JTextField txtSenha;
 	private JPasswordField passwordField;
+	private String usuario;
+	private String senha;
+	private JTextField textField;
 	
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroMedico() {
+	public TelaCadastroMedico(String usuario, String senha) {
+		this.usuario = usuario;
+		this.senha = senha; 
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Tela Cadastro de médico");
@@ -128,22 +133,11 @@ public class TelaCadastroMedico extends JFrame {
 
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(204, 255, 204));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
-		);
-		panel.setLayout(new MigLayout("", "[100px:n:100px][1286.00,grow][100px:n:100px]", "[800:n:950,grow]"));
+		panel.setLayout(new MigLayout("", "[1286.00,grow]", "[1000:n:900,grow]"));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
-		panel.add(panel_1, "cell 1 0,grow");
+		panel.add(panel_1, "cell 0 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		BufferedImage filc = null;
@@ -168,7 +162,7 @@ public class TelaCadastroMedico extends JFrame {
 
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.CENTER);
-		panel_4.setLayout(new MigLayout("", "[1280:n:1280,grow]", "[150:n:150px,grow][160:n:160,grow][60:n:60,grow][90:n:90,grow][200:n:200,grow]"));
+		panel_4.setLayout(new MigLayout("", "[1280:n:1280,grow]", "[150:n:150px,grow][160:n:160,grow][60:n:60,grow][90:n:90,grow][200:n:350,grow]"));
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(107, 142, 35), 4));
@@ -382,12 +376,12 @@ public class TelaCadastroMedico extends JFrame {
 		JButton btnCadastrarMedico = new JButton("Cadastrar novo médico");
 		btnCadastrarMedico.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(btnCadastrarMedico, "cell 5 1,grow");
-		
+		/*
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(240, 255, 240));
 		panel_6.setBorder(new LineBorder(new Color(85, 107, 47), 4));
 		panel_4.add(panel_6, "cell 0 4,grow");
-		panel_6.setLayout(new MigLayout("", "[80:n:80][200:n:200,grow][][100:n:100][200:n:200,grow][][220:n:220][350:n:350]", "[30:n:30][30:n:30][5:n:5][50:n:50,grow][5:n:5][30:n:30]"));
+		panel_6.setLayout(new MigLayout("", "[80:n:80][200:n:200,grow][][100:n:100][200:n:200,grow][][220:n:220][350:n:350]", "[30:n:30][30:n:30][5:n:5][50:n:200,grow][5:n:5][30:n:30]"));
 		
 		JLabel lblNewLabel_22 = new JLabel("Editar");
 		lblNewLabel_22.setHorizontalAlignment(SwingConstants.CENTER);
@@ -406,6 +400,11 @@ public class TelaCadastroMedico extends JFrame {
 		}
 		panel_6.add(txtBuscarCpf, "cell 1 1,grow");
 		txtBuscarCpf.setColumns(10);
+		
+		textField = new JTextField();
+		panel_6.add(textField, "cell 1 1,grow");
+		textField.setColumns(10);
+		
 		
 		JLabel lblNewLabel_17 = new JLabel("Nome :");
 		lblNewLabel_17.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -434,7 +433,7 @@ public class TelaCadastroMedico extends JFrame {
 		JButton btnVoltar = new JButton("     Voltar       ");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuPrincipal mp = new MenuPrincipal();
+				MenuPrincipal mp = new MenuPrincipal(usuario, senha);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();
@@ -442,7 +441,24 @@ public class TelaCadastroMedico extends JFrame {
 			
 		});
 		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_6.add(btnVoltar, "cell 7 5,alignx trailing,growy");
+		panel_6.add(btnVoltar, "cell 7 5,alignx trailing,growy");\
+		*/
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(291)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(299, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(56)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(131, Short.MAX_VALUE))
+		);
+		contentPane.setLayout(gl_contentPane);
 
 		JButton btnNewButton = new RoundButton("Entrar");
 		btnNewButton.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-login-arredondado-30.png"));

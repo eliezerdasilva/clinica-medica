@@ -59,11 +59,15 @@ public class Agenda extends JFrame {
 	private JTextField textConsulta;
 	private JTextField textData;
 	private JTextField textObservacao;
+	private String usuario;
+	private String senha;
 	
 	
 
 	
-	public Agenda() {
+	public Agenda(String usuario, String senha) {
+		this.usuario = usuario;
+		this.senha = senha; 
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Tela de Cadastro de Consulta");
@@ -100,20 +104,24 @@ public class Agenda extends JFrame {
 		JPanel panel = new FundoImagemLogin(bg);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGap(295)
 					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1906, Short.MAX_VALUE)
-					.addGap(8))
+					.addGap(305))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGap(38)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(49, Short.MAX_VALUE))
 		);
-		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[800:n:800,grow]"));
+		panel.setLayout(new MigLayout("", "[1300:n:1300,grow]", "[900:n:900,grow]"));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 4));
-		panel.add(panel_1, "cell 1 0,grow");
+		panel.add(panel_1, "cell 0 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_2 = new JPanel();
@@ -190,7 +198,7 @@ public class Agenda extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuPrincipal mp = new MenuPrincipal();
+				MenuPrincipal mp = new MenuPrincipal(usuario, senha);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();

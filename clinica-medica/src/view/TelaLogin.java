@@ -228,19 +228,19 @@ public class TelaLogin extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				String Usuario = txtUsuario.getText();
-				String Senha = txtSenha.getText();
+				String usuario = txtUsuario.getText();
+				String senha = txtSenha.getText();
 				Usuario login = null;
 
-				if (!Usuario.isEmpty() && !Senha.isEmpty()) {
+				if (!usuario.isEmpty() && !senha.isEmpty()) {
 					LoginDao loginDao;
 					loginDao = new LoginDao();
 
-					login = loginDao.consultarLogin(new Usuario(Usuario, Senha));
+					login = loginDao.consultarLogin(new Usuario(usuario, senha));
 
 					if (login != null) {
 
-						MenuPrincipal telaFunc = new MenuPrincipal();
+						MenuPrincipal telaFunc = new MenuPrincipal(usuario, senha);
 						telaFunc.setLocationRelativeTo(null);
 						telaFunc.setVisible(true);
 						dispose();

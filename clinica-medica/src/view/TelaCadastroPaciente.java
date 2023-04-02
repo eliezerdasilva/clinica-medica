@@ -49,6 +49,8 @@ import model.Endereco;
 import model.Estado;
 import model.Paciente;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 /**
  * 
@@ -98,8 +100,12 @@ public class TelaCadastroPaciente extends JFrame {
 	private Paciente pacienteClick;
 	private Endereco enderecoClink;
 	private String insert = null;
+	private String usuario;
+	private String senha;
 
-	public TelaCadastroPaciente() {
+	public TelaCadastroPaciente(String usuario, String senha) {
+		this.usuario = usuario;
+		this.senha = senha; 
 
 		this.listaPaciente = pacienteDao.consultarPaciente();
 
@@ -119,7 +125,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
-		contentPane.setBackground(new Color(0, 0, 0));
+		contentPane.setBackground(new Color(144, 238, 144));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBounds(100, 100, 2000, 1050);
 
@@ -136,12 +142,12 @@ public class TelaCadastroPaciente extends JFrame {
 
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(204, 255, 204));
-		panel.setLayout(new MigLayout("", "[80:n:80][1286.00,grow][100:n:100]", "[700:n:700,grow,top][100:n:100]"));
+		panel.setLayout(new MigLayout("", "[1300:n:1300]", "[850]"));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
-		panel.add(panel_1, "cell 1 0,grow");
-		panel_1.setLayout(new BorderLayout(0, 0));
+		panel.add(panel_1, "cell 0 0,grow");
+		panel_1.setLayout(new BorderLayout(5, 0));
 
 		BufferedImage filc = null;
 
@@ -164,7 +170,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.SOUTH);
-		panel_4.setLayout(new MigLayout("", "[1310:n:1310,grow]", "[150:n:150,grow][200:n:200,grow][280:n:280,grow]"));
+		panel_4.setLayout(new MigLayout("", "[1310:n:1310,grow]", "[150:n:150,grow][200:n:200,grow][400:n:400,grow]"));
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(107, 142, 35), 4));
@@ -214,8 +220,7 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_6.setBorder(new LineBorder(new Color(85, 107, 47), 4));
 		panel_4.add(panel_6, "cell 0 2,grow");
 		panel_6.setLayout(
-				new MigLayout("", "[80:n:80][200:n:200,grow][][100px:n:100px][200:n:200,grow][][150:n:150][400:n:400]",
-						"[5:n:5][30:n:30][][100:n:100,grow][5:n:5][30:n:30]"));
+				new MigLayout("", "[80:n:80][200:n:200,grow][][100px:n:100px][200:n:200,grow][][150:n:150][400:n:400]", "[5:n:5][30:n:30][220:n:220,grow][5:n:5][30:n:30][][]"));
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
@@ -638,7 +643,7 @@ public class TelaCadastroPaciente extends JFrame {
 				// TODO ver se paciente existe
 				boolean resultadoPacienteCadastrado = pacienteDao.ConsultaCpfPaciente(cpfConsulta);
 
-				if (resultadoPacienteCadastrado != false) {
+				if (resultadoPacienteCadastrado != true) {
 					resultado = endereco.ConsultarEndereco(cadastroEndereco);
 
 					if (resultado != null) {
@@ -694,7 +699,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 		JPanel panel_7 = new JPanel();
 		panel_7.setBorder(new LineBorder(new Color(107, 142, 35), 4));
-		panel_6.add(panel_7, "cell 1 3 7 1,grow");
+		panel_6.add(panel_7, "cell 1 2 7 1,grow");
 		panel_7.setLayout(new CardLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -958,7 +963,7 @@ public class TelaCadastroPaciente extends JFrame {
 								}
 
 							}
-
+						
 							if (resultado != null) {
 								boolean cds = false;
 
@@ -974,29 +979,40 @@ public class TelaCadastroPaciente extends JFrame {
 
 								if (cds == false) {
 									JOptionPane.showMessageDialog(null, "Erro ao editar, tente novamente");
+									
 								} else {
 									JOptionPane.showMessageDialog(null, "Alteraç sucesso");
+									
+									
 									atualizarTabela();
 								}
 							}
-
+							
+							
 						}
 					});
 					btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
 					panel_5.add(btnEditar, "cell 1 6 3 1,grow");
+					
+					
+					
 				}
 			}
 		});
+		
 		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_6.add(btnNewButton_4, "cell 1 5,grow");
+		panel_6.add(btnNewButton_4, "cell 1 4,grow");
+		
 
 		JButton btnNewButton_5 = new JButton("Excluir");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				btnNewButton_4.setVisible(false);
 				int position = table.getSelectedRow();
 				pacienteClick = listaPaciente.get(position);
+				
 				if (pacienteClick != null) {
+				
 					JOptionPane.showMessageDialog(null, pacienteClick.getNome());
 
 					// TODO inserte de dados na tela
@@ -1032,23 +1048,25 @@ public class TelaCadastroPaciente extends JFrame {
 						cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId() - 1);
 
 						// TODO pegar ele para alterar
-
+						
+						btnNewButton_4.setVisible(false);
 						btnCadastra.setVisible(false);
 						btnNewButton_5.setVisible(false);
-						JButton btnEditar = new JButton("Excluir");
-						btnEditar.addActionListener(new ActionListener() {
+						JButton btnExcluir = new JButton("Excluir");
+						btnExcluir.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								Boolean result = pacienteDao.excluirPaciente(Long.valueOf(pacienteClick.getCpf()));
-								if(result != false) {
+								if(result == false) {
 									JOptionPane.showMessageDialog(null, " excluido");
+									atualizarTabela();
 								}else {
 									JOptionPane.showMessageDialog(null, " erro ao excluir");
 									
 								}
 							}
 						});
-						btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
-						panel_5.add(btnEditar, "cell 1 6 3 1,grow");
+						btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
+						panel_5.add(btnExcluir, "cell 1 6,grow");
 
 					}
 
@@ -1057,28 +1075,45 @@ public class TelaCadastroPaciente extends JFrame {
 
 		});
 		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_6.add(btnNewButton_5, "cell 4 5,grow");
+		panel_6.add(btnNewButton_5, "cell 4 4,grow");
 
-		JButton btnNewButton = new JButton("Voltar");
+		JButton btnNewButton = new JButton("Voltar para o menu principal");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				MenuPrincipal mp = new MenuPrincipal();
+				MenuPrincipal mp = new MenuPrincipal(usuario, senha );
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();
 
 			}
 		});
-		SpringLayout sl_contentPane = new SpringLayout();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, panel, 0, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, panel, 0, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, panel, 0, SpringLayout.EAST, contentPane);
-		contentPane.setLayout(sl_contentPane);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_6.add(btnNewButton, "cell 7 5,growx");
-		contentPane.add(panel);
+		panel_6.add(btnNewButton, "cell 7 4,growx");
+		
+		JLabel lblNewLabel_19 = new JLabel("Usuário: ");
+		lblNewLabel_19.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(lblNewLabel_19, "flowx,cell 7 6,alignx center");
+		
+		JLabel lblUsuario = new JLabel(usuario);
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(lblUsuario, "cell 7 6");
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(330, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1351, GroupLayout.PREFERRED_SIZE)
+					.addGap(233))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(72)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(168, Short.MAX_VALUE))
+		);
+		contentPane.setLayout(gl_contentPane);
 
 	}
 
@@ -1108,5 +1143,4 @@ public class TelaCadastroPaciente extends JFrame {
 		txtMunicipio.setText("");
 		txtRua.setText("");
 	}
-
 }

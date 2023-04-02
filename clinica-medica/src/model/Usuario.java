@@ -12,7 +12,7 @@ public class Usuario {
 	}
 
 	public Usuario(String usuario, String senha) {
-		super();
+		
 		this.usuario = usuario;
 		this.senha = senha;
 	}

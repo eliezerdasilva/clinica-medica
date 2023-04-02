@@ -78,6 +78,8 @@ public class TelaPerfil extends JFrame {
 	private JTextField textField_12;
 	private JTextField textField_16;
 	private JPasswordField passwordField;
+	private String usuario;
+	private String senha;
 	
 	
 
@@ -85,7 +87,9 @@ public class TelaPerfil extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaPerfil() {
+	public TelaPerfil(String usuario, String senha) {
+		this.usuario = usuario;
+		this.senha = senha; 
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Tela Cadastro de médico");
@@ -121,20 +125,11 @@ public class TelaPerfil extends JFrame {
 
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(204, 255, 204));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1914, Short.MAX_VALUE)
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
-		);
-		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[50:n:50][900:n:900,grow][50:n:50]"));
+		panel.setLayout(new MigLayout("", "[1286.00,grow]", "[900:n:750,grow]"));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
-		panel.add(panel_1, "cell 1 1,grow");
+		panel.add(panel_1, "cell 0 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		BufferedImage filc = null;
@@ -322,7 +317,7 @@ public class TelaPerfil extends JFrame {
 		JButton btnNewButton_2 = new JButton("Alterar");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroFuncionario tcf = new TelaCadastroFuncionario();
+				TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(usuario, senha);
 				tcf.setLocationRelativeTo(null);
 				tcf.setVisible(true);
 				dispose();
@@ -335,7 +330,7 @@ public class TelaPerfil extends JFrame {
 		JButton btnNewButton_3 = new JButton("Voltar");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuPrincipal tcf = new MenuPrincipal();
+				MenuPrincipal tcf = new MenuPrincipal(usuario, senha);
 				tcf.setLocationRelativeTo(null);
 				tcf.setVisible(true);
 				dispose();
@@ -343,6 +338,22 @@ public class TelaPerfil extends JFrame {
 		});
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton_3, "cell 5 0,grow");
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(289)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(301, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(115)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(122, Short.MAX_VALUE))
+		);
+		contentPane.setLayout(gl_contentPane);
 
 		JButton btnNewButton = new RoundButton("Entrar");
 		btnNewButton.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-login-arredondado-30.png"));

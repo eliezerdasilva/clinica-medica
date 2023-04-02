@@ -88,13 +88,17 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTextField txtSenha;
 	private JPasswordField passwordField;
 	private JTable table;
+	private String usuario;
+	private String senha;
 	
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroFuncionario() {
+	public TelaCadastroFuncionario(String usuario, String senha) {
+		this.usuario = usuario;
+		this.senha = senha; 
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Tela Cadastro de Funcionario");
@@ -130,20 +134,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(204, 255, 204));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(21))
-		);
-		panel.setLayout(new MigLayout("", "[1286.00,grow]", "[810:n:810,grow]"));
+		panel.setLayout(new MigLayout("", "[1310px]", "[900]"));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
@@ -172,7 +163,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.CENTER);
-		panel_4.setLayout(new MigLayout("", "[1280:n:1280,grow]", "[150:n:150px,grow][160:n:160,grow][100:n:100,grow][280:n:280,grow]"));
+		panel_4.setLayout(new MigLayout("", "[1280:n:1280,grow]", "[150:n:150px,grow][160:n:160,grow][100:n:100,grow][350:n:350,grow]"));
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(107, 142, 35), 4));
@@ -372,7 +363,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_6.setBackground(new Color(240, 255, 240));
 		panel_6.setBorder(new LineBorder(new Color(85, 107, 47), 4));
 		panel_4.add(panel_6, "cell 0 3,grow");
-		panel_6.setLayout(new MigLayout("", "[80:n:80][200:n:200,grow][][100:n:100][200:n:200,grow][][220:n:220][350:n:350]", "[30:n:30][30:n:30][][100:n:100,grow][5:n:5][30:n:30]"));
+		panel_6.setLayout(new MigLayout("", "[80:n:80][200:n:200,grow][][100:n:100][200:n:200,grow][][220:n:220][350:n:350]", "[30:n:30][30:n:30][][220:n:220,grow][5:n:5][30:n:30]"));
 		
 		JLabel lblNewLabel_22 = new JLabel("Editar");
 		lblNewLabel_22.setHorizontalAlignment(SwingConstants.CENTER);
@@ -410,18 +401,10 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_7.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 1124, 78);
+		scrollPane.setBounds(10, 11, 1124, 198);
 		panel_7.add(scrollPane);
 		
-		table = new JTable();
-		DefaultTableModel dataModel = (new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"CPF", "Nome", "Email"
-			}
-		));
-		table.setModel(null);
+	
 		scrollPane.setViewportView(table);
 		
 		JButton btnEditar = new JButton("Editar");
@@ -435,7 +418,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		JButton btnVoltar = new JButton("     Voltar       ");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuPrincipal mp = new MenuPrincipal();
+				MenuPrincipal mp = new MenuPrincipal(usuario,senha);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();
@@ -443,6 +426,22 @@ public class TelaCadastroFuncionario extends JFrame {
 		});
 		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnVoltar, "cell 7 5,alignx trailing,growy");
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(282)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(308, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(40)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(126, Short.MAX_VALUE))
+		);
+		contentPane.setLayout(gl_contentPane);
 
 		JButton btnNewButton = new RoundButton("Entrar");
 		btnNewButton.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-login-arredondado-30.png"));
