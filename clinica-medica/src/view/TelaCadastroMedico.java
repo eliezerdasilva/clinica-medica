@@ -249,7 +249,7 @@ public class TelaCadastroMedico extends JFrame {
 
 		JRadioButton rdbtnFeminino = new JRadioButton("F");
 		rdbtnFeminino.setBackground(new Color(240, 255, 240));
-		panel_3.add(rdbtnFeminino, "cell 6 3,grow");
+		panel_3.add(rdbtnFeminino, "cell 6 3,grow");	
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
