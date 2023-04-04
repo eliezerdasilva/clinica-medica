@@ -367,10 +367,6 @@ public class TelaCadastroMedico extends JFrame {
 		JButton btnCadastrarMedico = new JButton("Cadastrar Novo Médico ");
 		btnCadastrarMedico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				System.out.println("ÇÇÇÇÇÇÇÇÇÇ");
-				System.out.println("ÇÇÇÇÇÇÇÇÇÇ");
-				System.out.println("ÇÇÇÇÇÇÇÇÇÇ");
 				
 				
 				String validacao = "";
@@ -593,14 +589,10 @@ public class TelaCadastroMedico extends JFrame {
 					 cds = medicoDao.cadastrarMedico(m);
 				}
 				catch (Exception e1) {
-					System.out.println("ÇÇÇÇÇÇÇÇÇÇ");
-					a = e1.getMessage();
 					e1.printStackTrace();
 				}
 				
 				if(cds == false ) {
-					System.out.println("ÇÇÇÇÇÇÇÇÇÇ");
-					System.out.println(a);
 					JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamente");
 					
 				}else {
