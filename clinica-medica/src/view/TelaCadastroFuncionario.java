@@ -126,16 +126,16 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JPanel panel = new FundoImagemLogin(bg);
 		panel.setBackground(new Color(60, 179, 113));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
+		GroupLayout gl_contentPane2 = new GroupLayout(contentPane);
+		gl_contentPane2.setHorizontalGroup(
+			gl_contentPane2.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane2.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+		gl_contentPane2.setVerticalGroup(
+			gl_contentPane2.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_contentPane2.createSequentialGroup()
 					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(21))
 		);
