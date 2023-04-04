@@ -115,7 +115,7 @@ public class TelaCadastroMedico extends JFrame {
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
-		contentPane.setBackground(new Color(0, 0, 0));
+		contentPane.setBackground(new Color(107, 142, 35));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBounds(100, 100, 2000, 1050);
 

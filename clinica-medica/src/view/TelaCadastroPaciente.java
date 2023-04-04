@@ -86,6 +86,7 @@ public class TelaCadastroPaciente extends JFrame {
 	private JTextField txtComplemento;
 	private JTextField txtBuscaCep;
 	private JTextField txtBuscaNome;
+	private JButton btnEditar;
 	protected String[] convenios;
 	private Estado estado;
 	private Endereco cadastroEndereco;
@@ -102,6 +103,11 @@ public class TelaCadastroPaciente extends JFrame {
 	private String insert = null;
 	private String usuario;
 	private String senha;
+	private JRadioButton jrbFemi;
+	private JComboBox<Estado> cbxEstado;
+	private JRadioButton jrbMasc;
+	private JComboBox<Convenio> cbxConvenio;
+	private SimpleDateFormat formatDate;
 
 	public TelaCadastroPaciente(String usuario, String senha) {
 		this.usuario = usuario;
@@ -195,7 +201,7 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_7, "cell 5 1,alignx trailing");
 
-		JComboBox<Convenio> cbxConvenio = new JComboBox<>();
+		cbxConvenio = new JComboBox<Convenio>();
 		cbxConvenio.addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent event) {
 				convenio = pacienteDao.consultaConvenio();
@@ -246,7 +252,7 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_8, "cell 5 3");
 
-		JRadioButton jrbMasc = new JRadioButton("M");
+		jrbMasc = new JRadioButton("M");
 		buttonGroup.add(jrbMasc);
 		jrbMasc.setBackground(new Color(240, 255, 240));
 		panel_3.add(jrbMasc, "flowx,cell 6 3,grow");
@@ -276,7 +282,7 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_5.add(txtRua, "cell 8 3,grow");
 		txtRua.setColumns(10);
 
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		formatDate = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		} catch (ParseException e2) {
@@ -308,7 +314,7 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_3.add(txtTelefone, "cell 3 5,grow");
 		txtTelefone.setColumns(10);
 
-		JRadioButton jrbFemi = new JRadioButton("F");
+		jrbFemi = new JRadioButton("F");
 		buttonGroup.add(jrbFemi);
 		jrbFemi.setBackground(new Color(240, 255, 240));
 		panel_3.add(jrbFemi, "cell 6 3,grow");
@@ -321,7 +327,7 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_18.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_18, "cell 0 1,alignx trailing");
 
-		JComboBox<Estado> cbxEstado = new JComboBox<>();
+		cbxEstado = new JComboBox<Estado>() ;
 		cbxEstado.addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent event) {
 				estados = enderecoDao.ConsultaEstadoCidade();
@@ -714,6 +720,8 @@ public class TelaCadastroPaciente extends JFrame {
 
 		JButton btnNewButton_4 = new JButton("Editar");
 		btnNewButton_4.addActionListener(new ActionListener() {
+			
+
 			public void actionPerformed(ActionEvent e) {
 
 				int position = table.getSelectedRow();
@@ -721,40 +729,13 @@ public class TelaCadastroPaciente extends JFrame {
 
 				// TODO inserte de dados na tela
 				if (pacienteClick != null) {
-					txtNome.setText(pacienteClick.getNome());
-					txtEmail.setText(pacienteClick.getEmail());
-					txtTelefone.setText(pacienteClick.getTelefone());
-					txtComplemento.setText(pacienteClick.getComplemento());
-					txtNCasa.setText(String.valueOf(pacienteClick.getNumero()));
-					txtCpf.setEditable(false);
-					txtCpf.setText(String.valueOf(pacienteClick.getCpf()));
-					Date data = Date.valueOf(pacienteClick.getDataNascimento());
-					txtData.setText(format.format(data));
-					txtProfissao.setText(pacienteClick.getProfissao());
-
-					String sexo = pacienteClick.getSexo();
-					System.out.println(sexo);
-					if (sexo.equals("F")) {
-						jrbFemi.setSelected(true);
-					} else if (sexo.equals("M")) {
-						jrbMasc.setSelected(true);
-					}
-					cbxConvenio.setSelectedIndex(pacienteClick.getConvenio().getId() - 1);
-
-					Integer cep = pacienteClick.getEndereco().getCep();
-					EnderecoDao enderecoDao = new EnderecoDao();
-					Endereco endereco = new Endereco(cep);
-					Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
-					txtCep.setText(String.valueOf(enderecoDoBanco.getCep()));
-					txtBairro.setText(enderecoDoBanco.getBairro());
-					txtMunicipio.setText(enderecoDoBanco.getCidade());
-					txtRua.setText(enderecoDoBanco.getRua());
-					cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId() - 1);
-
+					
+					prencherPaciente(pacienteClick);
+				
 					// TODO pegar ele para alterar
 
 					btnCadastra.setVisible(false);
-					JButton btnEditar = new JButton("Editar");
+					btnEditar = new JButton("Salvar");
 					btnEditar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 
@@ -987,6 +968,7 @@ public class TelaCadastroPaciente extends JFrame {
 									atualizarTabela();
 								}
 							}
+							habilitarInsercao();
 							
 							
 						}
@@ -1007,17 +989,25 @@ public class TelaCadastroPaciente extends JFrame {
 		JButton btnNewButton_5 = new JButton("Excluir");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnNewButton_4.setVisible(false);
 				int position = table.getSelectedRow();
+				if(position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+				btnNewButton_4.setVisible(false);
+				System.out.println(position);
 				pacienteClick = listaPaciente.get(position);
-				
+				if(btnEditar != null)
+					panel_5.remove(btnEditar);
 				if (pacienteClick != null) {
 				
 					JOptionPane.showMessageDialog(null, pacienteClick.getNome());
 
 					// TODO inserte de dados na tela
 					if (pacienteClick != null) {
-						txtNome.setText(pacienteClick.getNome());
+						prencherPaciente(pacienteClick);
+
+						/*txtNome.setText(pacienteClick.getNome());
 						txtEmail.setText(pacienteClick.getEmail());
 						txtTelefone.setText(pacienteClick.getTelefone());
 						txtComplemento.setText(pacienteClick.getComplemento());
@@ -1025,7 +1015,7 @@ public class TelaCadastroPaciente extends JFrame {
 						txtCpf.setEditable(false);
 						txtCpf.setText(String.valueOf(pacienteClick.getCpf()));
 						Date data = Date.valueOf(pacienteClick.getDataNascimento());
-						txtData.setText(format.format(data));
+						txtData.setText(formatDate.format(data));
 						txtProfissao.setText(pacienteClick.getProfissao());
 
 						String sexo = pacienteClick.getSexo();
@@ -1046,7 +1036,7 @@ public class TelaCadastroPaciente extends JFrame {
 						txtMunicipio.setText(enderecoDoBanco.getCidade());
 						txtRua.setText(enderecoDoBanco.getRua());
 						cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId() - 1);
-
+*/
 						// TODO pegar ele para alterar
 						
 						btnNewButton_4.setVisible(false);
@@ -1117,6 +1107,41 @@ public class TelaCadastroPaciente extends JFrame {
 
 	}
 
+	protected void prencherPaciente(Paciente pacienteClick2) {
+		
+		txtNome.setText(pacienteClick.getNome());
+		txtEmail.setText(pacienteClick.getEmail());
+		txtTelefone.setText(pacienteClick.getTelefone());
+		txtComplemento.setText(pacienteClick.getComplemento());
+		txtNCasa.setText(String.valueOf(pacienteClick.getNumero()));
+		txtCpf.setEditable(false);
+		txtCpf.setText(String.valueOf(pacienteClick.getCpf()));
+		Date data = Date.valueOf(pacienteClick.getDataNascimento());
+		txtData.setText(formatDate.format(data));
+		txtProfissao.setText(pacienteClick.getProfissao());
+
+		String sexo = pacienteClick.getSexo();
+		System.out.println(sexo);
+		if (sexo.equals("F")) {
+			jrbFemi.setSelected(true);
+		} else if (sexo.equals("M")) {
+			jrbMasc.setSelected(true);
+		}
+		cbxConvenio.setSelectedIndex(pacienteClick.getConvenio().getId() - 1);
+
+		Integer cep = pacienteClick.getEndereco().getCep();
+		EnderecoDao enderecoDao = new EnderecoDao();
+		Endereco endereco = new Endereco(cep);
+		Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
+		txtCep.setText(String.valueOf(enderecoDoBanco.getCep()));
+		txtBairro.setText(enderecoDoBanco.getBairro());
+		txtMunicipio.setText(enderecoDoBanco.getCidade());
+		txtRua.setText(enderecoDoBanco.getRua());
+		cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId() - 1);
+
+		
+	}
+
 	private void atualizarTabela() {
 		DefaultTableModel tabela = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "CPF", "Email" });
 
@@ -1129,6 +1154,10 @@ public class TelaCadastroPaciente extends JFrame {
 		table.setModel(tabela);
 	}
 
+	private void habilitarInsercao() {
+		limparTela();
+		txtCpf.setEditable(true);
+	}
 	private void limparTela() {
 		txtNome.setText("");
 		txtEmail.setText("");
