@@ -1,37 +1,57 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Point;
+import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ComponentEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+<<<<<<< HEAD
 import java.text.ParseException;
+=======
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+>>>>>>> cadastroFuncionario
 
-import javax.swing.DefaultComboBoxModel;
+import javax.imageio.ImageIO;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+<<<<<<< HEAD
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
+=======
+>>>>>>> cadastroFuncionario
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
+import controller.EnderecoDao;
+import controller.FuncionarioDao;
 import model.Endereco;
+<<<<<<< HEAD
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.border.MatteBorder;
@@ -60,6 +80,11 @@ import java.awt.Image;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+=======
+import model.Estado;
+import model.Funcionario;
+import net.miginfocom.swing.MigLayout;
+>>>>>>> cadastroFuncionario
 
 /**
  * 
@@ -88,11 +113,21 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTextField txtSenha;
 	private JPasswordField passwordField;
 	private JTable table;
+<<<<<<< HEAD
 	private String usuario;
 	private String senha;
+=======
+	private Endereco cadastroEndereco;
+	
+	EnderecoDao enderecoDao = new EnderecoDao();
+	FuncionarioDao funcionarioDao = new FuncionarioDao(); 
+	
+	private ArrayList<Funcionario> listaFuncionario = new ArrayList<>();
+	private ArrayList<Funcionario> listaEndereco = new ArrayList<>();
+	
+>>>>>>> cadastroFuncionario
 	
 	
-
 	/**
 	 * Create the frame.
 	 */
@@ -356,6 +391,194 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_9.add(rdbtnFuncionario, "cell 6 1");
 		
 		JButton btnCadastrarUsuario = new JButton("Cadastrar Novo Funcionario");
+		btnCadastrarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String nome = txtNome.getText();
+				
+				String cpfTxt = txtCpf.getText();
+				
+				String sexo = "ma";
+				if (rdbtnMasculino.isSelected()) {
+					
+					sexo = "Masulino";
+				}
+				if (rdbtnFeminino.isSelected()) {
+					sexo = "Feminino";
+				}
+				if (rdbtnFeminino == null || rdbtnMasculino == null) {
+					sexo = null;
+				}
+				String email = txtEmail.getText();
+				
+				String telefone = txtTelefone.getText();
+				
+				String profissao = txtProfissao.getText();
+				
+				String dataN = txtData.getText();
+				
+				String complemento = txtComplemento.getText();
+				
+				String n = txtNumero.getText();
+			
+			//TODO Construindo Objeto
+			Funcionario p = new Funcionario();
+			
+			//TODO nova validacao nome
+			if (nome == null || nome.trim() == "" || nome.isEmpty()) {
+				txtNome.setBorder(new LineBorder (new Color (255, 00, 00), 4));
+				JOptionPane.showMessageDialog(null,  "Nome Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+				return;
+			} else {
+				p.setNome(nome);
+			}
+			// cpf
+			
+		if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
+			//txtCpf.setBorder(new LineBorder(new Color(255, 00, 00, 4));
+			JOptionPane.showMessageDialog(null,"CPF Vazio", "ok", JOptionPane.ERROR_MESSAGE);
+			return;
+		}else {
+			Long cpf = Long.valueOf(cpfTxt);
+			p.setCpf(cpf);
+		}
+		// sexo
+		
+		if (sexo == null || sexo.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+			rdbtnFeminino.setBorder(new LineBorder(new Color(255, 00, 00),4));
+			rdbtnMasculino.setBorder(new LineBorder(new Color(255, 00, 00),4));
+			return;
+		}else {
+			p.setSexo(sexo);
+		}
+		//email
+		if (email == null || email.trim() ==  "" || email.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+		txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		return;
+		}else {
+			p.setEmail(email);
+		}
+		// telefone
+		if (telefone == null || telefone.trim()== "" || telefone.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Telefone Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+			txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			return;
+		}else {
+			p.setTelefone(telefone);
+		}
+		// data nascimento
+		if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Data Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+			txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			return;
+		}else {
+		
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate date = LocalDate.parse(dataN, formatter);
+			
+			p.setDataNascimento(date);
+			
+			// Complmento
+			p.setComplemento(complemento);
+			
+			if (n == null || n.trim() == "" || n.isEmpty()) {
+				JOptionPane.showMessageDialog(null,"Numero Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+				txtNumero.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				return;
+			}else {
+				Integer nCasa = Integer.valueOf(n);
+				p.setNumero(nCasa);
+			}
+			// TODO CADASTRO DO CEP NAO CADASTRADO
+			
+			//Validação endereco
+			String cepString = txtCep.getText();
+			String bairro = txtBairro.getText();
+			String cidade = txtMunicipio.getText();
+			String rua = txtRua.getText();
+			
+			if (cadastroEndereco == null) {
+				cadastroEndereco = new Endereco();	
+			}
+			
+			EnderecoDao endereco = new EnderecoDao();
+			
+			if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
+				JOptionPane.showInternalMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+				txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				return;
+			}else {
+				Integer cep = Integer.valueOf(cepString);
+				cadastroEndereco.setCep(cep);
+			}
+			
+			if (bairro == null || bairro.trim()== "" || bairro.isEmpty()) {
+				JOptionPane.showInternalMessageDialog(null,"cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+				txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				return;
+			}else {
+				cadastroEndereco.setBairro(bairro);
+			}
+			if (cidade == null || cidade.trim() == "" || cidade.isEmpty()){
+				JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+				txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				return;
+			}else {
+				cadastroEndereco.setCidade(cidade);
+			}
+			if(rua == null || rua.trim() == "" || rua.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+				txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				return;
+			}else {
+				cadastroEndereco.setRua(rua);
+			}
+			Endereco resultado = new Endereco();
+			resultado = endereco.ConsultarEndereco(cadastroEndereco);
+			
+			if (resultado == null) {
+				Estado estado = (Estado) cbxEstado.getSelectedItem();
+				int id = estado.getId();
+				String nomeEstado = estado.getNome();
+				String uf = estado.getUf();
+				System.out.println(id);
+				
+				Estado estadoSel = new Estado();
+				estadoSel.setId(id);
+				;
+				estadoSel.setNome(nomeEstado);
+				estadoSel.setUf(uf);
+				
+				//Cria o objeto endereco
+				
+				// TODO cadastro do endereco
+				boolean resuEnd = false;
+				try {
+					resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
+					
+				}catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+			if (resultado != null) {
+				boolean cds = false;
+				try {
+					//Inserir o endereco no funcionario
+					p.setEndereco(cadastroEndereco);
+					cds = funcionarioDao.cadastrarFuncionario(p);
+				}catch (Exception el) {
+					el.printStackTrace();
+				}
+				if (cds == false) {
+					JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamete");
+					JOptionPane.showInternalMessageDialog(null, "cadastrado");
+				}
+			}
+		}
+			}});
 		btnCadastrarUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(btnCadastrarUsuario, "cell 8 1,grow");
 		
@@ -457,7 +680,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				btnNewButton.setBackground(new Color(51, 153, 51));
 			}
 		});
-	}
-}
+	
+		}}
 
 
