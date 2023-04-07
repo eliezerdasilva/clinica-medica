@@ -32,7 +32,8 @@ public class EnderecoDao implements IEnderecoDao {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
-			PreparedStatement ps = c.prepareStatement("select endereco.*, estados.id as id_estado, estados.nome as nome_estado, estados.uf as uf_estado from endereco inner join estados on estados.id = endereco.id_estado where cep = ? ");
+			PreparedStatement ps = c.prepareStatement(
+					"select endereco.*, estados.id as id_estado, estados.nome as nome_estado, estados.uf as uf_estado from endereco inner join estados on estados.id = endereco.id_estado where cep = ? ");
 			ps.setInt(1, endereco.getCep());
 
 			ResultSet rs = ps.executeQuery();
@@ -43,16 +44,16 @@ public class EnderecoDao implements IEnderecoDao {
 				String cidade = rs.getString("cidade");
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
-				
+
 				String nome_estado = rs.getString("nome_estado");
 				String uf_estado = rs.getString("uf_estado");
 				int id_estado = rs.getInt("id_estado");
-				
+
 				Estado e = new Estado();
 				e.setId(id_estado);
 				e.setNome(nome_estado);
 				e.setUf(uf_estado);
-				
+
 				enderecoConfirmado.setCep(cep);
 				enderecoConfirmado.setCidade(cidade);
 				enderecoConfirmado.setBairro(bairro);
@@ -63,9 +64,10 @@ public class EnderecoDao implements IEnderecoDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
+			return null;
 		}
 		return null;
+
 	}
 
 	@Override
@@ -73,6 +75,7 @@ public class EnderecoDao implements IEnderecoDao {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		PreparedStatement st = null;
+		int valida = 0;
 		try {
 			String query = "INSERT INTO endereco (cep, cidade,bairro,id_estado,rua)values(?,?,?,?,?);";
 			PreparedStatement stm = c.prepareStatement(query);
@@ -83,14 +86,14 @@ public class EnderecoDao implements IEnderecoDao {
 			stm.setInt(4, endereco.getEstado().getId());
 			stm.setString(5, endereco.getRua());
 
-			int valida = stm.executeUpdate();
-
-			return true;
+			valida = stm.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
 		}
-		con.fecharConexao();
-		return false;
+
+		return (valida == 0 ? false : true);
 	}
 
 	@Override
@@ -105,7 +108,7 @@ public class EnderecoDao implements IEnderecoDao {
 			ArrayList<Estado> endereco = new ArrayList<Estado>();
 			while (rs.next()) {
 				Estado estado = new Estado();
-				
+
 				estado.setId(rs.getInt("id"));
 				estado.setNome(rs.getString("nome"));
 				estado.setUf(rs.getString("uf"));

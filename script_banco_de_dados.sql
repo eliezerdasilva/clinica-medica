@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`endereco` (
 -- Table `clinica`.`paciente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`paciente` (
-  `cpf` int primary key,
+  `cpf` bigint primary key,
   `nome` VARCHAR(45) NOT NULL,
   `sexo` VARCHAR(35) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
   `id_consulta` INT NOT NULL AUTO_INCREMENT,
   `data_consulta` DATE NOT NULL,
   `hora_consulta` TIME NOT NULL,
-  `paciente_cpf` INT NOT NULL,
+  `paciente_cpf` BIGINT NOT NULL,
   `medico_id` INT NOT NULL,
   `medico_usuario_idusuario` INT NOT NULL,
   PRIMARY KEY (`id_consulta`, `paciente_cpf`, `medico_id`, `medico_usuario_idusuario`),
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
 -- Table `clinica`.`funcionario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
-  `cpf` int NOT NULL,
+  `cpf` BIGINT NOT NULL,
   `nome` VARCHAR(45) NULL DEFAULT NULL,
   `sexo`  VARCHAR(45) NULL DEFAULT NULL,
   `telefone` VARCHAR(12) NULL DEFAULT NULL,

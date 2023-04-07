@@ -1,59 +1,50 @@
 package view;
 
-import java.awt.SystemColor;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
-import model.Usuario;
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import net.miginfocom.swing.MigLayout;
-import java.awt.Insets;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Color;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.awt.CardLayout;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.border.MatteBorder;
+
 import javax.imageio.ImageIO;
-import javax.swing.Box;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.JButton;
-import java.awt.Choice;
-import javax.swing.JScrollBar;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableModel;
+
+import net.miginfocom.swing.MigLayout;
 
 public class MenuPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private String usuario;
+	private String senha;
 
-	public MenuPrincipal() {
+	public MenuPrincipal(String usuario, String senha) {
+		this.usuario = usuario;
+		this.senha = senha; 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Tela Menu Principal");
 
@@ -91,7 +82,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Funcionario");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroFuncionario telaFunc = new TelaCadastroFuncionario();
+				TelaCadastroFuncionario telaFunc = new TelaCadastroFuncionario(usuario, senha);
 				telaFunc.setLocationRelativeTo(null);
 				telaFunc.setVisible(true);
 				dispose();
@@ -106,7 +97,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Paciente");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente();
+				TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente(usuario, senha);
 				telaPaciente.setLocationRelativeTo(null);
 				telaPaciente.setVisible(true);
 				dispose();
@@ -119,7 +110,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Médico");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroMedico telaFunc = new TelaCadastroMedico();
+				TelaCadastroMedico telaFunc = new TelaCadastroMedico(usuario, senha);
 				telaFunc.setLocationRelativeTo(null);
 				telaFunc.setVisible(true);
 				dispose();
@@ -130,7 +121,7 @@ public class MenuPrincipal extends JFrame {
 		mntmNewMenuItem_2.setBorder(new MatteBorder(2, 4, 4, 4, (Color) new Color(0, 0, 0)));
 		mnNewMenu.add(mntmNewMenuItem_2);
 
-		JMenu mnNewMenu_1 = new JMenu("                                                            Agendar");
+		JMenu mnNewMenu_1 = new JMenu("                                                           Agendar");
 		mnNewMenu_1.setBackground(new Color(0, 128, 0));
 		mnNewMenu_1.setForeground(Color.BLACK);
 
@@ -141,7 +132,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Cadastrar");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Agenda agenda = new Agenda();
+				Agenda agenda = new Agenda(usuario, senha);
 				agenda.setLocationRelativeTo(null);
 				agenda.setVisible(true);
 				dispose();
@@ -162,7 +153,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Tabela Funcionario");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaTabela telaTabela = new TelaTabela();
+				TelaTabela telaTabela = new TelaTabela(usuario, senha);
 				telaTabela.setLocationRelativeTo(null);
 				telaTabela.setVisible(true);
 				dispose();
@@ -175,7 +166,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Tabela Médico");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaTabela telaTabela = new TelaTabela();
+				TelaTabela telaTabela = new TelaTabela(usuario, senha);
 				telaTabela.setLocationRelativeTo(null);
 				telaTabela.setVisible(true);
 				dispose();
@@ -188,7 +179,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Tabela Usuário");
 		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaTabela telaTabela = new TelaTabela();
+				TelaTabela telaTabela = new TelaTabela(usuario, senha);
 				telaTabela.setLocationRelativeTo(null);
 				telaTabela.setVisible(true);
 				dispose();
@@ -208,7 +199,20 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Sair");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				 int n = JOptionPane.showConfirmDialog(  
+			                null,
+			                "Tem certeza que quer sair?  "+usuario,
+			                "",
+			                JOptionPane.YES_NO_OPTION);
+
+			      if(n == JOptionPane.YES_OPTION)
+			      {
+			          JOptionPane.showMessageDialog(null, "Saindo...");
+			          dispose();
+			      }
+			      
+			      
+			        
 			}
 		});
 		mntmNewMenuItem_5.setPreferredSize(new Dimension(470, 40));
@@ -218,7 +222,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Perfil");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaPerfil telaPerfil = new TelaPerfil();
+				TelaPerfil telaPerfil = new TelaPerfil(usuario, senha);
 				telaPerfil.setLocationRelativeTo(null);
 				telaPerfil.setVisible(true);
 				dispose();
@@ -244,8 +248,7 @@ public class MenuPrincipal extends JFrame {
 
 		JPanel panel = new FundoImagemLogin(bg);
 		contentPane.add(panel, "name_432207963291300");
-		panel.setLayout(new MigLayout("", "[100px,grow][802.00,grow][61.00px,grow][383.00px,grow][61px]",
-				"[][::50px,grow][::700,grow]"));
+		panel.setLayout(new MigLayout("", "[100px,grow][802.00,grow][61.00px,grow][383.00px,grow][61px]", "[][::50px,grow][::700,grow][][]"));
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
@@ -285,6 +288,13 @@ public class MenuPrincipal extends JFrame {
 
 		JLabel lblNewLabel_3 = new JLabel("");
 		panel_5.add(lblNewLabel_3, "cell 1 5");
+		
+		JLabel lblNewLabel_4 = new JLabel("Usuário : ");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel.add(lblNewLabel_4, "flowx,cell 3 4,alignx center");
+		
+		JLabel lblUsuario = new JLabel(usuario);
+		panel.add(lblUsuario, "cell 3 4");
 
 	}
 

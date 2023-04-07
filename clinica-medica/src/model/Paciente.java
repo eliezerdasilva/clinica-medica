@@ -18,7 +18,7 @@ public class Paciente extends Pessoa {
 		this.profissao = profissao;
 		this.convenio = convenio;
 	}
-	public Paciente(String nome, String sexo, Endereco endereco, int cpf, LocalDate dataNascimento, String telefone,
+	public Paciente(String nome, String sexo, Endereco endereco, Long cpf, LocalDate dataNascimento, String telefone,
 			String email, String rg, String observacao, String profissao, Convenio convenio) {
 		super(nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg);
 		this.observacao = observacao;
