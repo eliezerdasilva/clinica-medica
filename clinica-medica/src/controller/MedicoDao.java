@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 
 import model.Medico;
+import model.Paciente;
 
 public class MedicoDao implements InterfaceMedico {
 
@@ -19,18 +21,22 @@ public class MedicoDao implements InterfaceMedico {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
-			String query = "INSERT INTO paciente(nome, cpf , sexo, email, telefone, crm, especializacao, data_nascimento) values(?,?,?,?,?,?,?,?);";
+			String query = "INSERT INTO paciente(cpf, nome , sexo, email, telefone,data_nascimento, crm,especializacao, endereco_cep, numero,usuario_idUsuario, complemento) values(?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stm = c.prepareStatement(query);
-			stm.setString(1, medico.getNome());
-			stm.setLong(2, medico.getCpf());
+			stm.setLong(1, medico.getCpf());
+			stm.setString(2, medico.getNome());
 			stm.setString(3, medico.getSexo());
 			stm.setString(4, medico.getEmail());
 			stm.setString(5, medico.getTelefone());
-			stm.setLong(6, medico.getCrm());
-			stm.setString(7, medico.getEspecializacao());
+			stm.setDate(6, Date.valueOf(medico.getDataNascimento()));
+			stm.setLong(7, medico.getCrm());
+			stm.setString(8, medico.getEspecializacao());
 
-			stm.setDate(8, Date.valueOf(medico.getDataNascimento()));
-
+			stm.setInt(9, medico.getEndereco().getCep());
+			stm.setInt(10, medico.getNumero());
+			stm.setLong(11, medico.getUsuario().getId());
+			stm.setString(12,medico.getComplemento());
+			
 			retorno = stm.executeUpdate();
 
 		} catch (Exception e) {
@@ -75,15 +81,15 @@ public class MedicoDao implements InterfaceMedico {
 	}
 
 	@Override
-	public Medico consultarMedico(Medico medico) {
+	public boolean consultarMedico(Long cpf) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
 			PreparedStatement ps = c.prepareStatement("select * from medico where crm = ? ");
-			ps.setLong(1, medico.getCrm());
+			ps.setLong(1, cpf);
 
 			ResultSet rs = ps.executeQuery();
-			Medico medico1 = new Medico(0, "");
+			Medico medico1 = new Medico();
 
 			while (rs.next()) {
 				Long crm = rs.getLong("crm");
@@ -93,7 +99,7 @@ public class MedicoDao implements InterfaceMedico {
 				String telefone = rs.getString("telefone");
 				Date data_nascimento = rs.getDate("data_nascimento");
 				String especializacao = rs.getString("especializacao");
-				Long cpf = rs.getLong("cpf");		
+				Long cpf1 = rs.getLong("cpf");		
 
 			   LocalDate localDate = data_nascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				medico1.setCrm(crm);
@@ -103,14 +109,14 @@ public class MedicoDao implements InterfaceMedico {
 				medico1.setTelefone(telefone);
 				medico1.setDataNascimento(localDate);
 				medico1.setEspecializacao(especializacao);
-				medico1.setCpf(cpf);
+				medico1.setCpf(cpf1);
 			}
-			return medico1;
+			return false;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return false;
 	}
 
 	@Override
@@ -134,5 +140,41 @@ public class MedicoDao implements InterfaceMedico {
 		
 		return false;
 	}
+
+	@Override
+	public boolean ConsultaCpfMedico(Long cpf) {
+		/**
+		 * Consultar se tem medico já cadastrado
+		 */
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		boolean resultado = false; 
+		try {
+			PreparedStatement ps = c.prepareStatement("select * from medico");
+
+			ResultSet rs = ps.executeQuery();
+
+			ArrayList<Paciente> paciente = new ArrayList<>();
+			Paciente paciente2 = new Paciente();
+			while (rs.next()) {
+				paciente2.setCpf(rs.getLong("cpf"));
+				paciente.add(paciente2);
+				
+				
+			}
+			for (Paciente p : paciente) {
+				if(paciente2.getCpf().equals(cpf)) {
+					resultado = true;
+				}else {
+					resultado = false;
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return resultado;
+	}
+	
+	
 
 }

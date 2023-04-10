@@ -9,7 +9,9 @@ public interface  InterfaceMedico {
 	public boolean excluirMedico(Medico medico);
 	
 	public boolean alterarMedico(Medico medico);
-	
-	public Medico consultarMedico(Medico medico);
+
+	public boolean ConsultaCpfMedico(Long cpf);
+
+	boolean consultarMedico(Long cpf);
 
 }

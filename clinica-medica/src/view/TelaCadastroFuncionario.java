@@ -458,7 +458,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					LocalDate date = LocalDate.parse(dataN, formatter);
 
 					p.setDataNascimento(date);
-
+				}
 					// Complmento
 					p.setComplemento(complemento);
 
@@ -557,7 +557,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					}
 				}
 			}
-		});
+		);
 		btnCadastrarUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(btnCadastrarUsuario, "cell 8 1,grow");
 

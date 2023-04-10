@@ -459,20 +459,16 @@ public class TelaCadastroPaciente extends JFrame {
 		btnCadastra.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
 				btnEditarPrimeiro.setVisible(false);
 				panel_6.remove(btnEditarPrimeiro);
-			
+
 				btnNewButton_5.setVisible(false);
 				panel_6.remove(btnNewButton_5);
-				
-				
+
 				btnVoltarCadastro.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_6.add(btnVoltarCadastro,"cell 1 4,grow");
+				panel_6.add(btnVoltarCadastro, "cell 1 4,grow");
 				btnVoltarCadastro.setVisible(true);
-				
-		
 
 				String nome = txtNome.getText();
 				Long cpfConsulta;
@@ -498,7 +494,8 @@ public class TelaCadastroPaciente extends JFrame {
 
 				String profissao = txtProfissao.getText();
 
-				String dataN = txtData.getText();
+				String dataN = txtData.getText(); 
+				System.out.println(dataN);
 
 				String complemento = txtComplemento.getText();
 
@@ -582,12 +579,15 @@ public class TelaCadastroPaciente extends JFrame {
 					txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					return;
 				} else {
-
+					//nao esta funcionando b
 					String data = "25/01/2016";
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-					LocalDate date = LocalDate.parse(data, formatter);
-
-					p.setDataNascimento(date);
+					LocalDate dta = LocalDate.parse(data,formatter);
+			
+					System.out.println(dta);
+					dta.format(formatter);
+					System.out.println(dta);
+					p.setDataNascimento(dta);
 
 				}
 
@@ -737,29 +737,24 @@ public class TelaCadastroPaciente extends JFrame {
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "CPF", "Email" }));
 		atualizarTabela();
 		scrollPane.setViewportView(table);
-	
 
-		 btnEditarPrimeiro = new JButton("Editar");
+		btnEditarPrimeiro = new JButton("Editar");
 		btnEditarPrimeiro.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
 				btnEditarPrimeiro.setVisible(false);
 				panel_6.remove(btnEditarPrimeiro);
-			
+
 				btnNewButton_5.setVisible(false);
 				panel_6.remove(btnNewButton_5);
-				
-				
+
 				btnVoltarEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_6.add(btnVoltarEditar,"cell 1 4,grow");
+				panel_6.add(btnVoltarEditar, "cell 1 4,grow");
 				btnVoltarEditar.setVisible(true);
-				
-				
+
 				btnCadastra.setVisible(false);
 				panel_5.remove(btnCadastra);
-				
 
 				int position = table.getSelectedRow();
 				if (position == -1) {
@@ -768,22 +763,17 @@ public class TelaCadastroPaciente extends JFrame {
 				}
 				pacienteClick = listaPaciente.get(position);
 
-				
-				
 				// TODO inserte de dados na tela
-				
+
 				if (pacienteClick != null) {
 
 					prencherPaciente(pacienteClick);
 
 					// TODO pegar ele para alterar
-	
-					
-		
+
 					btnEditar = new JButton("Salvar");
 					btnEditar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							
 
 							String nome = txtNome.getText();
 							Long cpfConsulta;
@@ -1006,16 +996,16 @@ public class TelaCadastroPaciente extends JFrame {
 
 								if (cds == false) {
 									JOptionPane.showMessageDialog(null, "Erro ao editar, tente novamente");
-								
+
 								} else {
 									JOptionPane.showMessageDialog(null, "Alteraç sucesso");
 									atualizarTabela();
-									
+
 								}
-							}	
-						
+							}
+
 							btnEditar.setVisible(false);
-							
+
 							habilitarInsercao();
 
 						}
@@ -1023,23 +1013,17 @@ public class TelaCadastroPaciente extends JFrame {
 					});
 					btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
 					panel_5.add(btnEditar, "cell 1 6 3 1,grow");
-	
 
 				}
-				
-				
-			
+
 			}
-			
-			
+
 		});
 
 		btnEditarPrimeiro.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnEditarPrimeiro, "cell 1 4,grow");
-	
-		
-		
-		btnVoltarCadastro = new JButton ("voltar");
+
+		btnVoltarCadastro = new JButton("voltar");
 		btnVoltarCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limparTela();
@@ -1047,52 +1031,41 @@ public class TelaCadastroPaciente extends JFrame {
 				panel_5.add(btnCadastra, "cell 1 7 3 1,grow");
 				btnVoltarCadastro.setVisible(false);
 				panel_6.remove(btnVoltarCadastro);
-				
+
 				btnEditarPrimeiro.setFont(new Font("Tahoma", Font.BOLD, 16));
 				panel_6.add(btnEditarPrimeiro, "cell 1 4,grow");
 				btnEditarPrimeiro.setVisible(true);
-			
+
 				btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 				panel_6.add(btnNewButton_5, "cell 4 4,grow");
 				btnNewButton_5.setVisible(true);
-				
-				
-				
-				
+
 			}
 		});
-		
-		btnVoltarEditar = new JButton ("voltar");
+
+		btnVoltarEditar = new JButton("voltar");
 		btnVoltarEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limparTela();
-				
+
 				btnVoltarEditar.setVisible(false);
 				panel_6.remove(btnVoltarEditar);
-				
+
 				btnEditarPrimeiro.setFont(new Font("Tahoma", Font.BOLD, 16));
 				panel_6.add(btnEditarPrimeiro, "cell 1 4,grow");
 				btnEditarPrimeiro.setVisible(true);
-			
+
 				btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 				panel_6.add(btnNewButton_5, "cell 4 4,grow");
 				btnNewButton_5.setVisible(true);
-				
-				//TODO Esta dando erro aqui +- sei oq é porem nao sei como resolver
-				btnEditar.setVisible(false);
-				
+
 				btnCadastra.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_5.add(btnCadastra,"cell 1 7 3 1,grow");
+				panel_5.add(btnCadastra, "cell 1 7 3 1,grow");
 				btnCadastra.setVisible(true);
-				
-			
-				
-			
-				
+
 			}
 		});
-	
-		
+
 		btnNewButton_5 = new JButton("Excluir");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1151,14 +1124,14 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_6.add(lblUsuario, "cell 7 6");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(330, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(328, Short.MAX_VALUE)
 						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1351, GroupLayout.PREFERRED_SIZE)
-						.addGap(233)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane
-						.createSequentialGroup().addGap(72).addComponent(panel, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(168, Short.MAX_VALUE)));
+						.addGap(235)));
+		gl_contentPane
+				.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+						gl_contentPane.createSequentialGroup().addContainerGap(68, Short.MAX_VALUE).addComponent(panel,
+								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGap(52)));
 		contentPane.setLayout(gl_contentPane);
 
 	}
