@@ -1,7 +1,8 @@
- drop database clinica;
 
-CREATE SCHEMA IF NOT EXISTS `clinica` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+drop database if not EXISTS clinica; 
+create database clinica;
 USE `clinica` ;
+
 
 -- -----------------------------------------------------
 -- Table `clinica`.`estados`
@@ -24,8 +25,6 @@ CREATE TABLE IF NOT EXISTS `clinica`.`endereco` (
   `rua` VARCHAR(30) NOT NULL,
   `id_estado` INT NOT NULL,
   PRIMARY KEY (`cep`),
-  INDEX `hfhg_idx` (`id_estado` ASC) VISIBLE,
-  CONSTRAINT `fk_idestado_endereco`
     FOREIGN KEY (`id_estado`)
     REFERENCES `clinica`.`estados` (`id`));
 
@@ -57,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`paciente` (
 -- Table `clinica`.`usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`usuario` (
-  `idusuario` INT NOT NULL,
+  `idusuario` bigint NOT NULL auto_increment,
   `login` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   `tipo_usuario` INT NOT NULL,
@@ -68,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`usuario` (
 -- Table `clinica`.`medico`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
-  `id` INT NOT NULL,
+`cpf` bigint primary key,
   `nome` VARCHAR(45) NOT NULL,
    `sexo` VARCHAR(35) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
@@ -76,32 +75,30 @@ CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
   `data_nascimento` DATE NOT NULL,
   `crm` INT NOT NULL,
   `especializacao` VARCHAR(45) NOT NULL,
-  `cpf` LONG NOT NULL,
-  `crm_uf` CHAR(2) NOT NULL,
-  `usuario_idusuario` INT NOT NULL,
   `endereco_cep` INT NOT NULL,
   `numero` INT NULL DEFAULT NULL,
+  `usuario_idusuario` bigint not null,
   `complemento` VARCHAR(30) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`, `usuario_idusuario`),
+
+    
     FOREIGN KEY (`endereco_cep`)
-    REFERENCES `clinica`.`endereco` (`cep`),
+    REFERENCES endereco (`cep`),
+
     FOREIGN KEY (`usuario_idusuario`)
-    REFERENCES `clinica`.`usuario` (`idusuario`));
+    REFERENCES usuario (`idusuario`));
 
 
 
 CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
-  `id_consulta` INT NOT NULL AUTO_INCREMENT,
   `data_consulta` DATE NOT NULL,
   `hora_consulta` TIME NOT NULL,
   `paciente_cpf` BIGINT NOT NULL,
-  `medico_id` INT NOT NULL,
-  `medico_usuario_idusuario` INT NOT NULL,
-  PRIMARY KEY (`id_consulta`, `paciente_cpf`, `medico_id`, `medico_usuario_idusuario`),
+  `medico_cpf` bigint NOT NULL,
+
     FOREIGN KEY (`paciente_cpf`)
     REFERENCES `clinica`.`paciente` (`cpf`),
-    FOREIGN KEY (`medico_id` , `medico_usuario_idusuario`)
-    REFERENCES `clinica`.`medico` (`id` , `usuario_idusuario`));
+    FOREIGN KEY (`medico_cpf`)
+    REFERENCES `clinica`.`medico` (`cpf`));
 
 
 -- -----------------------------------------------------
@@ -119,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
   `sexo`  VARCHAR(45) NULL DEFAULT NULL,
   `telefone` VARCHAR(12) NULL DEFAULT NULL,
   `data_nascimento` DATE NULL DEFAULT NULL,
-  `usuario_idusuario` INT NOT NULL,
+  `usuario_idusuario` bigint NOT NULL,
   `endereco_cep` INT NOT NULL,
   `numero` INT NULL DEFAULT NULL,
   `complemento` VARCHAR(30) NULL DEFAULT NULL,

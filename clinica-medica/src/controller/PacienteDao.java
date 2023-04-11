@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Convenio;
@@ -50,15 +52,60 @@ public class PacienteDao implements InterfacePacienteDao {
 	}
 
 	@Override
-	public boolean excluirPaciente(Paciente paciente) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean excluirPaciente(Long cpf) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		boolean valida = true;
+		try {   
+		    String sql = "DELETE FROM paciente where cpf = ?";
+			    PreparedStatement stmt = c.prepareStatement(sql);
+			    stmt.setLong(1, cpf);
+	 
+			   
+			     valida = stmt.execute();
+			     System.out.println(valida);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return valida;
 	}
 
 	@Override
 	public boolean alterarPaciente(Paciente paciente) {
-		// TODO Auto-generated method stub
-		return false;
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int valida = 0;
+		try {
+			String query = "update paciente set  nome =? ,sexo=? ,email=?,telefone=?,profissao=?,convenio_id=?,data_nascimento=?,endereco_cep=?,numero=?,complemento=? where cpf = ?";
+			PreparedStatement stm = c.prepareStatement(query);	
+			
+			stm.setString(1, paciente.getNome());
+			stm.setString(2, paciente.getSexo());
+			stm.setString(3, paciente.getEmail());
+			stm.setString(4, paciente.getTelefone());
+			stm.setString(5, paciente.getProfissao());	
+			stm.setInt(6,paciente.getConvenio().getId());
+	
+			stm.setDate(7, Date.valueOf(paciente.getDataNascimento()));
+			stm.setInt(8, paciente.getEndereco().getCep());
+			stm.setInt(9, paciente.getNumero());
+			stm.setString(10, paciente.getComplemento());
+			stm.setLong(11, paciente.getCpf());
+			stm.executeUpdate();
+
+			valida = stm.executeUpdate();
+			if (valida > 0) {
+		
+			    System.out.println("Alterado com sucesso!");
+			}	
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
+		
+				
+		return (valida == 0 ? false : true);
 	}
 
 	@Override
@@ -154,9 +201,9 @@ public class PacienteDao implements InterfacePacienteDao {
 			}
 			for (Paciente p : paciente) {
 				if(paciente2.getCpf().equals(cpfConsulta)) {
-					resultado = false;
-				}else {
 					resultado = true;
+				}else {
+					resultado = false;
 				}
 			}
 		} catch (Exception e) {

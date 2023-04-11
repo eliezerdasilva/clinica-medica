@@ -10,7 +10,7 @@ import java.sql.Statement;
 import model.Endereco;
 import model.Funcionario;
 
-public class FuncionarioDao implements IntefaceFuncionarioDao {
+public class FuncionarioDao implements InterfaceFuncionarioDao {
 
 	private Conexao con;
 

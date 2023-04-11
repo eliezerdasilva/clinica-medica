@@ -2,7 +2,7 @@ package controller;
 
 import model.Funcionario;
 
-public interface IntefaceFuncionarioDao {
+public interface InterfaceFuncionarioDao {
 	
    public boolean cadastrarFuncionario(Funcionario funcionario);
 	

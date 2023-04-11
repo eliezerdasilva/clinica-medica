@@ -44,27 +44,20 @@ public class TelaTabela extends JFrame {
 	private JTextField txtNome;
 	private JTextField txtCpf;
 	private JTable table;
+	private String senha;
+	private String usuario;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaTabela frame = new TelaTabela();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaTabela() {
+	public TelaTabela(String usuario, String senha) {
+		this.usuario = usuario;
+		this.senha = senha; 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Tela lista de Usuário");
 
@@ -83,7 +76,7 @@ public class TelaTabela extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setBounds(100, 100, 1800, 900);
+		setBounds(100, 100, 2000, 1050);
 
 		setContentPane(contentPane);
 		
@@ -98,24 +91,11 @@ public class TelaTabela extends JFrame {
 		}
 
 		JPanel panel = new FundoImagemLogin(bg);
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(20)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1510, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 792, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(43, Short.MAX_VALUE))
-		);
-		panel.setLayout(new MigLayout("", "[331.00][1286.00,grow][299.00]", "[700:n:700,grow]"));
+		panel.setLayout(new MigLayout("", "[1286.00,grow]", "[700:n:750,grow]"));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 4));
-		panel.add(panel_1, "cell 1 0,grow");
+		panel.add(panel_1, "cell 0 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_2 = new JPanel();
@@ -133,7 +113,7 @@ public class TelaTabela extends JFrame {
 		
 		JPanel panel_3 = new JPanel();
 		panel_1.add(panel_3, BorderLayout.CENTER);
-		panel_3.setLayout(new MigLayout("", "[383.00][933.00,grow][416.00][]", "[20:n:20][35:n:35][][400:n:400,grow][][]"));
+		panel_3.setLayout(new MigLayout("", "[383.00][933.00,grow][]", "[20:n:20][35:n:35][][400:n:400,grow][][]"));
 		
 		JLabel lblNewLabel_2 = new JLabel("Nome : ");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -156,7 +136,7 @@ public class TelaTabela extends JFrame {
 		
 		JButton btnBuscar = new JButton("    Buscar    ");
 		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(btnBuscar, "cell 1 1,grow");
+		panel_3.add(btnBuscar, "cell 1 1,alignx left,growy");
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -164,7 +144,7 @@ public class TelaTabela extends JFrame {
 		panel_4.setLayout(null);
 		
 		table = new JTable();
-		table.setBounds(10, 11, 751, 378);
+		table.setBounds(10, 11, 1282, 378);
 		panel_4.add(table);
 		
 		JButton btnEditar = new JButton("Editar ");
@@ -185,7 +165,7 @@ public class TelaTabela extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MenuPrincipal mp = new MenuPrincipal();
+				MenuPrincipal mp = new MenuPrincipal(usuario,senha);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();
@@ -194,6 +174,21 @@ public class TelaTabela extends JFrame {
 		});
 		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_3.add(btnVoltar, "cell 1 5,grow");
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(68)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1754, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(92, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(115, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 765, GroupLayout.PREFERRED_SIZE)
+					.addGap(121))
+		);
 		contentPane.setLayout(gl_contentPane);
 	}
 }

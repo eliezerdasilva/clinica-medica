@@ -24,7 +24,5 @@ public class Funcionario extends Pessoa {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
 	
-
 }

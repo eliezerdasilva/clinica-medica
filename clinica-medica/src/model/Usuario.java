@@ -2,7 +2,7 @@ package model;
 
 public class Usuario {
 
-	private int id;
+	private Long id;
 	private String usuario;
 	protected String senha;
 	protected int nivelAcesso;
@@ -10,14 +10,23 @@ public class Usuario {
 	public Usuario() {
 
 	}
+	
+
+	public Usuario(String usuario, String senha, int nivelAcesso) {
+		super();
+		this.usuario = usuario;
+		this.senha = senha;
+		this.nivelAcesso = nivelAcesso;
+	}
+
 
 	public Usuario(String usuario, String senha) {
-		super();
+		
 		this.usuario = usuario;
 		this.senha = senha;
 	}
 
-	public Usuario(int id, String usuario, String senha, int nivelAcesso) {
+	public Usuario(Long id, String usuario, String senha, int nivelAcesso) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
@@ -25,11 +34,11 @@ public class Usuario {
 		this.nivelAcesso = nivelAcesso;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

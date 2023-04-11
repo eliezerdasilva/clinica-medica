@@ -25,7 +25,7 @@ public class LoginDao implements InterfaceLogin {
 			ResultSet rs = ps.executeQuery();
 			Usuario usuarioConectado = new Usuario();
 			while (rs.next()) {
-				int idUsuario = rs.getInt("idusuario");
+				long idUsuario = rs.getInt("idusuario");
 				String login = rs.getString("login");
 				String senha = rs.getString("senha");
 				int tipoUsuario = rs.getInt("tipo_usuario");

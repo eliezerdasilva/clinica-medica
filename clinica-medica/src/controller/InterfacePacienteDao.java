@@ -10,8 +10,6 @@ public interface InterfacePacienteDao {
 
 	public boolean cadastrarPaciente(Paciente paciente);
 	
-	public boolean excluirPaciente(Paciente paciente);
-	
 	public boolean alterarPaciente(Paciente paciente);
 	
 	public ArrayList<Paciente>  consultarPaciente();
@@ -19,6 +17,8 @@ public interface InterfacePacienteDao {
 	public ArrayList<Convenio> consultaConvenio();
 	
 	public boolean ConsultaCpfPaciente(Long cpfConsulta);
+
+	boolean excluirPaciente(Long cpf);
 
 	
 
