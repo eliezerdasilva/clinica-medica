@@ -471,7 +471,7 @@ public class TelaCadastroPaciente extends JFrame {
 				btnVoltarCadastro.setVisible(true);
 
 				String nome = txtNome.getText();
-				Long cpfConsulta;
+				Long cpfConsulta = null;
 				String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
 
 				String sexo = "";
@@ -494,12 +494,14 @@ public class TelaCadastroPaciente extends JFrame {
 
 				String profissao = txtProfissao.getText();
 
-				String dataN = txtData.getText(); 
+				String dataN = txtData.getText();
 				System.out.println(dataN);
 
 				String complemento = txtComplemento.getText();
 
 				String n = txtNCasa.getText();
+				
+				String validacao = "";
 
 				// TODO Construindo Objeto
 				Paciente p = new Paciente();
@@ -507,8 +509,7 @@ public class TelaCadastroPaciente extends JFrame {
 				// TODO nova validacao nome
 				if (nome == null || nome.trim() == "" || nome.isEmpty()) {
 					txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					JOptionPane.showMessageDialog(null, "Nome Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
-					return;
+					validacao += "Nome\n";
 				} else {
 					p.setNome(nome);
 				}
@@ -516,8 +517,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 				if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
 					txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					JOptionPane.showMessageDialog(null, "CPF Vazio", "ok", JOptionPane.ERROR_MESSAGE);
-					return;
+					validacao += "Cpf\n";
 				} else {
 					Long cpf = Long.valueOf(cpfTxt);
 					cpfConsulta = Long.valueOf(cpfTxt);
@@ -526,43 +526,38 @@ public class TelaCadastroPaciente extends JFrame {
 				// sexo
 
 				if (sexo == null || sexo.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
 					jrbFemi.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					jrbMasc.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
+					validacao += "Sexo\n";
 				} else {
 					p.setSexo(sexo);
 				}
 				// email
 				if (email == null || email.trim() == "" || email.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "E-mail Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
 					txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
+					validacao += "Email\n";
 				} else {
 					p.setEmail(email);
 				}
 				// telefone
 				if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Telefone Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
 					txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
+					validacao += "Telefone\n";
 				} else {
 					p.setTelefone(telefone);
 
 				}
 				// profissao
 				if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Profissao Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
 					txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
+					validacao += "Profissao\n";
 				} else {
 					p.setProfissao(profissao);
 				}
 				// convenio
 				if (convenio == null || convenio.isEmpty()) {
 					cbxConvenio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					JOptionPane.showMessageDialog(null, "Convenio Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
-					return;
+					validacao += "Convenio\n";
 				} else {
 
 					Convenio convenios = (Convenio) cbxConvenio.getSelectedItem();
@@ -575,10 +570,11 @@ public class TelaCadastroPaciente extends JFrame {
 
 				// data Nascimento
 				if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Data Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					validacao += "Data\n";
 					txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
 				} else {
+					System.out.println("ÇÇÇÇÇ");
+					System.out.println(dataN);
 					//nao esta funcionando b
 					String data = "25/01/2016";
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -595,15 +591,25 @@ public class TelaCadastroPaciente extends JFrame {
 				p.setComplemento(complemento);
 
 				if (n == null || n.trim() == "" || n.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Numero Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					validacao += "Numero\n";
 					txtNCasa.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
 				} else {
 					Integer nCasa = Integer.valueOf(n);
 					p.setNumero(nCasa);
 				}
 				// TODO CADASTRO DO CEP NAO CADASTRADO
 
+				
+				
+				if (validacao.trim() != "") {
+					JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
+					return;
+				}
+				
+				
+				
+				
+				
 				// Validacao endereco
 				String cepString = txtCep.getText().replace("-", "");
 				String bairro = txtBairro.getText();
