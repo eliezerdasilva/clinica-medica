@@ -470,7 +470,6 @@ public class TelaCadastroPaciente extends JFrame {
 				btnVoltarCadastro.setVisible(true);
 
 				String nome = txtNome.getText();
-				Long cpfConsulta = null;
 				String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
 
 				String sexo = "";
@@ -518,7 +517,7 @@ public class TelaCadastroPaciente extends JFrame {
 					validacao += "Cpf\n";
 				} else {
 					Long cpf = Long.valueOf(cpfTxt);
-					cpfConsulta = Long.valueOf(cpfTxt);
+					Long cpfConsulta = Long.valueOf(cpfTxt);
 					p.setCpf(cpf);
 				}
 				// sexo
@@ -664,6 +663,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 				}
 
+				Long cpfConsulta = null;
 				// TODO ver se paciente existe
 				boolean resultadoPacienteCadastrado = pacienteDao.ConsultaCpfPaciente(cpfConsulta);
 
@@ -774,7 +774,7 @@ public class TelaCadastroPaciente extends JFrame {
 						public void actionPerformed(ActionEvent e) {
 
 							String nome = txtNome.getText();
-							Long cpfConsulta;
+							Long cpfConsulta = null;
 							String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
 
 							String sexo = "";

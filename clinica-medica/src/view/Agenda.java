@@ -25,6 +25,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 
+import model.Consulta;
+import model.Paciente;
 
 import javax.swing.JScrollPane;
 import java.awt.Font;
@@ -207,7 +209,7 @@ public class Agenda extends JFrame {
 		panel_3.add(btnVoltar, "cell 0 8,grow");
 		
 		JComboBox cbxMedico = new JComboBox();
-		cbxMedico.setModel(new DefaultComboBoxModel(new String[] {"                                               "}));
+		cbxMedico.setModel(new DefaultComboBoxModel(new String[] {"                                             "}));
 		panel_3.add(cbxMedico, "cell 0 3,growy");
 		
 		JLabel lblNewLabel_5 = new JLabel("Tipo de Consulta : ");
@@ -237,6 +239,35 @@ public class Agenda extends JFrame {
 		JButton btnCadastrar = new JButton("         Cadastrar            ");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String nome = txtNome.getText();
+				
+				String cpf = textCpf.getText().replace(".", "").replace("-", "");
+				
+				String tipoConsulta = textConsulta.getText();
+				
+				String dataConsulta = textData.getText();
+				System.out.println(dataConsulta);
+				
+				String observacao = textObservacao.getText();
+				
+				String validacao = "";
+				Consulta c = new Consulta();
+				Paciente p = new Paciente();
+				
+				if (nome == null || nome.trim() == "" || nome.isEmpty()) {
+					txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					validacao += "Nome\n";
+				} else {
+					p.setNome(nome);
+				}
+				
+				if (cpf == null || cpf.trim()== "" || cpf.isEmpty()) {
+					textCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					validacao += "CPF\n";
+				} else {
+					Long cpfLong = Long.valueOf(cpf);
+					p.setCpf(cpfLong);
+				} c.setPaciente(p);
 			}
 		});
 		btnCadastrar.setBackground(new Color(240, 255, 240));
