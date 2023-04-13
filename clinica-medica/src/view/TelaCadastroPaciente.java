@@ -896,13 +896,18 @@ public class TelaCadastroPaciente extends JFrame {
 								txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 								return;
 							} else {
-
-								String data = "25/01/2016";
 								DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-								LocalDate date = LocalDate.parse(data, formatter);
-
-								p.setDataNascimento(date);
-
+								try {
+									
+									LocalDate date = LocalDate.parse(dataN, formatter);
+									p.setDataNascimento(date);
+								} catch (Exception e2) {
+									JOptionPane.showMessageDialog(null, "Data Vazia", "ok", JOptionPane.ERROR_MESSAGE,
+											null);
+									txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+									return;
+								}
+								
 							}
 
 							// Complemento
