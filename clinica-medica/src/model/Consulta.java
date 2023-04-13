@@ -9,27 +9,21 @@ public class Consulta {
 	private LocalDate date;
 	private Servico servico;
 	private String observacao;
-
-	public Consulta(int id, Servico servico, float valor, String date) {
+	private Paciente paciente;
+	
+	public Consulta() {}
+ 
+	public Consulta(int id, LocalDate date, Servico servico, String observacao, Paciente paciente) {
 		super();
 		this.id = id;
-
+		this.date = date;
 		this.servico = servico;
-		// TODO corrigir data
-		int dia = 28;
-		int mes = 02;
-		int ano = 2023;
-		this.date = LocalDate.of(ano, mes, dia);
-	}
-
-	public Consulta(Servico servico, float valor, String date, String observacao) {
-		this(0, servico, valor, date, observacao);
-	}
-
-	public Consulta(int id, Servico servico, float valor, String date, String observacao) {
-		this(id, servico, valor, date);
 		this.observacao = observacao;
+		this.paciente = paciente;
 	}
+
+	
+
 
 	public int getId() {
 		return id;
@@ -37,6 +31,14 @@ public class Consulta {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 	public Servico getServico() {
@@ -47,30 +49,20 @@ public class Consulta {
 		this.servico = servico;
 	}
 
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public String getDataFormatada() {
-		return new SimpleDateFormat("dd/MM/yyyy").format(date);
-
-	}
-
-	public String getHoraFormatada() {
-		return new SimpleDateFormat("HH:mm").format(date);
-
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
 	public String getObservacao() {
 		return observacao;
 	}
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
 
 	@Override

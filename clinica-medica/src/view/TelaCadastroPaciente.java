@@ -402,7 +402,6 @@ public class TelaCadastroPaciente extends JFrame {
 					txtRua.setText(enderecoPronto.getRua());
 
 					cbxEstado.setSelectedIndex(enderecoPronto.getEstado().getId() - 1);
-					System.out.println("nao faz setnioo");
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Cep não cadastrado");
@@ -471,7 +470,6 @@ public class TelaCadastroPaciente extends JFrame {
 				btnVoltarCadastro.setVisible(true);
 
 				String nome = txtNome.getText();
-				Long cpfConsulta = null;
 				String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
 
 				String sexo = "";
@@ -495,12 +493,11 @@ public class TelaCadastroPaciente extends JFrame {
 				String profissao = txtProfissao.getText();
 
 				String dataN = txtData.getText();
-				System.out.println(dataN);
 
 				String complemento = txtComplemento.getText();
 
 				String n = txtNCasa.getText();
-				
+
 				String validacao = "";
 
 				// TODO Construindo Objeto
@@ -520,7 +517,7 @@ public class TelaCadastroPaciente extends JFrame {
 					validacao += "Cpf\n";
 				} else {
 					Long cpf = Long.valueOf(cpfTxt);
-					cpfConsulta = Long.valueOf(cpfTxt);
+					Long cpfConsulta = Long.valueOf(cpfTxt);
 					p.setCpf(cpf);
 				}
 				// sexo
@@ -573,17 +570,17 @@ public class TelaCadastroPaciente extends JFrame {
 					validacao += "Data\n";
 					txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 				} else {
-					System.out.println("ÇÇÇÇÇ");
-					System.out.println(dataN);
-					//nao esta funcionando b
-					String data = "25/01/2016";
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-					LocalDate dta = LocalDate.parse(data,formatter);
-			
-					System.out.println(dta);
-					dta.format(formatter);
-					System.out.println(dta);
-					p.setDataNascimento(dta);
+					String dataTest = dataN.replace("/", "").trim();
+					if (dataTest.length() == 0) {
+						// TODO erro
+						System.out.println("Erro");
+						txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					} else {
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+						LocalDate dta = LocalDate.parse(dataN, formatter);
+						dta.format(formatter);
+						p.setDataNascimento(dta);
+					}
 
 				}
 
@@ -599,17 +596,11 @@ public class TelaCadastroPaciente extends JFrame {
 				}
 				// TODO CADASTRO DO CEP NAO CADASTRADO
 
-				
-				
 				if (validacao.trim() != "") {
 					JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
 					return;
 				}
-				
-				
-				
-				
-				
+
 				// Validacao endereco
 				String cepString = txtCep.getText().replace("-", "");
 				String bairro = txtBairro.getText();
@@ -672,6 +663,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 				}
 
+				Long cpfConsulta = null;
 				// TODO ver se paciente existe
 				boolean resultadoPacienteCadastrado = pacienteDao.ConsultaCpfPaciente(cpfConsulta);
 
@@ -782,7 +774,7 @@ public class TelaCadastroPaciente extends JFrame {
 						public void actionPerformed(ActionEvent e) {
 
 							String nome = txtNome.getText();
-							Long cpfConsulta;
+							Long cpfConsulta = null;
 							String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
 
 							String sexo = "";
@@ -898,7 +890,7 @@ public class TelaCadastroPaciente extends JFrame {
 							} else {
 								DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 								try {
-									
+
 									LocalDate date = LocalDate.parse(dataN, formatter);
 									p.setDataNascimento(date);
 								} catch (Exception e2) {
@@ -907,7 +899,7 @@ public class TelaCadastroPaciente extends JFrame {
 									txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 									return;
 								}
-								
+
 							}
 
 							// Complemento
@@ -974,7 +966,6 @@ public class TelaCadastroPaciente extends JFrame {
 								int id = estado.getId();
 								String nomeEstado = estado.getNome();
 								String uf = estado.getUf();
-								System.out.println(id);
 
 								Estado estadoSel = new Estado();
 								estadoSel.setId(id);
@@ -1086,7 +1077,6 @@ public class TelaCadastroPaciente extends JFrame {
 					return;
 				}
 
-				System.out.println(position);
 				pacienteClick = listaPaciente.get(position);
 				if (btnEditar != null)
 					panel_5.remove(btnEditar);
@@ -1161,7 +1151,6 @@ public class TelaCadastroPaciente extends JFrame {
 		txtProfissao.setText(pacienteClick.getProfissao());
 
 		String sexo = pacienteClick.getSexo();
-		System.out.println(sexo);
 		if (sexo.equals("F")) {
 			jrbFemi.setSelected(true);
 		} else if (sexo.equals("M")) {
