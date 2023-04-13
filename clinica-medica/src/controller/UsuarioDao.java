@@ -24,10 +24,11 @@ public class UsuarioDao implements InterfaceUsuario {
 			
 		
 			try {
-				String query = "INSERT INTO usuario(login,senha) values(?,?);";
+				String query = "INSERT INTO usuario(login,senha,tipo_usuario) values(?,?,?);";
 				PreparedStatement stm = c.prepareStatement(query);
 				stm.setString(1, usuario.getUsuario());
 				stm.setString(2, usuario.getSenha());
+				stm.setInt(3, usuario.getNivelAcesso());
 	
 				
 				retorno = stm.executeUpdate();
@@ -107,7 +108,7 @@ public class UsuarioDao implements InterfaceUsuario {
 			Endereco enderecoConfirmado = new Endereco();
 
 			while (rs.next()) {
-				Long id = rs.getLong("id_usuario");
+				Long id = rs.getLong("idusuario");
 				String usuario = rs.getString("login");
 				String senha = rs.getString("senha");
 				int tipoUsuario = rs.getInt("tipo_usuario");
@@ -115,6 +116,9 @@ public class UsuarioDao implements InterfaceUsuario {
 
 				Usuario u = new Usuario();
 				u.setId(id);
+				u.setSenha(senha);
+				u.setUsuario(usuario);
+				u.setNivelAcesso(tipoUsuario);
 			
 
 				

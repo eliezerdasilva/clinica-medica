@@ -1,5 +1,5 @@
 
-drop database if not EXISTS clinica; 
+
 create database clinica;
 USE `clinica` ;
 
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
   `email` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(12) NOT NULL,
   `data_nascimento` DATE NOT NULL,
-  `crm` INT NOT NULL,
+  `crm` bigint NOT NULL,
   `especializacao` VARCHAR(45) NOT NULL,
   `endereco_cep` INT NOT NULL,
   `numero` INT NULL DEFAULT NULL,

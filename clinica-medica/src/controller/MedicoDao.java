@@ -21,7 +21,7 @@ public class MedicoDao implements InterfaceMedico {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
-			String query = "INSERT INTO paciente(cpf, nome , sexo, email, telefone,data_nascimento, crm,especializacao, endereco_cep, numero,usuario_idUsuario, complemento) values(?,?,?,?,?,?,?,?,?,?,?,?);";
+			String query = "INSERT INTO medico(cpf, nome , sexo, email, telefone,data_nascimento, crm,especializacao, endereco_cep, numero,usuario_idusuario, complemento) values(?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stm = c.prepareStatement(query);
 			stm.setLong(1, medico.getCpf());
 			stm.setString(2, medico.getNome());

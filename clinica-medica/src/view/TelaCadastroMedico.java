@@ -1049,11 +1049,30 @@ public class TelaCadastroMedico extends JFrame {
 		} else {
 			usuarioModelo.setSenha(senha);
 		}
+		usuarioModelo.setNivelAcesso(1);
 		System.out.println(usuarioModelo);
 		usuarioDao = new UsuarioDao();
 	
 		boolean consultaUsuarioCadastrado = usuarioDao.consultarUsuarioCadastrado(usuarioModelo);
 		
+		//Dados do medico 
+		String crm = txtCrm.getText();
+		if (crm == null || crm.trim() == "" || crm.isEmpty()) {
+			txtCrm.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Crm\n";
+		} else {
+			Long crmLong = Long.valueOf(crm);
+			p.setCrm(crmLong);
+			
+		}
+		String epecificação = txtEspecializacao.getText();
+		if (epecificação == null || epecificação.trim() == "" || epecificação.isEmpty()) {
+			txtEspecializacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "especializacao\n";
+		} else {
+			p.setEspecializacao(especializacao);
+			
+		}
 		
 		if(consultaUsuarioCadastrado != true) {
 			
@@ -1068,7 +1087,7 @@ public class TelaCadastroMedico extends JFrame {
 			resultado = endereco.ConsultarEndereco(cadastroEndereco);
 			
 			
-
+			
 			if (resultado != null) {
 				boolean cds = false;
 
@@ -1076,10 +1095,11 @@ public class TelaCadastroMedico extends JFrame {
 					// Inserir o endereco no paciente
 					
 					p.setEndereco(cadastroEndereco);
+					//boolean usuarioCadastrado = usuarioDao.inserirUsuario(usuarioModelo);
 					boolean usuarioCadastrado = usuarioDao.inserirUsuario(usuarioModelo);
-					
 					Usuario usuarioSelecionado = usuarioDao.selecionarUSuarioParaCadastrar(usuarioModelo);
 					p.setUsuario(usuarioSelecionado);
+				
 					cds = medicoDao.cadastrarMedico(p);
 					
 
