@@ -1,6 +1,9 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.Medico;
+import model.Paciente;
 
 public interface  InterfaceMedico {
 
@@ -13,5 +16,7 @@ public interface  InterfaceMedico {
 	public boolean ConsultaCpfMedico(Long cpf);
 
 	boolean consultarMedico(Long cpf);
+	
+	public ArrayList<Medico> listaMedicos();
 
 }

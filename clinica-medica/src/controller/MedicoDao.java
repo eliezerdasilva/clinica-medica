@@ -8,8 +8,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
+import model.Convenio;
+import model.Endereco;
 import model.Medico;
 import model.Paciente;
+import model.Usuario;
 
 public class MedicoDao implements InterfaceMedico {
 
@@ -174,6 +177,47 @@ public class MedicoDao implements InterfaceMedico {
 		}
 		return resultado;
 	}
+	@Override
+	public ArrayList<Medico> listaMedicos() {
+		
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		ArrayList<Medico> listMedicos = new ArrayList<>();
+		try {
+			
+			PreparedStatement ps = c.prepareStatement("Select * from medico");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+							
+				Medico medico  =  new Medico();
+				Endereco endereco = new Endereco();
+				Usuario usuario = new Usuario();
+				
+				medico.setCpf(rs.getLong("cpf"));
+				medico.setNome(rs.getString("nome"));
+				medico.setSexo(rs.getString("sexo"));
+				medico.setEmail(rs.getString("email"));
+				medico.setTelefone(rs.getString("telefone"));
+				medico.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				medico.setCrm(rs.getLong("crm"));
+				medico.setEspecializacao(rs.getString("especializacao"));
+				endereco.setCep(rs.getInt("endereco_cep"));
+				medico.setEndereco(endereco);
+				medico.setNumero(rs.getInt("numero"));
+				usuario.setId(rs.getLong("usuario_idusuario"));
+				medico.setUsuario(usuario);				
+				medico.setComplemento(rs.getString("complemento"));
+				
+				listMedicos.add(medico);
+				
+						 
+			}
+		}catch (Exception e) {
+		e.printStackTrace();
+		}
+		return listMedicos;
+	}
+	
 	
 	
 

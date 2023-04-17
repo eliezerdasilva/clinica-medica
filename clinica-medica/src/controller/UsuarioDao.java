@@ -134,6 +134,42 @@ public class UsuarioDao implements InterfaceUsuario {
 
 	}
 
+	@Override
+	public Usuario consultarUsuario(Long id) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		try {
+			PreparedStatement ps = c.prepareStatement("select * from usuario where idusuario = ? ");
+			ps.setLong(1, id);
+
+			ResultSet rs = ps.executeQuery();
+			Usuario usuario = new Usuario();
+
+			while (rs.next()) {
+				Long idUsuario = rs.getLong("idusuario");
+				String usuarioLogin= rs.getString("login");
+				String senha = rs.getString("senha");
+				int n_usuario = rs.getInt("tipo_usuario");
+				
+
+
+				Usuario usuarioNovo = new Usuario();
+				
+				usuarioNovo.setId(idUsuario);
+				usuarioNovo.setUsuario(usuarioLogin);
+				usuarioNovo.setSenha(senha);
+				usuarioNovo.setNivelAcesso(n_usuario);
+				
+				return usuarioNovo;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+		
+	}
+
 	
 	
 

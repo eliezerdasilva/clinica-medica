@@ -108,7 +108,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
-		contentPane.setBackground(new Color(240, 255, 240));
+		contentPane.setBackground(new Color(144, 238, 144));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBounds(100, 100, 2000, 1050);
 
@@ -125,7 +125,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		}
 
 		JPanel panel = new FundoImagemLogin(bg);
-		panel.setBackground(new Color(60, 179, 113));
+		panel.setBackground(new Color(144, 238, 144));
 		GroupLayout gl_contentPane2 = new GroupLayout(contentPane);
 		gl_contentPane2.setHorizontalGroup(
 			gl_contentPane2.createParallelGroup(Alignment.TRAILING)
@@ -139,10 +139,10 @@ public class TelaCadastroFuncionario extends JFrame {
 					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(21))
 		);
-		panel.setLayout(new MigLayout("", "[1286.00,grow]", "[810:n:810,grow]"));
+		panel.setLayout(new MigLayout("", "[1286.00,grow]", "[900:n:900,grow]"));
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(144, 238, 144), 8));
+		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
 		panel.add(panel_1, "cell 0 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 
@@ -157,7 +157,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		}
 
 		JPanel panel_2 = new FundoImagemLoginCabecario(filc);
-		panel_2.setBackground(new Color(60, 179, 113));
+		panel_2.setBackground(new Color(51, 153, 0));
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 25));
 
@@ -174,7 +174,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(60, 179, 113), 4));
-		panel_3.setBackground(new Color(152, 251, 152));
+		panel_3.setBackground(new Color(240, 255, 240));
 		panel_4.add(panel_3, "cell 0 0,grow");
 		panel_3.setLayout(new MigLayout("", "[][300:n:300,grow][][300:n:300][][][150:n:150,grow]",
 				"[][30:n:30][][30:n:30][][30:n:30][]"));
@@ -332,7 +332,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtComplemento.setColumns(10);
 
 		JPanel panel_9 = new JPanel();
-		panel_9.setBackground(new Color(152, 251, 152));
+		panel_9.setBackground(new Color(240, 255, 240));
 		panel_9.setBorder(new LineBorder(new Color(60, 179, 113), 4));
 		panel_4.add(panel_9, "cell 0 2,grow");
 		panel_9.setLayout(
@@ -562,7 +562,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_9.add(btnCadastrarUsuario, "cell 8 1,grow");
 
 		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(new Color(152, 251, 152));
+		panel_6.setBackground(new Color(240, 255, 240));
 		panel_6.setBorder(new LineBorder(new Color(60, 179, 113), 4));
 		panel_4.add(panel_6, "cell 0 3,grow");
 		panel_6.setLayout(

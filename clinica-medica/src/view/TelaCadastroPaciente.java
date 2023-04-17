@@ -152,7 +152,7 @@ public class TelaCadastroPaciente extends JFrame {
 		}
 
 		JPanel panel = new FundoImagemLogin(bg);
-		panel.setBackground(new Color(204, 255, 204));
+		panel.setBackground(new Color(144, 238, 144));
 		panel.setLayout(new MigLayout("", "[1300:n:1300]", "[850]"));
 
 		JPanel panel_1 = new JPanel();
