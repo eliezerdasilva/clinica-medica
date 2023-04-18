@@ -487,6 +487,7 @@ public class TelaCadastroMedico extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				cadastroMedico();
+				atualizarTabela();
 				
 			  }
 			  
@@ -570,6 +571,14 @@ public class TelaCadastroMedico extends JFrame {
 		panel_6.add(btnNewButton_3, "cell 3 5,grow");
 		
 		JButton btnNewButton_4 = new JButton("Voltar");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuPrincipal mp = new MenuPrincipal(usuario, senha);
+				mp.setLocationRelativeTo(null);
+				mp.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton_4, "cell 6 5,grow");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -941,6 +950,42 @@ public class TelaCadastroMedico extends JFrame {
 		cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId() - 1);
 	
 
+	}
+	private void limpaBorda() {
+		
+
+		txtNome.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtEmail.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtTelefone.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtComplemento.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtCasaNumero.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtCpf.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtData.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtCrm.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtEspecializacao.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		
+		usuarioDao = new UsuarioDao();
+	//	txtUsuario.setText(usuario.getUsuario());
+	//	txtSenha.setText(usuario.getSenha());
+		String sexo = medicoClick.getSexo();
+		if (sexo.equals("F")) {
+			rdbtnFeminino1.setSelected(true);
+		} else if (sexo.equals("M")) {
+			rdbtnMasculino1.setSelected(true);
+		}
+	
+		
+
+		Integer cep = medicoClick.getEndereco().getCep(); 
+		EnderecoDao enderecoDao = new EnderecoDao();
+		Endereco endereco = new Endereco(cep);
+		Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
+		txtCep.setText(String.valueOf(enderecoDoBanco.getCep()));
+		txtBairro.setText(enderecoDoBanco.getBairro());
+		txtMunicipio.setText(enderecoDoBanco.getCidade());
+		txtRua.setText(enderecoDoBanco.getRua());
+		cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId() - 1);
+		
 	}
 }
 
