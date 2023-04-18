@@ -508,14 +508,16 @@ public class TelaCadastroPaciente extends JFrame {
 					txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					validacao += "Nome\n";
 				} else {
+					txtNome.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					p.setNome(nome);
 				}
 				// cpf
 
 				if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
 					txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "Cpf\n";
+					validacao += "CPF\n";
 				} else {
+					txtCpf.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					Long cpf = Long.valueOf(cpfTxt);
 					Long cpfConsulta = Long.valueOf(cpfTxt);
 					p.setCpf(cpf);
@@ -527,6 +529,8 @@ public class TelaCadastroPaciente extends JFrame {
 					jrbMasc.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					validacao += "Sexo\n";
 				} else {
+					jrbFemi.setBorder(new LineBorder(new Color(00, 00, 00), 1));
+					jrbMasc.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					p.setSexo(sexo);
 				}
 				// email
@@ -534,6 +538,7 @@ public class TelaCadastroPaciente extends JFrame {
 					txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					validacao += "Email\n";
 				} else {
+					txtEmail.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					p.setEmail(email);
 				}
 				// telefone
@@ -541,6 +546,7 @@ public class TelaCadastroPaciente extends JFrame {
 					txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					validacao += "Telefone\n";
 				} else {
+					txtTelefone.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					p.setTelefone(telefone);
 
 				}
@@ -549,6 +555,7 @@ public class TelaCadastroPaciente extends JFrame {
 					txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					validacao += "Profissao\n";
 				} else {
+					txtProfissao.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					p.setProfissao(profissao);
 				}
 				// convenio
@@ -557,6 +564,7 @@ public class TelaCadastroPaciente extends JFrame {
 					validacao += "Convenio\n";
 				} else {
 
+				//	cbx.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					Convenio convenios = (Convenio) cbxConvenio.getSelectedItem();
 					int id = convenios.getId();
 					String convenio = convenios.getConvenio();
@@ -576,6 +584,7 @@ public class TelaCadastroPaciente extends JFrame {
 						System.out.println("Erro");
 						txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					} else {
+						txtData.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 						LocalDate dta = LocalDate.parse(dataN, formatter);
 						dta.format(formatter);
@@ -591,6 +600,7 @@ public class TelaCadastroPaciente extends JFrame {
 					validacao += "Numero\n";
 					txtNCasa.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 				} else {
+					txtNCasa.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					Integer nCasa = Integer.valueOf(n);
 					p.setNumero(nCasa);
 				}
@@ -818,7 +828,7 @@ public class TelaCadastroPaciente extends JFrame {
 							// cpf
 
 							if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
-								txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+								txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));	
 								JOptionPane.showMessageDialog(null, "CPF Vazio", "ok", JOptionPane.ERROR_MESSAGE);
 								return;
 							} else {
@@ -936,6 +946,7 @@ public class TelaCadastroPaciente extends JFrame {
 								Integer cep = Integer.valueOf(cepString);
 								cadastroEndereco.setCep(cep);
 							}
+							
 
 							if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
 								JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
