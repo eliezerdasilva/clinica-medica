@@ -1,30 +1,29 @@
 package model;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 
 public class Consulta {
 
 	private int id;
 	private LocalDate date;
-	private Servico servico;
+	private Instant hora; 
+	private String servico;
 	private String observacao;
 	private Paciente paciente;
 	
-	public Consulta() {}
+	public Consulta(){}
  
-	public Consulta(int id, LocalDate date, Servico servico, String observacao, Paciente paciente) {
+	public Consulta(int id, LocalDate date, Instant hora, String servico, String observacao, Paciente paciente) {
 		super();
 		this.id = id;
 		this.date = date;
+		this.hora = hora;
 		this.servico = servico;
 		this.observacao = observacao;
 		this.paciente = paciente;
 	}
-
-	
-
-
 	public int getId() {
 		return id;
 	}
@@ -41,11 +40,11 @@ public class Consulta {
 		this.date = date;
 	}
 
-	public Servico getServico() {
+	public String getServico() {
 		return servico;
 	}
 
-	public void setServico(Servico servico) {
+	public void setServico(String servico) {
 		this.servico = servico;
 	}
 
@@ -63,6 +62,15 @@ public class Consulta {
 
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
+	}
+	
+
+	public Instant getHora() {
+		return hora;
+	}
+
+	public void setHora(Instant hora) {
+		this.hora = hora;
 	}
 
 	@Override

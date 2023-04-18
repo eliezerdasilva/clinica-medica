@@ -19,6 +19,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JTextArea;
 import javax.swing.JTable;
@@ -267,7 +269,33 @@ public class Agenda extends JFrame {
 				} else {
 					Long cpfLong = Long.valueOf(cpf);
 					p.setCpf(cpfLong);
-				} c.setPaciente(p);
+				}
+				c.setPaciente(p);
+				
+				if (tipoConsulta == null || tipoConsulta.trim()=="" || tipoConsulta.isEmpty()) {
+					textConsulta.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					validacao += "Tipo consulta\n";
+				} else {
+					c.setServico(tipoConsulta);
+				}
+				
+				if (dataConsulta == null || dataConsulta.trim()==""|| dataConsulta.isEmpty()) {
+					textData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					validacao += "Dat\n";
+				} else {
+					String dataTest = dataConsulta.replace("/", "").trim();
+					if (dataTest.length() == 0) {
+						// TODO erro
+						System.out.println("Erro");
+						textData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					} else {
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+						LocalDate dta = LocalDate.parse(dataConsulta, formatter);
+						dta.format(formatter);
+						c.setDate(dta);
+					}
+				}
+				
 			}
 		});
 		btnCadastrar.setBackground(new Color(240, 255, 240));
