@@ -123,7 +123,7 @@ public class TelaPerfil extends JFrame {
 			e.printStackTrace();
 		}
 
-		JPanel panel = new FundoImagemLogin(bg);
+		JPanel panel = new JPanel();
 		panel.setBackground(new Color(204, 255, 204));
 		panel.setLayout(new MigLayout("", "[1286.00,grow]", "[900:n:750,grow]"));
 
@@ -142,7 +142,7 @@ public class TelaPerfil extends JFrame {
 			e.printStackTrace();
 		}
 
-		JPanel panel_2 = new FundoImagemLoginCabecario(filc);
+		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(51, 153, 0));
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 40));

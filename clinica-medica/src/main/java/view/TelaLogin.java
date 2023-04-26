@@ -6,21 +6,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
+import java.net.URL;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -44,6 +37,10 @@ import utils.RoundJTextPassword;
 
 public class TelaLogin extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField txtSenha;
@@ -92,17 +89,7 @@ public class TelaLogin extends JFrame {
 
 		setContentPane(contentPane);
 
-		BufferedImage bg = null;
-
-		try {
-			bg = ImageIO.read(new File("src/imagens/fundoLogin.jpeg"));
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		JPanel panel = new FundoImagemLogin(bg);
+		JPanel panel = new JPanel();
 		panel.setBackground(new Color(204, 255, 204));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -124,17 +111,7 @@ public class TelaLogin extends JFrame {
 		panel.add(panel_1, "cell 1 1,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 
-		BufferedImage filc = null;
-
-		try {
-			filc = ImageIO.read(new File("src/imagens/fundoVerde.jpeg"));
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		JPanel panel_2 = new FundoImagemLoginCabecario(filc);
+		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(51, 153, 0));
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 40));
@@ -262,57 +239,5 @@ public class TelaLogin extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	private void setMinimumSize(int i, int j) {
-		// TODO Auto-generated method stub
-
-	}
 }
 
-//Tela de inicio
-class FundoImagemLogin extends JPanel {
-
-	Image bg;
-
-	FundoImagemLogin(Image bg) {
-		this.bg = bg;
-	}
-
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
-	}
-}
-
-//cabecario login
-class FundoImagemLoginCabecario extends JPanel {
-
-	Image bg;
-
-	FundoImagemLoginCabecario(Image bg) {
-		this.bg = bg;
-	}
-
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
-	}
-}
-
-class botao extends JButton {
-	private Shape shape;
-	Image bg;
-
-	botao(Image bg, String label) {
-		super(label);
-		setOpaque(false);
-		this.bg = bg;
-	}
-
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
-	}
-}

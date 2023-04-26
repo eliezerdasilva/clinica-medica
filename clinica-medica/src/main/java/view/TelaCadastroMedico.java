@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -22,11 +23,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -64,15 +67,14 @@ import utils.RoundButton;
  *
  */
 public class TelaCadastroMedico extends JFrame {
-	
-	
+
 	EnderecoDao enderecoDao = new EnderecoDao();
 
-	private MedicoDao medicoDao = new MedicoDao() ;
-	private UsuarioDao usuarioDao; 
-	private Usuario usuarioModelo; 
-	private Medico medicoClick; 
-	
+	private MedicoDao medicoDao = new MedicoDao();
+	private UsuarioDao usuarioDao;
+	private Usuario usuarioModelo;
+	private Medico medicoClick;
+
 	private JPanel contentPane;
 	Endereco enderecoPronto = null;
 	private JTextField txtNome;
@@ -91,6 +93,7 @@ public class TelaCadastroMedico extends JFrame {
 	private JTextField txtCrm;
 	private JTextField txtEspecializacao;
 	private JTextField txtUsuario;
+	private JButton btnSalvar;
 	private JPasswordField txtSenha;
 
 	private String usuario;
@@ -105,7 +108,7 @@ public class TelaCadastroMedico extends JFrame {
 
 	private JRadioButton rdbtnMasculino1;
 
-	private  Endereco cadastroEndereco;
+	private Endereco cadastroEndereco;
 
 	ArrayList<Estado> estados = new ArrayList<>();
 	private ArrayList<Medico> listaMedico = new ArrayList<>();
@@ -113,17 +116,26 @@ public class TelaCadastroMedico extends JFrame {
 
 	private Long cpf;
 
+	private JButton btn_Excluir;
 
+	private JButton btnNewButton_4;
 
-	
+	private JButton btnNewButton_2;
 
+	private JComponent panel_5;
+
+	private JComponent panel_6;
+
+	private AbstractButton btnCadastrarMedico;
+
+	private JComponent panel_9;
 
 	/**
 	 * Create the frame.
 	 */
 	public TelaCadastroMedico(String usuario, String senha) {
 		this.usuario = usuario;
-		this.senha = senha; 
+		this.senha = senha;
 		this.listaMedico = medicoDao.listaMedicos();
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
@@ -149,17 +161,9 @@ public class TelaCadastroMedico extends JFrame {
 
 		BufferedImage bg = null;
 		formatDate = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			bg = ImageIO.read(new File("src/imagens/fundoLogin.jpeg"));
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		JPanel panel = new FundoImagemLogin(bg);
+		JPanel panel = new JPanel();
 		panel.setBackground(new Color(144, 238, 144));
-
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
@@ -167,15 +171,7 @@ public class TelaCadastroMedico extends JFrame {
 
 		BufferedImage filc = null;
 
-		try {
-			filc = ImageIO.read(new File("src/imagens/fundoVerde.jpeg"));
-
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		JPanel panel_2 = new FundoImagemLoginCabecario(filc);
+		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(51, 153, 0));
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 25));
@@ -188,8 +184,8 @@ public class TelaCadastroMedico extends JFrame {
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.CENTER);
 
-		panel_4.setLayout(new MigLayout("", "[1150:n:1150,grow]", "[150:n:150px,grow][160:n:160,grow][60:n:60,grow][90:n:90,grow][350:n:350,grow]"));
-
+		panel_4.setLayout(new MigLayout("", "[1150:n:1150,grow]",
+				"[150:n:150px,grow][160:n:160,grow][60:n:60,grow][90:n:90,grow][350:n:350,grow]"));
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(107, 142, 35), 4));
@@ -209,7 +205,6 @@ public class TelaCadastroMedico extends JFrame {
 		JLabel lblNewLabel_4 = new JLabel("Data :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_4, "flowx,cell 3 1,growx");
-		
 
 		JLabel lblNewLabel_2 = new JLabel("E-mail :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -219,62 +214,57 @@ public class TelaCadastroMedico extends JFrame {
 		panel_3.add(txtEmail, "cell 1 3,grow");
 		txtEmail.setColumns(10);
 
-
 		JLabel lblNewLabel_5 = new JLabel("Cpf :    ");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_5, "flowx,cell 3 3,grow");
 
 		txtCpf = new JTextField();
 
-		
 		try {
 			txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		} catch (ParseException e3) {
-			JOptionPane.showMessageDialog(null,"Data inválida");
+			JOptionPane.showMessageDialog(null, "Data inválida");
 			e3.printStackTrace();
-		}		
+		}
 		panel_3.add(txtData, "cell 3 1,grow");
 		txtData.setColumns(22);
-		
+
 		try {
 			txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
 		} catch (ParseException e5) {
-			JOptionPane.showMessageDialog(null,"CPF inválido");
+			JOptionPane.showMessageDialog(null, "CPF inválido");
 			e5.printStackTrace();
 		}
 
 		panel_3.add(txtCpf, "cell 3 3,grow");
 		txtCpf.setColumns(23);
-		
-				JLabel lblNewLabel_81 = new JLabel("Sexo :");
-				lblNewLabel_81.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_3.add(lblNewLabel_81, "cell 0 5");
-				
-						rdbtnMasculino1 = new JRadioButton("M");
-						rdbtnMasculino1.setBackground(new Color(240, 255, 240));
-						panel_3.add(rdbtnMasculino1, "flowx,cell 1 5,grow");
-		
-				rdbtnFeminino1 = new JRadioButton("F");
-				rdbtnFeminino1.setBackground(new Color(240, 255, 240));
-				panel_3.add(rdbtnFeminino1, "cell 1 5,grow");	
+
+		JLabel lblNewLabel_81 = new JLabel("Sexo :");
+		lblNewLabel_81.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(lblNewLabel_81, "cell 0 5");
+
+		rdbtnMasculino1 = new JRadioButton("M");
+		rdbtnMasculino1.setBackground(new Color(240, 255, 240));
+		panel_3.add(rdbtnMasculino1, "flowx,cell 1 5,grow");
+
+		rdbtnFeminino1 = new JRadioButton("F");
+		rdbtnFeminino1.setBackground(new Color(240, 255, 240));
+		panel_3.add(rdbtnFeminino1, "cell 1 5,grow");
 
 		JLabel lblNewLabel_6 = new JLabel("Telefone :");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_6, "flowx,cell 3 5");
 
-
-		
 		try {
 			txtTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
 		} catch (ParseException e6) {
-			JOptionPane.showMessageDialog(null,"Telefone inválido");
+			JOptionPane.showMessageDialog(null, "Telefone inválido");
 			e6.printStackTrace();
 		}
 		panel_3.add(txtTelefone, "cell 3 5,grow");
 		txtTelefone.setColumns(10);
-		
 
-		JPanel panel_5 = new JPanel();
+		panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
 		panel_5.setBorder(new LineBorder(new Color(107, 142, 35), 5));
 		panel_4.add(panel_5, "cell 0 1,grow");
@@ -287,14 +277,12 @@ public class TelaCadastroMedico extends JFrame {
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(lblNewLabel_9, "cell 0 1,alignx trailing");
 
-
 		txtCep = new JTextField();
-		
-		
+
 		try {
 			txtCep = new JFormattedTextField(new MaskFormatter("#####-###"));
 		} catch (ParseException e7) {
-			JOptionPane.showMessageDialog(null,"Telefone inválido");
+			JOptionPane.showMessageDialog(null, "Telefone inválido");
 			e7.printStackTrace();
 		}
 
@@ -349,7 +337,7 @@ public class TelaCadastroMedico extends JFrame {
 					JOptionPane.showMessageDialog(null, "Cep não cadastrado");
 
 				}
-				
+
 			}
 		});
 		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -373,18 +361,15 @@ public class TelaCadastroMedico extends JFrame {
 			@Override
 			public void ancestorRemoved(AncestorEvent event) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void ancestorMoved(AncestorEvent event) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
-		
-
-	
 		});
 		panel_5.add(cbxEstado, "cell 1 3,grow");
 
@@ -435,22 +420,21 @@ public class TelaCadastroMedico extends JFrame {
 		panel_4.add(panel_8, "cell 0 2,grow");
 		panel_8.setLayout(new MigLayout("", "[][][200:n:200,grow][][200:n:200,grow][][150:n:150]", "[][30:n:30]"));
 
-
 		JLabel lblNewLabel_18 = new JLabel("CRM :");
 		lblNewLabel_18.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_8.add(lblNewLabel_18, "cell 1 1,alignx trailing");
 
 		JLabel lblNewLabel_19 = new JLabel("Especialização :");
-		
+
 		try {
 			txtCrm = new JFormattedTextField(new MaskFormatter("######"));
 		} catch (ParseException e8) {
-			JOptionPane.showMessageDialog(null,"CRM inválido");
+			JOptionPane.showMessageDialog(null, "CRM inválido");
 			e8.printStackTrace();
 		}
 		panel_8.add(txtCrm, "cell 2 1,grow");
 		txtCrm.setColumns(10);
-		
+
 		JLabel lblNewLabel_191 = new JLabel("Especialização:");
 
 		lblNewLabel_191.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -460,7 +444,7 @@ public class TelaCadastroMedico extends JFrame {
 		panel_8.add(txtEspecializacao, "cell 4 1,grow");
 		txtEspecializacao.setColumns(10);
 
-		JPanel panel_9 = new JPanel();
+		panel_9 = new JPanel();
 		panel_9.setBackground(new Color(240, 255, 240));
 		panel_9.setBorder(new LineBorder(new Color(107, 142, 35), 4));
 		panel_4.add(panel_9, "cell 0 3,grow");
@@ -473,7 +457,6 @@ public class TelaCadastroMedico extends JFrame {
 		lblNewLabel_23.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(lblNewLabel_23, "cell 0 0 7 1,alignx center");
 
-
 		txtUsuario = new JTextField();
 		panel_9.add(txtUsuario, "cell 1 1,grow");
 		txtUsuario.setColumns(10);
@@ -482,15 +465,15 @@ public class TelaCadastroMedico extends JFrame {
 		lblNewLabel_20.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(lblNewLabel_20, "cell 2 1,alignx trailing");
 
-		JButton btnCadastrarMedico = new JButton("Cadastrar Novo Médico ");
+		btnCadastrarMedico = new JButton("Cadastrar Novo Médico ");
 		btnCadastrarMedico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				cadastroMedico();
 				atualizarTabela();
-				
-			  }
-			  
+
+			}
+
 		});
 
 		txtSenha = new JPasswordField();
@@ -502,75 +485,412 @@ public class TelaCadastroMedico extends JFrame {
 		JLabel lblNewLabel_21 = new JLabel("Usuario : ");
 		lblNewLabel_21.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(lblNewLabel_21, "cell 0 1,alignx trailing");
-		
-		JPanel panel_6 = new JPanel();
+
+		panel_6 = new JPanel();
 		panel_6.setBackground(new Color(240, 255, 240));
 		panel_6.setBorder(new LineBorder(new Color(0, 128, 64), 4));
 		panel_4.add(panel_6, "cell 0 4,grow");
-		panel_6.setLayout(new MigLayout("", "[80:n:80][200:n:200,grow][100px:n:100px,grow][200:n:200][200:n:200,grow][][150:n:150][250:n:250]", "[][][][200:n:200,grow][][]"));
-		
+		panel_6.setLayout(new MigLayout("",
+				"[80:n:80][200:n:200,grow][100px:n:100px,grow][200:n:200][200:n:200,grow][][150:n:150][250:n:250]",
+				"[][][][200:n:200,grow][][]"));
+
 		JLabel lblNewLabel_8 = new JLabel("CRM : ");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_8, "cell 0 1,alignx trailing");
-		
+
 		textField_1 = new JTextField();
 		panel_6.add(textField_1, "cell 1 1,grow");
 		textField_1.setColumns(10);
-		
+
 		JLabel lblNewLabel_16 = new JLabel("Nome : ");
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_16, "cell 3 1,alignx trailing");
-		
+
 		textField_2 = new JTextField();
 		panel_6.add(textField_2, "cell 4 1,grow");
 		textField_2.setColumns(10);
-		
+
 		JButton btnNewButton_1 = new JButton("Buscar");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton_1, "cell 6 1,growx,aligny center");
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		panel_6.add(scrollPane, "cell 1 3 6 1,grow");
-		
+
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nome", "CRM", "CPF", "Email"
-			}
-		));
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "CRM", "CPF", "Email" }));
 		table.getColumnModel().getColumn(2).setPreferredWidth(77);
 		atualizarTabela();
 		scrollPane.setViewportView(table);
-		
-		
-		JButton btnNewButton_2 = new JButton("Editar");
+
+		btnNewButton_2 = new JButton("Editar");
 		btnNewButton_2.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
+
+				btnCadastrarMedico.setVisible(false);
+				panel_9.remove(btnCadastrarMedico);
+
+				btnNewButton_2.setVisible(false);
+				panel_6.remove(btnNewButton_2);
+
+				btn_Excluir.setVisible(false);
+				panel_6.remove(btn_Excluir);
+
+				JButton voltar = new JButton("Volta");
+				voltar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						panel_9.add(btnCadastrarMedico);
+						btnCadastrarMedico.setVisible(true);
+
+						btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 16));
+						panel_6.add(btnNewButton_2, "cell 1 5,growx");
+						btnNewButton_2.setVisible(true);
+
+						btn_Excluir.setFont(new Font("Tahoma", Font.BOLD, 16));
+						panel_6.add(btn_Excluir, "cell 3 5,grow");
+						btn_Excluir.setVisible(true);
+
+						panel_6.remove(voltar);
+						voltar.setVisible(false);
+
+						btnSalvar.setVisible(false);
+						panel_9.remove(btnSalvar);
+
+						limparTela();
+					}
+				});
+				voltar.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_6.add(voltar, "cell 1 5,growx");
+
 				int position = table.getSelectedRow();
-				
+
 				if (position == -1) {
 					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
 					return;
 				}
 				medicoClick = listaMedico.get(position);
-				
-				if(medicoClick != null) {
-					
+				EditarMedico(medicoClick);
+
+				btnSalvar = new JButton("Salvar");
+				btnSalvar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						String validacao = "";
+						String nomeNovo = txtNome.getText();
+
+						String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
+
+						String sexo = "";
+						if (rdbtnMasculino1.isSelected()) {
+
+							sexo = "M";
+						}
+
+						if (rdbtnFeminino1.isSelected()) {
+
+							sexo = "F";
+						}
+						if (rdbtnFeminino1 == null || rdbtnMasculino1 == null) {
+							sexo = null;
+						}
+
+						String email = txtEmail.getText();
+
+						String telefone = txtTelefone.getText().replace("-", "").replace("(", "").replace(")", "");
+
+						String dataN = txtData.getText();
+
+						String complemento = txtComplemento.getText();
+
+						String crmString = txtCrm.getText();
+
+						String especializacao = txtEspecializacao.getText();
+
+						String n = txtCasaNumero.getText();
+
+						// TODO Construindo Objeto
+						Medico p = new Medico();
+
+						// TODO nova validacao nome
+						if (nomeNovo == null || nomeNovo.trim() == "" || nomeNovo.isEmpty()) {
+							txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Sexo\n";
+						} else {
+							p.setNome(nomeNovo);
+						}
+
+						// cpf
+						if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
+							txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Cpf\n";
+						} else {
+							cpf = Long.valueOf(cpfTxt);
+							p.setCpf(cpf);
+						}
+						// sexo
+
+						if (sexo == null || sexo.isEmpty()) {
+							rdbtnFeminino1.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							rdbtnMasculino1.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Sexo\n";
+
+						} else {
+							p.setSexo(sexo);
+						}
+						// email
+						if (email == null || email.trim() == "" || email.isEmpty()) {
+
+							txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Email\n";
+						} else {
+							p.setEmail(email);
+						}
+						// telefone
+						if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
+							txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Telefone\n";
+						} else {
+							p.setTelefone(telefone);
+
+						}
+						// data Nascimento
+						if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
+							validacao += "Data\n";
+							txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						} else {
+							String dataTest = dataN.replace("/", "").trim();
+							if (dataTest.length() == 0) {
+								// TODO erro
+								System.out.println("Erro");
+								txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							} else {
+								DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+								LocalDate dta = LocalDate.parse(dataN, formatter);
+								dta.format(formatter);
+								p.setDataNascimento(dta);
+							}
+
+						}
+
+						// Complemento
+						p.setComplemento(complemento);
+
+						if (n == null || n.trim() == "" || n.isEmpty()) {
+
+							txtCasaNumero.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Numero da casa invalido\n";
+						} else {
+							Integer nCasa = Integer.valueOf(n);
+							p.setNumero(nCasa);
+						}
+
+						// TODO CADASTRO DO CEP NAO CADASTRADO
+
+						// Validacao endereco
+						String cepString = txtCep.getText().replace("-", "");
+						String bairro = txtBairro.getText();
+						String cidade = txtMunicipio.getText();
+						String rua = txtRua.getText();
+
+						if (cadastroEndereco == null) {
+							cadastroEndereco = new Endereco();
+						}
+
+						EnderecoDao endereco = new EnderecoDao();
+
+						if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
+							validacao += "cep\n";
+							txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							return;
+						} else {
+							Integer cep = Integer.valueOf(cepString);
+							cadastroEndereco.setCep(cep);
+						}
+
+						if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
+							validacao += "bairro\n";
+							txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							return;
+						} else {
+							cadastroEndereco.setBairro(bairro);
+						}
+						if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
+							validacao += "cidade\n";
+							txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							return;
+						} else {
+							cadastroEndereco.setCidade(cidade);
+						}
+						if (rua == null || rua.trim() == "" || rua.isEmpty()) {
+							validacao += "rua\n";
+							txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							return;
+						} else {
+							cadastroEndereco.setRua(rua);
+						}
+
+						Endereco resultado = new Endereco();
+						resultado = endereco.ConsultarEndereco(cadastroEndereco);
+
+						if (resultado == null) {
+							Estado estado = (Estado) cbxEstado.getSelectedItem();
+							int id = estado.getId();
+							estado.setId(id);
+
+							cadastroEndereco.setEstado(estado);
+
+							// TODO cadastro do endereço
+							boolean resuEnd = false;
+							try {
+								resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
+							} catch (Exception e2) {
+								e2.printStackTrace();
+							}
+
+						}
+						// TODO criacao do usuairo
+
+						String usuario = txtUsuario.getText();
+						String senha = txtSenha.getText();
+
+						Usuario usuarioModelo = new Usuario();
+
+						if (usuario == null || usuario.trim() == "" || usuario.isEmpty()) {
+							txtUsuario.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Usuario\n";
+						} else {
+							usuarioModelo.setUsuario(usuario);
+						}
+						if (senha == null || senha.trim() == "" || senha.isEmpty()) {
+							txtSenha.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Senha\n";
+						} else {
+							usuarioModelo.setSenha(senha);
+						}
+						usuarioModelo.setNivelAcesso(1);
+						System.out.println(usuarioModelo);
+						usuarioDao = new UsuarioDao();
+
+						boolean consultaUsuarioCadastrado = usuarioDao.consultarUsuarioCadastrado(usuarioModelo);
+
+						// Dados do medico
+						String crm = txtCrm.getText();
+						if (crm == null || crm.trim() == "" || crm.isEmpty()) {
+							txtCrm.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Crm\n";
+						} else {
+							Long crmLong = Long.valueOf(crm);
+							p.setCrm(crmLong);
+
+						}
+						String epecificação = txtEspecializacao.getText();
+						if (epecificação == null || epecificação.trim() == "" || epecificação.isEmpty()) {
+							txtEspecializacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "especializacao\n";
+						} else {
+							p.setEspecializacao(especializacao);
+
+						}
+
+						if (consultaUsuarioCadastrado != true) {
+
+							medicoDao = new MedicoDao();
+
+							boolean consultaMedicoExistente = medicoDao.ConsultaCpfMedico(cpf);
+							if (consultaMedicoExistente != false) {
+
+								resultado = endereco.ConsultarEndereco(cadastroEndereco);
+
+								if (resultado == null) {
+									Estado estado = (Estado) cbxEstado.getSelectedItem();
+									int id = estado.getId();
+									estado.setId(id);
+
+									cadastroEndereco.setEstado(estado);
+
+									try {
+										boolean enderecoCadasto = enderecoDao.InserirEndereco(cadastroEndereco);
+									} catch (Exception e2) {
+										e2.printStackTrace();
+									}
+
+								}
+								boolean cds = false;
+
+								try {
+									// Inserir o endereco no paciente
+
+									p.setEndereco(resultado);
+									Usuario usuarioId = usuarioDao.alterarUsuario(usuarioModelo);
+									if (usuarioId != null) {
+
+										p.setUsuario(usuarioId);
+										cds = medicoDao.alterarMedico(p);
+										atualizarTabela();
+									}
+
+								} catch (Exception e1) {
+									e1.printStackTrace();
+								}
+
+								if (cds != true) {
+									JOptionPane.showMessageDialog(null, "Erro ao editar, tente novamente");
+								} else {
+									JOptionPane.showMessageDialog(null, "Editado com sucesso");
+								}
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "ERRO");
+						}
+
+					}
+				});
+				btnSalvar.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_9.add(btnSalvar, "cell 5 1,grow");
+
+				if (medicoClick != null) {
 					preencherMedicoTabela(medicoClick);
-					
+
 				}
 			}
 		});
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton_2, "cell 1 5,growx");
-		
-		JButton btnNewButton_3 = new JButton("Excluir");
-		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_6.add(btnNewButton_3, "cell 3 5,grow");
-		
-		JButton btnNewButton_4 = new JButton("Voltar");
+
+		btn_Excluir = new JButton("Excluir");
+		btn_Excluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int position = table.getSelectedRow();
+				if (position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+
+				medicoClick = listaMedico.get(position);
+				if (btnNewButton_2 != null)
+					panel_5.remove(btnNewButton_2);
+				if (medicoClick != null) {
+
+					int n = JOptionPane.showConfirmDialog(null,
+							"Tem certeza que quer excluir?  " + medicoClick.getNome(), "", JOptionPane.YES_NO_OPTION);
+
+					if (n == JOptionPane.YES_OPTION) {
+						Boolean result = medicoDao.excluirMedico(Long.valueOf(medicoClick.getCpf()));
+						JOptionPane.showMessageDialog(null, "Excluindo");
+						atualizarTabela();
+						limparTela();
+					} else {
+						JOptionPane.showMessageDialog(null, " erro ao excluir");
+						limparTela();
+					}
+				}
+			}
+		});
+		btn_Excluir.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_6.add(btn_Excluir, "cell 3 5,grow");
+
+		btnNewButton_4 = new JButton("Voltar");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuPrincipal mp = new MenuPrincipal(usuario, senha);
@@ -582,36 +902,26 @@ public class TelaCadastroMedico extends JFrame {
 		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnNewButton_4, "cell 6 5,grow");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(300)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1191, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(423, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(19)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 842, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(31, Short.MAX_VALUE))
-		);
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addGap(300)
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1191, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(423, Short.MAX_VALUE)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addGap(19)
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 842, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(31, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
 		GroupLayout gl_contentPane1 = new GroupLayout(contentPane);
-		gl_contentPane1.setHorizontalGroup(
-			gl_contentPane1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane1.createSequentialGroup()
-					.addContainerGap(300, Short.MAX_VALUE)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(290))
-		);
-		gl_contentPane1.setVerticalGroup(
-			gl_contentPane1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane1.createSequentialGroup()
-					.addContainerGap(98, Short.MAX_VALUE)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(89))
-		);
+		gl_contentPane1.setHorizontalGroup(gl_contentPane1.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_contentPane1
+						.createSequentialGroup().addContainerGap(300, Short.MAX_VALUE).addComponent(panel,
+								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(290)));
+		gl_contentPane1
+				.setVerticalGroup(gl_contentPane1.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+						gl_contentPane1.createSequentialGroup().addContainerGap(98, Short.MAX_VALUE).addComponent(panel,
+								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGap(89)));
 		panel.setLayout(new MigLayout("", "[1150]", "[900]"));
 		panel.add(panel_1, "cell 0 0,alignx left,growy");
 		contentPane.setLayout(gl_contentPane1);
@@ -632,12 +942,12 @@ public class TelaCadastroMedico extends JFrame {
 			}
 		});
 	}
+
 	public void cadastroMedico() {
-		
+
 		String validacao = "";
 		String nome = txtNome.getText();
-		
-		
+
 		String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
 
 		String sexo = "";
@@ -658,18 +968,15 @@ public class TelaCadastroMedico extends JFrame {
 
 		String telefone = txtTelefone.getText().replace("-", "").replace("(", "").replace(")", "");
 
-
 		String dataN = txtData.getText();
 
 		String complemento = txtComplemento.getText();
-		
+
 		String crmString = txtCrm.getText();
-		
+
 		String especializacao = txtEspecializacao.getText();
 
 		String n = txtCasaNumero.getText();
-		
-	
 
 		// TODO Construindo Objeto
 		Medico p = new Medico();
@@ -681,7 +988,7 @@ public class TelaCadastroMedico extends JFrame {
 		} else {
 			p.setNome(nome);
 		}
-		
+
 		// cpf
 		if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
 			txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
@@ -696,13 +1003,13 @@ public class TelaCadastroMedico extends JFrame {
 			rdbtnFeminino1.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			rdbtnMasculino1.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			validacao += "Sexo\n";
-	
+
 		} else {
 			p.setSexo(sexo);
 		}
 		// email
 		if (email == null || email.trim() == "" || email.isEmpty()) {
-		
+
 			txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			validacao += "Email\n";
 		} else {
@@ -739,14 +1046,14 @@ public class TelaCadastroMedico extends JFrame {
 		p.setComplemento(complemento);
 
 		if (n == null || n.trim() == "" || n.isEmpty()) {
-			
+
 			txtCasaNumero.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			validacao += "Numero da casa invalido\n";
 		} else {
 			Integer nCasa = Integer.valueOf(n);
 			p.setNumero(nCasa);
 		}
-		
+
 		// TODO CADASTRO DO CEP NAO CADASTRADO
 
 		// Validacao endereco
@@ -754,8 +1061,6 @@ public class TelaCadastroMedico extends JFrame {
 		String bairro = txtBairro.getText();
 		String cidade = txtMunicipio.getText();
 		String rua = txtRua.getText();
-		
-		
 
 		if (cadastroEndereco == null) {
 			cadastroEndereco = new Endereco();
@@ -793,7 +1098,7 @@ public class TelaCadastroMedico extends JFrame {
 		} else {
 			cadastroEndereco.setRua(rua);
 		}
-		
+
 		Endereco resultado = new Endereco();
 		resultado = endereco.ConsultarEndereco(cadastroEndereco);
 
@@ -813,13 +1118,13 @@ public class TelaCadastroMedico extends JFrame {
 			}
 
 		}
-		//TODO criacao do usuairo
-		
+		// TODO criacao do usuairo
+
 		String usuario = txtUsuario.getText();
 		String senha = txtSenha.getText();
-		
+
 		Usuario usuarioModelo = new Usuario();
-		
+
 		if (usuario == null || usuario.trim() == "" || usuario.isEmpty()) {
 			txtUsuario.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			validacao += "Usuario\n";
@@ -835,10 +1140,10 @@ public class TelaCadastroMedico extends JFrame {
 		usuarioModelo.setNivelAcesso(1);
 		System.out.println(usuarioModelo);
 		usuarioDao = new UsuarioDao();
-	
+
 		boolean consultaUsuarioCadastrado = usuarioDao.consultarUsuarioCadastrado(usuarioModelo);
-		
-		//Dados do medico 
+
+		// Dados do medico
 		String crm = txtCrm.getText();
 		if (crm == null || crm.trim() == "" || crm.isEmpty()) {
 			txtCrm.setBorder(new LineBorder(new Color(255, 00, 00), 4));
@@ -846,7 +1151,7 @@ public class TelaCadastroMedico extends JFrame {
 		} else {
 			Long crmLong = Long.valueOf(crm);
 			p.setCrm(crmLong);
-			
+
 		}
 		String epecificação = txtEspecializacao.getText();
 		if (epecificação == null || epecificação.trim() == "" || epecificação.isEmpty()) {
@@ -854,55 +1159,51 @@ public class TelaCadastroMedico extends JFrame {
 			validacao += "especializacao\n";
 		} else {
 			p.setEspecializacao(especializacao);
-			
+
 		}
-		
-		if(consultaUsuarioCadastrado != true) {
-			
-		medicoDao = new MedicoDao();
-		
-		boolean consultaMedicoExistente = medicoDao.ConsultaCpfMedico(cpf);
-		if(consultaMedicoExistente != true ) {
-			
-			
-			
 
-			resultado = endereco.ConsultarEndereco(cadastroEndereco);
-			
-			
-			
-			if (resultado != null) {
-				boolean cds = false;
+		if (consultaUsuarioCadastrado != true) {
 
-				try {
-					// Inserir o endereco no paciente
-					
-					p.setEndereco(cadastroEndereco);
-					//boolean usuarioCadastrado = usuarioDao.inserirUsuario(usuarioModelo);
-					boolean usuarioCadastrado = usuarioDao.inserirUsuario(usuarioModelo);
-					Usuario usuarioSelecionado = usuarioDao.selecionarUSuarioParaCadastrar(usuarioModelo);
-					p.setUsuario(usuarioSelecionado);
-				
-					cds = medicoDao.cadastrarMedico(p);
-					
+			medicoDao = new MedicoDao();
 
-				} catch (Exception e1) {
-					e1.printStackTrace();
+			boolean consultaMedicoExistente = medicoDao.ConsultaCpfMedico(cpf);
+			if (consultaMedicoExistente != true) {
+
+				resultado = endereco.ConsultarEndereco(cadastroEndereco);
+
+				if (resultado != null) {
+					boolean cds = false;
+
+					try {
+						// Inserir o endereco no paciente
+
+						p.setEndereco(cadastroEndereco);
+						// boolean usuarioCadastrado = usuarioDao.inserirUsuario(usuarioModelo);
+						boolean usuarioCadastrado = usuarioDao.inserirUsuario(usuarioModelo);
+						Usuario usuarioSelecionado = usuarioDao.selecionarUSuarioParaCadastrar(usuarioModelo);
+						p.setUsuario(usuarioSelecionado);
+
+						cds = medicoDao.cadastrarMedico(p);
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+
+					if (cds == false) {
+						JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamente");
+					} else {
+						JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+					}
 				}
-
-				if (cds == false) {
-					JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamente");
-				} else {
-					JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
-				}
+			} else {
+				JOptionPane.showMessageDialog(null, "ERRO: Médico já Cadastrado no sistema");
 			}
-		} else {
-			JOptionPane.showMessageDialog(null, "ERRO: Médico já Cadastrado no sistema");
-		}
 		}
 	}
+
 	private void atualizarTabela() {
-		DefaultTableModel tabela = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "CPF","CRM", "Email" });
+		DefaultTableModel tabela = new DefaultTableModel(new Object[][] {},
+				new String[] { "Nome", "CPF", "CRM", "Email" });
 
 		listaMedico = medicoDao.listaMedicos();
 		for (int i = 0; i < listaMedico.size(); i++) {
@@ -912,8 +1213,9 @@ public class TelaCadastroMedico extends JFrame {
 		}
 		table.setModel(tabela);
 	}
+
 	protected void preencherMedicoTabela(Medico medicoClick) {
-		
+
 		txtNome.setText(medicoClick.getNome());
 		txtEmail.setText(medicoClick.getEmail());
 		txtTelefone.setText(medicoClick.getTelefone());
@@ -936,10 +1238,8 @@ public class TelaCadastroMedico extends JFrame {
 		} else if (sexo.equals("M")) {
 			rdbtnMasculino1.setSelected(true);
 		}
-	
-		
 
-		Integer cep = medicoClick.getEndereco().getCep(); 
+		Integer cep = medicoClick.getEndereco().getCep();
 		EnderecoDao enderecoDao = new EnderecoDao();
 		Endereco endereco = new Endereco(cep);
 		Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
@@ -948,11 +1248,10 @@ public class TelaCadastroMedico extends JFrame {
 		txtMunicipio.setText(enderecoDoBanco.getCidade());
 		txtRua.setText(enderecoDoBanco.getRua());
 		cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId() - 1);
-	
 
 	}
+
 	private void limpaBorda() {
-		
 
 		txtNome.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtEmail.setBorder(new LineBorder(new Color(255, 255, 255), 4));
@@ -963,20 +1262,18 @@ public class TelaCadastroMedico extends JFrame {
 		txtData.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtCrm.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtEspecializacao.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		
+
 		usuarioDao = new UsuarioDao();
-	//	txtUsuario.setText(usuario.getUsuario());
-	//	txtSenha.setText(usuario.getSenha());
+		// txtUsuario.setText(usuario.getUsuario());
+		// txtSenha.setText(usuario.getSenha());
 		String sexo = medicoClick.getSexo();
 		if (sexo.equals("F")) {
 			rdbtnFeminino1.setSelected(true);
 		} else if (sexo.equals("M")) {
 			rdbtnMasculino1.setSelected(true);
 		}
-	
-		
 
-		Integer cep = medicoClick.getEndereco().getCep(); 
+		Integer cep = medicoClick.getEndereco().getCep();
 		EnderecoDao enderecoDao = new EnderecoDao();
 		Endereco endereco = new Endereco(cep);
 		Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
@@ -985,7 +1282,30 @@ public class TelaCadastroMedico extends JFrame {
 		txtMunicipio.setText(enderecoDoBanco.getCidade());
 		txtRua.setText(enderecoDoBanco.getRua());
 		cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId() - 1);
-		
+
+	}
+
+	private void EditarMedico(Medico medicoSelecionado) {
+		preencherMedicoTabela(medicoSelecionado);
+
+	}
+
+	private void limparTela() {
+		txtNome.setText("");
+		txtEmail.setText("");
+		txtTelefone.setText("");
+		txtComplemento.setText("");
+		txtCasaNumero.setText("");
+		txtCpf.setText("");
+		txtCpf.setEditable(true);
+		txtData.setText("");
+		txtCrm.setText("");
+		txtCep.setText("");
+		txtBairro.setText("");
+		txtMunicipio.setText("");
+		txtRua.setText("");
+		txtEspecializacao.setText("");
+		txtSenha.setText("");
+		txtUsuario.setText("");
 	}
 }
-

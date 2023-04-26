@@ -57,23 +57,28 @@ public class MedicoDao implements InterfaceMedico {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		PreparedStatement stm = null;
+		int valida = 0;
 		try {
 			stm = c.prepareStatement (
 					
-					"UPDATE medico SET nome = ?, sexo = ?, email = ?, telefone = ?, crm = ?, especializacao = ?, data_nascimento = ? WHERE cpf = ?"
+					"UPDATE medico SET nome = ?, sexo = ?, email = ?, telefone = ?,data_nascimento = ?, crm = ?, especializacao = ?, endereco_cep = ?, numero = ?, usuario_idusuario = ?, complemento = ?  WHERE cpf = ?"
 					);
 			
 			stm.setString(1, medico.getNome());
 			stm.setString(2, medico.getSexo());
 			stm.setString(3, medico.getEmail());
 			stm.setString(4, medico.getTelefone());
-			stm.setLong(5, medico.getCrm());
-			stm.setString(6, medico.getEspecializacao());
-			stm.setDate(7, Date.valueOf(medico.getDataNascimento()));
-			stm.setLong(8, medico.getCpf());
+			stm.setDate(5, Date.valueOf(medico.getDataNascimento()));
+			stm.setLong(6, medico.getCrm());
+			stm.setString(7, medico.getEspecializacao());
+			stm.setInt(8, medico.getEndereco().getCep());
+			stm.setInt(9, medico.getNumero());
+			stm.setLong(10, medico.getUsuario().getId());
+			stm.setString(11, medico.getComplemento());
+			stm.setLong(12, medico.getCpf());
 				
 			
-			stm.executeUpdate();
+			valida = stm.executeUpdate();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,7 +87,7 @@ public class MedicoDao implements InterfaceMedico {
 		}
 		
 
-		return false;
+		return (valida == 0 ? false : true );
 	}
 
 	@Override
@@ -127,15 +132,15 @@ public class MedicoDao implements InterfaceMedico {
 	}
 
 	@Override
-	public boolean excluirMedico(Medico medico) {
+	public boolean excluirMedico(Long cpf) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 	
 		try {
 			
-			String query = "DELETE FROM medico WHERE crm = ?";
+			String query = "DELETE FROM medico WHERE cpf = ?";
 			PreparedStatement stm = c.prepareStatement(query);
-			stm.setLong(1, medico.getCrm());
+			stm.setLong(1, cpf);
 			stm.executeUpdate();
 			return true;
 			
@@ -155,22 +160,23 @@ public class MedicoDao implements InterfaceMedico {
 		 */
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
+		
 		boolean resultado = false; 
 		try {
 			PreparedStatement ps = c.prepareStatement("select * from medico");
 
 			ResultSet rs = ps.executeQuery();
 
-			ArrayList<Paciente> paciente = new ArrayList<>();
-			Paciente paciente2 = new Paciente();
+			ArrayList<Medico> medicoList = new ArrayList<>();
+			Medico medico = new Medico();
 			while (rs.next()) {
-				paciente2.setCpf(rs.getLong("cpf"));
-				paciente.add(paciente2);
+				medico.setCpf(rs.getLong("cpf"));
+				medicoList.add(medico);
 				
 				
 			}
-			for (Paciente p : paciente) {
-				if(paciente2.getCpf().equals(cpf)) {
+			for (Medico medc : medicoList) {
+				if(medc.getCpf().equals(cpf)) {
 					resultado = true;
 				}else {
 					resultado = false;
