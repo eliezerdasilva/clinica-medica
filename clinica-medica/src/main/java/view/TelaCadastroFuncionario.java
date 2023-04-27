@@ -108,7 +108,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
-		contentPane.setBackground(new Color(144, 238, 144));
+		contentPane.setBackground(new Color(204, 255, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBounds(100, 100, 2000, 1050);
 

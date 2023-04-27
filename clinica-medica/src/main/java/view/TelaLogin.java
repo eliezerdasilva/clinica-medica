@@ -83,14 +83,14 @@ public class TelaLogin extends JFrame {
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
-		contentPane.setBackground(new Color(144, 238, 144));
+		contentPane.setBackground(new Color(204, 255, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBounds(100, 100, 2000, 1050);
 
 		setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(144, 238, 144));
+		panel.setBackground(new Color(204, 255, 204));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -123,7 +123,7 @@ public class TelaLogin extends JFrame {
 		panel_2.add(lblNewLabel, "name_169020969106100");
 
 		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(204, 255, 204));
+		panel_4.setBackground(new Color(236, 253, 232));
 		panel_1.add(panel_4, BorderLayout.CENTER);
 		panel_4.setLayout(new MigLayout("", "[383.00][192.00][933.00,grow][416.00][]", "[73.00][44.00][62.00][45.00][][72.00][grow][55.00,grow]"));
 
@@ -184,7 +184,7 @@ public class TelaLogin extends JFrame {
 		panel_4.add(txtSenha, "cell 2 4,growx");
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(204, 255, 204));
+		panel_3.setBackground(new Color(236, 253, 232));
 		panel_4.add(panel_3, "cell 2 6,grow");
 		panel_3.setLayout(new MigLayout("", "[316.00][275.00][287.00]", "[10.00][39.00][10.00]"));
 
