@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class LoginTest {
 
 	@Test
-	void test() {
+	void testConsultarLogin() {
 		fail("Not yet implemented");
 	}
 

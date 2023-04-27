@@ -7,8 +7,23 @@ import org.junit.jupiter.api.Test;
 class FuncionarioTest {
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testConsulta() {
+		
+	}
+	
+	@Test
+	void testCadastro() {
+		
+	}
+	
+	@Test
+	void testExcluir() {
+		
+	}
+	
+	@Test
+	void testAlterar() {
+		
 	}
 
 }

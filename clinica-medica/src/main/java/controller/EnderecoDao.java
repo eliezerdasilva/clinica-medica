@@ -27,6 +27,7 @@ public class EnderecoDao implements IEnderecoDao {
 	 * @param ConsultaEndereco
 	 * 
 	 */
+	
 	@Override
 	public Endereco ConsultarEndereco(Endereco endereco) {
 		con = Conexao.getInstacia();

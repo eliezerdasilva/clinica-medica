@@ -174,7 +174,6 @@ public class UsuarioDao implements InterfaceUsuario {
 		
 	}
 
-
 	@Override
 	public Usuario alterarUsuario(Usuario usuario) {
 		con = Conexao.getInstacia();
