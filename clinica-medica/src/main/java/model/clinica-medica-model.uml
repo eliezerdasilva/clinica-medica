@@ -65,10 +65,10 @@
           <ownedParameter xmi:id="_qFo49ON0Ee2G2tt8PYGqlw" name="senha">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
+          <ownedParameter xmi:id="_qFo4-ON0Ee2G2tt8PYGqlw" type="_qEdNMON0Ee2G2tt8PYGqlw" direction="return"/>
           <ownedParameter xmi:id="_qFo49eN0Ee2G2tt8PYGqlw" name="nivelAcesso">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
-          <ownedParameter xmi:id="_qFo4-ON0Ee2G2tt8PYGqlw" type="_qEdNMON0Ee2G2tt8PYGqlw" direction="return"/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_qEebUON0Ee2G2tt8PYGqlw" name="Consulta">

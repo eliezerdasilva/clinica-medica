@@ -34,6 +34,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import net.miginfocom.swing.MigLayout;
+import java.awt.Window.Type;
 
 public class MenuPrincipal extends JFrame {
 
@@ -43,10 +44,11 @@ public class MenuPrincipal extends JFrame {
 	private String senha;
 
 	public MenuPrincipal(String usuario, String senha) {
+		setBackground(new Color(236, 253, 232));
 		this.usuario = usuario;
 		this.senha = senha; 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
-		setTitle("Tela Menu Principal");
+		setTitle("Menu principal");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
@@ -60,6 +62,7 @@ public class MenuPrincipal extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		contentPane = new JPanel();
+		contentPane.setForeground(new Color(0, 204, 102));
 		contentPane.setBorder(new MatteBorder(0, 4, 4, 4, (Color) new Color(0, 0, 0)));
 		setBounds(100, 100, 2000, 1050);
 
@@ -75,7 +78,7 @@ public class MenuPrincipal extends JFrame {
 		mnNewMenu.setForeground(Color.BLACK);
 		mnNewMenu.setPreferredSize(new Dimension(470, 40));
 		mnNewMenu.setBorder(new MatteBorder(4, 4, 4, 2, (Color) new Color(0, 0, 0)));
-		mnNewMenu.setBackground(Color.LIGHT_GRAY);
+		mnNewMenu.setBackground(new Color(204, 255, 204));
 		mnNewMenu.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnNewMenu);
 
@@ -145,6 +148,8 @@ public class MenuPrincipal extends JFrame {
 		mnNewMenu_1.add(mntmNewMenuItem);
 
 		JMenu mnNewMenu_2 = new JMenu("                                                Consultar dados");
+		mnNewMenu_2.setFont(new Font("Century Gothic", Font.BOLD, 15));
+		mnNewMenu_2.setBackground(new Color(236, 253, 232));
 		mnNewMenu_2.setForeground(Color.BLACK);
 		mnNewMenu_2.setBorder(new MatteBorder(4, 2, 4, 2, (Color) new Color(0, 0, 0)));
 		mnNewMenu_2.setPreferredSize(new Dimension(470, 40));
@@ -238,23 +243,29 @@ public class MenuPrincipal extends JFrame {
 
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(144, 238, 144));
 		contentPane.add(panel, "name_432207963291300");
 		panel.setLayout(new MigLayout("", "[100px,grow][802.00,grow][61.00px,grow][383.00px,grow][61px]", "[][::50px,grow][::700,grow][][]"));
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
+		panel_2.setBackground(new Color(0, 153, 0));
+		panel_2.setForeground(new Color(0, 204, 102));
+		panel_2.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(51, 153, 0)));
 		panel.add(panel_2, "cell 1 1,grow");
 		panel_2.setLayout(new CardLayout(0, 0));
 
 		JLabel lblNewLabel = new JLabel("Consultas do dia");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBackground(new Color(0, 153, 0));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 17));
+		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 25));
 		panel_2.add(lblNewLabel, "name_433992018899300");
 
 		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(204, 255, 204));
 		panel.add(panel_4, "cell 1 2,grow");
 		panel_4.setLayout(new CardLayout(0, 0));
-		panel_4.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
+		panel_4.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(51, 153, 0)));
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(201, 362, 619, 197);
@@ -264,17 +275,21 @@ public class MenuPrincipal extends JFrame {
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(new Object[][] {
 
-		}, new String[] { "Id", "Cliente", "Servi\u00E7o", "Valor", "Hora", "Data", "Observacao" }));
+		}, new String[] { "ID", "Cliente", "Servi\u00E7o", "Valor", "Hora", "Data", "Observação" }));
 
 		JPanel panel_5 = new JPanel();
-		panel_5.setBorder(new LineBorder(new Color(0, 0, 0), 4));
+		panel_5.setBackground(new Color(236, 253, 232));
+		panel_5.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel.add(panel_5, "cell 3 2,grow");
 		panel_5.setLayout(new MigLayout("", "[][][][][][]", "[][][][][][][][]"));
+		
+				JLabel lblNewLabel_1 = new JLabel("Cadastrados");
+				lblNewLabel_1.setBackground(new Color(204, 255, 204));
+				lblNewLabel_1.setFont(new Font("Century Gothic", Font.BOLD, 20));
+				panel_5.add(lblNewLabel_1, "cell 1 0");
 
-		JLabel lblNewLabel_1 = new JLabel("Cadastrados");
-		panel_5.add(lblNewLabel_1, "cell 1 1");
-
-		JLabel lblNewLabel_2 = new JLabel("Total de consulta / /");
+		JLabel lblNewLabel_2 = new JLabel("Total de consultas / /");
+		lblNewLabel_2.setFont(new Font("Century Gothic", Font.BOLD, 20));
 		panel_5.add(lblNewLabel_2, "cell 1 3");
 
 		JLabel lblNewLabel_3 = new JLabel("");

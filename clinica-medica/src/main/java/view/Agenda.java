@@ -74,7 +74,7 @@ public class Agenda extends JFrame {
 		this.senha = senha; 
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
-		setTitle("Tela de Cadastro de Consulta");
+		setTitle("Cadastrar consulta");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
@@ -96,31 +96,31 @@ public class Agenda extends JFrame {
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(144, 238, 144));
+		panel.setBackground(new Color(0, 153, 0));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(295)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1906, Short.MAX_VALUE)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(294)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(305))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(38)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(49, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel.setLayout(new MigLayout("", "[1300:n:1300,grow]", "[900:n:900,grow]"));
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 6));
+		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 6));
 		panel.add(panel_1, "cell 0 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new MatteBorder(0, 0, 4, 0, (Color) new Color(0, 0, 0)));
+		panel_2.setBorder(new MatteBorder(0, 0, 4, 0, (Color) new Color(51, 153, 0)));
 		panel_2.setBackground(new Color(51, 153, 0));
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 40));
@@ -134,11 +134,11 @@ public class Agenda extends JFrame {
 		panel_2.add(lblNewLabel_1);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(240, 255, 240));
+		panel_3.setBackground(new Color(236, 253, 232));
 		panel_1.add(panel_3, BorderLayout.CENTER);
 		panel_3.setLayout(new MigLayout("", "[933.00,grow][]", "[20:n:20][35:n:35][][35:n:35][][35:n:35][][350:n:350,grow][35px:n:35px]"));
 		
-		JLabel lblNewLabel_2 = new JLabel("Nome : ");
+		JLabel lblNewLabel_2 = new JLabel("Nome: ");
 		lblNewLabel_2.setForeground(new Color(0, 0, 0));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_2, "flowx,cell 0 1");
@@ -148,7 +148,7 @@ public class Agenda extends JFrame {
 		panel_3.add(txtNome, "cell 0 1,grow");
 		txtNome.setColumns(20);
 		
-		JLabel lblNewLabel_3 = new JLabel("   CPF :    ");
+		JLabel lblNewLabel_3 = new JLabel("   CPF:    ");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_3, "cell 0 1");
 		
@@ -163,16 +163,17 @@ public class Agenda extends JFrame {
 		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnBuscar, "cell 0 1,grow");
 		
-		JLabel lblNewLabel_4 = new JLabel("Médico :");
+		JLabel lblNewLabel_4 = new JLabel("Médico:");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_4, "flowx,cell 0 3");
 		
-		JLabel lblNewLabel_7 = new JLabel("Observação\r\n");
+		JLabel lblNewLabel_7 = new JLabel("Observação\r\n:");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_7, "flowx,cell 0 5");
 		
 		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		panel_4.setBackground(new Color(236, 253, 232));
+		panel_4.setBorder(new LineBorder(new Color(51, 153, 0), 2));
 		panel_3.add(panel_4, "cell 0 7,grow");
 		panel_4.setLayout(null);
 		
@@ -214,7 +215,7 @@ public class Agenda extends JFrame {
 		cbxMedico.setModel(new DefaultComboBoxModel(new String[] {"                                             "}));
 		panel_3.add(cbxMedico, "cell 0 3,growy");
 		
-		JLabel lblNewLabel_5 = new JLabel("Tipo de Consulta : ");
+		JLabel lblNewLabel_5 = new JLabel("Tipo de Consulta: ");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_5.setForeground(new Color(0, 0, 0));
 		panel_3.add(lblNewLabel_5, "cell 0 3");
@@ -223,7 +224,7 @@ public class Agenda extends JFrame {
 		panel_3.add(textConsulta, "cell 0 3,grow");
 		textConsulta.setColumns(20);
 		
-		JLabel lblNewLabel_6 = new JLabel("Data : ");
+		JLabel lblNewLabel_6 = new JLabel("Data: ");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_6, "cell 0 3");
 		
