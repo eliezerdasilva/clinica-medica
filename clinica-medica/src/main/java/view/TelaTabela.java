@@ -90,7 +90,7 @@ public class TelaTabela extends JFrame {
 			e.printStackTrace();
 		}
 
-		JPanel panel = new FundoImagemLogin(bg);
+		JPanel panel = new JPanel();
 		panel.setLayout(new MigLayout("", "[1286.00,grow]", "[700:n:750,grow]"));
 		
 		JPanel panel_1 = new JPanel();

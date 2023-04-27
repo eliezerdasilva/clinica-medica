@@ -236,17 +236,8 @@ public class MenuPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
 
-		BufferedImage bg = null;
 
-		try {
-			bg = ImageIO.read(new File("src/imagens/fundoLogin.jpeg"));
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		JPanel panel = new FundoImagemLogin(bg);
+		JPanel panel = new JPanel();
 		contentPane.add(panel, "name_432207963291300");
 		panel.setLayout(new MigLayout("", "[100px,grow][802.00,grow][61.00px,grow][383.00px,grow][61px]", "[][::50px,grow][::700,grow][][]"));
 

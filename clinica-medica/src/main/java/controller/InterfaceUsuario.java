@@ -8,7 +8,7 @@ public interface InterfaceUsuario {
 	
 	public boolean deletarUsuario(Usuario usuario);
 	 
-	public boolean alterarUsuario(Usuario usuario);
+	public Usuario alterarUsuario(Usuario usuario);
 	
 	public boolean consultarUsuarioCadastrado(Usuario usuarioModelo);
 	

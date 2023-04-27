@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 import model.Medico;
 import model.Paciente;
+import model.Usuario;
 
 public interface  InterfaceMedico {
 
 	public abstract boolean cadastrarMedico(Medico medico);
 	
-	public boolean excluirMedico(Medico medico);
+	public boolean excluirMedico(Long cpf);
 	
 	public boolean alterarMedico(Medico medico);
 
@@ -18,5 +19,6 @@ public interface  InterfaceMedico {
 	boolean consultarMedico(Long cpf);
 	
 	public ArrayList<Medico> listaMedicos();
+	
 
 }

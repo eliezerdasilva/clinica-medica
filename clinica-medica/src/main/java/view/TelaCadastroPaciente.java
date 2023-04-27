@@ -151,7 +151,7 @@ public class TelaCadastroPaciente extends JFrame {
 			e.printStackTrace();
 		}
 
-		JPanel panel = new FundoImagemLogin(bg);
+		JPanel panel = new JPanel();
 		panel.setBackground(new Color(144, 238, 144));
 		panel.setLayout(new MigLayout("", "[1300:n:1300]", "[850]"));
 
@@ -169,7 +169,7 @@ public class TelaCadastroPaciente extends JFrame {
 			e.printStackTrace();
 		}
 
-		JPanel panel_2 = new FundoImagemLoginCabecario(filc);
+		JPanel panel_2 = new  JPanel();
 		panel_2.setBackground(new Color(51, 153, 0));
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 20));
@@ -1011,7 +1011,7 @@ public class TelaCadastroPaciente extends JFrame {
 									JOptionPane.showMessageDialog(null, "Erro ao editar, tente novamente");
 
 								} else {
-									JOptionPane.showMessageDialog(null, "Alteraç sucesso");
+									JOptionPane.showMessageDialog(null, "Alterção sucesso");
 									atualizarTabela();
 
 								}

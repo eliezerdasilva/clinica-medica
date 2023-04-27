@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class UsuarioDao implements InterfaceUsuario {
 			int retorno = 0;
 			con = Conexao.getInstacia();
 			Connection c = con.conectar();
+			int valida = 0;
 			
 		
 			try {
@@ -31,7 +33,7 @@ public class UsuarioDao implements InterfaceUsuario {
 				stm.setInt(3, usuario.getNivelAcesso());
 	
 				
-				retorno = stm.executeUpdate();
+				valida =  stm.executeUpdate();
 
 			
 				
@@ -41,19 +43,13 @@ public class UsuarioDao implements InterfaceUsuario {
 		}finally {
 			con.fecharConexao();
 		}
-			return (retorno == 0 ? false : true);
+			return (valida == 0 ? false : true);
 
 
 	}
 
 	@Override
 	public boolean deletarUsuario(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean alterarUsuario(Usuario usurio) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -176,6 +172,55 @@ public class UsuarioDao implements InterfaceUsuario {
 		}
 		return null;
 		
+	}
+
+
+	@Override
+	public Usuario alterarUsuario(Usuario usuario) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		PreparedStatement stm = null;
+		int valida = 0; 
+		Usuario usuarioNovo = new Usuario();
+		try {
+			stm= c.prepareStatement("Select * from  usuario where login = ? and senha = ?");
+			stm.setString(1, usuario.getUsuario());
+			stm.setString(2,usuario.getSenha());
+			
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Long idUsuario = rs.getLong("idusuario");
+				String usuarioLogin= rs.getString("login");
+				String senha = rs.getString("senha");
+				int n_usuario = rs.getInt("tipo_usuario");
+				
+				usuarioNovo.setId(idUsuario);
+				usuarioNovo.setUsuario(usuarioLogin);
+				usuarioNovo.setSenha(senha);
+				usuarioNovo.setNivelAcesso(n_usuario);
+			} 
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			stm = c.prepareStatement ("update usuario SET login = ?, senha = ? , tipo_usuario = ? WHERE idusuario = ? "
+					);
+			
+			stm.setString(1, usuarioNovo.getUsuario());
+			stm.setString(2, usuarioNovo.getSenha());
+			stm.setInt(3, usuarioNovo.getNivelAcesso());
+			stm.setLong(4,usuarioNovo.getId());
+			valida = stm.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
+		}
+		
+		return usuarioNovo;
 	}
 
 }

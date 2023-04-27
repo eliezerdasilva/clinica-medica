@@ -116,15 +116,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		BufferedImage bg = null;
 
-		try {
-			bg = ImageIO.read(new File("src/imagens/fundoLogin.jpeg"));
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		JPanel panel = new FundoImagemLogin(bg);
+		JPanel panel = new JPanel();
 		panel.setBackground(new Color(144, 238, 144));
 		GroupLayout gl_contentPane2 = new GroupLayout(contentPane);
 		gl_contentPane2.setHorizontalGroup(
@@ -156,7 +148,7 @@ public class TelaCadastroFuncionario extends JFrame {
 			e1.printStackTrace();
 		}
 
-		JPanel panel_2 = new FundoImagemLoginCabecario(filc);
+		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(51, 153, 0));
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 25));
