@@ -1,21 +1,29 @@
 package model;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
+
 import java.time.LocalDate;
+
+
 
 public class Consulta {
 
 	private int id;
 	private LocalDate date;
-	private Instant hora; 
+	private Timestamp hora; 
 	private String servico;
 	private String observacao;
 	private Paciente paciente;
+	private Medico medico;
+	
 	
 	public Consulta(){}
  
-	public Consulta(int id, LocalDate date, Instant hora, String servico, String observacao, Paciente paciente) {
+
+
+	public Consulta(int id, LocalDate date, Timestamp hora, String servico, String observacao, Paciente paciente,
+			Medico medico) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -23,7 +31,11 @@ public class Consulta {
 		this.servico = servico;
 		this.observacao = observacao;
 		this.paciente = paciente;
+		this.medico = medico;
 	}
+
+
+
 	public int getId() {
 		return id;
 	}
@@ -65,12 +77,20 @@ public class Consulta {
 	}
 	
 
-	public Instant getHora() {
+	public Timestamp getHora() {
 		return hora;
 	}
 
-	public void setHora(Instant hora) {
+	public void setHora(Timestamp hora) {
 		this.hora = hora;
+	}
+
+	public Medico getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
 	}
 
 	@Override

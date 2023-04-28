@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
   `paciente_cpf` BIGINT NOT NULL,
   `tipo_consulta` VARCHAR(45) NOT NULL,
   `medico_cpf` bigint NOT NULL,
+  `observacao` VARCHAR(45) NOT NULL,
 
     FOREIGN KEY (`paciente_cpf`)
     REFERENCES `clinica`.`paciente` (`cpf`),

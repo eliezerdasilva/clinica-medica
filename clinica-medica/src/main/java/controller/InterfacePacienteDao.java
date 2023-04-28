@@ -20,7 +20,9 @@ public interface InterfacePacienteDao {
 
 	boolean excluirPaciente(Long cpf);
 
-	
+	public Paciente consultarPacienteExistenteNome(String nome);
+
+	public Paciente consultarPacienteExistenteCpf(Long cpf);
 
 
 }

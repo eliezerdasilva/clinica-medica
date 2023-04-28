@@ -16,6 +16,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -34,20 +37,34 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import net.miginfocom.swing.MigLayout;
+import utils.DigitalWatch;
 
-public class MenuPrincipal extends JFrame {
+import javax.swing.JButton;
 
+public class MenuPrincipal extends JFrame implements Runnable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
 	private String usuario;
 	private String senha;
+	Thread t=null;
+	int hours=0, minutes=0, seconds=0;
+	String timeString = "";
+	private JButton btnNewButton;
+	
 
 	public MenuPrincipal(String usuario, String senha) {
 		this.usuario = usuario;
 		this.senha = senha; 
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Tela Menu Principal");
-
+		t = new Thread(this);
+        t.start();
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
 			Image imgIcon = Toolkit.getDefaultToolkit().getImage(resourceIcon);
@@ -239,7 +256,7 @@ public class MenuPrincipal extends JFrame {
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, "name_432207963291300");
-		panel.setLayout(new MigLayout("", "[100px,grow][802.00,grow][61.00px,grow][383.00px,grow][61px]", "[][::50px,grow][::700,grow][][]"));
+		panel.setLayout(new MigLayout("", "[100px,grow][802.00,grow][61.00px,grow][383.00px,grow][61px]", "[][::50px,grow][::700,grow][][][][]"));
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
@@ -286,27 +303,41 @@ public class MenuPrincipal extends JFrame {
 		
 		JLabel lblUsuario = new JLabel(usuario);
 		panel.add(lblUsuario, "cell 3 4");
+		
+		 btnNewButton = new JButton(               );
+		panel.add(btnNewButton, "cell 3 6,growx");
+		
+		
+		
+	
+	 }
 
+
+	@Override
+	public void run() {
+
+		   try {
+		         while (true) {
+		        	
+
+		            Calendar cal = Calendar.getInstance();
+		            hours = cal.get( Calendar.HOUR_OF_DAY );
+		            if ( hours > 12 ) hours -= 12;
+		            minutes = cal.get( Calendar.MINUTE );
+		            seconds = cal.get( Calendar.SECOND );
+
+		            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss");
+		            Date date = cal.getTime();
+		            timeString = formatter.format( date );
+
+		            btnNewButton.setText(timeString);
+
+		       
+		         }
+		      }
+		      catch (Exception e) { }
+	
 	}
-
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
+   
 	}
-
-}
+	

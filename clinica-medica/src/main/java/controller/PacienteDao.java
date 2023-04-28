@@ -98,10 +98,6 @@ public class PacienteDao implements InterfacePacienteDao {
 			stm.executeUpdate();
 
 			valida = stm.executeUpdate();
-			if (valida > 0) {
-		
-			    System.out.println("Alterado com sucesso!");
-			}	
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -222,6 +218,108 @@ public class PacienteDao implements InterfacePacienteDao {
 		return resultado;
 		
 	}
+
+	@Override
+	public Paciente consultarPacienteExistenteNome(String nome) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		Paciente paciente = new Paciente();
+		try {
+			PreparedStatement ps = c.prepareStatement("select * from paciente where nome = ?");
+			ps.setString(1, nome);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+	
+				
+				int endereco_cep = rs.getInt("endereco_cep");
+				int numero = rs.getInt("numero");
+				String complemento = rs.getString("complemento");
+				
+
+				Convenio convenio = new Convenio();
+				Endereco endereco = new Endereco();
+				
+				paciente.setCpf(rs.getLong("cpf"));
+				paciente.setNome(rs.getString("nome"));
+				paciente.setSexo(rs.getString("sexo"));
+				paciente.setEmail(rs.getString("email"));
+				paciente.setTelefone(rs.getString("telefone"));
+				paciente.setProfissao(rs.getString("profissao"));
+				convenio.setId(rs.getInt("convenio_id")); 
+				paciente.setConvenio(convenio);
+				paciente.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				endereco.setCep(rs.getInt("endereco_cep"));
+				paciente.setEndereco(endereco);
+				paciente.setNumero(rs.getInt("numero"));
+				paciente.setComplemento(rs.getString("complemento"));
+				
+				return paciente;
+			
+			}
+		}
+			catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
+		
+		
+		return null;
+	}
+
+	@Override
+	public Paciente consultarPacienteExistenteCpf(Long cpf) {
+	
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		Paciente paciente = new Paciente();
+		try {
+			PreparedStatement ps = c.prepareStatement("select * from paciente where cpf = ?");
+			ps.setLong(1, cpf);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+	
+				
+				int endereco_cep = rs.getInt("endereco_cep");
+				int numero = rs.getInt("numero");
+				String complemento = rs.getString("complemento");
+				
+
+				Convenio convenio = new Convenio();
+				Endereco endereco = new Endereco();
+				
+				paciente.setCpf(rs.getLong("cpf"));
+				paciente.setNome(rs.getString("nome"));
+				paciente.setSexo(rs.getString("sexo"));
+				paciente.setEmail(rs.getString("email"));
+				paciente.setTelefone(rs.getString("telefone"));
+				paciente.setProfissao(rs.getString("profissao"));
+				convenio.setId(rs.getInt("convenio_id")); 
+				paciente.setConvenio(convenio);
+				paciente.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				endereco.setCep(rs.getInt("endereco_cep"));
+				paciente.setEndereco(endereco);
+				paciente.setNumero(rs.getInt("numero"));
+				paciente.setComplemento(rs.getString("complemento"));
+				
+				return paciente;
+			
+			}
+		}
+			catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
+		
+		
+		return null;
+	}
+
 
 
 }
