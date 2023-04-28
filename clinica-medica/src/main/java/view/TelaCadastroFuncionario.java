@@ -94,7 +94,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		this.senha = senha;
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
-		setTitle("Tela Cadastro de Funcionario");
+		setTitle("Cadastro do funcinário");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
@@ -117,7 +117,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		BufferedImage bg = null;
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(144, 238, 144));
+		panel.setBackground(new Color(51, 153, 0));
 		GroupLayout gl_contentPane2 = new GroupLayout(contentPane);
 		gl_contentPane2.setHorizontalGroup(
 			gl_contentPane2.createParallelGroup(Alignment.TRAILING)
@@ -134,6 +134,8 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel.setLayout(new MigLayout("", "[1286.00,grow]", "[900:n:900,grow]"));
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setForeground(Color.BLACK);
+		panel_1.setBackground(new Color(236, 253, 232));
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
 		panel.add(panel_1, "cell 0 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
@@ -153,20 +155,21 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 25));
 
-		JLabel lblNewLabel = new JLabel("Cadastro Funcionario"); 
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 32));
+		JLabel lblNewLabel = new JLabel("Cadastro do funcionário"); 
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblNewLabel, "name_169020969106100");
 
 		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(240, 255, 240));
+		panel_4.setBackground(new Color(204, 255, 204));
 		panel_1.add(panel_4, BorderLayout.CENTER);
 		panel_4.setLayout(new MigLayout("", "[1280:n:1280,grow]",
 				"[150:n:150px,grow][160:n:160,grow][100:n:100,grow][350:n:350,grow]"));
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(60, 179, 113), 4));
-		panel_3.setBackground(new Color(240, 255, 240));
+		panel_3.setBorder(new LineBorder(new Color(51, 153, 0), 4));
+		panel_3.setBackground(new Color(236, 253, 232));
 		panel_4.add(panel_3, "cell 0 0,grow");
 		panel_3.setLayout(new MigLayout("", "[][300:n:300,grow][][300:n:300][][][150:n:150,grow]",
 				"[][30:n:30][][30:n:30][][30:n:30][]"));
@@ -191,20 +194,20 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_3.add(txtEmail, "cell 1 3,grow");
 		txtEmail.setColumns(10);
 
-		JLabel lblNewLabel_5 = new JLabel("Cpf :    ");
+		JLabel lblNewLabel_5 = new JLabel("CPF:    ");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_5, "flowx,cell 3 3,grow");
 
-		JLabel lblNewLabel_8 = new JLabel("Sexo :");
+		JLabel lblNewLabel_8 = new JLabel("Sexo:");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_8, "cell 5 3");
 
 		JRadioButton rdbtnMasculino = new JRadioButton("M");
 		rdbtnMasculino.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		rdbtnMasculino.setBackground(new Color(152, 251, 152));
+		rdbtnMasculino.setBackground(new Color(236, 253, 232));
 		panel_3.add(rdbtnMasculino, "flowx,cell 6 3,grow");
 
-		JLabel lblNewLabel_3 = new JLabel("Profissão :");
+		JLabel lblNewLabel_3 = new JLabel("Profissão:");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_3, "cell 0 5,alignx trailing");
 
@@ -245,18 +248,18 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JRadioButton rdbtnFeminino = new JRadioButton("F");
 		rdbtnFeminino.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		rdbtnFeminino.setBackground(new Color(152, 251, 152));
+		rdbtnFeminino.setBackground(new Color(236, 253, 232));
 		panel_3.add(rdbtnFeminino, "cell 6 3,grow");
 
 		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(new Color(240, 255, 240));
-		panel_5.setBorder(new LineBorder(new Color(107, 142, 35), 5));
+		panel_5.setBackground(new Color(236, 253, 232));
+		panel_5.setBorder(new LineBorder(new Color(51, 153, 0), 5));
 		panel_4.add(panel_5, "cell 0 1,grow");
 		panel_5.setLayout(new MigLayout("",
 				"[80:n:80][150:n:150,grow][150:n:150][150:n:150,grow][100:n:100][180:n:180,grow][70:n:70][200:n:200px,grow][150:n:150]",
 				"[5:n:5][][5:n:5][30:n:30][5:n:5][30:n:30][5:n:5]"));
 
-		JLabel lblNewLabel_9 = new JLabel("CEP :");
+		JLabel lblNewLabel_9 = new JLabel("CEP:");
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_9, "cell 0 1,alignx trailing");
@@ -274,7 +277,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnBuscarCep.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(btnBuscarCep, "cell 3 1 2 1,grow");
 
-		JLabel lblNewLabel_10 = new JLabel("Estado :");
+		JLabel lblNewLabel_10 = new JLabel("Estado:");
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_10, "cell 0 3,alignx trailing");
@@ -282,7 +285,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		JComboBox cbxEstado = new JComboBox();
 		panel_5.add(cbxEstado, "cell 1 3,grow");
 
-		JLabel lblNewLabel_11 = new JLabel("Municipio :");
+		JLabel lblNewLabel_11 = new JLabel("Município:");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_11, "cell 2 3,alignx center");
@@ -299,7 +302,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_5.add(txtBairro, "cell 5 3,grow");
 		txtBairro.setColumns(10);
 
-		JLabel lblNewLabel_13 = new JLabel("Rua : ");
+		JLabel lblNewLabel_13 = new JLabel("Rua: ");
 		lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_13, "cell 6 3,alignx trailing");
 
@@ -307,7 +310,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_5.add(txtRua, "cell 7 3,grow");
 		txtRua.setColumns(10);
 		
-		JLabel lblNewLabel_14 = new JLabel("N° :");
+		JLabel lblNewLabel_14 = new JLabel("N°:");
 		lblNewLabel_14.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_14, "cell 0 5,alignx trailing");
 
@@ -315,7 +318,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_5.add(txtNumero, "cell 1 5,grow");
 		txtNumero.setColumns(10);
 
-		JLabel lblNewLabel_15 = new JLabel("Complemento :");
+		JLabel lblNewLabel_15 = new JLabel("Complemento:");
 		lblNewLabel_15.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_15, "cell 2 5,alignx center");
 
@@ -325,7 +328,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JPanel panel_9 = new JPanel();
 		panel_9.setBackground(new Color(240, 255, 240));
-		panel_9.setBorder(new LineBorder(new Color(60, 179, 113), 4));
+		panel_9.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel_4.add(panel_9, "cell 0 2,grow");
 		panel_9.setLayout(
 				new MigLayout("", "[80:n:80][200:n:200,grow][130:n:130][200:n:200,grow][20:n:20][][][][220:n:220]",
@@ -336,7 +339,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblNewLabel_23.setFont(new Font("Century Gothic", Font.BOLD, 25));
 		panel_9.add(lblNewLabel_23, "cell 0 0 9 1,alignx center");
 
-		JLabel lblNewLabel_20 = new JLabel("Senha :");
+		JLabel lblNewLabel_20 = new JLabel("Senha:");
 		lblNewLabel_20.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_9.add(lblNewLabel_20, "cell 0 1,alignx trailing");
 
@@ -344,7 +347,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_9.add(txtSenha, "cell 1 1,grow");
 		txtSenha.setColumns(10);
 
-		JLabel lblNewLabel_21 = new JLabel("Usuario : ");
+		JLabel lblNewLabel_21 = new JLabel("Usuário: ");
 		lblNewLabel_21.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_9.add(lblNewLabel_21, "cell 2 1,alignx trailing");
 
@@ -352,16 +355,16 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_9.add(passwordField, "cell 3 1,grow");
 
 		JRadioButton rdbtnAdministrador = new JRadioButton("Administrador");
-		rdbtnAdministrador.setBackground(new Color(152, 251, 152));
+		rdbtnAdministrador.setBackground(new Color(236, 253, 232));
 		rdbtnAdministrador.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_9.add(rdbtnAdministrador, "cell 5 1");
 
-		JRadioButton rdbtnFuncionario = new JRadioButton("Funcionario");
-		rdbtnFuncionario.setBackground(new Color(152, 251, 152));
+		JRadioButton rdbtnFuncionario = new JRadioButton("Funcionário");
+		rdbtnFuncionario.setBackground(new Color(236, 253, 232));
 		rdbtnFuncionario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_9.add(rdbtnFuncionario, "cell 6 1");
 
-		JButton btnCadastrarUsuario = new JButton("Cadastrar Novo Funcionario");
+		JButton btnCadastrarUsuario = new JButton("Cadastrar funcionário");
 		btnCadastrarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -398,7 +401,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				// TODO nova validacao nome
 				if (nome == null || nome.trim() == "" || nome.isEmpty()) {
 					txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					JOptionPane.showMessageDialog(null, "Nome Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+					JOptionPane.showMessageDialog(null, "Nome vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
 					return;
 				} else {
 					p.setNome(nome);
@@ -407,7 +410,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 				if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
 					// txtCpf.setBorder(new LineBorder(new Color(255, 00, 00, 4));
-					JOptionPane.showMessageDialog(null, "CPF Vazio", "ok", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "CPF vazio", "ok", JOptionPane.ERROR_MESSAGE);
 					return;
 				} else {
 					Long cpf = Long.valueOf(cpfTxt);
@@ -416,7 +419,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				// sexo
 
 				if (sexo == null || sexo.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+					JOptionPane.showMessageDialog(null, "Sexo vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
 					rdbtnFeminino.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					rdbtnMasculino.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					return;
@@ -425,7 +428,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				}
 				// email
 				if (email == null || email.trim() == "" || email.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+					JOptionPane.showMessageDialog(null, "Sexo vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
 					txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					return;
 				} else {
@@ -433,7 +436,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				}
 				// telefone
 				if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Telefone Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+					JOptionPane.showMessageDialog(null, "Telefone vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
 					txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					return;
 				} else {
@@ -441,7 +444,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				}
 				// data nascimento
 				if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Data Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					JOptionPane.showMessageDialog(null, "Data vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
 					txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					return;
 				} else {
@@ -455,7 +458,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					p.setComplemento(complemento);
 
 					if (n == null || n.trim() == "" || n.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Numero Vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
+						JOptionPane.showMessageDialog(null, "Numero vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
 						txtNumero.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 						return;
 					} else {
@@ -477,7 +480,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					EnderecoDao endereco = new EnderecoDao();
 
 					if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
-						JOptionPane.showInternalMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+						JOptionPane.showInternalMessageDialog(null, "CEP vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
 						txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 						return;
 					} else {
@@ -486,7 +489,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					}
 
 					if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
-						JOptionPane.showInternalMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+						JOptionPane.showInternalMessageDialog(null, "CEP vazio", "ok", JOptionPane.ERROR_MESSAGE, null);
 						txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 						return;
 					} else {
@@ -554,8 +557,8 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_9.add(btnCadastrarUsuario, "cell 8 1,grow");
 
 		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(new Color(240, 255, 240));
-		panel_6.setBorder(new LineBorder(new Color(60, 179, 113), 4));
+		panel_6.setBackground(new Color(236, 253, 232));
+		panel_6.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel_4.add(panel_6, "cell 0 3,grow");
 		panel_6.setLayout(
 				new MigLayout("", "[80:n:80][200:n:200,grow][][100:n:100][200:n:200,grow][][220:n:220][350:n:350]",
@@ -593,7 +596,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JPanel panel_7 = new JPanel();
 		panel_7.setBackground(new Color(240, 255, 240));
-		panel_7.setBorder(new LineBorder(new Color(60, 179, 113), 4));
+		panel_7.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel_6.add(panel_7, "cell 1 3 7 1,grow");
 		panel_7.setLayout(null);
 

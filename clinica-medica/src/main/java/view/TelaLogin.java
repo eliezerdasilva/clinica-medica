@@ -69,7 +69,7 @@ public class TelaLogin extends JFrame {
 	public TelaLogin() {
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
-		setTitle("Tela de login");
+		setTitle("Login");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
@@ -83,14 +83,14 @@ public class TelaLogin extends JFrame {
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
-		contentPane.setBackground(new Color(0, 0, 0));
+		contentPane.setBackground(new Color(144, 238, 144));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBounds(100, 100, 2000, 1050);
 
 		setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(204, 255, 204));
+		panel.setBackground(new Color(144, 238, 144));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -117,17 +117,18 @@ public class TelaLogin extends JFrame {
 		panel_2.setLayout(new CardLayout(0, 40));
 
 		JLabel lblNewLabel = new JLabel("Login");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 32));
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 50));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblNewLabel, "name_169020969106100");
 
 		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(204, 255, 204));
 		panel_1.add(panel_4, BorderLayout.CENTER);
-		panel_4.setLayout(new MigLayout("", "[383.00][192.00][933.00,grow][416.00][]",
-				"[73.00][44.00][62.00][45.00][][72.00][grow][55.00,grow]"));
+		panel_4.setLayout(new MigLayout("", "[383.00][192.00][933.00,grow][416.00][]", "[73.00][44.00][62.00][45.00][][72.00][grow][55.00,grow]"));
 
-		JLabel lblNewLabel_1 = new JLabel("Usuario ");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 22));
+		JLabel lblNewLabel_1 = new JLabel("Usuário:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		panel_4.add(lblNewLabel_1, "cell 2 1");
 
 		txtUsuario = new RoundJTextField(15);
@@ -156,8 +157,8 @@ public class TelaLogin extends JFrame {
 		panel_4.add(txtUsuario, "cell 2 2,growx,aligny center");
 		txtUsuario.setColumns(10);
 
-		JLabel lblNewLabel_2 = new JLabel("Senha\r\n");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 22));
+		JLabel lblNewLabel_2 = new JLabel("Senha:\r\n\r\n");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		panel_4.add(lblNewLabel_2, "cell 2 3");
 
 		txtSenha = new RoundJTextPassword(15);
@@ -183,10 +184,12 @@ public class TelaLogin extends JFrame {
 		panel_4.add(txtSenha, "cell 2 4,growx");
 
 		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(204, 255, 204));
 		panel_4.add(panel_3, "cell 2 6,grow");
 		panel_3.setLayout(new MigLayout("", "[316.00][275.00][287.00]", "[10.00][39.00][10.00]"));
 
 		JButton btnNewButton = new RoundButton("Entrar");
+		btnNewButton.setFont(new Font("Century Gothic", Font.BOLD, 15));
 		btnNewButton.setIcon(new ImageIcon(
 				"C:\\Users\\frete\\Documents\\clinica-medica\\src\\imagens\\icons8-login-arredondado-30.png"));
 
