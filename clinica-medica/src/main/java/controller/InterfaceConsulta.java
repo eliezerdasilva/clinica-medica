@@ -13,14 +13,14 @@ public interface InterfaceConsulta {
 	
 	public boolean excluitConsulta(Consulta consulta);
 	 
-	public ArrayList<Agenda> listConsulta();
+	public ArrayList<Consulta> listConsulta();
 	
-	public ArrayList<Agenda> listConsultaDia();
+	public ArrayList<Consulta> listConsultaDia();
 	
-	public ArrayList<Agenda> listConsultaSemana();
+	public ArrayList<Consulta> listConsultaSemana();
 	
-	public ArrayList<Agenda> listConsultaMes();
+	public ArrayList<Consulta> listConsultaMes();
 	
-	public Agenda consultaAgendaPaciente();
+	public Consulta consultaAgendaPaciente();
 
 }
