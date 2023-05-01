@@ -16,15 +16,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
-import javax.swing.Box;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -33,11 +28,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.table.DefaultTableModel;
 
 import controller.AgendaDao;
 import controller.MedicoDao;
@@ -47,18 +46,13 @@ import model.Medico;
 import model.Paciente;
 import net.miginfocom.swing.MigLayout;
 import utils.Jcaledar;
-import javax.swing.event.AncestorListener;
-import javax.swing.text.DateFormatter;
-import javax.swing.event.AncestorEvent;
-import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
 
 public class Agenda extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtCpf;
-	private JTextField textObservacao;
+	private JTextField txtObservacao;
 	private String usuario;
 	private String senha;
 	private JTextField txtTipoConsulta;
@@ -66,14 +60,21 @@ public class Agenda extends JFrame {
 	private AgendaDao agendaDao = new AgendaDao();
 	private PacienteDao pacienteDao = new PacienteDao();
 	private JComboBox<Medico> cbxMedico;
-	private JTable table;
+	private JTable table = null;
 	private ArrayList<Consulta> listaConsulta = new ArrayList<>();
-
+	private JButton btnCadastrar;
+	private Component btnExcluir;
+	private JButton btnEditar;
+	private  Consulta consultaClick = new Consulta();
+	private ArrayList<Consulta> listConsulta = new ArrayList<>();
+	private Jcaledar txtCaledar; 
+	
 
 	public Agenda(String usuario, String senha) {
-		//AtualizarTabela();
+
 		this.usuario = usuario;
 		this.senha = senha;
+		this.listConsulta = agendaDao.listConsulta();
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Cadastrar consulta");
@@ -136,8 +137,9 @@ public class Agenda extends JFrame {
 		panel_3.setBackground(new Color(236, 253, 232));
 		panel_1.add(panel_3, BorderLayout.WEST);
 
-		panel_3.setLayout(new MigLayout("", "[120:n:120,grow][][][][][200:n:200][][150:n:150][120:n:120]", "[20:n:20][35:n:35][][35:n:35][][35:n:35][][350:n:350,grow][][35px:n:35px]"));
-		
+		panel_3.setLayout(new MigLayout("", "[120:n:120,grow][][][][][200:n:200][][150:n:150][120:n:120]",
+				"[20:n:20][35:n:35][][35:n:35][][35:n:35][][350:n:350,grow][][35px:n:35px]"));
+
 		JLabel lblNewLabel_2 = new JLabel("Nome: ");
 
 		lblNewLabel_2.setForeground(new Color(0, 0, 0));
@@ -149,7 +151,6 @@ public class Agenda extends JFrame {
 		panel_3.add(txtNome, "cell 1 1,grow");
 		txtNome.setColumns(20);
 
-		
 		JLabel lblNewLabel_3 = new JLabel(" CPF: ");
 
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -159,8 +160,6 @@ public class Agenda extends JFrame {
 		panel_3.add(txtCpf, "cell 3 1,alignx left,growy");
 		txtCpf.setColumns(20);
 
-
-		
 		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -168,7 +167,8 @@ public class Agenda extends JFrame {
 				String cpfString = txtCpf.getText();
 				Paciente pacienteAgendamento = null;
 				if (cpfString == null || cpfString.trim() == "" || cpfString.isEmpty()) {
-					int n = JOptionPane.showConfirmDialog(null, "Paciente não cadastrado, deseja cadastrar um novo paciente ?  " + "", "",
+					int n = JOptionPane.showConfirmDialog(null,
+							"Paciente não cadastrado, deseja cadastrar um novo paciente ?  " + "", "",
 							JOptionPane.YES_NO_OPTION);
 
 					if (n == JOptionPane.YES_OPTION) {
@@ -176,7 +176,7 @@ public class Agenda extends JFrame {
 						telaPaciente.setLocationRelativeTo(null);
 						telaPaciente.setVisible(true);
 						dispose();
-						
+
 					}
 
 				} else {
@@ -196,22 +196,20 @@ public class Agenda extends JFrame {
 		JLabel lblNewLabel_6 = new JLabel("Data : ");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_6, "flowx,cell 3 3,alignx left");
-		
-				JLabel lblNewLabel_8 = new JLabel("Hora : ");
-				lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_3.add(lblNewLabel_8, "flowx,cell 5 3");
+
+		JLabel lblNewLabel_8 = new JLabel("Hora : ");
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(lblNewLabel_8, "flowx,cell 5 3");
 
 		JLabel lblNewLabel_7 = new JLabel("Observação\r\n");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_7, "flowx,cell 1 5");
 
-		Jcaledar txtCaledar = new Jcaledar();
+		 txtCaledar = new Jcaledar();
 		txtCaledar.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		
-		
 
 		panel_3.add(txtCaledar, "cell 3 3,grow");
 		txtCaledar.setPreferredSize(new Dimension(120, 20));
@@ -222,11 +220,9 @@ public class Agenda extends JFrame {
 		lblNewLabel_5.setForeground(new Color(0, 0, 0));
 		panel_3.add(lblNewLabel_5, "flowx,cell 3 5");
 
-	
-		
-		textObservacao = new JTextField();
-		panel_3.add(textObservacao, "cell 1 5,grow");
-		textObservacao.setColumns(25);
+		txtObservacao = new JTextField();
+		panel_3.add(txtObservacao, "cell 1 5,grow");
+		txtObservacao.setColumns(25);
 
 		cbxMedico = new JComboBox();
 		cbxMedico.addAncestorListener(new AncestorListener() {
@@ -246,177 +242,352 @@ public class Agenda extends JFrame {
 			}
 		});
 		panel_3.add(cbxMedico, "cell 1 3,grow");
-		
+
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(new Color(236, 253, 232));
 		panel_4.setBorder(new LineBorder(new Color(51, 153, 0), 2));
 		panel_3.add(panel_4, "cell 1 7 7 1,grow");
 		panel_4.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 1011, 330);
+		scrollPane.setBounds(10, 11, 972, 330);
 		panel_4.add(scrollPane);
-		
+
 		table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] {
-			},
-			new String[] {
-				"Paciente", "Medico", "Data", "Hora"
-			}
-		));
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Medico", "Data", "Hora" }));
+		AtualizarTabela();
 		scrollPane.setViewportView(table);
-				
-				JButton btnEditar = new JButton("Editar ");
-				btnEditar.setBackground(new Color(240, 255, 240));
-				btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
-				panel_3.add(btnEditar, "cell 1 9,grow");
-				
-				JButton btnExcluir = new JButton("Excluir");
-				btnExcluir.setBackground(new Color(240, 240, 240));
-				btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
-				panel_3.add(btnExcluir, "cell 5 9,grow");
-				
-						txtTipoConsulta = new JTextField();
-						panel_3.add(txtTipoConsulta, "flowx,cell 3 5,grow");
-						txtTipoConsulta.setColumns(10);
-						
-								txtHora = new JTextField();
-								panel_3.add(txtHora, "cell 5 3,grow");
-								txtHora.setColumns(10);
-								
-										JButton btnCadastrar = new JButton("Cadastrar");
-										btnCadastrar.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent e) {
 
-												Date data = txtCaledar.getDate();
+		btnEditar = new JButton("Editar ");
+		btnEditar.addActionListener(new ActionListener() {
+			private JButton btnsalvar;
 
-												String nome = txtNome.getText();
-
-												String cpf = txtCpf.getText().replace(".", "").replace("-", "");
-
-												String tipoConsulta = txtTipoConsulta.getText();
-
-												String observacao = textObservacao.getText();
-
-												String validacao = "";
-
-												String hora = txtHora.getText();
-
-												Consulta c = new Consulta();
-												Paciente p = new Paciente();
-
-												if (nome == null || nome.trim() == "" || nome.isEmpty()) {
-													txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-													validacao += "Nome\n";
-												} else {
-													p.setNome(nome);
-												}
-
-												if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
-													txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-													validacao += "CPF\n";
-												} else {
-													Long cpfLong = Long.valueOf(cpf);
-													p.setCpf(cpfLong);
-												}
-												c.setPaciente(p);
-
-												if (tipoConsulta == null || tipoConsulta.trim() == "" || tipoConsulta.isEmpty()) {
-													txtTipoConsulta.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-													validacao += "Tipo consulta\n";
-												} else {
-													c.setServico(tipoConsulta);
-												}
-
-												if (data == null) {
-													txtCaledar.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-													validacao += "Dat\n";
-
-												} else {
-													SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-		
-													String dataFormatada = formatador.format(data);
-							
-													DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-													LocalDate dataFormatadaNova = LocalDate.parse(dataFormatada,formatter);
-													c.setDate(dataFormatadaNova);
-												}
-												if (hora == null || hora.trim() == "" || hora.isEmpty()) {
-													txtHora.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-												} else {
-													SimpleDateFormat dt = new SimpleDateFormat("hh:mm"); 
-													Date date = null;
-													try {
-														date = dt.parse(hora);
-													} catch (ParseException e1) {
-														// TODO Auto-generated catch block
-														e1.printStackTrace();
-													} 
-													 DateFormat df = new SimpleDateFormat("HH:mm");					
-													
-													 try {
-														Date datse = df.parse(hora);
-														Timestamp ts = new Timestamp(date.getTime());
-														c.setHora(ts);
-													} catch (ParseException e1) {
-														// TODO Auto-generated catch block
-														e1.printStackTrace();
-													}
-													
-													
-												}
-												Medico medico = (Medico) cbxMedico.getSelectedItem();
-												Long cp = medico.getCpf();
-												medico.setCpf(cp);
-												c.setMedico(medico);
-
-												if (observacao == null || observacao.trim() == "" || observacao.isEmpty()) {
-													textObservacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-												} else {
-													c.setObservacao(observacao);
-												}
-												boolean cadastroConsulta = agendaDao.cadastraConsulta(c);
-												if (cadastroConsulta != true) {
-													JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
-												} else {
-
-													JOptionPane.showMessageDialog(null, "Consulta cadastrada");
-													//AtualizarTabela();
-												}
-
-											}
-										});
-										
-											
-												btnCadastrar.setBackground(new Color(240, 255, 240));
-												btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
-												panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
-												
-												JButton btnNewButton_1 = new JButton("Voltar");
-												btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-												panel_3.add(btnNewButton_1, "cell 7 9,grow");
-
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBackground(new Color(240, 255, 240));
-		btnVoltar.setForeground(new Color(0, 0, 0));
-		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				btnCadastrar.setVisible(false);
+				panel_3.remove(btnCadastrar);
+
+				btnExcluir.setVisible(false);
+				panel_3.remove(btnExcluir);
+
+				btnEditar.setVisible(false);
+				panel_3.remove(btnEditar);
+
+				JButton voltar = new JButton("Volta");
+				voltar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						panel_3.add(btnCadastrar);
+						btnCadastrar.setVisible(true);
+
+						btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
+						panel_3.add(btnExcluir, "cell 1 5,growx");
+						btnExcluir.setVisible(true);
+
+						btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
+						panel_3.add(btnEditar, "cell 3 5,grow");
+						btnEditar.setVisible(true);
+
+						panel_3.remove(voltar);
+						voltar.setVisible(false);
+
+						btnsalvar.setVisible(false);
+						panel_3.remove(btnsalvar);
+
+						
+					}
+				});
+				
+				int position = table.getSelectedRow();
+
+				if (position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+				consultaClick = listConsulta.get(position);
+				setarDados(consultaClick);
+				
+				btnsalvar = new JButton("Salvar");
+				btnsalvar.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						Date data = txtCaledar.getDate();
+
+						String nome = txtNome.getText();
+
+						String cpf = txtCpf.getText().replace(".", "").replace("-", "");
+
+						String tipoConsulta = txtTipoConsulta.getText();
+
+						String observacao = txtObservacao.getText();
+
+						String validacao = "";
+
+						String hora = txtHora.getText();
+
+						Consulta c = new Consulta();
+						Paciente p = new Paciente();
+
+						if (nome == null || nome.trim() == "" || nome.isEmpty()) {
+							txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Nome\n";
+						} else {
+							p.setNome(nome);
+						}
+
+						if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
+							txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "CPF\n";
+						} else {
+							Long cpfLong = Long.valueOf(cpf);
+							p.setCpf(cpfLong);
+						}
+						c.setPaciente(p);
+
+						if (tipoConsulta == null || tipoConsulta.trim() == "" || tipoConsulta.isEmpty()) {
+							txtTipoConsulta.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Tipo consulta\n";
+						} else {
+							c.setServico(tipoConsulta);
+						}
+
+						if (data == null) {
+							txtCaledar.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+							validacao += "Dat\n";
+
+						} else {
+							SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+							String dataFormatada = formatador.format(data);
+
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+							LocalDate dataFormatadaNova = LocalDate.parse(dataFormatada, formatter);
+							c.setDate(dataFormatadaNova);
+						}
+						if (hora == null || hora.trim() == "" || hora.isEmpty()) {
+							txtHora.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						} else {
+							SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
+							Date date = null;
+							try {
+								date = dt.parse(hora);
+							} catch (ParseException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							DateFormat df = new SimpleDateFormat("HH:mm");
+
+							try {
+								Date datse = df.parse(hora);
+								Timestamp ts = new Timestamp(date.getTime());
+								c.setHora(ts);
+							} catch (ParseException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+						}
+						Medico medico = (Medico) cbxMedico.getSelectedItem();
+						Long cp = medico.getCpf();
+						medico.setCpf(cp);
+						c.setMedico(medico);
+
+						if (observacao == null || observacao.trim() == "" || observacao.isEmpty()) {
+							txtObservacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+						} else {
+							c.setObservacao(observacao);
+						}
+						boolean cadastroConsulta = agendaDao.alterarConsulta(c);
+						if (cadastroConsulta != true) {
+							JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
+						} else {
+
+							JOptionPane.showMessageDialog(null, "Consulta cadastrada");
+							AtualizarTabela();
+							// AtualizarTabela();
+						}
+					
+						
+					}
+				});
+				voltar.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_3.add(voltar, "cell 1 5,growx");
+
+				
+
+			}
+		});
+		btnEditar.setBackground(new Color(240, 255, 240));
+		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnEditar, "cell 1 9,grow");
+
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.setBackground(new Color(240, 240, 240));
+		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnExcluir, "cell 5 9,grow");
+
+		txtTipoConsulta = new JTextField();
+		panel_3.add(txtTipoConsulta, "flowx,cell 3 5,grow");
+		txtTipoConsulta.setColumns(10);
+
+		txtHora = new JTextField();
+		panel_3.add(txtHora, "cell 5 3,grow");
+		txtHora.setColumns(10);
+
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				Date data = txtCaledar.getDate();
+
+				String nome = txtNome.getText();
+
+				String cpf = txtCpf.getText().replace(".", "").replace("-", "");
+
+				String tipoConsulta = txtTipoConsulta.getText();
+
+				String observacao = txtObservacao.getText();
+
+				String validacao = "";
+
+				String hora = txtHora.getText();
+
+				Consulta c = new Consulta();
+				Paciente p = new Paciente();
+
+				if (nome == null || nome.trim() == "" || nome.isEmpty()) {
+					txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					validacao += "Nome\n";
+				} else {
+					p.setNome(nome);
+				}
+
+				if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
+					txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					validacao += "CPF\n";
+				} else {
+					Long cpfLong = Long.valueOf(cpf);
+					p.setCpf(cpfLong);
+				}
+				c.setPaciente(p);
+
+				if (tipoConsulta == null || tipoConsulta.trim() == "" || tipoConsulta.isEmpty()) {
+					txtTipoConsulta.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					validacao += "Tipo consulta\n";
+				} else {
+					c.setServico(tipoConsulta);
+				}
+
+				if (data == null) {
+					txtCaledar.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					validacao += "Dat\n";
+
+				} else {
+					SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+					String dataFormatada = formatador.format(data);
+
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					LocalDate dataFormatadaNova = LocalDate.parse(dataFormatada, formatter);
+					c.setDate(dataFormatadaNova);
+				}
+				if (hora == null || hora.trim() == "" || hora.isEmpty()) {
+					txtHora.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				} else {
+					SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
+					Date date = null;
+					try {
+						date = dt.parse(hora);
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					DateFormat df = new SimpleDateFormat("HH:mm");
+
+					try {
+						Date datse = df.parse(hora);
+						Timestamp ts = new Timestamp(date.getTime());
+						c.setHora(ts);
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				}
+				Medico medico = (Medico) cbxMedico.getSelectedItem();
+				Long cp = medico.getCpf();
+				medico.setCpf(cp);
+				c.setMedico(medico);
+
+				if (observacao == null || observacao.trim() == "" || observacao.isEmpty()) {
+					txtObservacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+				} else {
+					c.setObservacao(observacao);
+				}
+				boolean cadastroConsulta = agendaDao.cadastraConsulta(c);
+				if (cadastroConsulta != true) {
+					JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
+				} else {
+
+					JOptionPane.showMessageDialog(null, "Consulta cadastrada");
+					AtualizarTabela();
+					 AtualizarTabela();
+				}
+
+			}
+		});
+
+		btnCadastrar.setBackground(new Color(240, 255, 240));
+		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
+
+		JButton btnVoltarMenu = new JButton("Voltar");
+		btnVoltarMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
 				MenuPrincipal mp = new MenuPrincipal(usuario, senha);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();
 			}
 		});
+		btnVoltarMenu.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(btnVoltarMenu, "cell 7 9,grow");
 
+		
 
 	}
+	//Metodos 
+	
+
+	protected void setarDados(Consulta consultaClick2) {
+		txtHora.setText(String.valueOf(consultaClick2.getHora()));
+		txtNome.setText(consultaClick2.getPaciente().getNome());
+		txtCpf.setText(String.valueOf(consultaClick2.getPaciente().getCpf()));
+		txtCpf.setEditable(false);
+		txtTipoConsulta.setText(consultaClick2.getServico());
+		Date date = java.sql.Date.valueOf(consultaClick2.getDate());
+		txtCaledar.setDate(date);
+		txtObservacao.setText(consultaClick2.getServico());
+		MedicoDao medicoDao = new MedicoDao();
+		Medico medico = medicoDao.consultaDadosMedico(consultaClick2.getMedico().getCpf());
+		int cpf = Long.valueOf(medico.getCpf()).intValue();
+		
+		int posicao = cbxMedico.getSelectedIndex();
+		System.out.println("Posição do item selecionado: " + posicao);
+		
+		cbxMedico.setSelectedItem(medico.getNome());
+		
+	}
+
 	protected void AtualizarTabela() {
-		DefaultTableModel tabela = new DefaultTableModel(new Object[][] {},
-				new String[] { "Paciente", "Medico", "Data", "Hora" });
+		DefaultTableModel tabela = new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Medico", "Data", "Hora" });
 		listaConsulta = agendaDao.listConsulta();
 		for (int i = 0; i < listaConsulta.size(); i++) {
 			Consulta consultaList = listaConsulta.get(i);
-			tabela.addRow(new Object[] { consultaList.getPaciente().getNome(), consultaList.getMedico().getNome(), consultaList.getDate(), consultaList.getHora() });
+			tabela.addRow(new Object[] { consultaList.getPaciente().getNome(), consultaList.getMedico().getNome(),
+					consultaList.getDate(), consultaList.getHora() });
 
 		}
 		table.setModel(tabela);

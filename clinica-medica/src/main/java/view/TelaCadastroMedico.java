@@ -552,7 +552,6 @@ public class TelaCadastroMedico extends JFrame {
 						btn_Excluir.setVisible(true);
 
 						panel_6.remove(voltar);
-						voltar.setVisible(false);
 
 						btnSalvar.setVisible(false);
 						panel_9.remove(btnSalvar);

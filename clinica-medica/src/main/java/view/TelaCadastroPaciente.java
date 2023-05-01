@@ -972,6 +972,8 @@ public class TelaCadastroPaciente extends JFrame {
 							Endereco resultado = new Endereco();
 							resultado = endereco.ConsultarEndereco(cadastroEndereco);
 
+							boolean resuEnd = false;
+							
 							if (resultado == null) {
 								Estado estado = (Estado) cbxEstado.getSelectedItem();
 								int id = estado.getId();
@@ -984,8 +986,9 @@ public class TelaCadastroPaciente extends JFrame {
 								estadoSel.setNome(nomeEstado);
 								estadoSel.setUf(uf);
 
+								cadastroEndereco.setEstado(estado);
 								// TODO cadastro do endereço
-								boolean resuEnd = false;
+								
 								try {
 									resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
 								} catch (Exception e2) {
@@ -994,7 +997,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 							}
 
-							if (resultado != null) {
+							if (resultado != null || resuEnd == true ) {
 								boolean cds = false;
 
 								try {

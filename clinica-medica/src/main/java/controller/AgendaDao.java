@@ -49,7 +49,22 @@ public class AgendaDao implements InterfaceConsulta {
 
 	@Override
 	public boolean alterarConsulta(Consulta consulta) {
-		// TODO Auto-generated method stub
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int valida = 0;
+		try {
+			PreparedStatement ps = c.prepareStatement("Update consulta set data_consulta = ? , hora_consulta = ? ,tipo_consulta = ? , observacao = ? where paciente_cpf = ?;");
+			ps.setDate(1, Date.valueOf(consulta.getDate()));
+			ps.setTimestamp(2, consulta.getHora());
+			ps.setString(4, consulta.getServico());
+			ps.setLong(5, consulta.getMedico().getCpf());
+			ps.setString(6, consulta.getObservacao());
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
 		return false;
 	}
 
@@ -65,17 +80,37 @@ public class AgendaDao implements InterfaceConsulta {
 		Connection c = con.conectar();
 		int valida = 0;
 		try {
-			PreparedStatement ps = c.prepareStatement("Select * from consulta");
+			PreparedStatement ps = c.prepareStatement("select consulta.data_consulta, \r\n"
+					+ "consulta.hora_consulta,\r\n"
+					+ " paciente.nome as nome_paciente,\r\n"
+					+ " paciente.cpf as cpf_paciente,\r\n"
+					+ " medico.cpf as cpf_medico, \r\n"
+					+ " consulta.observacao, \r\n"
+					+ " consulta.tipo_consulta,\r\n"
+					+ " medico.nome as nome_medico \r\n"
+					+ " from consulta \r\n"
+					+ " inner join paciente on consulta.paciente_cpf = paciente.cpf\r\n"
+					+ " inner join medico on consulta.medico_cpf = medico.cpf;\r\n"
+				
+			
+			  
+			 );
 			ResultSet rs = ps.executeQuery();
 			ArrayList<Consulta> listConsulta = new ArrayList<>();
-			Consulta consulta = new Consulta();
-			Paciente paciente  =  new Paciente();
-			Medico medico = new Medico();
+			
 			while(rs.next()) {
+				Consulta consulta = new Consulta();
+				Paciente paciente  =  new Paciente();
+				Medico medico = new Medico();
 				consulta.setDate(rs.getDate("data_consulta").toLocalDate());
-				consulta.setHora(rs.getTimestamp("hora_consulta"));
-				paciente.setNome(rs.getString("nome"));
-				medico.setNome(rs.getString("nome"));
+				Timestamp dataHora = rs.getTimestamp("hora_consulta");
+				consulta.setHora(dataHora);
+				paciente.setNome(rs.getString("nome_paciente"));
+				paciente.setCpf(rs.getLong("cpf_paciente"));
+				consulta.setObservacao(rs.getString("observacao"));
+				consulta.setServico(rs.getString("tipo_consulta"));
+				medico.setCpf(rs.getLong("cpf_medico"));
+				medico.setNome(rs.getString("nome_medico"));
 				consulta.setPaciente(paciente);
 				consulta.setMedico(medico);
 				listConsulta.add(consulta);

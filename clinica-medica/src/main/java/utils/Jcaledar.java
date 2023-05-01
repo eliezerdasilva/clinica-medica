@@ -14,7 +14,7 @@ public class Jcaledar extends JDateChooser{
 
 	    }
 
-	    public void setData(Object valor) {
+	    public void setData(Date valor) {
 	        setData(((Date) valor));
 	    }
 
