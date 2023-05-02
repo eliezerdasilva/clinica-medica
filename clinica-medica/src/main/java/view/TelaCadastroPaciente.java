@@ -580,8 +580,7 @@ public class TelaCadastroPaciente extends JFrame {
 				} else {
 					String dataTest = dataN.replace("/", "").trim();
 					if (dataTest.length() == 0) {
-						// TODO erro
-						System.out.println("Erro");
+						validacao += "Data\n";	
 						txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					} else {
 						txtData.setBorder(new LineBorder(new Color(00, 00, 00), 1));
@@ -606,10 +605,7 @@ public class TelaCadastroPaciente extends JFrame {
 				}
 				// TODO CADASTRO DO CEP NAO CADASTRADO
 
-				if (validacao.trim() != "") {
-					JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
-					return;
-				}
+				
 
 				// Validacao endereco
 				String cepString = txtCep.getText().replace("-", "");
@@ -624,35 +620,43 @@ public class TelaCadastroPaciente extends JFrame {
 				EnderecoDao endereco = new EnderecoDao();
 
 				if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					validacao += "Cep\n";
 					txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
 				} else {
+					txtCep.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					Integer cep = Integer.valueOf(cepString);
 					cadastroEndereco.setCep(cep);
 				}
 
 				if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					validacao += "Bairro\n";
 					txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
 				} else {
+					txtBairro.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					cadastroEndereco.setBairro(bairro);
 				}
+				
 				if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					validacao += "Cidade\n";
 					txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
 				} else {
+					txtMunicipio.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					cadastroEndereco.setCidade(cidade);
 				}
+				
 				if (rua == null || rua.trim() == "" || rua.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					validacao += "Rua\n";
 					txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
 				} else {
+					txtRua.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					cadastroEndereco.setRua(rua);
 				}
+				
+				if (validacao.trim() != "") {
+					JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
+					return;
+				}
+				
 				Endereco resultado = new Endereco();
 				resultado = endereco.ConsultarEndereco(cadastroEndereco);
 

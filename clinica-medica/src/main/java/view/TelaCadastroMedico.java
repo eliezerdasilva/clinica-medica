@@ -244,10 +244,12 @@ public class TelaCadastroMedico extends JFrame {
 		panel_3.add(lblNewLabel_81, "cell 0 5");
 
 		rdbtnMasculino1 = new JRadioButton("M");
+		rdbtnMasculino1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		rdbtnMasculino1.setBackground(new Color(240, 255, 240));
 		panel_3.add(rdbtnMasculino1, "flowx,cell 1 5,grow");
 
 		rdbtnFeminino1 = new JRadioButton("F");
+		rdbtnFeminino1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		rdbtnFeminino1.setBackground(new Color(240, 255, 240));
 		panel_3.add(rdbtnFeminino1, "cell 1 5,grow");
 
@@ -614,8 +616,9 @@ public class TelaCadastroMedico extends JFrame {
 						// TODO nova validacao nome
 						if (nomeNovo == null || nomeNovo.trim() == "" || nomeNovo.isEmpty()) {
 							txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-							validacao += "Sexo\n";
+							validacao += "Nome\n";
 						} else {
+							txtNome.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 							p.setNome(nomeNovo);
 						}
 
@@ -624,12 +627,14 @@ public class TelaCadastroMedico extends JFrame {
 							txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							validacao += "Cpf\n";
 						} else {
+							txtCpf.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 							cpf = Long.valueOf(cpfTxt);
 							p.setCpf(cpf);
 						}
 						// sexo
 
 						if (sexo == null || sexo.isEmpty()) {
+							rdbtnFeminino1.setBorderPainted(true);
 							rdbtnFeminino1.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							rdbtnMasculino1.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							validacao += "Sexo\n";
@@ -637,12 +642,13 @@ public class TelaCadastroMedico extends JFrame {
 						} else {
 							p.setSexo(sexo);
 						}
+						
 						// email
 						if (email == null || email.trim() == "" || email.isEmpty()) {
-
 							txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							validacao += "Email\n";
 						} else {
+							txtEmail.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 							p.setEmail(email);
 						}
 						// telefone
@@ -650,6 +656,7 @@ public class TelaCadastroMedico extends JFrame {
 							txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							validacao += "Telefone\n";
 						} else {
+							txtTelefone.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 							p.setTelefone(telefone);
 
 						}
@@ -660,10 +667,10 @@ public class TelaCadastroMedico extends JFrame {
 						} else {
 							String dataTest = dataN.replace("/", "").trim();
 							if (dataTest.length() == 0) {
-								// TODO erro
-								System.out.println("Erro");
+								validacao += "Data\n";
 								txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							} else {
+								txtData.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 								DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 								LocalDate dta = LocalDate.parse(dataN, formatter);
 								dta.format(formatter);
@@ -676,10 +683,10 @@ public class TelaCadastroMedico extends JFrame {
 						p.setComplemento(complemento);
 
 						if (n == null || n.trim() == "" || n.isEmpty()) {
-
 							txtCasaNumero.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-							validacao += "Numero da casa invalido\n";
+							validacao += "Numero\n";
 						} else {
+							txtCasaNumero.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 							Integer nCasa = Integer.valueOf(n);
 							p.setNumero(nCasa);
 						}
@@ -699,34 +706,39 @@ public class TelaCadastroMedico extends JFrame {
 						EnderecoDao endereco = new EnderecoDao();
 
 						if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
-							validacao += "cep\n";
+							validacao += "Cep\n";
 							txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-							return;
 						} else {
+							txtCep.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 							Integer cep = Integer.valueOf(cepString);
 							cadastroEndereco.setCep(cep);
 						}
 
 						if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
-							validacao += "bairro\n";
+							validacao += "Bairro\n";
 							txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-							return;
 						} else {
+							txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							cadastroEndereco.setBairro(bairro);
 						}
 						if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
-							validacao += "cidade\n";
+							validacao += "Cidade\n";
 							txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-							return;
 						} else {
+							txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							cadastroEndereco.setCidade(cidade);
 						}
 						if (rua == null || rua.trim() == "" || rua.isEmpty()) {
-							validacao += "rua\n";
+							validacao += "Rua\n";
 							txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-							return;
 						} else {
+							txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							cadastroEndereco.setRua(rua);
+						}
+						
+						if (validacao.trim() != "") {
+							JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
+							return;
 						}
 
 						Endereco resultado = new Endereco();
@@ -983,7 +995,7 @@ public class TelaCadastroMedico extends JFrame {
 		// TODO nova validacao nome
 		if (nome == null || nome.trim() == "" || nome.isEmpty()) {
 			txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			validacao += "Sexo\n";
+			validacao += "Nome\n";
 		} else {
 			p.setNome(nome);
 		}
@@ -1045,10 +1057,10 @@ public class TelaCadastroMedico extends JFrame {
 		p.setComplemento(complemento);
 
 		if (n == null || n.trim() == "" || n.isEmpty()) {
-
 			txtCasaNumero.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			validacao += "Numero da casa invalido\n";
+			validacao += "Numero\n";
 		} else {
+			txtCasaNumero.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			Integer nCasa = Integer.valueOf(n);
 			p.setNumero(nCasa);
 		}
@@ -1068,34 +1080,80 @@ public class TelaCadastroMedico extends JFrame {
 		EnderecoDao endereco = new EnderecoDao();
 
 		if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
-			validacao += "cep\n";
+			validacao += "Cep\n";
 			txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			return;
 		} else {
+			txtCep.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			Integer cep = Integer.valueOf(cepString);
 			cadastroEndereco.setCep(cep);
 		}
 
 		if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
-			validacao += "bairro\n";
+			validacao += "Bairro\n";
 			txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			return;
 		} else {
+			txtBairro.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			cadastroEndereco.setBairro(bairro);
 		}
 		if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
-			validacao += "cidade\n";
+			validacao += "Cidade\n";
 			txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			return;
 		} else {
+			txtMunicipio.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			cadastroEndereco.setCidade(cidade);
 		}
 		if (rua == null || rua.trim() == "" || rua.isEmpty()) {
-			validacao += "rua\n";
+			validacao += "Rua\n";
 			txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			return;
 		} else {
+			txtRua.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			cadastroEndereco.setRua(rua);
+		}
+		
+		String usuario = txtUsuario.getText();
+		String senha = txtSenha.getText();
+
+		Usuario usuarioModelo = new Usuario();
+
+		if (usuario == null || usuario.trim() == "" || usuario.isEmpty()) {
+			txtUsuario.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Usuario\n";
+		} else {
+			txtUsuario.setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			usuarioModelo.setUsuario(usuario);
+		}
+		if (senha == null || senha.trim() == "" || senha.isEmpty()) {
+			txtSenha.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Senha\n";
+		} else {
+			txtSenha.setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			usuarioModelo.setSenha(senha);
+		}
+		
+		String crm = txtCrm.getText();
+		if (crm == null || crm.trim() == "" || crm.isEmpty()) {
+			txtCrm.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Crm\n";
+		} else {
+			txtCrm.setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			Long crmLong = Long.valueOf(crm);
+			p.setCrm(crmLong);
+
+		}
+		
+		String epecificação = txtEspecializacao.getText();
+		if (epecificação == null || epecificação.trim() == "" || epecificação.isEmpty()) {
+			txtEspecializacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Especializacao\n";
+		} else {
+			txtEspecializacao.setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			p.setEspecializacao(especializacao);
+
+		}
+		
+		if (validacao.trim() != "") {
+			JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
+			return;
 		}
 
 		Endereco resultado = new Endereco();
@@ -1119,23 +1177,7 @@ public class TelaCadastroMedico extends JFrame {
 		}
 		// TODO criacao do usuairo
 
-		String usuario = txtUsuario.getText();
-		String senha = txtSenha.getText();
-
-		Usuario usuarioModelo = new Usuario();
-
-		if (usuario == null || usuario.trim() == "" || usuario.isEmpty()) {
-			txtUsuario.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			validacao += "Usuario\n";
-		} else {
-			usuarioModelo.setUsuario(usuario);
-		}
-		if (senha == null || senha.trim() == "" || senha.isEmpty()) {
-			txtSenha.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			validacao += "Senha\n";
-		} else {
-			usuarioModelo.setSenha(senha);
-		}
+		
 		usuarioModelo.setNivelAcesso(1);
 		System.out.println(usuarioModelo);
 		usuarioDao = new UsuarioDao();
@@ -1143,23 +1185,7 @@ public class TelaCadastroMedico extends JFrame {
 		boolean consultaUsuarioCadastrado = usuarioDao.consultarUsuarioCadastrado(usuarioModelo);
 
 		// Dados do medico
-		String crm = txtCrm.getText();
-		if (crm == null || crm.trim() == "" || crm.isEmpty()) {
-			txtCrm.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			validacao += "Crm\n";
-		} else {
-			Long crmLong = Long.valueOf(crm);
-			p.setCrm(crmLong);
-
-		}
-		String epecificação = txtEspecializacao.getText();
-		if (epecificação == null || epecificação.trim() == "" || epecificação.isEmpty()) {
-			txtEspecializacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			validacao += "especializacao\n";
-		} else {
-			p.setEspecializacao(especializacao);
-
-		}
+		
 
 		if (consultaUsuarioCadastrado != true) {
 
