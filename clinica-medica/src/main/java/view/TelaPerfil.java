@@ -107,7 +107,7 @@ public class TelaPerfil extends JFrame {
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
-		contentPane.setBackground(new Color(0, 0, 0));
+		contentPane.setBackground(new Color(204, 255, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBounds(100, 100, 2000, 1050);
 
@@ -147,17 +147,19 @@ public class TelaPerfil extends JFrame {
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 40));
 
-		JLabel lblNewLabel = new JLabel("Perfil funcionario"); 
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 32));
+		JLabel lblNewLabel = new JLabel("Perfil do funcionário"); 
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 50));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblNewLabel, "name_169020969106100");
 
 		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(204, 255, 204));
 		panel_1.add(panel_4, BorderLayout.CENTER);
 		panel_4.setLayout(new MigLayout("", "[1280:n:1280,grow]", "[150:n:150px,grow][160:n:160,grow][][50:n:50,grow]"));
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(107, 142, 35), 4));
+		panel_3.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel_3.setBackground(new Color(240, 255, 240));
 		panel_4.add(panel_3, "cell 0 0,grow");
 		panel_3.setLayout(new MigLayout("", "[][300:n:300,grow][][300:n:300][][][150:n:150,grow]", "[][30:n:30][][30:n:30][][30:n:30][]"));
@@ -216,7 +218,7 @@ public class TelaPerfil extends JFrame {
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
-		panel_5.setBorder(new LineBorder(new Color(107, 142, 35), 5));
+		panel_5.setBorder(new LineBorder(new Color(51, 153, 0), 5));
 		panel_4.add(panel_5, "cell 0 1,grow");
 		panel_5.setLayout(new MigLayout("", "[80:n:80][150:n:150,grow][150:n:150][150:n:150,grow][100:n:100][180:n:180,grow][70:n:70][200:n:200px,grow][150:n:150]", "[5:n:5][30:n:30][5:n:5][30:n:30][5:n:5][30:n:30][5:n:5]"));
 		
@@ -280,13 +282,13 @@ public class TelaPerfil extends JFrame {
 		
 		JPanel panel_9 = new JPanel();
 		panel_9.setBackground(new Color(240, 255, 240));
-		panel_9.setBorder(new LineBorder(new Color(107, 142, 35), 4));
+		panel_9.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel_4.add(panel_9, "cell 0 2,grow");
 		panel_9.setLayout(new MigLayout("", "[80:n:80][200:n:200,grow][130:n:130][200:n:200,grow][20:n:20][220:n:220][350:n:350]", "[30:n:30][30:n:30][]"));
 		
 		JLabel lblNewLabel_23 = new JLabel("Login");
 		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_23.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_23.setFont(new Font("Century Gothic", Font.BOLD, 20));
 		panel_9.add(lblNewLabel_23, "cell 0 0 4 1,alignx center");
 		
 		JLabel lblNewLabel_20 = new JLabel("Senha :");
@@ -305,7 +307,7 @@ public class TelaPerfil extends JFrame {
 		panel_9.add(passwordField, "cell 3 1,grow");
 		
 		JPanel panel_6 = new JPanel();
-		panel_6.setBorder(new LineBorder(new Color(85, 107, 47), 4));
+		panel_6.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel_6.setBackground(new Color(240, 255, 240));
 		panel_4.add(panel_6, "cell 0 3,grow");
 		panel_6.setLayout(new MigLayout("", "[][200:n:200][][200:n:200][600:n:600][200:n:200]", "[30:n:30]"));

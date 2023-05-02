@@ -157,7 +157,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("Cadastro do funcionário"); 
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 40));
+		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 50));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblNewLabel, "name_169020969106100");
 
@@ -169,34 +169,34 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(51, 153, 0), 4));
-		panel_3.setBackground(new Color(236, 253, 232));
+		panel_3.setBackground(new Color(240, 255, 240));
 		panel_4.add(panel_3, "cell 0 0,grow");
 		panel_3.setLayout(new MigLayout("", "[][300:n:300,grow][][300:n:300][][][150:n:150,grow]",
 				"[][30:n:30][][30:n:30][][30:n:30][]"));
 
-		JLabel lblNewLabel_1 = new JLabel("Nome : ");
+		JLabel lblNewLabel_1 = new JLabel("Nome:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_3.add(lblNewLabel_1, "cell 0 1,alignx center,growy");
+		panel_3.add(lblNewLabel_1, "cell 0 1,alignx right,growy");
 
 		txtNome = new JTextField();
 		panel_3.add(txtNome, "cell 1 1,grow");
 		txtNome.setColumns(10);
 
-		JLabel lblNewLabel_4 = new JLabel("Data :");
+		JLabel lblNewLabel_4 = new JLabel("Data:");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_3.add(lblNewLabel_4, "flowx,cell 3 1,growx");
+		panel_3.add(lblNewLabel_4, "flowx,cell 3 1,alignx right");
 
-		JLabel lblNewLabel_2 = new JLabel("E-mail :");
+		JLabel lblNewLabel_2 = new JLabel("E-mail:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_3.add(lblNewLabel_2, "cell 0 3,alignx center");
+		panel_3.add(lblNewLabel_2, "cell 0 3,alignx right");
 
 		txtEmail = new JTextField();
 		panel_3.add(txtEmail, "cell 1 3,grow");
 		txtEmail.setColumns(10);
 
-		JLabel lblNewLabel_5 = new JLabel("CPF:    ");
+		JLabel lblNewLabel_5 = new JLabel("CPF:");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_3.add(lblNewLabel_5, "flowx,cell 3 3,grow");
+		panel_3.add(lblNewLabel_5, "flowx,cell 3 3,alignx right,growy");
 
 		JLabel lblNewLabel_8 = new JLabel("Sexo:");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -204,12 +204,12 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JRadioButton rdbtnMasculino = new JRadioButton("M");
 		rdbtnMasculino.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		rdbtnMasculino.setBackground(new Color(236, 253, 232));
+		rdbtnMasculino.setBackground(new Color(240, 255, 240));
 		panel_3.add(rdbtnMasculino, "flowx,cell 6 3,grow");
 
 		JLabel lblNewLabel_3 = new JLabel("Profissão:");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_3.add(lblNewLabel_3, "cell 0 5,alignx trailing");
+		panel_3.add(lblNewLabel_3, "cell 0 5,alignx right");
 
 		txtProfissao = new JTextField();
 		panel_3.add(txtProfissao, "cell 1 5,grow");
@@ -233,7 +233,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_3.add(txtCpf, "cell 3 3,grow");
 		txtCpf.setColumns(23);
 
-		JLabel lblNewLabel_6 = new JLabel("Telefone :");
+		JLabel lblNewLabel_6 = new JLabel("Telefone:");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_6, "flowx,cell 3 5");
 
@@ -248,13 +248,13 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JRadioButton rdbtnFeminino = new JRadioButton("F");
 		rdbtnFeminino.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		rdbtnFeminino.setBackground(new Color(236, 253, 232));
+		rdbtnFeminino.setBackground(new Color(240, 255, 240));
 		panel_3.add(rdbtnFeminino, "cell 6 3,grow");
 
 		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(new Color(236, 253, 232));
+		panel_5.setBackground(new Color(240, 255, 240));
 		panel_5.setBorder(new LineBorder(new Color(51, 153, 0), 5));
-		panel_4.add(panel_5, "cell 0 1,grow");
+		panel_4.add(panel_5, "cell 0 1,alignx right,growy");
 		panel_5.setLayout(new MigLayout("",
 				"[80:n:80][150:n:150,grow][150:n:150][150:n:150,grow][100:n:100][180:n:180,grow][70:n:70][200:n:200px,grow][150:n:150]",
 				"[5:n:5][][5:n:5][30:n:30][5:n:5][30:n:30][5:n:5]"));
@@ -288,21 +288,21 @@ public class TelaCadastroFuncionario extends JFrame {
 		JLabel lblNewLabel_11 = new JLabel("Município:");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_5.add(lblNewLabel_11, "cell 2 3,alignx center");
+		panel_5.add(lblNewLabel_11, "cell 2 3,alignx right");
 
 		txtMunicipio = new JTextField();
 		panel_5.add(txtMunicipio, "cell 3 3,grow");
 		txtMunicipio.setColumns(10);
 
-		JLabel lblNewLabel_12 = new JLabel("Bairro: ");
+		JLabel lblNewLabel_12 = new JLabel("Bairro:");
 		lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_5.add(lblNewLabel_12, "cell 4 3,alignx trailing,growy");
+		panel_5.add(lblNewLabel_12, "cell 4 3,alignx right,growy");
 
 		txtBairro = new JTextField();
 		panel_5.add(txtBairro, "cell 5 3,grow");
 		txtBairro.setColumns(10);
 
-		JLabel lblNewLabel_13 = new JLabel("Rua: ");
+		JLabel lblNewLabel_13 = new JLabel("Rua:");
 		lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_13, "cell 6 3,alignx trailing");
 
@@ -320,7 +320,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JLabel lblNewLabel_15 = new JLabel("Complemento:");
 		lblNewLabel_15.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_5.add(lblNewLabel_15, "cell 2 5,alignx center");
+		panel_5.add(lblNewLabel_15, "cell 2 5,alignx right");
 
 		txtComplemento = new JTextField();
 		panel_5.add(txtComplemento, "cell 3 5 2 1,grow");
@@ -355,12 +355,12 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_9.add(passwordField, "cell 3 1,grow");
 
 		JRadioButton rdbtnAdministrador = new JRadioButton("Administrador");
-		rdbtnAdministrador.setBackground(new Color(236, 253, 232));
+		rdbtnAdministrador.setBackground(new Color(240, 255, 240));
 		rdbtnAdministrador.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_9.add(rdbtnAdministrador, "cell 5 1");
 
 		JRadioButton rdbtnFuncionario = new JRadioButton("Funcionário");
-		rdbtnFuncionario.setBackground(new Color(236, 253, 232));
+		rdbtnFuncionario.setBackground(new Color(240, 255, 240));
 		rdbtnFuncionario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_9.add(rdbtnFuncionario, "cell 6 1");
 
@@ -557,7 +557,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_9.add(btnCadastrarUsuario, "cell 8 1,grow");
 
 		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(new Color(236, 253, 232));
+		panel_6.setBackground(new Color(240, 255, 240));
 		panel_6.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel_4.add(panel_6, "cell 0 3,grow");
 		panel_6.setLayout(

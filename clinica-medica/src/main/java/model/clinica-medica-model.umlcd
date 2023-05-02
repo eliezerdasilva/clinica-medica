@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_p6hOEON0Ee2G2tt8PYGqlw">
   <modelElement href="clinica-medica-model.uml#_qEKSQON0Ee2G2tt8PYGqlw"/>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGB-8ON0Ee2G2tt8PYGqlw" sourceAnchor="206.0,0.0" targetAnchor="95.0,118.0" target="_rGB--ON0Ee2G2tt8PYGqlw" source="_rGcOoON0Ee2G2tt8PYGqlw">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGB-8ON0Ee2G2tt8PYGqlw" sourceAnchor="187.0,0.0" targetAnchor="98.0,116.0" target="_rGB--ON0Ee2G2tt8PYGqlw" source="_rGcOoON0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qGIoMeN0Ee2G2tt8PYGqlw"/>
     <nameVisual xmi:id="_rGB-8eN0Ee2G2tt8PYGqlw" text="">
-      <visualProperties xmi:id="_rLo3seN0Ee2G2tt8PYGqlw" position="-18.0,-11.0"/>
+      <visualProperties xmi:id="_rLo3seN0Ee2G2tt8PYGqlw" position="-13.0,-11.0"/>
     </nameVisual>
     <sourceRole xmi:id="_rGB-8uN0Ee2G2tt8PYGqlw" aggregationKind="NONE" name="convenio" navigable="true">
       <modelElement href="clinica-medica-model.uml#_qF9CAuN0Ee2G2tt8PYGqlw"/>
-      <visualProperties xmi:id="_rLo3sON0Ee2G2tt8PYGqlw" position="2.0,-95.0"/>
+      <visualProperties xmi:id="_rLo3sON0Ee2G2tt8PYGqlw" position="2.0,-94.5"/>
       <visibility xmi:id="_rGB-8-N0Ee2G2tt8PYGqlw" label="+"/>
       <cardinality xmi:id="_rGB-9ON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
     </sourceRole>
     <targetRole xmi:id="_rGB-9eN0Ee2G2tt8PYGqlw" aggregationKind="NONE" name="">
       <modelElement href="clinica-medica-model.uml#_qGIoMuN0Ee2G2tt8PYGqlw"/>
-      <visualProperties xmi:id="_rLo3suN0Ee2G2tt8PYGqlw" position="2.0,39.0"/>
+      <visualProperties xmi:id="_rLo3suN0Ee2G2tt8PYGqlw" position="2.0,39.5"/>
       <visibility xmi:id="_rGB-9uN0Ee2G2tt8PYGqlw" label="+"/>
       <cardinality xmi:id="_rGB-9-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
     </targetRole>
   </edges>
   <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:GeneralizationVisual" xmi:id="_rGEbMON0Ee2G2tt8PYGqlw" sourceAnchor="31.0,0.0" targetAnchor="156.0,277.0" superClass="_rGFpWON0Ee2G2tt8PYGqlw" subClass="_rGB--ON0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qFg9IuN0Ee2G2tt8PYGqlw"/>
-    <bendpoints xmi:id="_SpnlMOT6Ee2sS958r7Rosw" sourceY="-148" targetX="385" targetY="136"/>
-    <bendpoints xmi:id="_SpnlMeT6Ee2sS958r7Rosw" sourceX="-385" sourceY="-148" targetY="136"/>
+    <bendpoints xmi:id="_NQVXwOjpEe2IuK8nzAq0nA" sourceY="-148" targetX="385" targetY="136"/>
+    <bendpoints xmi:id="_NQVXwejpEe2IuK8nzAq0nA" sourceX="-385" sourceY="-148" targetY="136"/>
   </edges>
   <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGEbMeN0Ee2G2tt8PYGqlw" target="_rGFpWON0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qGJPQON0Ee2G2tt8PYGqlw"/>
@@ -41,7 +41,7 @@
   <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGEbMuN0Ee2G2tt8PYGqlw" sourceAnchor="0.0,92.0" targetAnchor="312.0,134.0" target="_rGFpWON0Ee2G2tt8PYGqlw" source="_rGggEON0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qGJPQuN0Ee2G2tt8PYGqlw"/>
     <nameVisual xmi:id="_rGFCQ-N0Ee2G2tt8PYGqlw" text="">
-      <visualProperties xmi:id="_rLpewON0Ee2G2tt8PYGqlw" position="-6.0,-24.000000000000057"/>
+      <visualProperties xmi:id="_rLpewON0Ee2G2tt8PYGqlw" position="-6.0,-24.0"/>
     </nameVisual>
     <sourceRole xmi:id="_rGFCRON0Ee2G2tt8PYGqlw" aggregationKind="NONE" name="endereco" navigable="true">
       <modelElement href="clinica-medica-model.uml#_qF-QIeN0Ee2G2tt8PYGqlw"/>
@@ -59,7 +59,7 @@
   <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:GeneralizationVisual" xmi:id="_rGKh0ON0Ee2G2tt8PYGqlw" sourceAnchor="117.0,0.0" targetAnchor="156.0,277.0" superClass="_rGFpWON0Ee2G2tt8PYGqlw" subClass="_rGMXCON0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qFd50ON0Ee2G2tt8PYGqlw"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGMXAON0Ee2G2tt8PYGqlw" sourceAnchor="412.0,0.0" targetAnchor="121.0,63.0" target="_rGMXCON0Ee2G2tt8PYGqlw" source="_rGQBYON0Ee2G2tt8PYGqlw">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGMXAON0Ee2G2tt8PYGqlw" sourceAnchor="418.0,0.0" targetAnchor="121.0,63.0" target="_rGMXCON0Ee2G2tt8PYGqlw" source="_rGQBYON0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qGIBIuN0Ee2G2tt8PYGqlw"/>
     <nameVisual xmi:id="_rGMXAeN0Ee2G2tt8PYGqlw" text="">
       <visualProperties xmi:id="_rLoQouN0Ee2G2tt8PYGqlw" position="2.0,-20.0"/>
@@ -77,10 +77,10 @@
       <cardinality xmi:id="_rGMXB-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
     </targetRole>
   </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:GeneralizationVisual" xmi:id="_rGUS0ON0Ee2G2tt8PYGqlw" sourceAnchor="256.0,0.0" targetAnchor="247.0,302.0" superClass="_rGQBYON0Ee2G2tt8PYGqlw" subClass="_rGWIAON0Ee2G2tt8PYGqlw">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:GeneralizationVisual" xmi:id="_rGUS0ON0Ee2G2tt8PYGqlw" sourceAnchor="242.0,0.0" targetAnchor="247.0,300.0" superClass="_rGQBYON0Ee2G2tt8PYGqlw" subClass="_rGWIAON0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qFYaQON0Ee2G2tt8PYGqlw"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGXWION0Ee2G2tt8PYGqlw" sourceAnchor="197.0,100.0" targetAnchor="0.0,103.0" target="_rGZLXON0Ee2G2tt8PYGqlw" source="_rGB--ON0Ee2G2tt8PYGqlw">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGXWION0Ee2G2tt8PYGqlw" sourceAnchor="196.0,100.0" targetAnchor="0.0,103.0" target="_rGZLXON0Ee2G2tt8PYGqlw" source="_rGB--ON0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qGHaEeN0Ee2G2tt8PYGqlw"/>
     <nameVisual xmi:id="_rGX9MeN0Ee2G2tt8PYGqlw" text="">
       <visualProperties xmi:id="_rLnpmON0Ee2G2tt8PYGqlw" position="-1.0,-24.0"/>
@@ -126,7 +126,7 @@
       <cardinality xmi:id="_rGZLW-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
     </targetRole>
   </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGeD0ON0Ee2G2tt8PYGqlw" sourceAnchor="134.0,0.0" targetAnchor="188.0,232.0" target="_rGggEON0Ee2G2tt8PYGqlw" source="_rF8fYON0Ee2G2tt8PYGqlw">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGeD0ON0Ee2G2tt8PYGqlw" sourceAnchor="134.0,0.0" targetAnchor="188.0,231.0" target="_rGggEON0Ee2G2tt8PYGqlw" source="_rF8fYON0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qGIBION0Ee2G2tt8PYGqlw"/>
     <nameVisual xmi:id="_rGeD0eN0Ee2G2tt8PYGqlw" text="">
       <visualProperties xmi:id="_rLnpleN0Ee2G2tt8PYGqlw" position="2.0,-11.0"/>
@@ -144,13 +144,13 @@
       <cardinality xmi:id="_rGf5AuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
     </targetRole>
   </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGiVQON0Ee2G2tt8PYGqlw" sourceAnchor="204.0,139.0" targetAnchor="17.0,0.0" target="_rGQBYON0Ee2G2tt8PYGqlw" source="_rGlYkeN0Ee2G2tt8PYGqlw">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_rGiVQON0Ee2G2tt8PYGqlw" sourceAnchor="204.0,139.0" targetAnchor="23.0,0.0" target="_rGQBYON0Ee2G2tt8PYGqlw" source="_rGlYkeN0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qGMSkON0Ee2G2tt8PYGqlw"/>
     <stereotypes xmi:id="_rGi8VON0Ee2G2tt8PYGqlw" name="Reference">
       <modelElement href="clinica-medica-model.uml#_qGM5oON0Ee2G2tt8PYGqlw"/>
     </stereotypes>
     <nameVisual xmi:id="_rGi8UeN0Ee2G2tt8PYGqlw" text="">
-      <visualProperties xmi:id="_rLpew-N0Ee2G2tt8PYGqlw" position="2.0,-28.600000000000023"/>
+      <visualProperties xmi:id="_rLpew-N0Ee2G2tt8PYGqlw" position="2.0,-30.0"/>
     </nameVisual>
     <sourceRole xmi:id="_rGi8UuN0Ee2G2tt8PYGqlw" aggregationKind="NONE" name="">
       <modelElement href="clinica-medica-model.uml#_qGMSkeN0Ee2G2tt8PYGqlw"/>
@@ -160,15 +160,15 @@
     </sourceRole>
     <targetRole xmi:id="_rGi8U-N0Ee2G2tt8PYGqlw" aggregationKind="NONE" name="usuario" navigable="true">
       <modelElement href="clinica-medica-model.uml#_qF8a8uN0Ee2G2tt8PYGqlw"/>
-      <visualProperties xmi:id="_rLpexON0Ee2G2tt8PYGqlw" position="2.0,-93.0"/>
+      <visualProperties xmi:id="_rLpexON0Ee2G2tt8PYGqlw" position="-66.0,-94.0"/>
       <visibility xmi:id="_rGlYkON0Ee2G2tt8PYGqlw" label="+"/>
       <cardinality xmi:id="_rGkxguN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
     </targetRole>
   </edges>
   <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:GeneralizationVisual" xmi:id="_rGi8UON0Ee2G2tt8PYGqlw" sourceAnchor="204.0,0.0" targetAnchor="156.0,277.0" superClass="_rGFpWON0Ee2G2tt8PYGqlw" subClass="_rGlYkeN0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qFfH8ON0Ee2G2tt8PYGqlw"/>
-    <bendpoints xmi:id="_SpnlMuT6Ee2sS958r7Rosw" sourceY="-30" targetX="-391" targetY="136"/>
-    <bendpoints xmi:id="_SpnlM-T6Ee2sS958r7Rosw" sourceX="391" sourceY="-30" targetY="136"/>
+    <bendpoints xmi:id="_NQVXwujpEe2IuK8nzAq0nA" sourceY="-30" targetX="-391" targetY="136"/>
+    <bendpoints xmi:id="_NQVXw-jpEe2IuK8nzAq0nA" sourceX="391" sourceY="-30" targetY="136"/>
   </edges>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_rGMXCON0Ee2G2tt8PYGqlw" name="Funcionario" associationsIn="_rGMXAON0Ee2G2tt8PYGqlw" generalizations="_rGKh0ON0Ee2G2tt8PYGqlw">
     <modelElement href="clinica-medica-model.uml#_qEoMUON0Ee2G2tt8PYGqlw"/>
@@ -314,290 +314,6 @@
           <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </type>
       </parameters>
-    </operations>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_rGQBYON0Ee2G2tt8PYGqlw" name="Usuario" associationsIn="_rGiVQON0Ee2G2tt8PYGqlw" associationsOut="_rGMXAON0Ee2G2tt8PYGqlw" subclassedBy="_rGUS0ON0Ee2G2tt8PYGqlw">
-    <modelElement href="clinica-medica-model.uml#_qEwvMON0Ee2G2tt8PYGqlw"/>
-    <visualProperties xmi:id="_rGQBYeN0Ee2G2tt8PYGqlw" position="253.0,928.0" size="-1.0,-1.0"/>
-    <visibility xmi:id="_rGQBYuN0Ee2G2tt8PYGqlw" label="+"/>
-    <attributes xmi:id="_rGQBY-N0Ee2G2tt8PYGqlw" name="id">
-      <modelElement href="clinica-medica-model.uml#_qF-3MON0Ee2G2tt8PYGqlw"/>
-      <visibility xmi:id="_rGQBZON0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGQBZeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <type xmi:id="_rGQBZuN0Ee2G2tt8PYGqlw" name="Long">
-        <modelElement href="clinica-medica-model.uml#_qFoR4eN0Ee2G2tt8PYGqlw"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_rGQBZ-N0Ee2G2tt8PYGqlw" name="usuario">
-      <modelElement href="clinica-medica-model.uml#_qF-3MeN0Ee2G2tt8PYGqlw"/>
-      <visibility xmi:id="_rGQBaON0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGQBaeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <type xmi:id="_rGQBauN0Ee2G2tt8PYGqlw" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_rGQBa-N0Ee2G2tt8PYGqlw" name="senha">
-      <modelElement href="clinica-medica-model.uml#_qF_eQON0Ee2G2tt8PYGqlw"/>
-      <stereotypes xmi:id="_rGQBbON0Ee2G2tt8PYGqlw" name="LegacyStyledElement">
-        <modelElement href="clinica-medica-model.uml#_qF_eQeN0Ee2G2tt8PYGqlw"/>
-      </stereotypes>
-      <visibility xmi:id="_rGQBbeN0Ee2G2tt8PYGqlw" label="#"/>
-      <cardinality xmi:id="_rGQBbuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <type xmi:id="_rGQBb-N0Ee2G2tt8PYGqlw" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_rGQBcON0Ee2G2tt8PYGqlw" name="nivelAcesso">
-      <modelElement href="clinica-medica-model.uml#_qF_eQuN0Ee2G2tt8PYGqlw"/>
-      <stereotypes xmi:id="_rGQBceN0Ee2G2tt8PYGqlw" name="LegacyStyledElement">
-        <modelElement href="clinica-medica-model.uml#_qF_eQ-N0Ee2G2tt8PYGqlw"/>
-      </stereotypes>
-      <visibility xmi:id="_rGQBcuN0Ee2G2tt8PYGqlw" label="#"/>
-      <cardinality xmi:id="_rGQBc-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <type xmi:id="_rGQBdON0Ee2G2tt8PYGqlw" name="int">
-        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-      </type>
-    </attributes>
-    <operations xmi:id="_rGQBdeN0Ee2G2tt8PYGqlw" name="Usuario">
-      <modelElement href="clinica-medica-model.uml#_qExWQON0Ee2G2tt8PYGqlw"/>
-      <keywords xmi:id="_rGQBduN0Ee2G2tt8PYGqlw" keyword="create"/>
-      <stereotypes xmi:id="_rGQBd-N0Ee2G2tt8PYGqlw" name="LegacyStyledElement">
-        <modelElement href="clinica-medica-model.uml#_qExWQ-N0Ee2G2tt8PYGqlw"/>
-      </stereotypes>
-      <visibility xmi:id="_rGQBeON0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGQBeeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <outParameters xmi:id="_rGQBeuN0Ee2G2tt8PYGqlw">
-        <modelElement href="clinica-medica-model.uml#_qExWRON0Ee2G2tt8PYGqlw"/>
-        <type xmi:id="_rGQBe-N0Ee2G2tt8PYGqlw" name="Usuario">
-          <modelElement href="clinica-medica-model.uml#_qEwvMON0Ee2G2tt8PYGqlw"/>
-        </type>
-      </outParameters>
-    </operations>
-    <operations xmi:id="_rGQBfON0Ee2G2tt8PYGqlw" name="Usuario">
-      <modelElement href="clinica-medica-model.uml#_qExWReN0Ee2G2tt8PYGqlw"/>
-      <keywords xmi:id="_rGQBfeN0Ee2G2tt8PYGqlw" keyword="create"/>
-      <visibility xmi:id="_rGQBfuN0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGQBf-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <outParameters xmi:id="_rGQBgON0Ee2G2tt8PYGqlw">
-        <modelElement href="clinica-medica-model.uml#_qEx9VeN0Ee2G2tt8PYGqlw"/>
-        <type xmi:id="_rGQBgeN0Ee2G2tt8PYGqlw" name="Usuario">
-          <modelElement href="clinica-medica-model.uml#_qEwvMON0Ee2G2tt8PYGqlw"/>
-        </type>
-      </outParameters>
-      <parameters xmi:id="_rGQBguN0Ee2G2tt8PYGqlw" name="usuario">
-        <modelElement href="clinica-medica-model.uml#_qEx9UON0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGQBg-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGQBhON0Ee2G2tt8PYGqlw" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_rGQBheN0Ee2G2tt8PYGqlw" name="senha">
-        <modelElement href="clinica-medica-model.uml#_qEx9UeN0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGQBhuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGQBh-N0Ee2G2tt8PYGqlw" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_rGQBiON0Ee2G2tt8PYGqlw" name="nivelAcesso">
-        <modelElement href="clinica-medica-model.uml#_qEx9UuN0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGQBieN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGQBiuN0Ee2G2tt8PYGqlw" name="int">
-          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-        </type>
-      </parameters>
-    </operations>
-    <operations xmi:id="_rGQBi-N0Ee2G2tt8PYGqlw" name="Usuario">
-      <modelElement href="clinica-medica-model.uml#_qEx9VuN0Ee2G2tt8PYGqlw"/>
-      <keywords xmi:id="_rGQBjON0Ee2G2tt8PYGqlw" keyword="create"/>
-      <visibility xmi:id="_rGQBjeN0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGQBjuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <outParameters xmi:id="_rGQBj-N0Ee2G2tt8PYGqlw">
-        <modelElement href="clinica-medica-model.uml#_qEx9W-N0Ee2G2tt8PYGqlw"/>
-        <type xmi:id="_rGQBkON0Ee2G2tt8PYGqlw" name="Usuario">
-          <modelElement href="clinica-medica-model.uml#_qEwvMON0Ee2G2tt8PYGqlw"/>
-        </type>
-      </outParameters>
-      <parameters xmi:id="_rGQBkeN0Ee2G2tt8PYGqlw" name="usuario">
-        <modelElement href="clinica-medica-model.uml#_qEx9V-N0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGQBkuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGQBk-N0Ee2G2tt8PYGqlw" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_rGQBlON0Ee2G2tt8PYGqlw" name="senha">
-        <modelElement href="clinica-medica-model.uml#_qEx9WON0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGQBleN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGQBluN0Ee2G2tt8PYGqlw" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-    </operations>
-    <operations xmi:id="_rGQBl-N0Ee2G2tt8PYGqlw" name="getSenha">
-      <modelElement href="clinica-medica-model.uml#_qEykYON0Ee2G2tt8PYGqlw"/>
-      <visibility xmi:id="_rGQBmON0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGQBmeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <outParameters xmi:id="_rGQBmuN0Ee2G2tt8PYGqlw">
-        <modelElement href="clinica-medica-model.uml#_qEykYeN0Ee2G2tt8PYGqlw"/>
-        <type xmi:id="_rGQBm-N0Ee2G2tt8PYGqlw" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </outParameters>
-    </operations>
-    <operations xmi:id="_rGQBnON0Ee2G2tt8PYGqlw" name="setSenha">
-      <modelElement href="clinica-medica-model.uml#_qEykYuN0Ee2G2tt8PYGqlw"/>
-      <visibility xmi:id="_rGQBneN0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGQBnuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <parameters xmi:id="_rGQBn-N0Ee2G2tt8PYGqlw" name="senha">
-        <modelElement href="clinica-medica-model.uml#_qEykY-N0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGQBoON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGQBoeN0Ee2G2tt8PYGqlw" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-    </operations>
-    <operations xmi:id="_rGQBouN0Ee2G2tt8PYGqlw" name="getNivelAcesso">
-      <modelElement href="clinica-medica-model.uml#_qEykZON0Ee2G2tt8PYGqlw"/>
-      <visibility xmi:id="_rGQBo-N0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGQBpON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <outParameters xmi:id="_rGQBpeN0Ee2G2tt8PYGqlw">
-        <modelElement href="clinica-medica-model.uml#_qEykZeN0Ee2G2tt8PYGqlw"/>
-        <type xmi:id="_rGQBpuN0Ee2G2tt8PYGqlw" name="int">
-          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-        </type>
-      </outParameters>
-    </operations>
-    <operations xmi:id="_rGQBp-N0Ee2G2tt8PYGqlw" name="setNivelAcesso">
-      <modelElement href="clinica-medica-model.uml#_qEykZuN0Ee2G2tt8PYGqlw"/>
-      <visibility xmi:id="_rGQBqON0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGQBqeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <parameters xmi:id="_rGQBquN0Ee2G2tt8PYGqlw" name="nivelAcesso">
-        <modelElement href="clinica-medica-model.uml#_qEykZ-N0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGQBq-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGQBrON0Ee2G2tt8PYGqlw" name="int">
-          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-        </type>
-      </parameters>
-    </operations>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_rGWIAON0Ee2G2tt8PYGqlw" name="Adm" generalizations="_rGUS0ON0Ee2G2tt8PYGqlw">
-    <modelElement href="clinica-medica-model.uml#_qEdNMON0Ee2G2tt8PYGqlw"/>
-    <visualProperties xmi:id="_rGWIAeN0Ee2G2tt8PYGqlw" position="244.0,1319.0" size="-1.0,-1.0"/>
-    <visibility xmi:id="_rGWIAuN0Ee2G2tt8PYGqlw" label="+"/>
-    <operations xmi:id="_rGWIA-N0Ee2G2tt8PYGqlw" name="Adm">
-      <modelElement href="clinica-medica-model.uml#_qFo48eN0Ee2G2tt8PYGqlw"/>
-      <keywords xmi:id="_rGWIBON0Ee2G2tt8PYGqlw" keyword="create"/>
-      <visibility xmi:id="_rGWIBeN0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGWIBuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <outParameters xmi:id="_rGWIB-N0Ee2G2tt8PYGqlw">
-        <modelElement href="clinica-medica-model.uml#_qFo4-ON0Ee2G2tt8PYGqlw"/>
-        <type xmi:id="_rGWICON0Ee2G2tt8PYGqlw" name="Adm">
-          <modelElement href="clinica-medica-model.uml#_qEdNMON0Ee2G2tt8PYGqlw"/>
-        </type>
-      </outParameters>
-      <parameters xmi:id="_rGWICeN0Ee2G2tt8PYGqlw" name="id">
-        <modelElement href="clinica-medica-model.uml#_qFo48uN0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGWICuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGWIC-N0Ee2G2tt8PYGqlw" name="Long">
-          <modelElement href="clinica-medica-model.uml#_qFoR4eN0Ee2G2tt8PYGqlw"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_rGWIDON0Ee2G2tt8PYGqlw" name="usuario">
-        <modelElement href="clinica-medica-model.uml#_qFo48-N0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGWIDeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGWIDuN0Ee2G2tt8PYGqlw" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_rGWID-N0Ee2G2tt8PYGqlw" name="senha">
-        <modelElement href="clinica-medica-model.uml#_qFo49ON0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGWIEON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGWIEeN0Ee2G2tt8PYGqlw" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_rGWIEuN0Ee2G2tt8PYGqlw" name="nivelAcesso">
-        <modelElement href="clinica-medica-model.uml#_qFo49eN0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGWIE-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGWIFON0Ee2G2tt8PYGqlw" name="int">
-          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-        </type>
-      </parameters>
-    </operations>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_rGcOoON0Ee2G2tt8PYGqlw" name="Convenio" associationsOut="_rGB-8ON0Ee2G2tt8PYGqlw">
-    <modelElement href="clinica-medica-model.uml#_qEiswON0Ee2G2tt8PYGqlw"/>
-    <visualProperties xmi:id="_rGcOoeN0Ee2G2tt8PYGqlw" position="904.0,1107.0" size="-1.0,-1.0"/>
-    <visibility xmi:id="_rGcOouN0Ee2G2tt8PYGqlw" label="+"/>
-    <attributes xmi:id="_rGcOo-N0Ee2G2tt8PYGqlw" name="id">
-      <modelElement href="clinica-medica-model.uml#_qF4JgON0Ee2G2tt8PYGqlw"/>
-      <visibility xmi:id="_rGcOpON0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGcOpeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <type xmi:id="_rGcOpuN0Ee2G2tt8PYGqlw" name="int">
-        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_rGcOp-N0Ee2G2tt8PYGqlw" name="convenio">
-      <modelElement href="clinica-medica-model.uml#_qF4JgeN0Ee2G2tt8PYGqlw"/>
-      <visibility xmi:id="_rGcOqON0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGcOqeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <type xmi:id="_rGcOquN0Ee2G2tt8PYGqlw" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <operations xmi:id="_rGcOq-N0Ee2G2tt8PYGqlw" name="Convenio">
-      <modelElement href="clinica-medica-model.uml#_qEjT0ON0Ee2G2tt8PYGqlw"/>
-      <keywords xmi:id="_rGcOrON0Ee2G2tt8PYGqlw" keyword="create"/>
-      <visibility xmi:id="_rGcOreN0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGcOruN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <outParameters xmi:id="_rGcOr-N0Ee2G2tt8PYGqlw">
-        <modelElement href="clinica-medica-model.uml#_qEjT0-N0Ee2G2tt8PYGqlw"/>
-        <type xmi:id="_rGcOsON0Ee2G2tt8PYGqlw" name="Convenio">
-          <modelElement href="clinica-medica-model.uml#_qEiswON0Ee2G2tt8PYGqlw"/>
-        </type>
-      </outParameters>
-    </operations>
-    <operations xmi:id="_rGcOseN0Ee2G2tt8PYGqlw" name="Convenio">
-      <modelElement href="clinica-medica-model.uml#_qEjT1ON0Ee2G2tt8PYGqlw"/>
-      <keywords xmi:id="_rGcOsuN0Ee2G2tt8PYGqlw" keyword="create"/>
-      <visibility xmi:id="_rGcOs-N0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGcOtON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <outParameters xmi:id="_rGcOteN0Ee2G2tt8PYGqlw">
-        <modelElement href="clinica-medica-model.uml#_qEjT2eN0Ee2G2tt8PYGqlw"/>
-        <type xmi:id="_rGcOtuN0Ee2G2tt8PYGqlw" name="Convenio">
-          <modelElement href="clinica-medica-model.uml#_qEiswON0Ee2G2tt8PYGqlw"/>
-        </type>
-      </outParameters>
-      <parameters xmi:id="_rGcOt-N0Ee2G2tt8PYGqlw" name="id">
-        <modelElement href="clinica-medica-model.uml#_qEjT1eN0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGcOuON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGcOueN0Ee2G2tt8PYGqlw" name="int">
-          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_rGcOuuN0Ee2G2tt8PYGqlw" name="convenio">
-        <modelElement href="clinica-medica-model.uml#_qEjT1uN0Ee2G2tt8PYGqlw"/>
-        <cardinality xmi:id="_rGcOu-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-        <type xmi:id="_rGcOvON0Ee2G2tt8PYGqlw" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-    </operations>
-    <operations xmi:id="_rGcOveN0Ee2G2tt8PYGqlw" name="toString">
-      <modelElement href="clinica-medica-model.uml#_qEjT2uN0Ee2G2tt8PYGqlw"/>
-      <stereotypes xmi:id="_rGcOvuN0Ee2G2tt8PYGqlw" name="LegacyStyledElement">
-        <modelElement href="clinica-medica-model.uml#_qEj64eN0Ee2G2tt8PYGqlw"/>
-      </stereotypes>
-      <stereotypes xmi:id="_rGcOv-N0Ee2G2tt8PYGqlw" name="Annotations">
-        <modelElement href="clinica-medica-model.uml#_qEj64uN0Ee2G2tt8PYGqlw"/>
-      </stereotypes>
-      <visibility xmi:id="_rGcOwON0Ee2G2tt8PYGqlw" label="+"/>
-      <cardinality xmi:id="_rGcOweN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
-      <outParameters xmi:id="_rGcOwuN0Ee2G2tt8PYGqlw">
-        <modelElement href="clinica-medica-model.uml#_qEj64ON0Ee2G2tt8PYGqlw"/>
-        <type xmi:id="_rGcOw-N0Ee2G2tt8PYGqlw" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </outParameters>
     </operations>
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_rF8fYON0Ee2G2tt8PYGqlw" name="Estado" associationsOut="_rGeD0ON0Ee2G2tt8PYGqlw">
@@ -986,6 +702,290 @@
         <modelElement href="clinica-medica-model.uml#_qElwGeN0Ee2G2tt8PYGqlw"/>
         <type xmi:id="_rGggTON0Ee2G2tt8PYGqlw" name="Endereco">
           <modelElement href="clinica-medica-model.uml#_qEj65ON0Ee2G2tt8PYGqlw"/>
+        </type>
+      </outParameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_rGWIAON0Ee2G2tt8PYGqlw" name="Adm" generalizations="_rGUS0ON0Ee2G2tt8PYGqlw">
+    <modelElement href="clinica-medica-model.uml#_qEdNMON0Ee2G2tt8PYGqlw"/>
+    <visualProperties xmi:id="_rGWIAeN0Ee2G2tt8PYGqlw" position="252.0,1311.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_rGWIAuN0Ee2G2tt8PYGqlw" label="+"/>
+    <operations xmi:id="_rGWIA-N0Ee2G2tt8PYGqlw" name="Adm">
+      <modelElement href="clinica-medica-model.uml#_qFo48eN0Ee2G2tt8PYGqlw"/>
+      <keywords xmi:id="_rGWIBON0Ee2G2tt8PYGqlw" keyword="create"/>
+      <visibility xmi:id="_rGWIBeN0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGWIBuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_rGWIB-N0Ee2G2tt8PYGqlw">
+        <modelElement href="clinica-medica-model.uml#_qFo4-ON0Ee2G2tt8PYGqlw"/>
+        <type xmi:id="_rGWICON0Ee2G2tt8PYGqlw" name="Adm">
+          <modelElement href="clinica-medica-model.uml#_qEdNMON0Ee2G2tt8PYGqlw"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_rGWICeN0Ee2G2tt8PYGqlw" name="id">
+        <modelElement href="clinica-medica-model.uml#_qFo48uN0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGWICuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGWIC-N0Ee2G2tt8PYGqlw" name="Long">
+          <modelElement href="clinica-medica-model.uml#_qFoR4eN0Ee2G2tt8PYGqlw"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_rGWIDON0Ee2G2tt8PYGqlw" name="usuario">
+        <modelElement href="clinica-medica-model.uml#_qFo48-N0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGWIDeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGWIDuN0Ee2G2tt8PYGqlw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_rGWID-N0Ee2G2tt8PYGqlw" name="senha">
+        <modelElement href="clinica-medica-model.uml#_qFo49ON0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGWIEON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGWIEeN0Ee2G2tt8PYGqlw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_rGWIEuN0Ee2G2tt8PYGqlw" name="nivelAcesso">
+        <modelElement href="clinica-medica-model.uml#_qFo49eN0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGWIE-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGWIFON0Ee2G2tt8PYGqlw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_rGQBYON0Ee2G2tt8PYGqlw" name="Usuario" associationsIn="_rGiVQON0Ee2G2tt8PYGqlw" associationsOut="_rGMXAON0Ee2G2tt8PYGqlw" subclassedBy="_rGUS0ON0Ee2G2tt8PYGqlw">
+    <modelElement href="clinica-medica-model.uml#_qEwvMON0Ee2G2tt8PYGqlw"/>
+    <visualProperties xmi:id="_rGQBYeN0Ee2G2tt8PYGqlw" position="247.0,929.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_rGQBYuN0Ee2G2tt8PYGqlw" label="+"/>
+    <attributes xmi:id="_rGQBY-N0Ee2G2tt8PYGqlw" name="id">
+      <modelElement href="clinica-medica-model.uml#_qF-3MON0Ee2G2tt8PYGqlw"/>
+      <visibility xmi:id="_rGQBZON0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGQBZeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <type xmi:id="_rGQBZuN0Ee2G2tt8PYGqlw" name="Long">
+        <modelElement href="clinica-medica-model.uml#_qFoR4eN0Ee2G2tt8PYGqlw"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_rGQBZ-N0Ee2G2tt8PYGqlw" name="usuario">
+      <modelElement href="clinica-medica-model.uml#_qF-3MeN0Ee2G2tt8PYGqlw"/>
+      <visibility xmi:id="_rGQBaON0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGQBaeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <type xmi:id="_rGQBauN0Ee2G2tt8PYGqlw" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_rGQBa-N0Ee2G2tt8PYGqlw" name="senha">
+      <modelElement href="clinica-medica-model.uml#_qF_eQON0Ee2G2tt8PYGqlw"/>
+      <stereotypes xmi:id="_rGQBbON0Ee2G2tt8PYGqlw" name="LegacyStyledElement">
+        <modelElement href="clinica-medica-model.uml#_qF_eQeN0Ee2G2tt8PYGqlw"/>
+      </stereotypes>
+      <visibility xmi:id="_rGQBbeN0Ee2G2tt8PYGqlw" label="#"/>
+      <cardinality xmi:id="_rGQBbuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <type xmi:id="_rGQBb-N0Ee2G2tt8PYGqlw" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_rGQBcON0Ee2G2tt8PYGqlw" name="nivelAcesso">
+      <modelElement href="clinica-medica-model.uml#_qF_eQuN0Ee2G2tt8PYGqlw"/>
+      <stereotypes xmi:id="_rGQBceN0Ee2G2tt8PYGqlw" name="LegacyStyledElement">
+        <modelElement href="clinica-medica-model.uml#_qF_eQ-N0Ee2G2tt8PYGqlw"/>
+      </stereotypes>
+      <visibility xmi:id="_rGQBcuN0Ee2G2tt8PYGqlw" label="#"/>
+      <cardinality xmi:id="_rGQBc-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <type xmi:id="_rGQBdON0Ee2G2tt8PYGqlw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_rGQBdeN0Ee2G2tt8PYGqlw" name="Usuario">
+      <modelElement href="clinica-medica-model.uml#_qExWQON0Ee2G2tt8PYGqlw"/>
+      <keywords xmi:id="_rGQBduN0Ee2G2tt8PYGqlw" keyword="create"/>
+      <stereotypes xmi:id="_rGQBd-N0Ee2G2tt8PYGqlw" name="LegacyStyledElement">
+        <modelElement href="clinica-medica-model.uml#_qExWQ-N0Ee2G2tt8PYGqlw"/>
+      </stereotypes>
+      <visibility xmi:id="_rGQBeON0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGQBeeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_rGQBeuN0Ee2G2tt8PYGqlw">
+        <modelElement href="clinica-medica-model.uml#_qExWRON0Ee2G2tt8PYGqlw"/>
+        <type xmi:id="_rGQBe-N0Ee2G2tt8PYGqlw" name="Usuario">
+          <modelElement href="clinica-medica-model.uml#_qEwvMON0Ee2G2tt8PYGqlw"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_rGQBfON0Ee2G2tt8PYGqlw" name="Usuario">
+      <modelElement href="clinica-medica-model.uml#_qExWReN0Ee2G2tt8PYGqlw"/>
+      <keywords xmi:id="_rGQBfeN0Ee2G2tt8PYGqlw" keyword="create"/>
+      <visibility xmi:id="_rGQBfuN0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGQBf-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_rGQBgON0Ee2G2tt8PYGqlw">
+        <modelElement href="clinica-medica-model.uml#_qEx9VeN0Ee2G2tt8PYGqlw"/>
+        <type xmi:id="_rGQBgeN0Ee2G2tt8PYGqlw" name="Usuario">
+          <modelElement href="clinica-medica-model.uml#_qEwvMON0Ee2G2tt8PYGqlw"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_rGQBguN0Ee2G2tt8PYGqlw" name="usuario">
+        <modelElement href="clinica-medica-model.uml#_qEx9UON0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGQBg-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGQBhON0Ee2G2tt8PYGqlw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_rGQBheN0Ee2G2tt8PYGqlw" name="senha">
+        <modelElement href="clinica-medica-model.uml#_qEx9UeN0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGQBhuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGQBh-N0Ee2G2tt8PYGqlw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_rGQBiON0Ee2G2tt8PYGqlw" name="nivelAcesso">
+        <modelElement href="clinica-medica-model.uml#_qEx9UuN0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGQBieN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGQBiuN0Ee2G2tt8PYGqlw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_rGQBi-N0Ee2G2tt8PYGqlw" name="Usuario">
+      <modelElement href="clinica-medica-model.uml#_qEx9VuN0Ee2G2tt8PYGqlw"/>
+      <keywords xmi:id="_rGQBjON0Ee2G2tt8PYGqlw" keyword="create"/>
+      <visibility xmi:id="_rGQBjeN0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGQBjuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_rGQBj-N0Ee2G2tt8PYGqlw">
+        <modelElement href="clinica-medica-model.uml#_qEx9W-N0Ee2G2tt8PYGqlw"/>
+        <type xmi:id="_rGQBkON0Ee2G2tt8PYGqlw" name="Usuario">
+          <modelElement href="clinica-medica-model.uml#_qEwvMON0Ee2G2tt8PYGqlw"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_rGQBkeN0Ee2G2tt8PYGqlw" name="usuario">
+        <modelElement href="clinica-medica-model.uml#_qEx9V-N0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGQBkuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGQBk-N0Ee2G2tt8PYGqlw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_rGQBlON0Ee2G2tt8PYGqlw" name="senha">
+        <modelElement href="clinica-medica-model.uml#_qEx9WON0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGQBleN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGQBluN0Ee2G2tt8PYGqlw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_rGQBl-N0Ee2G2tt8PYGqlw" name="getSenha">
+      <modelElement href="clinica-medica-model.uml#_qEykYON0Ee2G2tt8PYGqlw"/>
+      <visibility xmi:id="_rGQBmON0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGQBmeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_rGQBmuN0Ee2G2tt8PYGqlw">
+        <modelElement href="clinica-medica-model.uml#_qEykYeN0Ee2G2tt8PYGqlw"/>
+        <type xmi:id="_rGQBm-N0Ee2G2tt8PYGqlw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_rGQBnON0Ee2G2tt8PYGqlw" name="setSenha">
+      <modelElement href="clinica-medica-model.uml#_qEykYuN0Ee2G2tt8PYGqlw"/>
+      <visibility xmi:id="_rGQBneN0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGQBnuN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <parameters xmi:id="_rGQBn-N0Ee2G2tt8PYGqlw" name="senha">
+        <modelElement href="clinica-medica-model.uml#_qEykY-N0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGQBoON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGQBoeN0Ee2G2tt8PYGqlw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_rGQBouN0Ee2G2tt8PYGqlw" name="getNivelAcesso">
+      <modelElement href="clinica-medica-model.uml#_qEykZON0Ee2G2tt8PYGqlw"/>
+      <visibility xmi:id="_rGQBo-N0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGQBpON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_rGQBpeN0Ee2G2tt8PYGqlw">
+        <modelElement href="clinica-medica-model.uml#_qEykZeN0Ee2G2tt8PYGqlw"/>
+        <type xmi:id="_rGQBpuN0Ee2G2tt8PYGqlw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_rGQBp-N0Ee2G2tt8PYGqlw" name="setNivelAcesso">
+      <modelElement href="clinica-medica-model.uml#_qEykZuN0Ee2G2tt8PYGqlw"/>
+      <visibility xmi:id="_rGQBqON0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGQBqeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <parameters xmi:id="_rGQBquN0Ee2G2tt8PYGqlw" name="nivelAcesso">
+        <modelElement href="clinica-medica-model.uml#_qEykZ-N0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGQBq-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGQBrON0Ee2G2tt8PYGqlw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_rGcOoON0Ee2G2tt8PYGqlw" name="Convenio" associationsOut="_rGB-8ON0Ee2G2tt8PYGqlw">
+    <modelElement href="clinica-medica-model.uml#_qEiswON0Ee2G2tt8PYGqlw"/>
+    <visualProperties xmi:id="_rGcOoeN0Ee2G2tt8PYGqlw" position="926.0,1106.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_rGcOouN0Ee2G2tt8PYGqlw" label="+"/>
+    <attributes xmi:id="_rGcOo-N0Ee2G2tt8PYGqlw" name="id">
+      <modelElement href="clinica-medica-model.uml#_qF4JgON0Ee2G2tt8PYGqlw"/>
+      <visibility xmi:id="_rGcOpON0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGcOpeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <type xmi:id="_rGcOpuN0Ee2G2tt8PYGqlw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_rGcOp-N0Ee2G2tt8PYGqlw" name="convenio">
+      <modelElement href="clinica-medica-model.uml#_qF4JgeN0Ee2G2tt8PYGqlw"/>
+      <visibility xmi:id="_rGcOqON0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGcOqeN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <type xmi:id="_rGcOquN0Ee2G2tt8PYGqlw" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_rGcOq-N0Ee2G2tt8PYGqlw" name="Convenio">
+      <modelElement href="clinica-medica-model.uml#_qEjT0ON0Ee2G2tt8PYGqlw"/>
+      <keywords xmi:id="_rGcOrON0Ee2G2tt8PYGqlw" keyword="create"/>
+      <visibility xmi:id="_rGcOreN0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGcOruN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_rGcOr-N0Ee2G2tt8PYGqlw">
+        <modelElement href="clinica-medica-model.uml#_qEjT0-N0Ee2G2tt8PYGqlw"/>
+        <type xmi:id="_rGcOsON0Ee2G2tt8PYGqlw" name="Convenio">
+          <modelElement href="clinica-medica-model.uml#_qEiswON0Ee2G2tt8PYGqlw"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_rGcOseN0Ee2G2tt8PYGqlw" name="Convenio">
+      <modelElement href="clinica-medica-model.uml#_qEjT1ON0Ee2G2tt8PYGqlw"/>
+      <keywords xmi:id="_rGcOsuN0Ee2G2tt8PYGqlw" keyword="create"/>
+      <visibility xmi:id="_rGcOs-N0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGcOtON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_rGcOteN0Ee2G2tt8PYGqlw">
+        <modelElement href="clinica-medica-model.uml#_qEjT2eN0Ee2G2tt8PYGqlw"/>
+        <type xmi:id="_rGcOtuN0Ee2G2tt8PYGqlw" name="Convenio">
+          <modelElement href="clinica-medica-model.uml#_qEiswON0Ee2G2tt8PYGqlw"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_rGcOt-N0Ee2G2tt8PYGqlw" name="id">
+        <modelElement href="clinica-medica-model.uml#_qEjT1eN0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGcOuON0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGcOueN0Ee2G2tt8PYGqlw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_rGcOuuN0Ee2G2tt8PYGqlw" name="convenio">
+        <modelElement href="clinica-medica-model.uml#_qEjT1uN0Ee2G2tt8PYGqlw"/>
+        <cardinality xmi:id="_rGcOu-N0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+        <type xmi:id="_rGcOvON0Ee2G2tt8PYGqlw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_rGcOveN0Ee2G2tt8PYGqlw" name="toString">
+      <modelElement href="clinica-medica-model.uml#_qEjT2uN0Ee2G2tt8PYGqlw"/>
+      <stereotypes xmi:id="_rGcOvuN0Ee2G2tt8PYGqlw" name="LegacyStyledElement">
+        <modelElement href="clinica-medica-model.uml#_qEj64eN0Ee2G2tt8PYGqlw"/>
+      </stereotypes>
+      <stereotypes xmi:id="_rGcOv-N0Ee2G2tt8PYGqlw" name="Annotations">
+        <modelElement href="clinica-medica-model.uml#_qEj64uN0Ee2G2tt8PYGqlw"/>
+      </stereotypes>
+      <visibility xmi:id="_rGcOwON0Ee2G2tt8PYGqlw" label="+"/>
+      <cardinality xmi:id="_rGcOweN0Ee2G2tt8PYGqlw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_rGcOwuN0Ee2G2tt8PYGqlw">
+        <modelElement href="clinica-medica-model.uml#_qEj64ON0Ee2G2tt8PYGqlw"/>
+        <type xmi:id="_rGcOw-N0Ee2G2tt8PYGqlw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </type>
       </outParameters>
     </operations>

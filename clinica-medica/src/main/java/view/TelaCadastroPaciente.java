@@ -122,7 +122,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
-		setTitle("Tela cadastro de paciente");
+		setTitle("Cadastro do paciente");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
 		if (resourceIcon != null) {
@@ -136,7 +136,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
-		contentPane.setBackground(new Color(144, 238, 144));
+		contentPane.setBackground(new Color(204, 255, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBounds(100, 100, 2000, 1050);
 
@@ -152,7 +152,7 @@ public class TelaCadastroPaciente extends JFrame {
 		}
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(144, 238, 144));
+		panel.setBackground(new Color(51, 153, 0));
 		panel.setLayout(new MigLayout("", "[1300:n:1300]", "[850]"));
 
 		JPanel panel_1 = new JPanel();
@@ -174,36 +174,37 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 20));
 
-		JLabel lblNewLabel = new JLabel("Cadastro Paciente");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 32));
+		JLabel lblNewLabel = new JLabel("Cadastro do paciente");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 50));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblNewLabel, "name_169020969106100");
 
 		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(204, 255, 204));
 		panel_1.add(panel_4, BorderLayout.SOUTH);
 		panel_4.setLayout(new MigLayout("", "[1310:n:1310,grow]", "[150:n:150,grow][200:n:200,grow][400:n:400,grow]"));
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(107, 142, 35), 4));
+		panel_3.setBorder(new LineBorder(new Color(51, 153, 51), 4));
 		panel_3.setBackground(new Color(240, 255, 240));
 		panel_4.add(panel_3, "cell 0 0,grow");
-		panel_3.setLayout(new MigLayout("", "[][300:n:300,grow][][300:n:300][][][150:n:150,grow]",
-				"[][30:n:30][][30:n:30][][30:n:30][]"));
+		panel_3.setLayout(new MigLayout("", "[][300:n:300,grow][][300:n:300][][][150:n:150,grow]", "[][30:n:30][][30:n:30][][30:n:30][]"));
 
-		JLabel lblNewLabel_1 = new JLabel("Nome : ");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_1, "cell 0 1,alignx center,growy");
+		JLabel lblNewLabel_1 = new JLabel("Nome: ");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_3.add(lblNewLabel_1, "cell 0 1,alignx right,growy");
 
 		txtNome = new JTextField();
 		panel_3.add(txtNome, "cell 1 1,grow");
 		txtNome.setColumns(10);
 
-		JLabel lblNewLabel_4 = new JLabel("Data :");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_4, "flowx,cell 3 1,growx");
+		JLabel lblNewLabel_4 = new JLabel("Data:");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_3.add(lblNewLabel_4, "flowx,cell 3 1,alignx right");
 
-		JLabel lblNewLabel_7 = new JLabel("Convênio :");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JLabel lblNewLabel_7 = new JLabel("Convênio:");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_7, "cell 5 1,alignx trailing");
 
 		cbxConvenio = new JComboBox<Convenio>();
@@ -228,7 +229,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(240, 255, 240));
-		panel_6.setBorder(new LineBorder(new Color(85, 107, 47), 4));
+		panel_6.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel_4.add(panel_6, "cell 0 2,grow");
 		panel_6.setLayout(
 				new MigLayout("", "[80:n:80][200:n:200,grow][][100px:n:100px][200:n:200,grow][][150:n:150][400:n:400]",
@@ -236,35 +237,36 @@ public class TelaCadastroPaciente extends JFrame {
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
-		panel_5.setBorder(new LineBorder(new Color(107, 142, 35), 4));
+		panel_5.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel_4.add(panel_5, "cell 0 1,grow");
 		panel_5.setLayout(new MigLayout("",
 				"[80:n:80][150:n:150,grow][][150:n:150][150:n:150,grow][100:n:100][180:n:180,grow][70:n:70][200:n:200px,grow][100px:n:100px]",
 				"[5:n:5][][5:n:5][30:n:30][5:n:5][30:n:30][5:n:5][30:n:30]"));
 
-		JLabel lblNewLabel_2 = new JLabel("E-mail :");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_2, "cell 0 3,alignx center");
+		JLabel lblNewLabel_2 = new JLabel("E-mail:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_3.add(lblNewLabel_2, "cell 0 3,alignx right");
 
 		txtEmail = new JTextField();
 		panel_3.add(txtEmail, "cell 1 3,grow");
 		txtEmail.setColumns(10);
 
-		JLabel lblNewLabel_5 = new JLabel("Cpf :    ");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_5, "flowx,cell 3 3,grow");
+		JLabel lblNewLabel_5 = new JLabel("CPF:");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_3.add(lblNewLabel_5, "flowx,cell 3 3,alignx right,growy");
 
-		JLabel lblNewLabel_8 = new JLabel("Sexo :");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_8, "cell 5 3");
+		JLabel lblNewLabel_8 = new JLabel("Sexo:");
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_3.add(lblNewLabel_8, "cell 5 3,alignx right");
 
 		jrbMasc = new JRadioButton("M");
+		jrbMasc.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		buttonGroup.add(jrbMasc);
 		jrbMasc.setBackground(new Color(240, 255, 240));
 		panel_3.add(jrbMasc, "flowx,cell 6 3,grow");
 
-		JLabel lblNewLabel_3 = new JLabel("Profissão :");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JLabel lblNewLabel_3 = new JLabel("Profissão:");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_3, "cell 0 5,alignx trailing");
 
 		txtProfissao = new JTextField();
@@ -307,9 +309,9 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_3.add(txtCpf, "cell 3 3,grow");
 		txtCpf.setColumns(23);
 
-		JLabel lblNewLabel_6 = new JLabel("Telefone :");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_6, "flowx,cell 3 5");
+		JLabel lblNewLabel_6 = new JLabel("Telefone:");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_3.add(lblNewLabel_6, "flowx,cell 3 5,alignx right");
 
 		try {
 			txtTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
@@ -321,6 +323,7 @@ public class TelaCadastroPaciente extends JFrame {
 		txtTelefone.setColumns(10);
 
 		jrbFemi = new JRadioButton("F");
+		jrbFemi.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		buttonGroup.add(jrbFemi);
 		jrbFemi.setBackground(new Color(240, 255, 240));
 		panel_3.add(jrbFemi, "cell 6 3,grow");
@@ -329,8 +332,8 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 16));
 
-		JLabel lblNewLabel_18 = new JLabel("Cep : ");
-		lblNewLabel_18.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JLabel lblNewLabel_18 = new JLabel("CEP:");
+		lblNewLabel_18.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_18, "cell 0 1,alignx trailing");
 
 		cbxEstado = new JComboBox<Estado>();
@@ -414,31 +417,31 @@ public class TelaCadastroPaciente extends JFrame {
 		btnBuscarCep.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(btnBuscarCep, "cell 3 1 2 1,grow");
 
-		JLabel lblNewLabel_10 = new JLabel("Estado :");
+		JLabel lblNewLabel_10 = new JLabel("Estado:");
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_10.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_5.add(lblNewLabel_10, "cell 0 3,alignx trailing");
+		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_5.add(lblNewLabel_10, "cell 0 3,alignx right");
 
-		JLabel lblNewLabel_11 = new JLabel("Municipio :");
+		JLabel lblNewLabel_11 = new JLabel("Município:");
 		lblNewLabel_11.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_11.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_5.add(lblNewLabel_11, "cell 3 3,alignx center");
+		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_5.add(lblNewLabel_11, "cell 3 3,alignx right");
 
 		txtMunicipio = new JTextField();
 
 		panel_5.add(txtMunicipio, "cell 4 3,grow");
 		txtMunicipio.setColumns(10);
 
-		JLabel lblNewLabel_12 = new JLabel("Bairro: ");
-		lblNewLabel_12.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JLabel lblNewLabel_12 = new JLabel("Bairro:");
+		lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_12, "cell 5 3,alignx trailing,growy");
 
-		JLabel lblNewLabel_13 = new JLabel("Rua : ");
-		lblNewLabel_13.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JLabel lblNewLabel_13 = new JLabel("Rua:");
+		lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_13, "cell 7 3,alignx trailing");
 
-		JLabel lblNewLabel_14 = new JLabel("N :");
-		lblNewLabel_14.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JLabel lblNewLabel_14 = new JLabel("N°:");
+		lblNewLabel_14.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_14, "cell 0 5,alignx trailing");
 
 		txtNCasa = new JTextField();
@@ -447,8 +450,8 @@ public class TelaCadastroPaciente extends JFrame {
 		txtNCasa.setColumns(10);
 
 		JLabel lblNewLabel_15 = new JLabel("Complemento :");
-		lblNewLabel_15.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_5.add(lblNewLabel_15, "cell 3 5,alignx center");
+		lblNewLabel_15.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		panel_5.add(lblNewLabel_15, "cell 3 5,alignx right");
 
 		txtComplemento = new JTextField();
 		panel_5.add(txtComplemento, "cell 4 5 2 1,grow");
@@ -711,11 +714,11 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_5.add(btnCadastra, "cell 1 7 3 1,grow");
 
 		JLabel lblNewLabel_16 = new JLabel("CPF :\r\n");
-		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_16.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_6.add(lblNewLabel_16, "cell 0 1,alignx trailing");
 
-		JLabel lblNewLabel_17 = new JLabel("Nome :");
-		lblNewLabel_17.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JLabel lblNewLabel_17 = new JLabel("Nome:");
+		lblNewLabel_17.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_6.add(lblNewLabel_17, "cell 3 1,alignx trailing");
 
 		try {
@@ -728,21 +731,29 @@ public class TelaCadastroPaciente extends JFrame {
 		txtBuscaNome.setColumns(10);
 
 		JButton btnBuscaPaciente = new JButton("Buscar");
-		btnBuscaPaciente.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnBuscaPaciente.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnBuscaPaciente, "cell 6 1,grow");
 
 		JPanel panel_7 = new JPanel();
-		panel_7.setBorder(new LineBorder(new Color(107, 142, 35), 4));
+		panel_7.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		panel_7.setBorder(new LineBorder(new Color(51, 153, 0), 4));
 		panel_6.add(panel_7, "cell 1 2 7 1,grow");
 		panel_7.setLayout(new CardLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
 		panel_7.add(scrollPane, "name");
 
 		table = new JTable();
-
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "CPF", "Email" }));
+		table.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 12));
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome", "CPF", "Email"
+			}
+		));
 		atualizarTabela();
 		scrollPane.setViewportView(table);
 
