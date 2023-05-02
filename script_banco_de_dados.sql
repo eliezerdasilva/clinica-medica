@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
 
 
 CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
+  `id_consulta` int primary key auto_increment,
   `data_consulta` DATE NOT NULL,
   `hora_consulta` TIME NOT NULL,
   `paciente_cpf` BIGINT NOT NULL,
