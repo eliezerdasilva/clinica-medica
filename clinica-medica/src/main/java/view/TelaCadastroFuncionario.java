@@ -309,7 +309,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					txtRua.setText(enderecoPronto.getRua());
 
 					cbxEstado.setSelectedIndex(enderecoPronto.getEstado().getId() - 1);
-					System.out.println("nao faz setnioo");
+				
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Cep não cadastrado");

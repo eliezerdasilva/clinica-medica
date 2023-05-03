@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
 CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
   `cpf` BIGINT NOT NULL,
   `nome` VARCHAR(45) NULL DEFAULT NULL,
+  `email` VARCHAR(45) NUll DEFAULT NULL,
   `sexo`  VARCHAR(45) NULL DEFAULT NULL,
   `telefone` VARCHAR(12) NULL DEFAULT NULL,
   `data_nascimento` DATE NULL DEFAULT NULL,

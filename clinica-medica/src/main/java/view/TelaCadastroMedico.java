@@ -339,7 +339,7 @@ public class TelaCadastroMedico extends JFrame {
 					txtRua.setText(enderecoPronto.getRua());
 
 					cbxEstado.setSelectedIndex(enderecoPronto.getEstado().getId() - 1);
-					System.out.println("nao faz setnioo");
+
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Cep não cadastrado");
@@ -787,7 +787,6 @@ public class TelaCadastroMedico extends JFrame {
 							usuarioModelo.setSenha(senha);
 						}
 						usuarioModelo.setNivelAcesso(1);
-						System.out.println(usuarioModelo);
 						usuarioDao = new UsuarioDao();
 
 						boolean consultaUsuarioCadastrado = usuarioDao.consultarUsuarioCadastrado(usuarioModelo);
@@ -1048,8 +1047,6 @@ public class TelaCadastroMedico extends JFrame {
 		} else {
 			String dataTest = dataN.replace("/", "").trim();
 			if (dataTest.length() == 0) {
-				// TODO erro
-				System.out.println("Erro");
 				txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			} else {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

@@ -649,7 +649,6 @@ public class Agenda extends JFrame {
 		int cpf = Long.valueOf(medico.getCpf()).intValue();
 		
 		int posicao = cbxMedico.getSelectedIndex();
-		System.out.println("Posição do item selecionado: " + posicao);
 		cbxMedico.setSelectedItem(medico);
 		
 	}
