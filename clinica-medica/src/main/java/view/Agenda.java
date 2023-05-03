@@ -70,12 +70,12 @@ public class Agenda extends JFrame {
 	private JTable table = null;
 	private ArrayList<Consulta> listaConsulta = new ArrayList<>();
 	private JButton btnCadastrar;
-	private Component btnExcluir;
 	private JButton btnEditar;
 	private  Consulta consultaClick = new Consulta();
 	private ArrayList<Consulta> listConsulta = new ArrayList<>();
 	private Jcaledar txtCaledar;
-	private JButton btnVoltarMenu; 
+	private JButton btnVoltarMenu;
+	private JButton btnExcluir; 
 	
 
 	public Agenda(String usuario, String senha) {
@@ -263,7 +263,7 @@ public class Agenda extends JFrame {
 
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Medico", "Data", "Hora" }));
-		AtualizarTabela();
+		atualizarTabela();
 		scrollPane.setViewportView(table);
 
 		btnEditar = new JButton("Editar ");
@@ -342,7 +342,8 @@ public class Agenda extends JFrame {
 				btnsalvar.addActionListener(new ActionListener() {
 					
 					@Override
-					public void actionPerformed(ActionEvent e) throws ParseException {
+					public void actionPerformed(ActionEvent e) {
+
 						
 						
 						Date data = txtCaledar.getDate();
@@ -423,9 +424,10 @@ public class Agenda extends JFrame {
 							JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
 						} else {
 
-							JOptionPane.showMessageDialog(null, "Consulta cadastrada");
-							AtualizarTabela();
-							// AtualizarTabela();
+							JOptionPane.showMessageDialog(null, "Consulta editada con");
+							atualizarTabela();
+							limparTela();
+							// atualizarTabela();
 						}
 					
 						
@@ -443,11 +445,6 @@ public class Agenda extends JFrame {
 		btnEditar.setBackground(new Color(240, 255, 240));
 		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_3.add(btnEditar, "cell 1 9,grow");
-
-		btnExcluir = new JButton("Excluir");
-		btnExcluir.setBackground(new Color(240, 240, 240));
-		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_3.add(btnExcluir, "cell 5 9,grow");
 
 		txtTipoConsulta = new JTextField();
 		panel_3.add(txtTipoConsulta, "flowx,cell 3 5,grow");
@@ -519,22 +516,9 @@ public class Agenda extends JFrame {
 				} else {
 					SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
 					Date date = null;
-					try {
-						date = dt.parse(hora);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					DateFormat df = new SimpleDateFormat("HH:mm");
-
-					try {
-						Date datse = df.parse(hora);
-						Timestamp ts = new Timestamp(date.getTime());
-						c.setHora(ts);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					
+					LocalTime ts = LocalTime.parse(hora, DateTimeFormatter.ofPattern("HH:mm"));
+					c.setHora(ts);
 
 				}
 				Medico medico = (Medico) cbxMedico.getSelectedItem();
@@ -550,11 +534,18 @@ public class Agenda extends JFrame {
 				boolean cadastroConsulta = agendaDao.cadastraConsulta(c);
 				if (cadastroConsulta != true) {
 					JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
+					int n = JOptionPane.showConfirmDialog(null,
+							"Deseja limpar a tela" + " ", "", JOptionPane.YES_NO_OPTION);
+
+					if (n == JOptionPane.YES_OPTION) {
+					limparTela();
+					}
 				} else {
 
 					JOptionPane.showMessageDialog(null, "Consulta cadastrada");
-					AtualizarTabela();
-					 AtualizarTabela();
+					atualizarTabela();
+					 atualizarTabela();
+					 limparTela();
 				}
 
 			}
@@ -574,6 +565,67 @@ public class Agenda extends JFrame {
 				dispose();
 			}
 		});
+		
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				btnCadastrar.setVisible(false);
+				panel_3.remove(btnCadastrar);
+
+
+				btnEditar.setVisible(false);
+				panel_3.remove(btnEditar);
+				
+				btnVoltarMenu.setVisible(false);
+				panel_3.remove(btnVoltarMenu);
+				
+				int position = table.getSelectedRow();
+
+				if (position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+				consultaClick = listConsulta.get(position);
+				
+				
+				int n = JOptionPane.showConfirmDialog(null,
+						"Tem certeza que quer excluir?  " + " ", "", JOptionPane.YES_NO_OPTION);
+
+				if (n == JOptionPane.YES_OPTION) {
+					boolean retorno = agendaDao.excluitConsulta(consultaClick);
+					JOptionPane.showMessageDialog(null, "Excluindo");
+					atualizarTabela();
+				
+				} else {
+					JOptionPane.showMessageDialog(null, " erro ao excluir");
+			
+				}
+				agendaDao.excluitConsulta(consultaClick);
+				
+				panel_3.add(btnCadastrar);
+				btnCadastrar.setVisible(true);
+				
+				btnCadastrar.setBackground(new Color(240, 255, 240));
+				btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
+
+				panel_3.add(btnVoltarMenu);
+				btnVoltarMenu.setVisible(true);
+				btnVoltarMenu.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_3.add(btnVoltarMenu, "cell 7 9,grow");
+				
+				panel_3.add(btnEditar);
+				btnEditar.setVisible(true);
+				btnEditar.setBackground(new Color(240, 255, 240));
+				btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
+				panel_3.add(btnEditar, "cell 1 9,grow");
+				limparTela();
+				
+			}
+		});
+		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(btnExcluir, "cell 5 9,grow");
 		btnVoltarMenu.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnVoltarMenu, "cell 7 9,grow");
 
@@ -602,7 +654,7 @@ public class Agenda extends JFrame {
 		
 	}
 
-	protected void AtualizarTabela() {
+	protected void atualizarTabela() {
 		DefaultTableModel tabela = new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Medico", "Data", "Hora" });
 		listaConsulta = agendaDao.listConsulta();
 		for (int i = 0; i < listaConsulta.size(); i++) {
@@ -612,5 +664,17 @@ public class Agenda extends JFrame {
 
 		}
 		table.setModel(tabela);
+	}
+	protected void limparTela() {
+		txtHora.setText("");
+		txtNome.setText("");
+		txtCpf.setText("");
+		txtCpf.setEditable(true);
+		txtTipoConsulta.setText("");
+		Date date = java.sql.Date.valueOf("");
+		txtCaledar.setDate(date);
+		txtObservacao.setText("");
+		
+		
 	}
 }

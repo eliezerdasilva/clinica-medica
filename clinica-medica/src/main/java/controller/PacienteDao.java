@@ -63,9 +63,9 @@ public class PacienteDao implements InterfacePacienteDao {
 			    PreparedStatement stmt = c.prepareStatement(sql);
 			    stmt.setLong(1, cpf);
 	 
-			   
+			    stmt.executeUpdate();
 			     valida = stmt.execute();
-			     System.out.println(valida);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally {

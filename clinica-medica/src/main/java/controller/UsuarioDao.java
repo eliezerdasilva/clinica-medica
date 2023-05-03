@@ -63,9 +63,9 @@ public class UsuarioDao implements InterfaceUsuario {
 		Connection c = con.conectar();
 		boolean resultado = false; 
 		try {
-			PreparedStatement ps = c.prepareStatement("select * from medico where login = ? and usuario = ? ");
+			PreparedStatement ps = c.prepareStatement("select * from medico where login = ? ");
 			  ps.setString(1, usuarioModelo.getUsuario());
-			  ps.setString(2, usuarioModelo.getSenha());
+		
 			
 			ResultSet rs = ps.executeQuery();
 
@@ -212,7 +212,7 @@ public class UsuarioDao implements InterfaceUsuario {
 			stm.setString(2, usuarioNovo.getSenha());
 			stm.setInt(3, usuarioNovo.getNivelAcesso());
 			stm.setLong(4,usuarioNovo.getId());
-			valida = stm.executeUpdate();
+			 stm.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -221,6 +221,25 @@ public class UsuarioDao implements InterfaceUsuario {
 		}
 		
 		return usuarioNovo;
+	}
+
+	@Override
+	public boolean consultarUsuarioExistente(String Usuario) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int valida = 0;
+		try {
+			PreparedStatement stm = c.prepareStatement("Select * from  usuario where login = ? ");
+			stm.setString(1, Usuario);
+			valida = stm.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
+		
+		return (valida == 0 ? false : true);
 	}
 
 }

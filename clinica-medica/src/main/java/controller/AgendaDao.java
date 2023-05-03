@@ -54,24 +54,40 @@ public class AgendaDao implements InterfaceConsulta {
 		Connection c = con.conectar();
 		int valida = 0;
 		try {
-			PreparedStatement ps = c.prepareStatement("Update consulta set data_consulta = ? , hora_consulta = ? ,tipo_consulta = ? , observacao = ? where id_consulta = ?;");
+			PreparedStatement ps = c.prepareStatement("Update consulta set data_consulta = ?, hora_consulta = ? ,tipo_consulta = ? , medico_cpf = ?, observacao = ? where id_consulta = ?;");
 			ps.setDate(1, Date.valueOf(consulta.getDate()));
 			ps.setTime(2, Time.valueOf(consulta.getHora()));
-			ps.setString(4, consulta.getServico());
-			ps.setLong(5, consulta.getMedico().getCpf());
-			ps.setString(6, consulta.getObservacao());
+			ps.setString(3, consulta.getServico());
+			ps.setLong(4, consulta.getMedico().getCpf());
+			ps.setString(5, consulta.getObservacao());
+			ps.setInt(6, consulta.getId());
+			ps.executeUpdate();
+			valida = 1 ; 
+			
 		
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			con.fecharConexao();
 		}
-		return false;
+		return (valida == 0 ? false : true);
 	}
 
 	@Override
 	public boolean excluitConsulta(Consulta consulta) {
-		// TODO Auto-generated method stub
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		try {
+		  String sql = "DELETE FROM consulta where id_consulta = ?";
+		    PreparedStatement ps = c.prepareStatement(sql);
+		    ps.setLong(1, consulta.getId());
+		    ps.executeUpdate();
+		    return true; 
+		}catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			con.fecharConexao();
+		}
 		return false;
 	}
 
@@ -125,7 +141,7 @@ public class AgendaDao implements InterfaceConsulta {
 			// TODO: handle exception
 		}
 		finally {
-			
+			con.fecharConexao();
 		}
 		return null;
 	}
