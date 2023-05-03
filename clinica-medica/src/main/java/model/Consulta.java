@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 
@@ -11,7 +12,7 @@ public class Consulta {
 
 	private int id;
 	private LocalDate date;
-	private Timestamp hora; 
+	private LocalTime hora; 
 	private String servico;
 	private String observacao;
 	private Paciente paciente;
@@ -22,7 +23,7 @@ public class Consulta {
  
 
 
-	public Consulta(int id, LocalDate date, Timestamp hora, String servico, String observacao, Paciente paciente,
+	public Consulta(int id, LocalDate date, LocalTime hora, String servico, String observacao, Paciente paciente,
 			Medico medico) {
 		super();
 		this.id = id;
@@ -77,11 +78,11 @@ public class Consulta {
 	}
 	
 
-	public Timestamp getHora() {
+	public LocalTime getHora() {
 		return hora;
 	}
 
-	public void setHora(Timestamp hora) {
+	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
 

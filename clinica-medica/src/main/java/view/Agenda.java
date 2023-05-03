@@ -16,10 +16,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.AbstractButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -47,6 +49,11 @@ import model.Paciente;
 import net.miginfocom.swing.MigLayout;
 import utils.Jcaledar;
 
+/**
+ *  
+ *  @author Eliézer da Silva
+ *  
+ */
 public class Agenda extends JFrame {
 
 	private JPanel contentPane;
@@ -67,7 +74,8 @@ public class Agenda extends JFrame {
 	private JButton btnEditar;
 	private  Consulta consultaClick = new Consulta();
 	private ArrayList<Consulta> listConsulta = new ArrayList<>();
-	private Jcaledar txtCaledar; 
+	private Jcaledar txtCaledar;
+	private JButton btnVoltarMenu; 
 	
 
 	public Agenda(String usuario, String senha) {
@@ -261,6 +269,7 @@ public class Agenda extends JFrame {
 		btnEditar = new JButton("Editar ");
 		btnEditar.addActionListener(new ActionListener() {
 			private JButton btnsalvar;
+			private AbstractButton voltar;
 
 			public void actionPerformed(ActionEvent e) {
 
@@ -272,30 +281,53 @@ public class Agenda extends JFrame {
 
 				btnEditar.setVisible(false);
 				panel_3.remove(btnEditar);
+				
+				btnVoltarMenu.setVisible(false);
+				panel_3.remove(btnVoltarMenu);
+				
+			
 
-				JButton voltar = new JButton("Volta");
+				voltar = new JButton("Volta");
 				voltar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						panel_3.add(btnCadastrar);
-						btnCadastrar.setVisible(true);
-
-						btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
-						panel_3.add(btnExcluir, "cell 1 5,growx");
-						btnExcluir.setVisible(true);
-
-						btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
-						panel_3.add(btnEditar, "cell 3 5,grow");
-						btnEditar.setVisible(true);
-
+						
 						panel_3.remove(voltar);
 						voltar.setVisible(false);
 
 						btnsalvar.setVisible(false);
 						panel_3.remove(btnsalvar);
+						
+						panel_3.add(btnCadastrar);
+						btnCadastrar.setVisible(true);
+						
+						btnCadastrar.setBackground(new Color(240, 255, 240));
+						btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
+						panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
 
+
+						panel_3.add(btnExcluir, "cell 5 9,grow");
+						btnExcluir.setVisible(true);
+						btnExcluir.setBackground(new Color(240, 240, 240));
+						btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
+						
+
+						panel_3.add(btnVoltarMenu);
+						btnVoltarMenu.setVisible(true);
+						btnVoltarMenu.setFont(new Font("Tahoma", Font.BOLD, 16));
+						panel_3.add(btnVoltarMenu, "cell 7 9,grow");
+						
+						panel_3.add(btnEditar);
+						btnEditar.setVisible(true);
+						btnEditar.setBackground(new Color(240, 255, 240));
+						btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
+						panel_3.add(btnEditar, "cell 1 9,grow");
+
+						
 						
 					}
 				});
+				voltar.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_3.add(voltar, "cell 7 9,grow");
 				
 				int position = table.getSelectedRow();
 
@@ -310,7 +342,8 @@ public class Agenda extends JFrame {
 				btnsalvar.addActionListener(new ActionListener() {
 					
 					@Override
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent e) throws ParseException {
+						
 						
 						Date data = txtCaledar.getDate();
 
@@ -328,6 +361,7 @@ public class Agenda extends JFrame {
 
 						Consulta c = new Consulta();
 						Paciente p = new Paciente();
+						c.setId(consultaClick.getId());
 
 						if (nome == null || nome.trim() == "" || nome.isEmpty()) {
 							txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
@@ -368,24 +402,9 @@ public class Agenda extends JFrame {
 						if (hora == null || hora.trim() == "" || hora.isEmpty()) {
 							txtHora.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 						} else {
-							SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
-							Date date = null;
-							try {
-								date = dt.parse(hora);
-							} catch (ParseException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-							DateFormat df = new SimpleDateFormat("HH:mm");
-
-							try {
-								Date datse = df.parse(hora);
-								Timestamp ts = new Timestamp(date.getTime());
-								c.setHora(ts);
-							} catch (ParseException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+						
+							LocalTime ts = LocalTime.parse(hora, DateTimeFormatter.ofPattern("HH:mm"));
+							c.setHora(ts);
 
 						}
 						Medico medico = (Medico) cbxMedico.getSelectedItem();
@@ -398,6 +417,7 @@ public class Agenda extends JFrame {
 						} else {
 							c.setObservacao(observacao);
 						}
+						
 						boolean cadastroConsulta = agendaDao.alterarConsulta(c);
 						if (cadastroConsulta != true) {
 							JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
@@ -411,8 +431,10 @@ public class Agenda extends JFrame {
 						
 					}
 				});
-				voltar.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_3.add(voltar, "cell 1 5,growx");
+				btnsalvar.setBackground(new Color(240, 255, 240));
+				btnsalvar.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_3.add(btnsalvar, "cell 5 5 2 1,grow");
+				
 
 				
 
@@ -542,7 +564,7 @@ public class Agenda extends JFrame {
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
 
-		JButton btnVoltarMenu = new JButton("Voltar");
+		btnVoltarMenu = new JButton("Voltar");
 		btnVoltarMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -576,8 +598,7 @@ public class Agenda extends JFrame {
 		
 		int posicao = cbxMedico.getSelectedIndex();
 		System.out.println("Posição do item selecionado: " + posicao);
-		
-		cbxMedico.setSelectedItem(medico.getNome());
+		cbxMedico.setSelectedItem(medico);
 		
 	}
 

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class AgendaDao implements InterfaceConsulta {
 			String query = "INSERT INTO consulta( data_consulta,hora_consulta,paciente_cpf,tipo_consulta,medico_cpf,observacao) values(?,?,?,?,?,?);";
 			PreparedStatement stm = c.prepareStatement(query);
 			stm.setDate(1, Date.valueOf(consulta.getDate()));
-			stm.setTimestamp(2, consulta.getHora());
+			stm.setTime(2, Time.valueOf(consulta.getHora()));
 			stm.setLong(3, consulta.getPaciente().getCpf());
 			stm.setString(4, consulta.getServico());
 			stm.setLong(5, consulta.getMedico().getCpf());
@@ -53,9 +54,9 @@ public class AgendaDao implements InterfaceConsulta {
 		Connection c = con.conectar();
 		int valida = 0;
 		try {
-			PreparedStatement ps = c.prepareStatement("Update consulta set data_consulta = ? , hora_consulta = ? ,tipo_consulta = ? , observacao = ? where paciente_cpf = ?;");
+			PreparedStatement ps = c.prepareStatement("Update consulta set data_consulta = ? , hora_consulta = ? ,tipo_consulta = ? , observacao = ? where id_consulta = ?;");
 			ps.setDate(1, Date.valueOf(consulta.getDate()));
-			ps.setTimestamp(2, consulta.getHora());
+			ps.setTime(2, Time.valueOf(consulta.getHora()));
 			ps.setString(4, consulta.getServico());
 			ps.setLong(5, consulta.getMedico().getCpf());
 			ps.setString(6, consulta.getObservacao());
@@ -87,6 +88,7 @@ public class AgendaDao implements InterfaceConsulta {
 					+ " medico.cpf as cpf_medico, \r\n"
 					+ " consulta.observacao, \r\n"
 					+ " consulta.tipo_consulta,\r\n"
+					+ " consulta.id_consulta, \r\n"
 					+ " medico.nome as nome_medico \r\n"
 					+ " from consulta \r\n"
 					+ " inner join paciente on consulta.paciente_cpf = paciente.cpf\r\n"
@@ -103,12 +105,13 @@ public class AgendaDao implements InterfaceConsulta {
 				Paciente paciente  =  new Paciente();
 				Medico medico = new Medico();
 				consulta.setDate(rs.getDate("data_consulta").toLocalDate());
-				Timestamp dataHora = rs.getTimestamp("hora_consulta");
-				consulta.setHora(dataHora);
+				Time dataHora = rs.getTime("hora_consulta");
+				consulta.setHora(dataHora.toLocalTime());
 				paciente.setNome(rs.getString("nome_paciente"));
 				paciente.setCpf(rs.getLong("cpf_paciente"));
 				consulta.setObservacao(rs.getString("observacao"));
 				consulta.setServico(rs.getString("tipo_consulta"));
+				consulta.setId(rs.getInt("id_consulta"));
 				medico.setCpf(rs.getLong("cpf_medico"));
 				medico.setNome(rs.getString("nome_medico"));
 				consulta.setPaciente(paciente);

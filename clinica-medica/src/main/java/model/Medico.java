@@ -63,5 +63,14 @@ public class Medico extends Pessoa {
 		return  getNome() ;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		Medico medico = (Medico) obj;
+		if(medico.getCpf().equals(this.getCpf())){
+			return true; 
+		}
+		return false;
+	}
+	
 
 }
