@@ -58,6 +58,7 @@ import model.Paciente;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import utils.RoundButton;
+import javax.swing.ButtonGroup;
 
 /**
  * 
@@ -129,6 +130,7 @@ public class TelaCadastroMedico extends JFrame {
 	private AbstractButton btnCadastrarMedico;
 
 	private JComponent panel_9;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Create the frame.
@@ -243,15 +245,19 @@ public class TelaCadastroMedico extends JFrame {
 		lblNewLabel_81.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(lblNewLabel_81, "cell 0 5");
 
-		rdbtnMasculino1 = new JRadioButton("M");
+		rdbtnMasculino1 = new JRadioButton("M    ");
+		buttonGroup.add(rdbtnMasculino1);
+		rdbtnMasculino1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnMasculino1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		rdbtnMasculino1.setBackground(new Color(240, 255, 240));
 		panel_3.add(rdbtnMasculino1, "flowx,cell 1 5,alignx left,growy");
 
 		rdbtnFeminino1 = new JRadioButton("F");
+		buttonGroup.add(rdbtnFeminino1);
+		rdbtnFeminino1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnFeminino1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		rdbtnFeminino1.setBackground(new Color(240, 255, 240));
-		panel_3.add(rdbtnFeminino1, "cell 1 5,alignx left,growy");
+		panel_3.add(rdbtnFeminino1, "cell 1 5,alignx center,growy");
 
 		JLabel lblNewLabel_6 = new JLabel("Telefone :");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));

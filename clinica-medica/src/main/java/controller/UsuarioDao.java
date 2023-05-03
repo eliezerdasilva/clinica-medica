@@ -19,7 +19,6 @@ public class UsuarioDao implements InterfaceUsuario {
 	@Override
 	public boolean inserirUsuario(Usuario usuario) {
 			this.usuario = usuario; 
-			int retorno = 0;
 			con = Conexao.getInstacia();
 			Connection c = con.conectar();
 			int valida = 0;
@@ -231,7 +230,10 @@ public class UsuarioDao implements InterfaceUsuario {
 		try {
 			PreparedStatement stm = c.prepareStatement("Select * from  usuario where login = ? ");
 			stm.setString(1, Usuario);
-			valida = stm.executeUpdate();
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+			   valida = 1;
+			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
