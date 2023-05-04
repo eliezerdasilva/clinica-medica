@@ -94,7 +94,8 @@ CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
   `data_consulta` DATE NOT NULL,
   `hora_consulta` TIME NOT NULL,
   `paciente_cpf` BIGINT NOT NULL,
-  `tipo_consulta` VARCHAR(45) NOT NULL,
+  `sobre_consulta` Text, 
+   `tipo_consulta` VARCHAR(45) NOT NULL,
   `medico_cpf` bigint NOT NULL,
   `observacao` VARCHAR(45) NOT NULL,
 
