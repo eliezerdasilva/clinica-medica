@@ -784,8 +784,8 @@ public class TelaCadastroMedico extends JFrame {
 							p.setCrm(crmLong);
 
 						}
-						String epecificação = txtEspecializacao.getText();
-						if (epecificação == null || epecificação.trim() == "" || epecificação.isEmpty()) {
+						String espe = txtEspecializacao.getText();
+						if (espe == null || espe.trim() == "" || espe.isEmpty()) {
 							txtEspecializacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							validacao += "especializacao\n";
 						} else {
@@ -1153,8 +1153,8 @@ public class TelaCadastroMedico extends JFrame {
 			p.setCrm(crmLong);
 
 		}
-		String epecificação = txtEspecializacao.getText();
-		if (epecificação == null || epecificação.trim() == "" || epecificação.isEmpty()) {
+		String espe = txtEspecializacao.getText();
+		if (espe == null || espe.trim() == "" || espe.isEmpty()) {
 			txtEspecializacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			validacao += "especializacao\n";
 		} else {
