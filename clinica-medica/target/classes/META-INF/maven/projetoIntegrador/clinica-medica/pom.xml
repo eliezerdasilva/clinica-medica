@@ -28,17 +28,6 @@
 			<artifactId>jcalendar</artifactId>
 			<version>1.4</version>
 		</dependency>
-		<dependency>
-			<groupId>com.jgoodies</groupId>
-			<artifactId>forms</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-		<dependency>
-	<groupId>com.jgoodies</groupId>
-	<artifactId>jgoodies-common</artifactId>
-	<version>1.5.0</version>
-</dependency>
-
 	</dependencies>
 	
 	 <build>

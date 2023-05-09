@@ -50,6 +50,7 @@ import model.Endereco;
 import model.Estado;
 import model.Paciente;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * 
@@ -1141,16 +1142,27 @@ public class TelaCadastroPaciente extends JFrame {
 		JLabel lblUsuario = new JLabel(usuario);
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblUsuario, "cell 7 6");
+		
+		JPanel panel_8 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(328, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1351, GroupLayout.PREFERRED_SIZE)
-						.addGap(235)));
-		gl_contentPane
-				.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
-						gl_contentPane.createSequentialGroup().addContainerGap(68, Short.MAX_VALUE).addComponent(panel,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(52)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(324, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1355, GroupLayout.PREFERRED_SIZE)
+					.addGap(235))
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 1904, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(52))
+		);
 		contentPane.setLayout(gl_contentPane);
 
 	}
