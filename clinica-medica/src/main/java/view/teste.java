@@ -83,7 +83,7 @@ public class teste extends JFrame {
                 	
                 		if(d==0) {
                 			d++;
-                		button1.setVisible(true);
+                			button1.setVisible(true);
                 		}else {
                 			button1.setVisible(false);
                 			d=0;

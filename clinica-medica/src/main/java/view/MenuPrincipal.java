@@ -84,7 +84,7 @@ public class MenuPrincipal extends JFrame implements Runnable{
 		contentPane.setForeground(new Color(0, 204, 102));
 		contentPane.setBorder(new MatteBorder(0, 4, 4, 4, (Color) new Color(0, 0, 0)));
 		setBounds(100, 100, 2000, 1050);
-
+/*
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setForeground(new Color(0, 128, 128));
 		menuBar.setBorder(new LineBorder(new Color(0, 0, 0), 0));
@@ -92,7 +92,7 @@ public class MenuPrincipal extends JFrame implements Runnable{
 		menuBar.setMargin(new Insets(10, 100, 10, 10));
 		setJMenuBar(menuBar);
 
-		JMenu mnNewMenu = new JMenu("                                                              Cadastro");
+		/*JMenu mnNewMenu = new JMenu("                                                              Cadastro");
 
 		mnNewMenu.setForeground(Color.BLACK);
 		mnNewMenu.setPreferredSize(new Dimension(470, 40));
@@ -256,7 +256,7 @@ public class MenuPrincipal extends JFrame implements Runnable{
 		mntmNewMenuItem_4.setPreferredSize(new Dimension(470, 40));
 		mntmNewMenuItem_4.setBorder(new MatteBorder(4, 4, 2, 4, (Color) new Color(0, 0, 0)));
 		mnNewMenu_3.add(mntmNewMenuItem_4);
-
+*/
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
 

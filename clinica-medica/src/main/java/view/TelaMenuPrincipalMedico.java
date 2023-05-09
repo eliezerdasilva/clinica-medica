@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -15,8 +16,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableModel;
 
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.MouseAdapter;
@@ -24,9 +29,12 @@ import java.awt.event.MouseEvent;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
 import java.awt.CardLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /*import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -53,6 +61,8 @@ public class TelaMenuPrincipalMedico extends JFrame {
 	private int sairPerfil = 0 ;
 	private String usuario;
 	private String senha;
+	private JPanel panel_2;
+	private JPanel panel_4;
 
 	/**
 	 * Launch the application.
@@ -101,119 +111,118 @@ public class TelaMenuPrincipalMedico extends JFrame {
 		btnBotaoMenu.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-
-				if (menu == 0) {
-					menu = 1; 
-					panel2 = new JPanel();
-					panel2.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-					panel2.setBackground(new Color(0, 0, 255));
-					panel2.setBounds(0, 68, 266, 930);
-					panel2.setForeground(Color.BLACK);
-					panel2.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][50:n][10:n][50:n][10:n][50:n]"));
-					contentPane.add(panel2);
-					panel2.setVisible(false);
-					
-					
-					
-					lblNewLabel = new JLabel("Cadastar/Consultar");
-					lblNewLabel.setForeground(SystemColor.window);
-					lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-					panel2.add(lblNewLabel, "cell 0 0,alignx center");
-					
-				
-
-					btnCadastraPaciente = new JButton("Paciente");
-					btnCadastraPaciente.setBackground(SystemColor.controlHighlight);
-					btnCadastraPaciente.setFont(new Font("Tahoma", Font.BOLD, 16));
-					btnCadastraPaciente.setBorder(null);
-					btnCadastraPaciente.setForeground(Color.BLACK);
-					btnCadastraPaciente.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente(usuario, senha);
-							telaPaciente.setLocationRelativeTo(null);
-							telaPaciente.setVisible(true);
-							dispose();
-						}
-					});
-					panel2.add(btnCadastraPaciente, "cell 0 1,grow");
-
-					btnCadastraMedico = new JButton("Médico");
-					btnCadastraMedico.setBackground(SystemColor.controlHighlight);
-					btnCadastraMedico.setFont(new Font("Tahoma", Font.BOLD, 16));
-					btnCadastraMedico.setBorder(null);
-					btnCadastraMedico.addActionListener(new ActionListener() {
-						
-
-						public void actionPerformed(ActionEvent e) {
-							TelaCadastroMedico telaFunc = new TelaCadastroMedico(usuario, senha);
-							telaFunc.setLocationRelativeTo(null);
-							telaFunc.setVisible(true);
-							dispose();
-
-						}
-					});
-					panel2.add(btnCadastraMedico, "cell 0 3,grow");
-
-					btnCadastroFuncionario = new JButton("Funcionário");
-					btnCadastroFuncionario.setFont(new Font("Tahoma", Font.BOLD, 16));
-					btnCadastroFuncionario.setBorder(null);
-					btnCadastroFuncionario.setBackground(SystemColor.controlHighlight);
-					btnCadastroFuncionario.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							TelaCadastroFuncionario telaFunc = new TelaCadastroFuncionario(usuario, senha);
-							telaFunc.setLocationRelativeTo(null);
-							telaFunc.setVisible(true);
-							dispose();
-
-						}
-					});
-					panel2.add(btnCadastroFuncionario, "cell 0 5,grow");
-
-					btnCadastroConsulta = new JButton("Consulta");
-					btnCadastroConsulta.setFont(new Font("Tahoma", Font.BOLD, 16));
-					btnCadastroConsulta.setBorder(null);
-					btnCadastroConsulta.setBackground(SystemColor.controlHighlight);
-					btnCadastroConsulta.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							Agenda agenda = new Agenda(usuario, senha);
-							agenda.setLocationRelativeTo(null);
-							agenda.setVisible(true);
-							dispose();
-						}
-					});
-					panel2.add(btnCadastroConsulta, "cell 0 7,grow");
-					
-					
-
-					btnCadastroConsulta.setVisible(true);
-					btnCadastroFuncionario.setVisible(true);
-					btnCadastraMedico.setVisible(true);
-					btnCadastraPaciente.setVisible(true);
-					lblNewLabel.setVisible(true);
-					btnBotaoMenu.repaint();
-					
-					contentPane.add(panel2);
-					panel2.repaint();
+				if(menu ==0) {
+					menu++;
 					panel2.setVisible(true);
-					
-					
-				} else {
-					
-					panel2.remove(btnCadastroConsulta);
-					panel2.remove(btnCadastraPaciente);
-					panel2.remove(btnCadastroFuncionario);
-					panel2.remove(lblNewLabel);
+				}else {
 					panel2.setVisible(false);
-					contentPane.remove(panel2);
-					contentPane.repaint();
-					menu= 0; 
+					menu=0;
 				}
+
+				
+					
+			
+				
 
 			}
 		});
+		
+		
 		btnBotaoMenu.setIcon(new ImageIcon(
 				"src\\main\\resources\\imagens\\botao-de-menu.png"));
 		btnBotaoMenu.setBackground(Color.white);
+		/*
+		panel2 = new JPanel();
+		panel2.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		panel2.setBackground(new Color(0, 0, 255));
+		panel2.setBounds(0, 68, 266, 930);
+		panel2.setForeground(Color.BLACK);
+		panel2.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][50:n][10:n][50:n][10:n][50:n]"));
+		contentPane.add(panel2);
+		panel2.setVisible(false);
+		
+		
+		
+		lblNewLabel = new JLabel("Cadastar/Consultar");
+		lblNewLabel.setForeground(SystemColor.window);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel2.add(lblNewLabel, "cell 0 0,alignx center");
+		
+	
+
+		btnCadastraPaciente = new JButton("Paciente");
+		btnCadastraPaciente.setBackground(SystemColor.controlHighlight);
+		btnCadastraPaciente.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnCadastraPaciente.setBorder(null);
+		btnCadastraPaciente.setForeground(Color.BLACK);
+		btnCadastraPaciente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente(usuario, senha);
+				telaPaciente.setLocationRelativeTo(null);
+				telaPaciente.setVisible(true);
+				dispose();
+			}
+		});
+		panel2.add(btnCadastraPaciente, "cell 0 1,grow");
+
+		btnCadastraMedico = new JButton("Médico");
+		btnCadastraMedico.setBackground(SystemColor.controlHighlight);
+		btnCadastraMedico.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnCadastraMedico.setBorder(null);
+		btnCadastraMedico.addActionListener(new ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroMedico telaFunc = new TelaCadastroMedico(usuario, senha);
+				telaFunc.setLocationRelativeTo(null);
+				telaFunc.setVisible(true);
+				dispose();
+
+			}
+		});
+		panel2.add(btnCadastraMedico, "cell 0 3,grow");
+
+		btnCadastroFuncionario = new JButton("Funcionário");
+		btnCadastroFuncionario.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnCadastroFuncionario.setBorder(null);
+		btnCadastroFuncionario.setBackground(SystemColor.controlHighlight);
+		btnCadastroFuncionario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroFuncionario telaFunc = new TelaCadastroFuncionario(usuario, senha);
+				telaFunc.setLocationRelativeTo(null);
+				telaFunc.setVisible(true);
+				dispose();
+
+			}
+		});
+		panel2.add(btnCadastroFuncionario, "cell 0 5,grow");
+
+		btnCadastroConsulta = new JButton("Consulta");
+		btnCadastroConsulta.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnCadastroConsulta.setBorder(null);
+		btnCadastroConsulta.setBackground(SystemColor.controlHighlight);
+		btnCadastroConsulta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Agenda agenda = new Agenda(usuario, senha);
+				agenda.setLocationRelativeTo(null);
+				agenda.setVisible(true);
+				dispose();
+			}
+		});
+		panel2.add(btnCadastroConsulta, "cell 0 7,grow");
+		
+		
+
+		btnCadastroConsulta.setVisible(true);
+		btnCadastroFuncionario.setVisible(true);
+		btnCadastraMedico.setVisible(true);
+		btnCadastraPaciente.setVisible(true);
+		lblNewLabel.setVisible(true);
+		btnBotaoMenu.repaint();
+		
+		contentPane.add(panel2);
+		panel2.repaint();
+		
 		
 		JButton btnLoginSair = new JButton("");
 		btnLoginSair.addActionListener(new ActionListener() {
@@ -312,18 +321,31 @@ public class TelaMenuPrincipalMedico extends JFrame {
 						.addComponent(btnLoginSair, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))
 		);
 		panel.setLayout(gl_panel);
+		*/
+		
+		JPanel panel_3 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1924, GroupLayout.PREFERRED_SIZE)
+				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 1924, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
-					.addGap(933))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 935, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
-		contentPane.setLayout(gl_contentPane);
+		panel_3.setLayout(new CardLayout(0, 0));
+		
+		panel_2 = new JPanel();
+		panel_3.add(panel_2, "name_5152966362900");
+		panel_2.setLayout(new MigLayout("", "[100px,grow][802.00,grow][61.00px,grow][383.00px,grow][61px]", "[][::50px,grow][::700,grow][][][][]"));
+		
+		
+		
 
 	}
 }
