@@ -21,13 +21,14 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 		Connection c = con.conectar();
 
 		try {
-			String query = "INSERT INTO funcionario(cpf,nome, sexo, telefone, data_nascimento) VALUES (?,?,?,?,?)";
+			String query = "INSERT INTO funcionario(cpf,nome, sexo, telefone) VALUES (?,?,?,?)";
+//			String query = "INSERT INTO funcionario(cpf,nome, sexo, telefone, data_nascimento) VALUES (?,?,?,?,?)";
 			PreparedStatement stm = c.prepareStatement(query);
 			stm.setLong(1, funcionario.getCpf());
 			stm.setString(2, funcionario.getNome());
 			stm.setString(3, funcionario.getSexo());
 			stm.setString(4, funcionario.getTelefone());
-			// stm.setDate(5, funcionario.getDataNascimento());
+			// stm.setDate(5, funcionario.getDataNascimento());              
 			retorno = stm.executeUpdate();
 
 		} catch (Exception e) {

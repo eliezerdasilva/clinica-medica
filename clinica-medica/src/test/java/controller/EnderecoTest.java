@@ -22,7 +22,7 @@ class EnderecoTest {
 		estado.setUf("SC");
 
 		Endereco endereco = new Endereco();
-		endereco.setBairro("Poço Grande");
+		endereco.setBairro("Poco Grande");
 		endereco.setCep(12345678);
 		endereco.setCidade("Gaspar");
 		endereco.setEstado(estado);
