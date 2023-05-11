@@ -27,6 +27,7 @@ public class EnderecoDao implements IEnderecoDao {
 	 * @param ConsultaEndereco
 	 * 
 	 */
+	
 	@Override
 	public Endereco ConsultarEndereco(Endereco endereco) {
 		con = Conexao.getInstacia();
@@ -44,7 +45,7 @@ public class EnderecoDao implements IEnderecoDao {
 				String cidade = rs.getString("cidade");
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
-
+				
 				String nome_estado = rs.getString("nome_estado");
 				String uf_estado = rs.getString("uf_estado");
 				int id_estado = rs.getInt("id_estado");

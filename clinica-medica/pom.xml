@@ -53,19 +53,19 @@
                                 </manifestEntries>
                                 <manifestSections>
                                     <manifestSection>
+
                                         <name>clinica-medica</name>
                                         <manifestEntries>
                                             <Project-Name>${project.artifactId}</Project-Name>
                                             <Project-Version>${project.version}</Project-Version>
+
                                         </manifestEntries>
                                     </manifestSection>
                                 </manifestSections>
                             </archive>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-
-
+                          </descriptorRefs>
                         </configuration>
                     </execution>
                 </executions>

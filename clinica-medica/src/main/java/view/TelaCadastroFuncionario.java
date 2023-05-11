@@ -468,7 +468,9 @@ public class TelaCadastroFuncionario extends JFrame {
 
 				String nome = txtNome.getText();
 
+
 				String validacao = "";
+
 				String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
 
 				String sexo = "";

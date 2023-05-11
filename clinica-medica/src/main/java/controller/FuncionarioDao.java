@@ -5,13 +5,16 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
+
 
 import org.apache.commons.lang3.Validate;
 
 import model.Endereco;
 import model.Funcionario;
 import model.Medico;
+import model.Usuario;
+
 import model.Usuario;
 
 public class FuncionarioDao implements InterfaceFuncionarioDao {
@@ -25,7 +28,9 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 		Connection c = con.conectar();
 
 		try {
+
 			String query = "INSERT INTO funcionario(cpf,nome, sexo, telefone, data_nascimento, usuario_idusuario,endereco_cep, numero,complemento,email) VALUES (?,?,?,?,?,?,?,?,?,?)";
+
 			PreparedStatement stm = c.prepareStatement(query);
 			stm.setLong(1, funcionario.getCpf());
 			stm.setString(2, funcionario.getNome());
@@ -76,14 +81,19 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 		Connection c = con.conectar();
 		PreparedStatement stm = null;
 		try {
-			stm = c.prepareStatement(
 
-					"UPDATE seller SET nome = ?, sexo = ?, telefone = ?, data_nascimento = ? WHERE cpf = ?");
-
+			String query = "UPDATE funcionario SET nome = ?, sexo = ?, telefone = ?, data_nascimento = ?, usuario_idusuario= ?, endereco_cep = ?, numero = ?,complemento = ?, email = ? WHERE cpf = ?;";
+		    stm = c.prepareStatement(query);
 			stm.setString(1, funcionario.getNome());
 			stm.setString(2, funcionario.getSexo());
 			stm.setString(3, funcionario.getTelefone());
-			// stm.setDate(4, funcionario.getDataNascimento());
+			stm.setDate(4, Date.valueOf(funcionario.getDataNascimento()));
+			stm.setLong(5, funcionario.getUsuario().getId());
+			stm.setInt(6, funcionario.getEndereco().getCep());
+			stm.setInt(7, funcionario.getNumero());
+			stm.setString(8, funcionario.getComplemento());
+			stm.setString(9, funcionario.getEmail());
+			stm.setLong(10, funcionario.getCpf());
 
 			stm.executeUpdate();
 			return true;
@@ -102,33 +112,43 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 		Connection c = con.conectar();
 
 		try {
-			Statement stm = c.prepareStatement(null);
-			String query = "SELECT * FROM funcionario f INNER JOIN endereco e WHERE f.endereco_cep = e.cep";
-			ResultSet rs = stm.executeQuery(query);
-
+			
+			PreparedStatement ps = c.prepareStatement("select * from funcionario where cpf = ? ");
+			ps.setLong(1, funcionario.getCpf());
+			ResultSet rs = ps.executeQuery();
+			System.out.println(rs);
+			
 			while (rs.next()) {
-				Long cpf = rs.getLong("cpf");
-				String nome = rs.getString("nome");
-				String sexo = rs.getString("sexo");
-				String telefone = rs.getString("telefone");
-				Date dataNascimento = rs.getDate("datA");
-				int endereco = rs.getInt("endereco_cep");
-				rs.getArray(endereco);
+				
+				Funcionario funcionarioSelect = new Funcionario();
+				int endereco_cep = rs.getInt("endereco_cep");
 				int numero = rs.getInt("numero");
 				String complemento = rs.getString("complemento");
+				
+				
+		
+				Endereco endereco = new Endereco();
+				Usuario usuario = new Usuario();
+				int idusuario = rs.getInt("usuario_idusuario");
+				usuario.setId(rs.getLong("usuario_idusuario"));
+				
+				funcionarioSelect.setCpf(rs.getLong("cpf"));
+				funcionarioSelect.setNome(rs.getString("nome"));
+				funcionarioSelect.setSexo(rs.getString("sexo"));
+				funcionarioSelect.setEmail(rs.getString("email"));
+				funcionarioSelect.setTelefone(rs.getString("telefone"));
+			
+			
+				funcionarioSelect.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				endereco.setCep(rs.getInt("endereco_cep"));
+				funcionarioSelect.setEndereco(endereco);
+				funcionarioSelect.setNumero(rs.getInt("numero"));
+				funcionarioSelect.setComplemento(rs.getString("complemento"));
+				funcionarioSelect.setUsuario(usuario);
+				
+				
 
-				Funcionario f = new Funcionario();
-				f.setComplemento(complemento);
-				f.setCpf(cpf);
-				// f.setDataNascimento(dataNascimento);
-				f.setNome(nome);
-				f.setNumero(numero);
-				f.setSexo(sexo);
-				f.setTelefone(telefone);
-
-				Endereco e = new Endereco();
-				e.setBairro(complemento);
-				f.setEndereco(e);
+				return funcionarioSelect;
 
 			}
 		} catch (SQLException e) {
