@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: Aluno
-Build-Jdk: 19.0.2
+Built-By: eliez
+Build-Jdk: 17.0.4.1
 Created-By: Maven Integration for Eclipse
 

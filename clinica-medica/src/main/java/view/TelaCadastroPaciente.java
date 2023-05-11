@@ -49,6 +49,7 @@ import model.Convenio;
 import model.Endereco;
 import model.Estado;
 import model.Paciente;
+import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -101,8 +102,11 @@ public class TelaCadastroPaciente extends JFrame {
 	private Paciente pacienteClick;
 	private Endereco enderecoClink;
 	private String insert = null;
-	private String usuario;
+	//Usuario
+	private String usuarioLogin;
 	private String senha;
+	private int nivelAcesso;
+	
 	private JRadioButton jrbFemi;
 	private JComboBox<Estado> cbxEstado;
 	private JRadioButton jrbMasc;
@@ -115,9 +119,10 @@ public class TelaCadastroPaciente extends JFrame {
 	private JButton btnVoltarCadastro;
 	private JButton btnVoltarEditar;
 
-	public TelaCadastroPaciente(String usuario, String senha) {
-		this.usuario = usuario;
-		this.senha = senha;
+	public TelaCadastroPaciente(Usuario usuario) {
+		this.usuarioLogin = usuario.getUsuario();
+		this.senha = usuario.getSenha();
+		this.nivelAcesso = usuario.getNivelAcesso();
 
 		this.listaPaciente = pacienteDao.consultarPaciente();
 
@@ -1125,7 +1130,7 @@ public class TelaCadastroPaciente extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				MenuPrincipal mp = new MenuPrincipal(usuario, senha);
+				TelaMenuPrincipal mp = new TelaMenuPrincipal(usuario);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();
@@ -1139,7 +1144,7 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_19.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_19, "flowx,cell 7 6,alignx center");
 
-		JLabel lblUsuario = new JLabel(usuario);
+		JLabel lblUsuario = new JLabel(usuarioLogin);
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblUsuario, "cell 7 6");
 		

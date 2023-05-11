@@ -97,8 +97,11 @@ public class TelaCadastroMedico extends JFrame {
 	private JButton btnSalvar;
 	private JPasswordField txtSenha;
 
+	//USuario 
 	private String usuario;
 	private String senha;
+	private int nivelAcesso; 
+	
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -135,9 +138,11 @@ public class TelaCadastroMedico extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroMedico(String usuario, String senha) {
-		this.usuario = usuario;
-		this.senha = senha;
+	public TelaCadastroMedico(Usuario usuario) {
+		this.usuario = usuario.getUsuario();
+		this.senha = usuario.getSenha();
+		this.nivelAcesso= usuario.getNivelAcesso();
+		
 		this.listaMedico = medicoDao.listaMedicos();
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
@@ -910,7 +915,7 @@ public class TelaCadastroMedico extends JFrame {
 		btnNewButton_4 = new JButton("Voltar");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuPrincipal mp = new MenuPrincipal(usuario, senha);
+				TelaMenuPrincipal mp = new TelaMenuPrincipal(usuario);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();

@@ -46,6 +46,7 @@ import controller.PacienteDao;
 import model.Consulta;
 import model.Medico;
 import model.Paciente;
+import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import utils.Jcaledar;
 
@@ -77,11 +78,18 @@ public class Agenda extends JFrame {
 	private JButton btnVoltarMenu;
 	private JButton btnExcluir; 
 	
+	//Usuário 
+	private String usuarioLogin;
+	private String senhaLogin;
+	private int nivelAcesso;
+	
+	
 
-	public Agenda(String usuario, String senha) {
-
-		this.usuario = usuario;
-		this.senha = senha;
+	public Agenda(Usuario usuario) {
+		this.usuarioLogin = usuario.getUsuario();
+		this.senhaLogin= usuario.getSenha();
+		this.nivelAcesso = usuario.getNivelAcesso();
+		
 		this.listConsulta = agendaDao.listConsulta();
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
@@ -180,7 +188,7 @@ public class Agenda extends JFrame {
 							JOptionPane.YES_NO_OPTION);
 
 					if (n == JOptionPane.YES_OPTION) {
-						TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente(usuario, senha);
+						TelaMenuPrincipal telaPaciente = new TelaMenuPrincipal(usuario);
 						telaPaciente.setLocationRelativeTo(null);
 						telaPaciente.setVisible(true);
 						dispose();
@@ -559,7 +567,7 @@ public class Agenda extends JFrame {
 		btnVoltarMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MenuPrincipal mp = new MenuPrincipal(usuario, senha);
+				TelaMenuPrincipal mp = new TelaMenuPrincipal(usuario);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();

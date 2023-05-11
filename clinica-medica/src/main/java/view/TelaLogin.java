@@ -219,7 +219,7 @@ public class TelaLogin extends JFrame {
 
 					if (login != null) {
 
-						MenuPrincipal telaFunc = new MenuPrincipal(usuario, senha);
+						TelaMenuPrincipal telaFunc = new TelaMenuPrincipal(login);
 						telaFunc.setLocationRelativeTo(null);
 						telaFunc.setVisible(true);
 						dispose();

@@ -12,15 +12,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -64,6 +61,11 @@ import javax.swing.event.AncestorEvent;
  *
  */
 public class TelaCadastroFuncionario extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	Endereco enderecoPronto = null;
 	private JTextField txtNome;
@@ -84,6 +86,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTable table;
 	private String usuario;
 	private String senha;
+	private int tipoUsuario;
 
 	private Endereco cadastroEndereco;
 	private Usuario usuarioModel;
@@ -103,9 +106,10 @@ public class TelaCadastroFuncionario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroFuncionario(String usuario, String senha) {
-		this.usuario = usuario;
-		this.senha = senha;
+	public TelaCadastroFuncionario(Usuario usuario) {
+		this.usuario = usuario.getUsuario();
+		this.senha = usuario.getSenha();
+		this.tipoUsuario= usuario.getNivelAcesso();
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Cadastro do funcinário");
@@ -802,7 +806,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		JButton btnVoltar = new JButton("     Voltar       ");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuPrincipal mp = new MenuPrincipal(usuario, senha);
+				TelaMenuPrincipal mp = new TelaMenuPrincipal(usuario);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();
