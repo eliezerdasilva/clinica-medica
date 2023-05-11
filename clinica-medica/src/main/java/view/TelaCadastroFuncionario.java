@@ -367,7 +367,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 				String nome = txtNome.getText();
 
-				String cpfTxt = txtCpf.getText();
+				String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
 
 				String sexo = "ma";
 				if (rdbtnMasculino.isSelected()) {
