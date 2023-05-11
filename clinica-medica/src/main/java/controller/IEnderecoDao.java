@@ -14,5 +14,7 @@ public interface IEnderecoDao {
 	public boolean InserirEndereco(Endereco endereco);
 	
 	public ArrayList<Estado> ConsultaEstadoCidade();
+	
+	public boolean excluirEndereco(Endereco endereco);
 
 }

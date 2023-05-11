@@ -6,6 +6,21 @@ public class Estado {
 	private String nome;
 	private String uf;
 
+	public Estado() {
+		super();
+	}
+
+	public Estado(int id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
+
+	public Estado(int id, String nome, String uf) {
+		this.id = id;
+		this.nome = nome;
+		this.uf = uf;
+	}
+
 	public int getId() {
 		return id;
 	}

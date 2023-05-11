@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import com.google.protobuf.Method;
+
 
 import model.Funcionario;
 import model.Usuario;
@@ -23,9 +23,8 @@ class FuncionarioTest {
 	FuncionarioDao funcionarioDao = new FuncionarioDao();
 	UsuarioDao usuarioDao = new UsuarioDao();
 	
-
-	@Test
 	@Order(1)
+	@Test
 	public void testCadastro() {
 		Funcionario func = new Funcionario();
 		Usuario user = new Usuario();
@@ -76,8 +75,8 @@ class FuncionarioTest {
 		user.setUsuario("Funcionario");
 		
 		
-		func.setNome("Joao");
-		func.setCpf(Long.valueOf(12345678989l));
+		func.setNome("joao");
+		func.setCpf(Long.valueOf(12345678998l));
 		func.setNumero(912345678);
 		func.setSexo("M");
 		func.setTelefone("9 1234-5678");
