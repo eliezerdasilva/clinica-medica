@@ -1,16 +1,18 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import javax.swing.border.LineBorder;
-import java.awt.SystemColor;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.JTextField;
 
-public class Manter extends JFrame {
+public class TelaConsultaMedico extends JFrame {
 
 	private JPanel contentPane;
 
@@ -21,9 +23,8 @@ public class Manter extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Manter frame = new Manter();
+					TelaConsultaMedico frame = new TelaConsultaMedico();
 					frame.setVisible(true);
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -34,14 +35,16 @@ public class Manter extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Manter() {
+	public TelaConsultaMedico() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 2000, 1050);
+		setMinimumSize(new Dimension(1250, 1000));
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		JButton btnNewButton = new JButton("New button");
+		contentPane.add(btnNewButton, "1, 1, fill, fill");
 	}
-
 }

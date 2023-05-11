@@ -15,4 +15,6 @@ public interface InterfaceUsuario {
 	public Usuario selecionarUSuarioParaCadastrar(Usuario usuarioModelo);
 	
 	public Usuario consultarUsuario(Long id);
+	
+	public boolean consultarUsuarioExistente(String Usuario);
 }

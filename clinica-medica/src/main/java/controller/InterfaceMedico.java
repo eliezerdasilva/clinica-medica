@@ -20,5 +20,7 @@ public interface  InterfaceMedico {
 	
 	public ArrayList<Medico> listaMedicos();
 	
+	public Medico consultaDadosMedico(Long cpf);
+	
 
 }

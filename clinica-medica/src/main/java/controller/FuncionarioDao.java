@@ -8,8 +8,12 @@ import java.sql.SQLException;
 
 
 
+import org.apache.commons.lang3.Validate;
+
 import model.Endereco;
 import model.Funcionario;
+import model.Medico;
+import model.Usuario;
 
 import model.Usuario;
 
@@ -24,7 +28,9 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 		Connection c = con.conectar();
 
 		try {
-			String query = "INSERT INTO funcionario(cpf,nome, sexo, telefone, data_nascimento, usuario_idusuario,endereco_cep, numero,complemento, email) VALUES (?,?,?,?,?,?,?,?,?,?)";
+
+			String query = "INSERT INTO funcionario(cpf,nome, sexo, telefone, data_nascimento, usuario_idusuario,endereco_cep, numero,complemento,email) VALUES (?,?,?,?,?,?,?,?,?,?)";
+
 			PreparedStatement stm = c.prepareStatement(query);
 			stm.setLong(1, funcionario.getCpf());
 			stm.setString(2, funcionario.getNome());

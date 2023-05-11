@@ -37,15 +37,11 @@ public class Estado {
 
 	@Override
 	public boolean equals(Object obj) {
-		System.out.println("qui");
 		if (obj == null) {
 			return false;
 		}
 
 		if (obj instanceof Estado) {
-			System.out.println("aqui2");
-			System.out.println(((Estado) obj).getId());
-			System.out.println(getId());
 			return ((Estado) obj).getId() == getId();
 		} else if (obj instanceof String) {
 			return nome.equals(obj);

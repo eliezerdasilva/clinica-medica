@@ -30,6 +30,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import model.Endereco;
+import model.Usuario;
+
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.border.MatteBorder;
@@ -78,18 +80,20 @@ public class TelaPerfil extends JFrame {
 	private JTextField textField_12;
 	private JTextField textField_16;
 	private JPasswordField passwordField;
+	//Usuario 
 	private String usuario;
 	private String senha;
-	
+	private int nivelAcesso;
 	
 
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaPerfil(String usuario, String senha) {
-		this.usuario = usuario;
-		this.senha = senha; 
+	public TelaPerfil(Usuario usuario) {
+		this.usuario = usuario.getUsuario();
+		this.senha = usuario.getSenha();
+		this.nivelAcesso = usuario.getNivelAcesso();
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
 		setTitle("Tela Cadastro de médico");
@@ -317,7 +321,7 @@ public class TelaPerfil extends JFrame {
 		JButton btnNewButton_2 = new JButton("Alterar");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(usuario, senha);
+				TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(usuario);
 				tcf.setLocationRelativeTo(null);
 				tcf.setVisible(true);
 				dispose();
@@ -330,7 +334,7 @@ public class TelaPerfil extends JFrame {
 		JButton btnNewButton_3 = new JButton("Voltar");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuPrincipal tcf = new MenuPrincipal(usuario, senha);
+				TelaMenuPrincipal tcf = new TelaMenuPrincipal(usuario);
 				tcf.setLocationRelativeTo(null);
 				tcf.setVisible(true);
 				dispose();

@@ -90,11 +90,14 @@ CREATE TABLE IF NOT EXISTS `clinica`.`medico` (
 
 
 CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
+  `id_consulta` int primary key auto_increment,
   `data_consulta` DATE NOT NULL,
   `hora_consulta` TIME NOT NULL,
   `paciente_cpf` BIGINT NOT NULL,
-  `tipo_consulta` VARCHAR(45) NOT NULL,
+  `sobre_consulta` Text, 
+   `tipo_consulta` VARCHAR(45) NOT NULL,
   `medico_cpf` bigint NOT NULL,
+  `observacao` VARCHAR(45) NOT NULL,
 
     FOREIGN KEY (`paciente_cpf`)
     REFERENCES `clinica`.`paciente` (`cpf`),
@@ -112,15 +115,17 @@ CREATE TABLE IF NOT EXISTS `clinica`.`consulta` (
 -- Table `clinica`.`funcionario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `clinica`.`funcionario` (
-  `cpf` BIGINT NOT NULL,
-  `nome` VARCHAR(45) NULL DEFAULT NULL,
-  `sexo`  VARCHAR(45) NULL DEFAULT NULL,
-  `telefone` VARCHAR(12) NULL DEFAULT NULL,
-  `data_nascimento` DATE NULL DEFAULT NULL,
+  `cpf` BIGINT NOT NULL unique,
+  `nome` VARCHAR(45) not null,
+  `email` VARCHAR(45) not null,
+  `sexo`  VARCHAR(45) not null,
+  `telefone` VARCHAR(12) not null,
+  `data_nascimento` DATE not null,
   `usuario_idusuario` bigint NOT NULL,
   `endereco_cep` INT NOT NULL,
-  `numero` INT NULL DEFAULT NULL,
-  `complemento` VARCHAR(30) NULL DEFAULT NULL,
+  `numero` INT not null,
+  `complemento` VARCHAR(30) not null, 
+  `email` VARCHAR(45) not null 
   PRIMARY KEY (`cpf`),
     FOREIGN KEY (`endereco_cep`)
     REFERENCES `clinica`.`endereco` (`cep`),

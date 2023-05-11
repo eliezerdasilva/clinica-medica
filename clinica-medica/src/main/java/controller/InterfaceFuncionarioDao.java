@@ -12,5 +12,7 @@ public interface InterfaceFuncionarioDao {
 	
 	public Funcionario consultarFuncionario(Funcionario funcionario);
 
-	boolean consultaCpf(Long cpf);
+	
+	public boolean consultaCpf(Long cpf);
+
 }

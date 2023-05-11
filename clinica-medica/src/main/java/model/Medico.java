@@ -56,4 +56,21 @@ public class Medico extends Pessoa {
 		this.especializacao = especializacao;
 	}
 
+
+
+	@Override
+	public String toString() {
+		return  getNome() ;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Medico medico = (Medico) obj;
+		if(medico.getCpf().equals(this.getCpf())){
+			return true; 
+		}
+		return false;
+	}
+	
+
 }

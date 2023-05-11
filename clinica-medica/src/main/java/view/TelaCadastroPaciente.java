@@ -49,7 +49,9 @@ import model.Convenio;
 import model.Endereco;
 import model.Estado;
 import model.Paciente;
+import model.Usuario;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * 
@@ -100,8 +102,11 @@ public class TelaCadastroPaciente extends JFrame {
 	private Paciente pacienteClick;
 	private Endereco enderecoClink;
 	private String insert = null;
-	private String usuario;
+	//Usuario
+	private String usuarioLogin;
 	private String senha;
+	private int nivelAcesso;
+	
 	private JRadioButton jrbFemi;
 	private JComboBox<Estado> cbxEstado;
 	private JRadioButton jrbMasc;
@@ -114,9 +119,10 @@ public class TelaCadastroPaciente extends JFrame {
 	private JButton btnVoltarCadastro;
 	private JButton btnVoltarEditar;
 
-	public TelaCadastroPaciente(String usuario, String senha) {
-		this.usuario = usuario;
-		this.senha = senha;
+	public TelaCadastroPaciente(Usuario usuario) {
+		this.usuarioLogin = usuario.getUsuario();
+		this.senha = usuario.getSenha();
+		this.nivelAcesso = usuario.getNivelAcesso();
 
 		this.listaPaciente = pacienteDao.consultarPaciente();
 
@@ -580,8 +586,7 @@ public class TelaCadastroPaciente extends JFrame {
 				} else {
 					String dataTest = dataN.replace("/", "").trim();
 					if (dataTest.length() == 0) {
-						// TODO erro
-						System.out.println("Erro");
+						validacao += "Data\n";	
 						txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 					} else {
 						txtData.setBorder(new LineBorder(new Color(00, 00, 00), 1));
@@ -606,10 +611,7 @@ public class TelaCadastroPaciente extends JFrame {
 				}
 				// TODO CADASTRO DO CEP NAO CADASTRADO
 
-				if (validacao.trim() != "") {
-					JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
-					return;
-				}
+				
 
 				// Validacao endereco
 				String cepString = txtCep.getText().replace("-", "");
@@ -624,35 +626,43 @@ public class TelaCadastroPaciente extends JFrame {
 				EnderecoDao endereco = new EnderecoDao();
 
 				if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					validacao += "Cep\n";
 					txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
 				} else {
+					txtCep.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					Integer cep = Integer.valueOf(cepString);
 					cadastroEndereco.setCep(cep);
 				}
 
 				if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					validacao += "Bairro\n";
 					txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
 				} else {
+					txtBairro.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					cadastroEndereco.setBairro(bairro);
 				}
+				
 				if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					validacao += "Cidade\n";
 					txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
 				} else {
+					txtMunicipio.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					cadastroEndereco.setCidade(cidade);
 				}
+				
 				if (rua == null || rua.trim() == "" || rua.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+					validacao += "Rua\n";
 					txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					return;
 				} else {
+					txtRua.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 					cadastroEndereco.setRua(rua);
 				}
+				
+				if (validacao.trim() != "") {
+					JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
+					return;
+				}
+				
 				Endereco resultado = new Endereco();
 				resultado = endereco.ConsultarEndereco(cadastroEndereco);
 
@@ -972,6 +982,8 @@ public class TelaCadastroPaciente extends JFrame {
 							Endereco resultado = new Endereco();
 							resultado = endereco.ConsultarEndereco(cadastroEndereco);
 
+							boolean resuEnd = false;
+							
 							if (resultado == null) {
 								Estado estado = (Estado) cbxEstado.getSelectedItem();
 								int id = estado.getId();
@@ -984,8 +996,9 @@ public class TelaCadastroPaciente extends JFrame {
 								estadoSel.setNome(nomeEstado);
 								estadoSel.setUf(uf);
 
+								cadastroEndereco.setEstado(estado);
 								// TODO cadastro do endereço
-								boolean resuEnd = false;
+								
 								try {
 									resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
 								} catch (Exception e2) {
@@ -994,7 +1007,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 							}
 
-							if (resultado != null) {
+							if (resultado != null || resuEnd == true ) {
 								boolean cds = false;
 
 								try {
@@ -1117,7 +1130,7 @@ public class TelaCadastroPaciente extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				MenuPrincipal mp = new MenuPrincipal(usuario, senha);
+				TelaMenuPrincipal mp = new TelaMenuPrincipal(usuario);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();
@@ -1131,19 +1144,30 @@ public class TelaCadastroPaciente extends JFrame {
 		lblNewLabel_19.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_19, "flowx,cell 7 6,alignx center");
 
-		JLabel lblUsuario = new JLabel(usuario);
+		JLabel lblUsuario = new JLabel(usuarioLogin);
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblUsuario, "cell 7 6");
+		
+		JPanel panel_8 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(328, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1351, GroupLayout.PREFERRED_SIZE)
-						.addGap(235)));
-		gl_contentPane
-				.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
-						gl_contentPane.createSequentialGroup().addContainerGap(68, Short.MAX_VALUE).addComponent(panel,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(52)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(324, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1355, GroupLayout.PREFERRED_SIZE)
+					.addGap(235))
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 1904, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(52))
+		);
 		contentPane.setLayout(gl_contentPane);
 
 	}
