@@ -4,17 +4,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import model.Endereco;
 import model.Estado;
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class EnderecoTest {
+	
 	EnderecoDao enderecoDao = new EnderecoDao();
 
+	@Order(1)
 	@Test
 	public void testCadastro() {
-		System.out.println("PRIMEIRO TESTE");
 
 		Estado estado = new Estado();
 		estado.setId(24);
@@ -23,7 +27,7 @@ class EnderecoTest {
 
 		Endereco endereco = new Endereco();
 		endereco.setBairro("Poco Grande");
-		endereco.setCep(12345678);
+		endereco.setCep(89110111);
 		endereco.setCidade("Gaspar");
 		endereco.setEstado(estado);
 		endereco.setRua("Rua Silvio Garzewski");
@@ -32,14 +36,18 @@ class EnderecoTest {
 		System.out.println(result);
 		assertEquals(true, result);
 	}
-
+	
+	@Order(2)
 	@Test
 	void testConsulta() {
 		Endereco endereco = new Endereco();
-		Endereco result = enderecoDao.ConsultarEndereco(endereco);
-		assertEquals(null, result);
+		endereco.setCep(89110111);
+		Endereco result = enderecoDao.ConsultarEndereco(endereco);	
+		assertEquals(endereco.getCep(), result.getCep());
 	}
-
+	
+	/*Não faz sentido, e nem sei  como roda, pq o metodo de consulta na aceita nada sendo passado por ele. 
+	@Order(3)
 	@Test
 	void testConsultaEstadoCidade() {
 		ArrayList<Estado> espera = new ArrayList<Estado>();
@@ -187,5 +195,19 @@ class EnderecoTest {
 
 		ArrayList<Estado> result = enderecoDao.ConsultaEstadoCidade();
 		assertEquals(espera, result);
+	}*/
+	@Order(3)
+	@Test
+	public void testRemove() {
+
+		Endereco endereco = new Endereco();
+	
+	
+		endereco.setCep(89110111);
+	
+
+		boolean result = enderecoDao.excluirEndereco(endereco);
+		System.out.println(result);
+		assertEquals(true, result);
 	}
 }

@@ -128,4 +128,27 @@ public class EnderecoDao implements IEnderecoDao {
 		return null;
 	}
 
+	@Override
+	public boolean excluirEndereco(Endereco endereco) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int valida = 0; 
+		try {
+			PreparedStatement ps = c.prepareStatement("DELETE FROM endereco WHERE cep = ?");
+			ps.setInt(1, endereco.getCep());
+
+
+			
+			valida =  ps.executeUpdate();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			con.fecharConexao();
+		}
+		
+		
+		return (valida == 0 ? false :  true );
+	}
+
 }
