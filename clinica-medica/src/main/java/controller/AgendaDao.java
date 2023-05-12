@@ -5,14 +5,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.Consulta;
 import model.Medico;
 import model.Paciente;
-import view.Agenda;
 
 public class AgendaDao implements InterfaceConsulta {
 	
@@ -147,8 +145,32 @@ public class AgendaDao implements InterfaceConsulta {
 	}
 
 	@Override
-	public ArrayList<Consulta> listConsultaDia() {
-		// TODO Auto-generated method stub
+	public ArrayList<Consulta> listConsultaDia(LocalDate date ) {
+		
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int valida = 0;
+		ArrayList<Consulta> listConsulta = new ArrayList<>();
+		try { 
+			PreparedStatement ps = c.prepareStatement("Select * from consulta where data_consulta = ? ");
+			ps.setDate(1, Date.valueOf(date));
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Consulta consulta = new Consulta();
+	
+				consulta.setId(rs.getInt("id_consulta"));
+		
+				listConsulta.add(consulta);
+			
+			}
+			return listConsulta;
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	
 		return null;
 	}
 

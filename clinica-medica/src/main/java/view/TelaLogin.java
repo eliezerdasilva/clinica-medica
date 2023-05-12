@@ -67,10 +67,10 @@ public class TelaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaLogin() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/LocoHospital.png")));
 		setTitle("Login");
 
-		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
+		URL resourceIcon = TelaLogin.class.getResource("/imagens/LocoHospital.png");
 		if (resourceIcon != null) {
 			Image imgIcon = Toolkit.getDefaultToolkit().getImage(resourceIcon);
 			setIconImage(imgIcon);
@@ -218,11 +218,18 @@ public class TelaLogin extends JFrame {
 					login = loginDao.consultarLogin(new Usuario(usuario, senha));
 
 					if (login != null) {
-
-						TelaMenuPrincipal telaFunc = new TelaMenuPrincipal(login);
-						telaFunc.setLocationRelativeTo(null);
-						telaFunc.setVisible(true);
+						
+						if(login.getNivelAcesso()==0) {
+						TelaMenuPrincipal telaFuncAdm = new TelaMenuPrincipal(login);
+						telaFuncAdm.setLocationRelativeTo(null);
+						telaFuncAdm.setVisible(true);
 						dispose();
+						}else {
+							TelaMenuPrincipalMedico telaMenuPrincipalMedico = new TelaMenuPrincipalMedico(login);
+							telaMenuPrincipalMedico.setLocationRelativeTo(null);
+							telaMenuPrincipalMedico.setVisible(true);
+							dispose();
+						}
 
 					} else {
 

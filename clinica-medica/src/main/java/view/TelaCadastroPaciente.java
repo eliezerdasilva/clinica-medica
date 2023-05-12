@@ -78,7 +78,6 @@ public class TelaCadastroPaciente extends JFrame {
 	private JTextField txtData;
 	private JTextField txtCpf;
 	private JTextField txtTelefone;
-	private MaskFormatter mascaraCep = null;
 	private JTextField txtMunicipio;
 	private JTextField txtBairro;
 	private JTextField txtRua;
@@ -98,10 +97,8 @@ public class TelaCadastroPaciente extends JFrame {
 	private JTextField txtCep;
 	private JTable table;
 	private ArrayList<Paciente> listaPaciente = new ArrayList<>();
-	private ArrayList<Paciente> listaEndereco = new ArrayList<>();
 	private Paciente pacienteClick;
-	private Endereco enderecoClink;
-	private String insert = null;
+
 	//Usuario
 	private String usuarioLogin;
 	private String senha;
@@ -115,7 +112,7 @@ public class TelaCadastroPaciente extends JFrame {
 	private JButton btnNewButton_5;
 	private JButton btnCadastra;
 	private JButton btnEditarPrimeiro;
-	private JButton btnVoltar;
+
 	private JButton btnVoltarCadastro;
 	private JButton btnVoltarEditar;
 
@@ -127,10 +124,10 @@ public class TelaCadastroPaciente extends JFrame {
 		this.listaPaciente = pacienteDao.consultarPaciente();
 
 		setMinimumSize(new Dimension(1250, 1000));
-		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/LocoHospital.png")));
 		setTitle("Tela cadastro de paciente");
 
-		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
+		URL resourceIcon = TelaLogin.class.getResource("/imagens/LocoHospital.png");
 		if (resourceIcon != null) {
 			Image imgIcon = Toolkit.getDefaultToolkit().getImage(resourceIcon);
 			setIconImage(imgIcon);

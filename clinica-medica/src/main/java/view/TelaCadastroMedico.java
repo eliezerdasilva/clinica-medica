@@ -11,9 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+
 import java.net.URL;
 import java.sql.Date;
 import java.text.ParseException;
@@ -22,7 +20,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.AbstractButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -54,7 +52,6 @@ import controller.UsuarioDao;
 import model.Endereco;
 import model.Estado;
 import model.Medico;
-import model.Paciente;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import utils.RoundButton;
@@ -69,11 +66,15 @@ import javax.swing.ButtonGroup;
  */
 public class TelaCadastroMedico extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	EnderecoDao enderecoDao = new EnderecoDao();
 
 	private MedicoDao medicoDao = new MedicoDao();
 	private UsuarioDao usuarioDao;
-	private Usuario usuarioModelo;
 	private Medico medicoClick;
 
 	private JPanel contentPane;
@@ -89,8 +90,6 @@ public class TelaCadastroMedico extends JFrame {
 	private JTextField txtRua;
 	private JTextField txtCasaNumero;
 	private JTextField txtComplemento;
-	private JTextField txtBuscarCpf;
-	private JTextField txtBuscarNome;
 	private JTextField txtCrm;
 	private JTextField txtEspecializacao;
 	private JTextField txtUsuario;
@@ -102,7 +101,7 @@ public class TelaCadastroMedico extends JFrame {
 	private String senha;
 	private int nivelAcesso; 
 	
-	private JTextField textField;
+
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTable table;
@@ -145,10 +144,10 @@ public class TelaCadastroMedico extends JFrame {
 		
 		this.listaMedico = medicoDao.listaMedicos();
 		setMinimumSize(new Dimension(1250, 1000));
-		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/LocoHospital.png")));
 		setTitle("Tela Cadastro de médico");
 
-		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
+		URL resourceIcon = TelaLogin.class.getResource("/imagens/LocoHospital.png");
 		if (resourceIcon != null) {
 			Image imgIcon = Toolkit.getDefaultToolkit().getImage(resourceIcon);
 			setIconImage(imgIcon);
@@ -166,7 +165,7 @@ public class TelaCadastroMedico extends JFrame {
 
 		setContentPane(contentPane);
 
-		BufferedImage bg = null;
+
 		formatDate = new SimpleDateFormat("dd/MM/yyyy");
 
 		JPanel panel = new JPanel();
@@ -176,7 +175,7 @@ public class TelaCadastroMedico extends JFrame {
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
 		panel_1.setLayout(new BorderLayout(0, 0));
 
-		BufferedImage filc = null;
+
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(51, 153, 0));
@@ -438,7 +437,9 @@ public class TelaCadastroMedico extends JFrame {
 		panel_8.add(lblNewLabel_18, "cell 1 1,alignx trailing");
 
 		JLabel lblNewLabel_19 = new JLabel("Especialização :");
-
+		lblNewLabel_19.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_8.add(lblNewLabel_19, "cell 3 1,alignx trailing");
+		
 		try {
 			txtCrm = new JFormattedTextField(new MaskFormatter("######"));
 		} catch (ParseException e8) {
@@ -448,10 +449,8 @@ public class TelaCadastroMedico extends JFrame {
 		panel_8.add(txtCrm, "cell 2 1,grow");
 		txtCrm.setColumns(10);
 
-		JLabel lblNewLabel_191 = new JLabel("Especialização:");
 
-		lblNewLabel_191.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_8.add(lblNewLabel_191, "cell 3 1,alignx trailing");
+		
 
 		txtEspecializacao = new JTextField();
 		panel_8.add(txtEspecializacao, "cell 4 1,grow");
@@ -553,6 +552,7 @@ public class TelaCadastroMedico extends JFrame {
 				JButton voltar = new JButton("Volta");
 				voltar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						limpaBorda();
 						panel_9.add(btnCadastrarMedico);
 						btnCadastrarMedico.setVisible(true);
 
@@ -797,12 +797,12 @@ public class TelaCadastroMedico extends JFrame {
 						boolean consultaUsuarioCadastrado = usuarioDao.consultarUsuarioCadastrado(usuarioModelo);
 
 						// Dados do medico
-						String crm = txtCrm.getText();
-						if (crm == null || crm.trim() == "" || crm.isEmpty()) {
+					
+						if (crmString == null || crmString.trim() == "" || crmString.isEmpty()) {
 							txtCrm.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 							validacao += "Crm\n";
 						} else {
-							Long crmLong = Long.valueOf(crm);
+							Long crmLong = Long.valueOf(crmString);
 							p.setCrm(crmLong);
 
 						}
@@ -834,7 +834,7 @@ public class TelaCadastroMedico extends JFrame {
 									cadastroEndereco.setEstado(estado);
 
 									try {
-										boolean enderecoCadasto = enderecoDao.InserirEndereco(cadastroEndereco);
+										enderecoDao.InserirEndereco(cadastroEndereco);
 									} catch (Exception e2) {
 										e2.printStackTrace();
 									}
@@ -862,6 +862,7 @@ public class TelaCadastroMedico extends JFrame {
 									JOptionPane.showMessageDialog(null, "Erro ao editar, tente novamente");
 								} else {
 									JOptionPane.showMessageDialog(null, "Editado com sucesso");
+									limpaBorda();
 								}
 							}
 						} else {
@@ -901,7 +902,9 @@ public class TelaCadastroMedico extends JFrame {
 
 					if (n == JOptionPane.YES_OPTION) {
 						Boolean result = medicoDao.excluirMedico(Long.valueOf(medicoClick.getCpf()));
+						if(result ==true) {
 						JOptionPane.showMessageDialog(null, "Excluindo");
+						}
 						atualizarTabela();
 						limparTela();
 					} else {
@@ -1158,20 +1161,20 @@ public class TelaCadastroMedico extends JFrame {
 
 		boolean consultaUsuarioCadastrado = usuarioDao.consultarUsuarioCadastrado(usuarioModelo);
 
-		String crm = txtCrm.getText();
-		if (crm == null || crm.trim() == "" || crm.isEmpty()) {
+		
+		if (crmString == null || crmString.trim() == "" || crmString.isEmpty()) {
 			txtCrm.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			validacao += "Crm\n";
 		} else {
 			txtCrm.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-			Long crmLong = Long.valueOf(crm);
+			Long crmLong = Long.valueOf(crmString);
 			p.setCrm(crmLong);
 
 		}
 
 
 		String especificacao = txtEspecializacao.getText();
-		if (especificacao == null || epecificacao.trim() == "" || epecificacao.isEmpty()) {
+		if (especificacao == null || especificacao.trim() == "" || especificacao.isEmpty()) {
 
 			txtEspecializacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			validacao += "Especializacao\n";
@@ -1197,11 +1200,17 @@ public class TelaCadastroMedico extends JFrame {
 			cadastroEndereco.setEstado(estado);
 
 			// TODO cadastro do endereço
-			boolean resuEnd = false;
+			
 			try {
-				resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
+				 Boolean result=  enderecoDao.InserirEndereco(cadastroEndereco);
+				 if(result!=true) {
+					 JOptionPane.showMessageDialog(null, "Erro no cadastro, endereço inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+					 return; 
+				 }else {
+					 limpaBorda();
+				 }
 			} catch (Exception e2) {
-				e2.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Erro no cadastro, endereço inválido", "Erro", JOptionPane.ERROR_MESSAGE);
 			}
 
 		}
@@ -1226,10 +1235,14 @@ public class TelaCadastroMedico extends JFrame {
 						p.setEndereco(cadastroEndereco);
 						// boolean usuarioCadastrado = usuarioDao.inserirUsuario(usuarioModelo);
 						boolean usuarioCadastrado = usuarioDao.inserirUsuario(usuarioModelo);
+						if(usuarioCadastrado==true) {
 						Usuario usuarioSelecionado = usuarioDao.selecionarUSuarioParaCadastrar(usuarioModelo);
 						p.setUsuario(usuarioSelecionado);
 
 						cds = medicoDao.cadastrarMedico(p);
+						}else {
+							JOptionPane.showMessageDialog(null, "Erro no cadastro, usuário inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+						}
 
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -1239,6 +1252,7 @@ public class TelaCadastroMedico extends JFrame {
 						JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamente");
 					} else {
 						JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+						limpaBorda();
 					}
 				}
 			} else {
@@ -1308,26 +1322,10 @@ public class TelaCadastroMedico extends JFrame {
 		txtData.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtCrm.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtEspecializacao.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtUsuario.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtSenha.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+	
 
-		usuarioDao = new UsuarioDao();
-		// txtUsuario.setText(usuario.getUsuario());
-		// txtSenha.setText(usuario.getSenha());
-		String sexo = medicoClick.getSexo();
-		if (sexo.equals("F")) {
-			rdbtnFeminino1.setSelected(true);
-		} else if (sexo.equals("M")) {
-			rdbtnMasculino1.setSelected(true);
-		}
-
-		Integer cep = medicoClick.getEndereco().getCep();
-		EnderecoDao enderecoDao = new EnderecoDao();
-		Endereco endereco = new Endereco(cep);
-		Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
-		txtCep.setText(String.valueOf(enderecoDoBanco.getCep()));
-		txtBairro.setText(enderecoDoBanco.getBairro());
-		txtMunicipio.setText(enderecoDoBanco.getCidade());
-		txtRua.setText(enderecoDoBanco.getRua());
-		cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId() - 1);
 
 	}
 

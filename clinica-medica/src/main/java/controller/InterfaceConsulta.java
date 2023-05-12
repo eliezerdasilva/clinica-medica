@@ -1,5 +1,6 @@
 package controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.Consulta;
@@ -15,7 +16,7 @@ public interface InterfaceConsulta {
 	 
 	public ArrayList<Consulta> listConsulta();
 	
-	public ArrayList<Consulta> listConsultaDia();
+	public ArrayList<Consulta> listConsultaDia(LocalDate date);
 	
 	public ArrayList<Consulta> listConsultaSemana();
 	

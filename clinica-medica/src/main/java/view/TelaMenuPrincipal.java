@@ -3,13 +3,19 @@ package view;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -17,14 +23,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
+import controller.AgendaDao;
+import model.Consulta;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 
@@ -37,6 +47,10 @@ import com.jgoodies.forms.layout.RowSpec;
 */
 public class TelaMenuPrincipal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//Usuario 
 	private Usuario usuario;
 	private String login;
@@ -67,7 +81,7 @@ public class TelaMenuPrincipal extends JFrame {
 	private JButton btnCadastraMedico;
 	private JButton btnCadastroFuncionario;
 	private JButton btnCadastroConsulta;
-	private JPanel panel_10;
+
 	private JPanel panel_7;
 	private JPanel panel_8;
 	private JPanel panel_9;
@@ -76,22 +90,8 @@ public class TelaMenuPrincipal extends JFrame {
 	private JPanel contentPane;
 	private JPanel panel;
 	private JButton btnBotaoMenu;
+	private JLabel lblNewLabel_2;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaMenuPrincipal frame = new TelaMenuPrincipal(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -102,8 +102,21 @@ public class TelaMenuPrincipal extends JFrame {
 		this.senha = usuario.getSenha();
 		this.nivelAcesso = usuario.getNivelAcesso();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setExtendedState(MAXIMIZED_BOTH);
+		setMinimumSize(new Dimension(1900, 400));
 		setBounds(100, 100, 2000, 1050);
-		setMinimumSize(new Dimension(1250, 1000));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/LocoHospital.png")));
+		setTitle("Menu principal");
+
+		URL resourceIcon = TelaLogin.class.getResource("/imagens/LocoHospital.png");
+		if (resourceIcon != null) {
+			Image imgIcon = Toolkit.getDefaultToolkit().getImage(resourceIcon);
+			setIconImage(imgIcon);
+		} else {
+			JOptionPane.showMessageDialog(null, "Erro no caminho da imagem");
+		}
+		
+		
 		;
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -111,7 +124,7 @@ public class TelaMenuPrincipal extends JFrame {
 		setContentPane(contentPane);
 
 		panel = new JPanel();
-		panel.setBackground(new Color(0, 0, 255));
+		panel.setBackground(new Color(51, 153, 0));
 
 		btnBotaoMenu = new JButton("");
 		btnBotaoMenu.addMouseListener(new MouseAdapter() {
@@ -139,7 +152,7 @@ public class TelaMenuPrincipal extends JFrame {
 			}
 		});
 
-		btnBotaoMenu.setIcon(new ImageIcon("src\\main\\resources\\imagens\\botao-de-menu.png"));
+		btnBotaoMenu.setIcon(new ImageIcon("src\\main\\resources\\imagens\\Logo.png"));
 		btnBotaoMenu.setBackground(Color.white);
 		
 		JButton btnLoginSair = new JButton("");
@@ -169,7 +182,7 @@ public class TelaMenuPrincipal extends JFrame {
 				verificaNivelAcesso= "Funcionário";
 			}
 		}
-		lblNewLabel_1 = new JLabel("Bem vindo : "+usuario.getUsuario()+ "   Seu cargo é "+verificaNivelAcesso);
+		lblNewLabel_1 = new JLabel("Bem vindo : "+usuario.getUsuario()+"                Seu cargo é : "+verificaNivelAcesso);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -178,8 +191,8 @@ public class TelaMenuPrincipal extends JFrame {
 					.addGap(7)
 					.addComponent(btnBotaoMenu)
 					.addGap(33)
-					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 422, GroupLayout.PREFERRED_SIZE)
-					.addGap(1307)
+					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 841, GroupLayout.PREFERRED_SIZE)
+					.addGap(888)
 					.addComponent(btnLoginSair))
 		);
 		gl_panel.setVerticalGroup(
@@ -199,7 +212,7 @@ public class TelaMenuPrincipal extends JFrame {
 
 		panelMenu = new JPanel();
 		panelMenu.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		panelMenu.setBackground(new Color(0, 0, 255));
+		panelMenu.setBackground(new Color(60, 179, 113));
 		panelMenu.setBounds(0, 80, 266, 930);
 		panelMenu.setForeground(Color.BLACK);
 		panelMenu.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][50:n][10:n][50:n][10:n][50:n]"));
@@ -277,7 +290,7 @@ public class TelaMenuPrincipal extends JFrame {
 
 		panelSairPerfil = new JPanel();
 		panelSairPerfil.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		panelSairPerfil.setBackground(new Color(0, 0, 255));
+		panelSairPerfil.setBackground(new Color(60, 179, 113));
 		panelSairPerfil.setBounds(1650, 80, 266, 200);
 		panelSairPerfil.setForeground(Color.BLACK);
 		panelSairPerfil.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][50:n][10:n][50:n][10:n][50:n]"));
@@ -351,38 +364,57 @@ public class TelaMenuPrincipal extends JFrame {
 		panel_2.setLayout(new MigLayout("", "[100px,grow][802.00,grow][61.00px,grow][383.00px,grow][61px]", "[][::50px,grow][::700,grow][][][][]"));
 
 		panel_4 = new JPanel();
-		panel_4.setBackground(new Color(0, 128, 0));
+		panel_4.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
+		panel_4.setBackground(new Color(143, 188, 143));
 		panel_2.add(panel_4, "cell 1 1,grow");
+		
+		lblNewLabel_2 = new JLabel("Consultas do dia ");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 20));
+		panel_4.add(lblNewLabel_2);
 
 		panel_5 = new JPanel();
+		panel_5.setBorder(new MatteBorder(1, 4, 4, 4, (Color) new Color(0, 0, 0)));
 		panel_2.add(panel_5, "cell 1 2,grow");
 		panel_5.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 0, 894, 635);
+		scrollPane.setBounds(10, 0, 902, 689);
 		panel_5.add(scrollPane);
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(new Object[][] {
 
-		}, new String[] { "ID", "Cliente", "Servi\u00E7o", "Valor", "Hora", "Data", "Observação" }));
+		}, new String[] { "ID", "Cliente", "Serviço", "Valor", "Hora", "Data", "Observação" }));
 
 		panel_6 = new JPanel();
-		panel_6.setBackground(new Color(128, 255, 255));
+		panel_6.setBorder(new LineBorder(new Color(0, 0, 0), 4));
+		panel_6.setBackground(new Color(143, 188, 143));
 		panel_2.add(panel_6, "cell 3 2,grow");
-		panel_6.setLayout(new MigLayout("", "[grow]", "[][100px:n:100px,grow][][100px:n:100px,grow][][100px:n:100px,grow][][250:n:250,grow][][100px:n:100px,grow]"));
+		panel_6.setLayout(new MigLayout("", "[grow]", "[][100px:n:100px,grow][][100px:n:100px,grow][][100px:n:100px,grow][][100:n:100,grow][][][100px:n:100px,grow]"));
 		
 		panel_7 = new JPanel();
+		panel_7.setBorder(new LineBorder(new Color(0, 0, 0), 4));
+		listaConsultaDia();
 		panel_6.add(panel_7, "cell 0 1,grow");
+		panel_7.setLayout(null);
+		
+		String quantidadeConsulta = listaConsultaDia();
+		JLabel lblNewLabel_3 = new JLabel("Quantidade de consulta hoje : "+quantidadeConsulta);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_3.setBounds(90, 47, 460, 14);
+		panel_7.add(lblNewLabel_3);
 		
 		panel_8 = new JPanel();
+		panel_8.setBorder(new LineBorder(new Color(0, 0, 0), 4));
 		panel_6.add(panel_8, "cell 0 3,grow");
 		
 		panel_9 = new JPanel();
+		panel_9.setBorder(new LineBorder(new Color(0, 0, 0), 4));
 		panel_6.add(panel_9, "cell 0 5,grow");
 		
 		panel_11 = new JPanel();
+		panel_11.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		panel_6.add(panel_11, "cell 0 7,grow");
 		
 		
@@ -390,5 +422,33 @@ public class TelaMenuPrincipal extends JFrame {
 		
 	
 
+	}
+
+
+	private String listaConsultaDia() {
+		AgendaDao consulta = new AgendaDao();
+		
+		LocalDate hoje = LocalDate.now();
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		hoje.format(formatador);
+		
+		
+		ArrayList<Consulta> lista =  consulta.listConsultaDia(hoje);
+		int soma = 0; 
+		
+		
+		if(lista==null) {
+			return "Nenhum paciente";
+		}else {
+			for (Consulta consulta2 : lista) {
+				soma++;
+				return Integer.toString(soma);
+			}
+		}
+		return "Erro";
+	
+		
+
+		
 	}
 }

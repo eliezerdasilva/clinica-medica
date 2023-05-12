@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -11,9 +10,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -92,10 +88,10 @@ public class Agenda extends JFrame {
 		
 		this.listConsulta = agendaDao.listConsulta();
 		setMinimumSize(new Dimension(1250, 1000));
-		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/LocoHospital.png")));
 		setTitle("Cadastrar consulta");
 
-		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
+		URL resourceIcon = TelaLogin.class.getResource("/imagens/LocoHospital.png");
 		if (resourceIcon != null) {
 			Image imgIcon = Toolkit.getDefaultToolkit().getImage(resourceIcon);
 			setIconImage(imgIcon);

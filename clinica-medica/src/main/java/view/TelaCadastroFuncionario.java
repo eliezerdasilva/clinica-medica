@@ -44,7 +44,6 @@ import controller.UsuarioDao;
 import model.Endereco;
 import model.Estado;
 import model.Funcionario;
-import model.Paciente;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import utils.RoundButton;
@@ -111,10 +110,10 @@ public class TelaCadastroFuncionario extends JFrame {
 		this.senha = usuario.getSenha();
 		this.tipoUsuario= usuario.getNivelAcesso();
 		setMinimumSize(new Dimension(1250, 1000));
-		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/LocoHospital.png")));
 		setTitle("Cadastro do funcinário");
 
-		URL resourceIcon = TelaLogin.class.getResource("/imagens/logo.png");
+		URL resourceIcon = TelaLogin.class.getResource("/imagens/LocoHospital.png");
 		if (resourceIcon != null) {
 			Image imgIcon = Toolkit.getDefaultToolkit().getImage(resourceIcon);
 			setIconImage(imgIcon);
@@ -717,10 +716,15 @@ public class TelaCadastroFuncionario extends JFrame {
 
 						try {
 							resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
+							if(resuEnd!=true) {
+								 JOptionPane.showMessageDialog(null, "Erro no cadastro, endereço inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+								 return; 
+							 }else {
+								 limparTela();
+							 }
 						} catch (Exception e2) {
-							e2.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Erro no cadastro, endereço inválido", "Erro", JOptionPane.ERROR_MESSAGE);
 						}
-
 					}
 
 					if (resultado != null || resuEnd == true) {
@@ -734,6 +738,8 @@ public class TelaCadastroFuncionario extends JFrame {
 						}
 						if (cds == false) {
 							JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamete");
+						}else {
+							limparTela();
 							JOptionPane.showInternalMessageDialog(null, "cadastrado");
 						}
 					}
@@ -844,6 +850,38 @@ public class TelaCadastroFuncionario extends JFrame {
 				btnNewButton.setBackground(new Color(51, 153, 51));
 			}
 		});
+
+	}private void limparTela() {
+		txtNome.setText("");
+		txtEmail.setText("");
+		txtTelefone.setText("");
+		txtComplemento.setText("");
+		
+		txtCpf.setText("");
+		txtCpf.setEditable(true);
+		txtData.setText("");
+	
+		txtCep.setText("");
+		txtBairro.setText("");
+		txtMunicipio.setText("");
+		txtRua.setText("");
+		
+		txtUsuario.setText("");
+	}
+	private void limpaBorda() {
+
+		txtNome.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtEmail.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtTelefone.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtComplemento.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtNumero.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtCpf.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtData.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtUsuario.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		jpfSenha.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+	
+
+
 
 	}
 }
