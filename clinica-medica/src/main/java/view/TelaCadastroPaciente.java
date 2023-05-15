@@ -145,32 +145,21 @@ public class TelaCadastroPaciente extends JFrame {
 
 		setContentPane(contentPane);
 
-		BufferedImage bg = null;
-
-		try {
-			bg = ImageIO.read(new File("src/imagens/fundoLogin.jpeg"));
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+	
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(144, 238, 144));
-		panel.setLayout(new MigLayout("", "[1300:n:1300]", "[850]"));
+		panel.setLayout(new MigLayout("", "[1150:n:1150]", "[850]"));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
+		
 		panel.add(panel_1, "cell 0 0,grow");
+		
 		panel_1.setLayout(new BorderLayout(5, 0));
 
 		BufferedImage filc = null;
 
-		try {
-			filc = ImageIO.read(new File("src/imagens/fundoVerde.jpeg"));
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 
 		JPanel panel_2 = new  JPanel();
 		panel_2.setBackground(new Color(51, 153, 0));
@@ -184,7 +173,7 @@ public class TelaCadastroPaciente extends JFrame {
 
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.SOUTH);
-		panel_4.setLayout(new MigLayout("", "[1310:n:1310,grow]", "[150:n:150,grow][200:n:200,grow][400:n:400,grow]"));
+		panel_4.setLayout(new MigLayout("", "[1150:n:1150,grow]", "[150:n:150,grow][200:n:200,grow][400:n:400,grow]"));
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(107, 142, 35), 4));
@@ -234,16 +223,13 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_6.setBorder(new LineBorder(new Color(85, 107, 47), 4));
 		panel_4.add(panel_6, "cell 0 2,grow");
 		panel_6.setLayout(
-				new MigLayout("", "[80:n:80][200:n:200,grow][][100px:n:100px][200:n:200,grow][][150:n:150][400:n:400]",
-						"[5:n:5][30:n:30][220:n:220,grow][5:n:5][30:n:30][][]"));
+				new MigLayout("", "[80:n:80][200:n:200,grow][][100px:n:100px][200:n:200,grow][][150:n:150][370:n:370]", "[5:n:5][30:n:30][220:n:220,grow][5:n:5][30:n:30][][]"));
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 255, 240));
 		panel_5.setBorder(new LineBorder(new Color(107, 142, 35), 4));
 		panel_4.add(panel_5, "cell 0 1,grow");
-		panel_5.setLayout(new MigLayout("",
-				"[80:n:80][150:n:150,grow][][150:n:150][150:n:150,grow][100:n:100][180:n:180,grow][70:n:70][200:n:200px,grow][100px:n:100px]",
-				"[5:n:5][][5:n:5][30:n:30][5:n:5][30:n:30][5:n:5][30:n:30]"));
+		panel_5.setLayout(new MigLayout("", "[80:n:80][150:n:150,grow][][150:n:150][150:n:150,grow][100:n:100][180:n:180,grow][70:n:70][200:n:200px,grow]", "[5:n:5][][5:n:5][30:n:30][5:n:5][30:n:30][5:n:5][30:n:30]"));
 
 		JLabel lblNewLabel_2 = new JLabel("E-mail :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -1144,26 +1130,20 @@ public class TelaCadastroPaciente extends JFrame {
 		JLabel lblUsuario = new JLabel(usuarioLogin);
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblUsuario, "cell 7 6");
-		
-		JPanel panel_8 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(324, Short.MAX_VALUE)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1355, GroupLayout.PREFERRED_SIZE)
-					.addGap(235))
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 1904, Short.MAX_VALUE)
-					.addContainerGap())
+					.addContainerGap(370, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1188, GroupLayout.PREFERRED_SIZE)
+					.addGap(356))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+					.addGap(31)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(52))
+					.addContainerGap(89, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 

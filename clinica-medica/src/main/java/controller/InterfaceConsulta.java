@@ -12,7 +12,7 @@ public interface InterfaceConsulta {
 	
 	public boolean alterarConsulta(Consulta consulta);
 	
-	public boolean excluitConsulta(Consulta consulta);
+	public boolean excluirConsulta(Consulta consulta);
 	 
 	public ArrayList<Consulta> listConsulta();
 	
@@ -23,5 +23,8 @@ public interface InterfaceConsulta {
 	public ArrayList<Consulta> listConsultaMes();
 	
 	public Consulta consultaAgendaPaciente();
+	
+	public boolean confirmarPresença(Consulta consulta) ;
+	
 
 }

@@ -10,7 +10,7 @@ public interface InterfaceUsuario {
 	 
 	public Usuario alterarUsuario(Usuario usuario);
 	
-	public boolean consultarUsuarioCadastrado(Usuario usuarioModelo);
+	public Usuario consultarUsuarioCadastrado(Usuario usuarioModelo);
 	
 	public Usuario selecionarUSuarioParaCadastrar(Usuario usuarioModelo);
 	

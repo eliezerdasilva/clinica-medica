@@ -219,7 +219,7 @@ public class TelaLogin extends JFrame {
 
 					if (login != null) {
 						
-						if(login.getNivelAcesso()==0) {
+						if(login.getNivelAcesso()==0 || login.getNivelAcesso()==2) {
 						TelaMenuPrincipal telaFuncAdm = new TelaMenuPrincipal(login);
 						telaFuncAdm.setLocationRelativeTo(null);
 						telaFuncAdm.setVisible(true);

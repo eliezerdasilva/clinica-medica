@@ -53,43 +53,38 @@ public class UsuarioDao implements InterfaceUsuario {
 		return false;
 	}
 
-	public boolean consultarUsuarioCadastrado(Usuario usuarioModelo) {
-		/**
-		 * Consultar se tem usuario já cadastrado
-		 */
-		this.usuarioModelo = usuarioModelo; 
+	public Usuario consultarUsuarioCadastrado(Usuario usuarioModelo) {
+		 
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
-		boolean resultado = false; 
+		
+	
 		try {
-			PreparedStatement ps = c.prepareStatement("select * from medico where login = ? ");
+			PreparedStatement ps = c.prepareStatement("select * from usuario where login = ? ");
 			  ps.setString(1, usuarioModelo.getUsuario());
 		
 			
 			ResultSet rs = ps.executeQuery();
 
-			ArrayList<Usuario> usuario = new ArrayList<>();
+			
 			Usuario usuario1 = new Usuario();
 			while (rs.next()) {
-				usuario1.setUsuario(rs.getString("usuario"));
+				usuario1.setId(rs.getLong("idusuario"));
+				usuario1.setUsuario(rs.getString("login"));
 				usuario1.setSenha(rs.getString("senha"));
-				usuario.add(usuario1);
+				usuario1.setNivelAcesso(rs.getInt("tipo_usuario"));
 				
 				
+				return  usuario1;
 			}
-			for (Usuario u : usuario) {
-				if(u.getSenha() == (usuarioModelo.getSenha() )|| u.getUsuario() == (usuarioModelo.getUsuario())) {
-					resultado = true;
-				}else {
-					resultado = false;
-				}
-			}
+			
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally {
 			con.fecharConexao();
 		}
-		return resultado;
+		return null;
 		
 	}
 

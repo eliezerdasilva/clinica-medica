@@ -72,7 +72,7 @@ public class AgendaDao implements InterfaceConsulta {
 	}
 
 	@Override
-	public boolean excluitConsulta(Consulta consulta) {
+	public boolean excluirConsulta(Consulta consulta) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
@@ -93,7 +93,8 @@ public class AgendaDao implements InterfaceConsulta {
 	public ArrayList<Consulta> listConsulta() {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
-		int valida = 0;
+	
+		ArrayList<Consulta> listConsulta = new ArrayList<>();
 		try {
 			PreparedStatement ps = c.prepareStatement("select consulta.data_consulta, \r\n"
 					+ "consulta.hora_consulta,\r\n"
@@ -103,6 +104,7 @@ public class AgendaDao implements InterfaceConsulta {
 					+ " consulta.observacao, \r\n"
 					+ " consulta.tipo_consulta,\r\n"
 					+ " consulta.id_consulta, \r\n"
+					+ " consulta.status, \r\n"
 					+ " medico.nome as nome_medico \r\n"
 					+ " from consulta \r\n"
 					+ " inner join paciente on consulta.paciente_cpf = paciente.cpf\r\n"
@@ -112,7 +114,7 @@ public class AgendaDao implements InterfaceConsulta {
 			  
 			 );
 			ResultSet rs = ps.executeQuery();
-			ArrayList<Consulta> listConsulta = new ArrayList<>();
+		
 			
 			while(rs.next()) {
 				Consulta consulta = new Consulta();
@@ -128,20 +130,23 @@ public class AgendaDao implements InterfaceConsulta {
 				consulta.setId(rs.getInt("id_consulta"));
 				medico.setCpf(rs.getLong("cpf_medico"));
 				medico.setNome(rs.getString("nome_medico"));
+				consulta.setPresença(rs.getString("status"));
 				consulta.setPaciente(paciente);
 				consulta.setMedico(medico);
 				listConsulta.add(consulta);
+
+		
 				
 			}
 
-			return listConsulta;
+		
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
 		finally {
 			con.fecharConexao();
 		}
-		return null;
+		return listConsulta;
 	}
 
 	@Override
@@ -190,6 +195,30 @@ public class AgendaDao implements InterfaceConsulta {
 	public Consulta consultaAgendaPaciente() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean confirmarPresença(Consulta consulta) {
+
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int valida = 0;
+		String presente  = "Presente";
+		try {
+			PreparedStatement ps = c.prepareStatement("Update consulta set status = ? where id_consulta = ?;");
+			ps.setString(1, presente);	
+			ps.setInt(2, consulta.getId());
+			ps.executeUpdate();
+			valida = 1 ; 
+			
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
+		return (valida == 0 ? false : true);
+		
 	}
 
 }

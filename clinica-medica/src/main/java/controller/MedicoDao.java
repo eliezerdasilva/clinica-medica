@@ -160,8 +160,8 @@ public class MedicoDao implements InterfaceMedico {
 
 		boolean resultado = false;
 		try {
-			PreparedStatement ps = c.prepareStatement("select * from medico");
-
+			PreparedStatement ps = c.prepareStatement("select * from medico where cpf = ?");
+			ps.setLong(1, cpf);
 			ResultSet rs = ps.executeQuery();
 
 			ArrayList<Medico> medicoList = new ArrayList<>();
@@ -169,15 +169,10 @@ public class MedicoDao implements InterfaceMedico {
 			while (rs.next()) {
 				medico.setCpf(rs.getLong("cpf"));
 				medicoList.add(medico);
-
+				resultado = true; 
 			}
-			for (Medico medc : medicoList) {
-				if (medc.getCpf().equals(cpf)) {
-					resultado = true;
-				} else {
-					resultado = false;
-				}
-			}
+			
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {

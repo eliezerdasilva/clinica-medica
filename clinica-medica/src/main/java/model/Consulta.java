@@ -6,25 +6,22 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
-
 public class Consulta {
 
 	private int id;
 	private LocalDate date;
-	private LocalTime hora; 
+	private LocalTime hora;
 	private String servico;
 	private String observacao;
 	private Paciente paciente;
 	private Medico medico;
-	
-	
-	public Consulta(){}
- 
+	private String presença;
 
+	public Consulta() {
+	}
 
 	public Consulta(int id, LocalDate date, LocalTime hora, String servico, String observacao, Paciente paciente,
-			Medico medico) {
+			Medico medico, String presença) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -33,9 +30,8 @@ public class Consulta {
 		this.observacao = observacao;
 		this.paciente = paciente;
 		this.medico = medico;
+		this.presença = presença;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -76,7 +72,6 @@ public class Consulta {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-	
 
 	public LocalTime getHora() {
 		return hora;
@@ -92,6 +87,15 @@ public class Consulta {
 
 	public void setMedico(Medico medico) {
 		this.medico = medico;
+	}
+	
+
+	public String getPresença() {
+		return presença;
+	}
+
+	public void setPresença(String presença) {
+		this.presença = presença;
 	}
 
 	@Override

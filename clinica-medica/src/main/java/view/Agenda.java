@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -39,6 +40,7 @@ import javax.swing.table.DefaultTableModel;
 import controller.AgendaDao;
 import controller.MedicoDao;
 import controller.PacienteDao;
+import helper.AgendaHelper;
 import model.Consulta;
 import model.Medico;
 import model.Paciente;
@@ -47,9 +49,9 @@ import net.miginfocom.swing.MigLayout;
 import utils.Jcaledar;
 
 /**
- *  
- *  @author Eliézer da Silva
- *  
+ * 
+ * @author Eliézer da Silva
+ * 
  */
 public class Agenda extends JFrame {
 
@@ -57,35 +59,54 @@ public class Agenda extends JFrame {
 	private JTextField txtNome;
 	private JTextField txtCpf;
 	private JTextField txtObservacao;
-	private String usuario;
-	private String senha;
+	private Usuario usuario;
+
 	private JTextField txtTipoConsulta;
 	private JTextField txtHora;
+
+	//
+	private Consulta consultaClick;
+	private ArrayList<Consulta> listConsulta = new ArrayList<>();
 	private AgendaDao agendaDao = new AgendaDao();
 	private PacienteDao pacienteDao = new PacienteDao();
+	private AgendaHelper agendaHelper;
+	private Agenda agenda;
+
 	private JComboBox<Medico> cbxMedico;
 	private JTable table = null;
 	private ArrayList<Consulta> listaConsulta = new ArrayList<>();
 	private JButton btnCadastrar;
 	private JButton btnEditar;
-	private  Consulta consultaClick = new Consulta();
-	private ArrayList<Consulta> listConsulta = new ArrayList<>();
+
 	private Jcaledar txtCaledar;
-	private JButton btnVoltarMenu;
-	private JButton btnExcluir; 
-	
-	//Usuário 
+	private JButton btnVoltarMenuPrincipal;
+	private JButton btnExcluir;
+	private JButton btnsalvar;
+	private JButton voltar;
+
+	// Usuário
 	private String usuarioLogin;
 	private String senhaLogin;
 	private int nivelAcesso;
-	
-	
+
+	// Dados
+	private Date data;
+	private String nome;
+	private String cpf;
+	private String tipoConsulta;
+	private String observacao;
+	private String validacao;
+	private String hora;
+	private DefaultTableModel tabela;
+	private JPanel panel_3;
 
 	public Agenda(Usuario usuario) {
+		this.agenda = this;
+		this.usuario = usuario;
 		this.usuarioLogin = usuario.getUsuario();
-		this.senhaLogin= usuario.getSenha();
+		this.senhaLogin = usuario.getSenha();
 		this.nivelAcesso = usuario.getNivelAcesso();
-		
+
 		this.listConsulta = agendaDao.listConsulta();
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/LocoHospital.png")));
@@ -145,7 +166,7 @@ public class Agenda extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("");
 		panel_2.add(lblNewLabel_1);
 
-		JPanel panel_3 = new JPanel();
+		panel_3 = new JPanel();
 		panel_3.setBackground(new Color(236, 253, 232));
 		panel_1.add(panel_3, BorderLayout.WEST);
 
@@ -175,27 +196,13 @@ public class Agenda extends JFrame {
 		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nome = txtNome.getText();
+
 				String cpfString = txtCpf.getText();
-				Paciente pacienteAgendamento = null;
-				if (cpfString == null || cpfString.trim() == "" || cpfString.isEmpty()) {
-					int n = JOptionPane.showConfirmDialog(null,
-							"Paciente não cadastrado, deseja cadastrar um novo paciente ?  " + "", "",
-							JOptionPane.YES_NO_OPTION);
+				agendaHelper = new AgendaHelper();
+				Paciente pacienteBusca = new Paciente();
+				pacienteBusca = agendaHelper.buscarPaciente(cpfString, usuario, agenda);
+				txtNome.setText(pacienteBusca.getNome());
 
-					if (n == JOptionPane.YES_OPTION) {
-						TelaMenuPrincipal telaPaciente = new TelaMenuPrincipal(usuario);
-						telaPaciente.setLocationRelativeTo(null);
-						telaPaciente.setVisible(true);
-						dispose();
-
-					}
-
-				} else {
-					Long cpf = Long.parseLong(cpfString);
-					pacienteAgendamento = pacienteDao.consultarPacienteExistenteCpf(cpf);
-					txtNome.setText(pacienteAgendamento.getNome());
-				}
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -217,7 +224,7 @@ public class Agenda extends JFrame {
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_7, "flowx,cell 1 5");
 
-		 txtCaledar = new Jcaledar();
+		txtCaledar = new Jcaledar();
 		txtCaledar.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -272,177 +279,62 @@ public class Agenda extends JFrame {
 
 		btnEditar = new JButton("Editar ");
 		btnEditar.addActionListener(new ActionListener() {
-			private JButton btnsalvar;
-			private AbstractButton voltar;
 
 			public void actionPerformed(ActionEvent e) {
 
-				btnCadastrar.setVisible(false);
-				panel_3.remove(btnCadastrar);
+				alterarLayoutEditar();
+				;
 
-				btnExcluir.setVisible(false);
-				panel_3.remove(btnExcluir);
-
-				btnEditar.setVisible(false);
-				panel_3.remove(btnEditar);
-				
-				btnVoltarMenu.setVisible(false);
-				panel_3.remove(btnVoltarMenu);
-				
-			
-
-				voltar = new JButton("Volta");
-				voltar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						panel_3.remove(voltar);
-						voltar.setVisible(false);
-
-						btnsalvar.setVisible(false);
-						panel_3.remove(btnsalvar);
-						
-						panel_3.add(btnCadastrar);
-						btnCadastrar.setVisible(true);
-						
-						btnCadastrar.setBackground(new Color(240, 255, 240));
-						btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
-						panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
-
-
-						panel_3.add(btnExcluir, "cell 5 9,grow");
-						btnExcluir.setVisible(true);
-						btnExcluir.setBackground(new Color(240, 240, 240));
-						btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
-						
-
-						panel_3.add(btnVoltarMenu);
-						btnVoltarMenu.setVisible(true);
-						btnVoltarMenu.setFont(new Font("Tahoma", Font.BOLD, 16));
-						panel_3.add(btnVoltarMenu, "cell 7 9,grow");
-						
-						panel_3.add(btnEditar);
-						btnEditar.setVisible(true);
-						btnEditar.setBackground(new Color(240, 255, 240));
-						btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
-						panel_3.add(btnEditar, "cell 1 9,grow");
-
-						
-						
-					}
-				});
-				voltar.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_3.add(voltar, "cell 7 9,grow");
-				
 				int position = table.getSelectedRow();
 
 				if (position == -1) {
 					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
 					return;
 				}
-				consultaClick = listConsulta.get(position);
-				setarDados(consultaClick);
+				consultaClick = listaConsulta.get(position);
 				
+
+				setarDados(consultaClick);
+
+				voltar = new JButton("Calcelar");
+				voltar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						alterarLayoutVoltarEditar();
+						limparTela();
+						return;
+
+					}
+				});
+				voltar.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_3.add(voltar, "cell 7 9,grow");
+
 				btnsalvar = new JButton("Salvar");
 				btnsalvar.addActionListener(new ActionListener() {
-					
+
 					@Override
 					public void actionPerformed(ActionEvent e) {
 
-						
-						
-						Date data = txtCaledar.getDate();
+						AgendaHelper agendaHelper = new AgendaHelper();
+						Boolean resultado = agendaHelper.editarPaciente(agenda, consultaClick);
 
-						String nome = txtNome.getText();
-
-						String cpf = txtCpf.getText().replace(".", "").replace("-", "");
-
-						String tipoConsulta = txtTipoConsulta.getText();
-
-						String observacao = txtObservacao.getText();
-
-						String validacao = "";
-
-						String hora = txtHora.getText();
-
-						Consulta c = new Consulta();
-						Paciente p = new Paciente();
-						c.setId(consultaClick.getId());
-
-						if (nome == null || nome.trim() == "" || nome.isEmpty()) {
-							txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-							validacao += "Nome\n";
-						} else {
-							p.setNome(nome);
-						}
-
-						if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
-							txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-							validacao += "CPF\n";
-						} else {
-							Long cpfLong = Long.valueOf(cpf);
-							p.setCpf(cpfLong);
-						}
-						c.setPaciente(p);
-
-						if (tipoConsulta == null || tipoConsulta.trim() == "" || tipoConsulta.isEmpty()) {
-							txtTipoConsulta.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-							validacao += "Tipo consulta\n";
-						} else {
-							c.setServico(tipoConsulta);
-						}
-
-						if (data == null) {
-							txtCaledar.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-							validacao += "Dat\n";
-
-						} else {
-							SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-
-							String dataFormatada = formatador.format(data);
-
-							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-							LocalDate dataFormatadaNova = LocalDate.parse(dataFormatada, formatter);
-							c.setDate(dataFormatadaNova);
-						}
-						if (hora == null || hora.trim() == "" || hora.isEmpty()) {
-							txtHora.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-						} else {
-						
-							LocalTime ts = LocalTime.parse(hora, DateTimeFormatter.ofPattern("HH:mm"));
-							c.setHora(ts);
-
-						}
-						Medico medico = (Medico) cbxMedico.getSelectedItem();
-						Long cp = medico.getCpf();
-						medico.setCpf(cp);
-						c.setMedico(medico);
-
-						if (observacao == null || observacao.trim() == "" || observacao.isEmpty()) {
-							txtObservacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-						} else {
-							c.setObservacao(observacao);
-						}
-						
-						boolean cadastroConsulta = agendaDao.alterarConsulta(c);
-						if (cadastroConsulta != true) {
+						if (resultado != true) {
 							JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
+							alterarLayoutVoltarEditar();
 						} else {
 
-							JOptionPane.showMessageDialog(null, "Consulta editada con");
+							JOptionPane.showMessageDialog(null, "Consulta editada com sucesso ");
+							alterarLayoutVoltarEditar();
 							atualizarTabela();
 							limparTela();
-							// atualizarTabela();
+
 						}
-					
-						
+
 					}
 				});
 				btnsalvar.setBackground(new Color(240, 255, 240));
 				btnsalvar.setFont(new Font("Tahoma", Font.BOLD, 16));
 				panel_3.add(btnsalvar, "cell 5 5 2 1,grow");
-				
-
-				
 
 			}
 		});
@@ -461,95 +353,24 @@ public class Agenda extends JFrame {
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				Date data = txtCaledar.getDate();
-
-				String nome = txtNome.getText();
-
-				String cpf = txtCpf.getText().replace(".", "").replace("-", "");
-
-				String tipoConsulta = txtTipoConsulta.getText();
-
-				String observacao = txtObservacao.getText();
-
-				String validacao = "";
-
-				String hora = txtHora.getText();
-
-				Consulta c = new Consulta();
-				Paciente p = new Paciente();
-
-				if (nome == null || nome.trim() == "" || nome.isEmpty()) {
-					txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "Nome\n";
-				} else {
-					p.setNome(nome);
-				}
-
-				if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
-					txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "CPF\n";
-				} else {
-					Long cpfLong = Long.valueOf(cpf);
-					p.setCpf(cpfLong);
-				}
-				c.setPaciente(p);
-
-				if (tipoConsulta == null || tipoConsulta.trim() == "" || tipoConsulta.isEmpty()) {
-					txtTipoConsulta.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "Tipo consulta\n";
-				} else {
-					c.setServico(tipoConsulta);
-				}
-
-				if (data == null) {
-					txtCaledar.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "Dat\n";
-
-				} else {
-					SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-
-					String dataFormatada = formatador.format(data);
-
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-					LocalDate dataFormatadaNova = LocalDate.parse(dataFormatada, formatter);
-					c.setDate(dataFormatadaNova);
-				}
-				if (hora == null || hora.trim() == "" || hora.isEmpty()) {
-					txtHora.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-				} else {
-					SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
-					Date date = null;
-					
-					LocalTime ts = LocalTime.parse(hora, DateTimeFormatter.ofPattern("HH:mm"));
-					c.setHora(ts);
-
-				}
-				Medico medico = (Medico) cbxMedico.getSelectedItem();
-				Long cp = medico.getCpf();
-				medico.setCpf(cp);
-				c.setMedico(medico);
-
-				if (observacao == null || observacao.trim() == "" || observacao.isEmpty()) {
-					txtObservacao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-				} else {
-					c.setObservacao(observacao);
-				}
-				boolean cadastroConsulta = agendaDao.cadastraConsulta(c);
-				if (cadastroConsulta != true) {
+				
+				AgendaHelper agendaHelper = new AgendaHelper();
+				boolean retornoCadastro = agendaHelper.cadastrarConsulta(agenda);
+				
+				if (retornoCadastro != true) {
 					JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
-					int n = JOptionPane.showConfirmDialog(null,
-							"Deseja limpar a tela" + " ", "", JOptionPane.YES_NO_OPTION);
+					int n = JOptionPane.showConfirmDialog(null, "Deseja limpar a tela" + " ", "",
+							JOptionPane.YES_NO_OPTION);
 
 					if (n == JOptionPane.YES_OPTION) {
-					limparTela();
+						limparTela();
 					}
 				} else {
 
 					JOptionPane.showMessageDialog(null, "Consulta cadastrada");
 					atualizarTabela();
-					 atualizarTabela();
-					 limparTela();
+					atualizarTabela();
+					limparTela();
 				}
 
 			}
@@ -559,125 +380,307 @@ public class Agenda extends JFrame {
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
 
-		btnVoltarMenu = new JButton("Voltar");
-		btnVoltarMenu.addActionListener(new ActionListener() {
+		btnVoltarMenuPrincipal = new JButton("Voltar");
+		btnVoltarMenuPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				TelaMenuPrincipal mp = new TelaMenuPrincipal(usuario);
 				mp.setLocationRelativeTo(null);
 				mp.setVisible(true);
 				dispose();
 			}
 		});
-		
+
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				btnCadastrar.setVisible(false);
-				panel_3.remove(btnCadastrar);
 
-
-				btnEditar.setVisible(false);
-				panel_3.remove(btnEditar);
-				
-				btnVoltarMenu.setVisible(false);
-				panel_3.remove(btnVoltarMenu);
-				
 				int position = table.getSelectedRow();
 
 				if (position == -1) {
 					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
 					return;
 				}
+				consultaClick = new Consulta();
 				consultaClick = listConsulta.get(position);
-				
-				
-				int n = JOptionPane.showConfirmDialog(null,
-						"Tem certeza que quer excluir?  " + " ", "", JOptionPane.YES_NO_OPTION);
+
+				int n = JOptionPane.showConfirmDialog(null, "Tem certeza que quer excluir?  " + " ", "",
+						JOptionPane.YES_NO_OPTION);
 
 				if (n == JOptionPane.YES_OPTION) {
-					boolean retorno = agendaDao.excluitConsulta(consultaClick);
-					JOptionPane.showMessageDialog(null, "Excluindo");
-					atualizarTabela();
-				
-				} else {
-					JOptionPane.showMessageDialog(null, " erro ao excluir");
-			
-				}
-				agendaDao.excluitConsulta(consultaClick);
-				
-				panel_3.add(btnCadastrar);
-				btnCadastrar.setVisible(true);
-				
-				btnCadastrar.setBackground(new Color(240, 255, 240));
-				btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
+					boolean retorno = agendaDao.excluirConsulta(consultaClick);
+					if (retorno != false) {
+						JOptionPane.showMessageDialog(null, "Consulta excluida com sucesso");
+					} else {
+						JOptionPane.showMessageDialog(null, "Erro ao excluir", " ERRO", JOptionPane.ERROR_MESSAGE);
+					}
 
-				panel_3.add(btnVoltarMenu);
-				btnVoltarMenu.setVisible(true);
-				btnVoltarMenu.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_3.add(btnVoltarMenu, "cell 7 9,grow");
-				
-				panel_3.add(btnEditar);
-				btnEditar.setVisible(true);
-				btnEditar.setBackground(new Color(240, 255, 240));
-				btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
-				panel_3.add(btnEditar, "cell 1 9,grow");
+					atualizarTabela();
+
+				} 
 				limparTela();
-				
+
 			}
 		});
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnExcluir, "cell 5 9,grow");
-		btnVoltarMenu.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(btnVoltarMenu, "cell 7 9,grow");
-
-		
+		btnVoltarMenuPrincipal.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(btnVoltarMenuPrincipal, "cell 7 9,grow");
 
 	}
-	//Metodos 
-	
+
+	// Metodos
+	public void alterarLayoutVoltarEditar() {
+
+		txtNome.setEditable(true);
+		txtCpf.setEditable(true);
+		panel_3.add(btnEditar);
+		btnEditar.setVisible(true);
+
+		panel_3.remove(voltar);
+		voltar.setVisible(false);
+
+		btnsalvar.setVisible(false);
+		panel_3.remove(btnsalvar);
+
+		panel_3.add(btnCadastrar);
+
+		btnCadastrar.setBackground(new Color(240, 255, 240));
+		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
+		btnCadastrar.setVisible(true);
+
+		btnExcluir.setBackground(new Color(240, 240, 240));
+		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnExcluir, "cell 5 9,grow");
+		btnExcluir.setVisible(true);
+
+		btnVoltarMenuPrincipal.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(btnVoltarMenuPrincipal, "cell 7 9,grow");
+
+		btnVoltarMenuPrincipal.setVisible(true);
+
+		btnEditar.setBackground(new Color(240, 255, 240));
+		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_3.add(btnEditar, "cell 1 9,grow");
+		btnEditar.setVisible(true);
+
+	}
+
+	public void alterarLayoutEditar() {
+
+		btnEditar.setVisible(false);
+		panel_3.remove(btnEditar);
+
+		btnCadastrar.setVisible(false);
+		panel_3.remove(btnCadastrar);
+
+		btnExcluir.setVisible(false);
+		panel_3.remove(btnExcluir);
+
+		btnVoltarMenuPrincipal.setVisible(false);
+		panel_3.remove(btnVoltarMenuPrincipal);
+
+	}
 
 	protected void setarDados(Consulta consultaClick2) {
+
 		txtHora.setText(String.valueOf(consultaClick2.getHora()));
 		txtNome.setText(consultaClick2.getPaciente().getNome());
+		txtNome.setEditable(false);
 		txtCpf.setText(String.valueOf(consultaClick2.getPaciente().getCpf()));
 		txtCpf.setEditable(false);
 		txtTipoConsulta.setText(consultaClick2.getServico());
 		Date date = java.sql.Date.valueOf(consultaClick2.getDate());
 		txtCaledar.setDate(date);
-		txtObservacao.setText(consultaClick2.getServico());
+		txtObservacao.setText(consultaClick2.getObservacao());
 		MedicoDao medicoDao = new MedicoDao();
 		Medico medico = medicoDao.consultaDadosMedico(consultaClick2.getMedico().getCpf());
-		int cpf = Long.valueOf(medico.getCpf()).intValue();
-		
-		int posicao = cbxMedico.getSelectedIndex();
+		Long.valueOf(medico.getCpf()).intValue();
+		cbxMedico.getSelectedIndex();
 		cbxMedico.setSelectedItem(medico);
-		
+
 	}
 
-	protected void atualizarTabela() {
-		DefaultTableModel tabela = new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Medico", "Data", "Hora" });
+	public void atualizarTabela() {
+
+		tabela = new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Medico", "Data", "Hora", "ee" });
+		// listConsulta.clear();
+		listaConsulta = new ArrayList<>();
 		listaConsulta = agendaDao.listConsulta();
+
 		for (int i = 0; i < listaConsulta.size(); i++) {
+
 			Consulta consultaList = listaConsulta.get(i);
 			tabela.addRow(new Object[] { consultaList.getPaciente().getNome(), consultaList.getMedico().getNome(),
-					consultaList.getDate(), consultaList.getHora() });
+					consultaList.getDate(), consultaList.getHora(), consultaList.getObservacao() });
 
 		}
 		table.setModel(tabela);
 	}
-	protected void limparTela() {
+
+	public void limparTela() {
 		txtHora.setText("");
 		txtNome.setText("");
 		txtCpf.setText("");
 		txtCpf.setEditable(true);
 		txtTipoConsulta.setText("");
-		Date date = java.sql.Date.valueOf("");
-		txtCaledar.setDate(date);
+
 		txtObservacao.setText("");
-		
-		
+
 	}
+
+	// Get set
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public JButton getBtnCadastrar() {
+		return btnCadastrar;
+	}
+
+	public void setBtnCadastrar(JButton btnCadastrar) {
+		this.btnCadastrar = btnCadastrar;
+	}
+
+	public JButton getBtnEditar() {
+		return btnEditar;
+	}
+
+	public void setBtnEditar(JButton btnEditar) {
+		this.btnEditar = btnEditar;
+	}
+
+	public JButton getbtnVoltarMenuPrincipal() {
+		return btnVoltarMenuPrincipal;
+	}
+
+	public void setbtnVoltarMenuPrincipal(JButton btnVoltarMenuPrincipal) {
+		this.btnVoltarMenuPrincipal = btnVoltarMenuPrincipal;
+	}
+
+	public JButton getBtnExcluir() {
+		return btnExcluir;
+	}
+
+	public void setBtnExcluir(JButton btnExcluir) {
+		this.btnExcluir = btnExcluir;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getTipoConsulta() {
+		return tipoConsulta;
+	}
+
+	public void setTipoConsulta(String tipoConsulta) {
+		this.tipoConsulta = tipoConsulta;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public String getValidacao() {
+		return validacao;
+	}
+
+	public void setValidacao(String validacao) {
+		this.validacao = validacao;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+
+	// Txt
+	public JTextField getTxtNome() {
+		return txtNome;
+	}
+
+	public void setTxtNome(JTextField txtNome) {
+		this.txtNome = txtNome;
+	}
+
+	public JTextField getTxtCpf() {
+		return txtCpf;
+	}
+
+	public void setTxtCpf(JTextField txtCpf) {
+		this.txtCpf = txtCpf;
+	}
+
+	public JTextField getTxtObservacao() {
+		return txtObservacao;
+	}
+
+	public void setTxtObservacao(JTextField txtObservacao) {
+		this.txtObservacao = txtObservacao;
+	}
+
+	public JTextField getTxtTipoConsulta() {
+		return txtTipoConsulta;
+	}
+
+	public void setTxtTipoConsulta(JTextField txtTipoConsulta) {
+		this.txtTipoConsulta = txtTipoConsulta;
+	}
+
+	public JTextField getTxtHora() {
+		return txtHora;
+	}
+
+	public void setTxtHora(JTextField txtHora) {
+		this.txtHora = txtHora;
+	}
+
+	public Jcaledar getTxtCaledar() {
+		return txtCaledar;
+	}
+
+	public void setTxtCaledar(Jcaledar txtCaledar) {
+		this.txtCaledar = txtCaledar;
+	}
+	// ComboBox
+
+	public JComboBox<Medico> getCbxMedico() {
+		return cbxMedico;
+	}
+	// Caledar
+
 }

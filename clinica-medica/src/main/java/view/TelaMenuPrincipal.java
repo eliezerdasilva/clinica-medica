@@ -13,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -40,11 +39,6 @@ import net.miginfocom.swing.MigLayout;
 
 
 
-/*import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-*/
 public class TelaMenuPrincipal extends JFrame {
 
 	/**
@@ -52,6 +46,7 @@ public class TelaMenuPrincipal extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	//Usuario 
+
 	private Usuario usuario;
 	private String login;
 	private String senha;
@@ -63,6 +58,7 @@ public class TelaMenuPrincipal extends JFrame {
 	private int menu = 0;
 	private int sairPerfil = 0;
 	 
+	
 	
 	//Componetes da tela
 	private JPanel paneL;
@@ -76,7 +72,6 @@ public class TelaMenuPrincipal extends JFrame {
 	private JPanel panel_5;
 	private JPanel panel_6;
 	private JScrollPane scrollPane;
-	private JTable table;
 	private JButton btnCadastraPaciente;
 	private JButton btnCadastraMedico;
 	private JButton btnCadastroFuncionario;
@@ -91,6 +86,15 @@ public class TelaMenuPrincipal extends JFrame {
 	private JPanel panel;
 	private JButton btnBotaoMenu;
 	private JLabel lblNewLabel_2;
+	private JPanel panel_1;
+	private JButton btnConfimarPresenca;
+	private DefaultTableModel tabela ;
+	private JTable table;
+	private ArrayList<Consulta> listaConsulta;
+	private AgendaDao agendaDao;
+	private Consulta consultaClick; 
+	private JLabel lblNewLabel_5;
+	private JLabel lblNewLabel_6;
 
 
 	/**
@@ -98,9 +102,13 @@ public class TelaMenuPrincipal extends JFrame {
 	 * @param login 
 	 */
 	public TelaMenuPrincipal(Usuario usuario) {
+		
+		
 		this.login = usuario.getUsuario();
 		this.senha = usuario.getSenha();
 		this.nivelAcesso = usuario.getNivelAcesso();
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
 		setMinimumSize(new Dimension(1900, 400));
@@ -124,7 +132,7 @@ public class TelaMenuPrincipal extends JFrame {
 		setContentPane(contentPane);
 
 		panel = new JPanel();
-		panel.setBackground(new Color(51, 153, 0));
+		panel.setBackground(new Color(143, 188, 143));
 
 		btnBotaoMenu = new JButton("");
 		btnBotaoMenu.addMouseListener(new MouseAdapter() {
@@ -209,7 +217,7 @@ public class TelaMenuPrincipal extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 
-
+		
 		panelMenu = new JPanel();
 		panelMenu.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		panelMenu.setBackground(new Color(60, 179, 113));
@@ -229,9 +237,19 @@ public class TelaMenuPrincipal extends JFrame {
 		btnCadastraPaciente.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnCadastraPaciente.setBorder(null);
 		btnCadastraPaciente.setForeground(Color.BLACK);
+		btnCadastraPaciente.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente(usuario);
+				telaPaciente.setLocationRelativeTo(null);
+				telaPaciente.setVisible(true);
+				dispose();
+
+			}
+		});
 		
 		panelMenu.add(btnCadastraPaciente, "cell 0 1,grow");
-
+		if(nivelAcesso!=2) {
 		btnCadastraMedico = new JButton("Médico");
 		btnCadastraMedico.setBackground(SystemColor.controlHighlight);
 		btnCadastraMedico.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -247,22 +265,22 @@ public class TelaMenuPrincipal extends JFrame {
 			}
 		});
 		panelMenu.add(btnCadastraMedico, "cell 0 3,grow");
-
+		
 		btnCadastroFuncionario = new JButton("Funcionário");
 		btnCadastroFuncionario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnCadastroFuncionario.setBorder(null);
 		btnCadastroFuncionario.setBackground(SystemColor.controlHighlight);
 		btnCadastroFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroFuncionario telaFunc = new TelaCadastroFuncionario(usuario);
-				telaFunc.setLocationRelativeTo(null);
-				telaFunc.setVisible(true);
+				TelaCadastroFuncionario tcf = new TelaCadastroFuncionario(usuario);
+				tcf.setLocationRelativeTo(null);
+				tcf.setVisible(true);
 				dispose();
 
 			}
 		});
 		panelMenu.add(btnCadastroFuncionario, "cell 0 5,grow");
-
+		}
 		btnCadastroConsulta = new JButton("Consulta");
 		btnCadastroConsulta.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnCadastroConsulta.setBorder(null);
@@ -275,59 +293,54 @@ public class TelaMenuPrincipal extends JFrame {
 				dispose();
 			}
 		});
+		
+		if(nivelAcesso==2) {
+			panelMenu.add(btnCadastroConsulta, "cell 0 3,grow");
+		}else {
 		panelMenu.add(btnCadastroConsulta, "cell 0 7,grow");
-
-		btnCadastroConsulta.setVisible(true);
-		btnCadastroFuncionario.setVisible(true);
-		btnCadastraMedico.setVisible(true);
-		btnCadastraPaciente.setVisible(true);
-		lblNewLabel.setVisible(true);
-		btnBotaoMenu.repaint();
-
+		}
 		contentPane.add(panelMenu);
 		panelMenu.repaint();
 		
-
+		
 		panelSairPerfil = new JPanel();
 		panelSairPerfil.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		panelSairPerfil.setBackground(new Color(60, 179, 113));
+		panelSairPerfil.setBackground(new Color(143, 188, 143));
 		panelSairPerfil.setBounds(1650, 80, 266, 200);
 		panelSairPerfil.setForeground(Color.BLACK);
 		panelSairPerfil.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][50:n][10:n][50:n][10:n][50:n]"));
 		contentPane.add(panelSairPerfil);
 		panelSairPerfil.setVisible(false);
 
-		lblNewLabel = new JLabel("Sair");
+		lblNewLabel = new JLabel("/");
 		lblNewLabel.setForeground(SystemColor.window);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panelSairPerfil.add(lblNewLabel, "cell 0 0,alignx center");
 
-		btnSair = new JButton("Paciente");
+		btnSair = new JButton("Sair do sistema ");
 		btnSair.setBackground(SystemColor.controlHighlight);
 		btnSair.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnSair.setBorder(null);
 		btnSair.setForeground(Color.BLACK);
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroPaciente telaPaciente = new TelaCadastroPaciente(usuario);
-				telaPaciente.setLocationRelativeTo(null);
-				telaPaciente.setVisible(true);
+				TelaLogin tl =  new TelaLogin();
+				tl.setLocationRelativeTo(null);
+				tl.setVisible(true);
 				dispose();
+				
 			}
 		});
 		panelSairPerfil.add(btnSair, "cell 0 1,grow");
 
-		btnPerfil = new JButton("Médico");
+		btnPerfil = new JButton("Perfil");
 		btnPerfil.setBackground(SystemColor.controlHighlight);
 		btnPerfil.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnPerfil.setBorder(null);
 		btnPerfil.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroMedico telaFunc = new TelaCadastroMedico(usuario);
-				telaFunc.setLocationRelativeTo(null);
-				telaFunc.setVisible(true);
-				dispose();
+		
 
 			}
 		});
@@ -361,7 +374,7 @@ public class TelaMenuPrincipal extends JFrame {
 
 		panel_2 = new JPanel();
 		panel_3.add(panel_2, "name_5152966362900");
-		panel_2.setLayout(new MigLayout("", "[100px,grow][802.00,grow][61.00px,grow][383.00px,grow][61px]", "[][::50px,grow][::700,grow][][][][]"));
+		panel_2.setLayout(new MigLayout("", "[100px,grow][920:n:920,grow][61.00px,grow][383.00px,grow][61px]", "[][::50px,grow][::700,grow][][grow][][]"));
 
 		panel_4 = new JPanel();
 		panel_4.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
@@ -373,20 +386,19 @@ public class TelaMenuPrincipal extends JFrame {
 		panel_4.add(lblNewLabel_2);
 
 		panel_5 = new JPanel();
-		panel_5.setBorder(new MatteBorder(1, 4, 4, 4, (Color) new Color(0, 0, 0)));
+		panel_5.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
 		panel_2.add(panel_5, "cell 1 2,grow");
 		panel_5.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 0, 902, 689);
+		scrollPane.setBounds(10, 11, 902, 657);
 		panel_5.add(scrollPane);
 
 		table = new JTable();
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Serviço","Medico", "Hora", "Data", "Presente" }));
+		atualizarTabela();
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(new Object[][] {
-
-		}, new String[] { "ID", "Cliente", "Serviço", "Valor", "Hora", "Data", "Observação" }));
-
+		
 		panel_6 = new JPanel();
 		panel_6.setBorder(new LineBorder(new Color(0, 0, 0), 4));
 		panel_6.setBackground(new Color(143, 188, 143));
@@ -405,9 +417,26 @@ public class TelaMenuPrincipal extends JFrame {
 		lblNewLabel_3.setBounds(90, 47, 460, 14);
 		panel_7.add(lblNewLabel_3);
 		
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setIcon(new ImageIcon("src\\main\\resources\\imagens\\iconeConsulta.png"));
+		
+		lblNewLabel_4.setBounds(31, 29, 49, 48);
+		panel_7.add(lblNewLabel_4);
+		
 		panel_8 = new JPanel();
 		panel_8.setBorder(new LineBorder(new Color(0, 0, 0), 4));
 		panel_6.add(panel_8, "cell 0 3,grow");
+		panel_8.setLayout(null);
+		
+		lblNewLabel_5 = new JLabel("Pacientes cadastrados : ");
+		lblNewLabel_5.setBounds(99, 39, 320, 20);
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_8.add(lblNewLabel_5);
+		
+		lblNewLabel_6 = new JLabel("");
+		lblNewLabel_6.setIcon(new ImageIcon("src\\main\\resources\\imagens\\pessoa.png"));
+		lblNewLabel_6.setBounds(32, 22, 57, 67);
+		panel_8.add(lblNewLabel_6);
 		
 		panel_9 = new JPanel();
 		panel_9.setBorder(new LineBorder(new Color(0, 0, 0), 4));
@@ -417,6 +446,39 @@ public class TelaMenuPrincipal extends JFrame {
 		panel_11.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		panel_6.add(panel_11, "cell 0 7,grow");
 		
+		panel_1 = new JPanel();
+		panel_2.add(panel_1, "cell 1 4,grow");
+		panel_1.setLayout(new MigLayout("", "[700:n:700][190:n:190]", "[40:n:40]"));
+		
+		btnConfimarPresenca = new JButton("Confirmar Presença");
+		btnConfimarPresenca.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnConfimarPresenca.setBorder(new LineBorder(new Color(0, 0, 0), 4));
+		btnConfimarPresenca.setBackground(SystemColor.controlHighlight);
+		btnConfimarPresenca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				consultaClick = new Consulta();
+				int position = table.getSelectedRow();
+
+				if (position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+				
+				consultaClick = listaConsulta.get(position);
+				
+				int n = JOptionPane.showConfirmDialog(null, "Deseja confirma presença" + consultaClick.getPaciente().getNome()+ " ", "",
+						JOptionPane.YES_NO_OPTION);
+				if(n== JOptionPane.YES_OPTION) {
+					agendaDao = new AgendaDao();
+					agendaDao.confirmarPresença(consultaClick);
+					atualizarTabela();
+				}
+				
+			}
+		});
+		panel_1.add(btnConfimarPresenca, "cell 1 0,grow");
+		
 		
 		contentPane.setLayout(gl_contentPane);
 		
@@ -424,7 +486,29 @@ public class TelaMenuPrincipal extends JFrame {
 
 	}
 
+	public void atualizarTabela() {
+		tabela = new DefaultTableModel(new Object[][] {}, new String[] {  "Paciente", "Serviço","Medico", "Hora", "Data", "Presente" });
+		// listConsulta.clear();
+		listaConsulta = new ArrayList<>();
+		agendaDao = new AgendaDao();
+		listaConsulta = agendaDao.listConsulta();
 
+		for (int i = 0; i < listaConsulta.size(); i++) {
+
+			Consulta consultaList = listaConsulta.get(i);
+			tabela.addRow(new Object[] {
+					consultaList.getPaciente().getNome(), 
+					consultaList.getServico(),
+					consultaList.getMedico().getNome(),
+					consultaList.getDate(), 
+					consultaList.getHora(), 
+					consultaList.getPresença(),
+					});
+
+		}
+		table.setModel(tabela);
+	}
+	
 	private String listaConsultaDia() {
 		AgendaDao consulta = new AgendaDao();
 		
