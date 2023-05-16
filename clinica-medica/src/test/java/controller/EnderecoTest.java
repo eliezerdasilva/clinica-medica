@@ -33,8 +33,13 @@ class EnderecoTest {
 		endereco.setRua("Rua Silvio Garzewski");
 
 		boolean result = enderecoDao.InserirEndereco(endereco);
-		System.out.println(result);
-		assertEquals(true, result);
+		
+		assertTrue(result);
+		
+		Endereco end = enderecoDao.ConsultarEndereco(endereco);
+		
+		assertNotNull(end);
+		assertEquals(endereco.getBairro(), end.getBairro());
 	}
 	
 	@Order(2)
@@ -196,6 +201,7 @@ class EnderecoTest {
 		ArrayList<Estado> result = enderecoDao.ConsultaEstadoCidade();
 		assertEquals(espera, result);
 	}*/
+	
 	@Order(3)
 	@Test
 	public void testRemove() {

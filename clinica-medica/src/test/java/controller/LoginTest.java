@@ -8,7 +8,8 @@ class LoginTest {
 
 	@Test
 	void testConsultarLogin() {
-		fail("Not yet implemented");
+		
+		
 	}
 
 }

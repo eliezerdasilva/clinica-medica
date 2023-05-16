@@ -8,21 +8,19 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-
-
 import model.Funcionario;
 import model.Usuario;
 import model.Endereco;
 import model.Estado;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class FuncionarioTest {
 
 	private static final LocalDate data = LocalDate.now();
-	
-	
+
 	FuncionarioDao funcionarioDao = new FuncionarioDao();
 	UsuarioDao usuarioDao = new UsuarioDao();
-	
+
 	@Order(1)
 	@Test
 	public void testCadastro() {
@@ -30,14 +28,14 @@ class FuncionarioTest {
 		Usuario user = new Usuario();
 		Endereco endereco = new Endereco();
 		Estado estado = new Estado();
-		
+
 		estado.setId(2);
 		endereco.setCep(89110000);
 		func.setEndereco(endereco);
 		user.setNivelAcesso(1);
 		user.setSenha("1234");
 		user.setUsuario("Funcionario");
-		
+
 		usuarioDao.inserirUsuario(user);
 		Usuario usuario = usuarioDao.selecionarUSuarioParaCadastrar(user);
 		func.setNome("joao");
@@ -51,14 +49,17 @@ class FuncionarioTest {
 		func.setDataNascimento(data);
 		func.setNumero(27);
 		func.setEndereco(endereco);
-		
-	
-		
-	
+
 		boolean resposta = funcionarioDao.cadastrarFuncionario(func);
 
 		assertTrue(resposta);
+
+		Funcionario funcionarioBanco = funcionarioDao.consultarFuncionario(func);
+
+		assertNotNull(funcionarioBanco);
+		assertEquals(func.getNome(), funcionarioBanco.getNome());
 	}
+
 	@Order(2)
 	@Test
 	public void testConsulta() {
@@ -66,15 +67,14 @@ class FuncionarioTest {
 		Usuario user = new Usuario();
 		Endereco endereco = new Endereco();
 		Estado estado = new Estado();
-		
+
 		estado.setId(2);
 		endereco.setCep(89110000);
 		func.setEndereco(endereco);
 		user.setNivelAcesso(1);
 		user.setSenha("1234");
 		user.setUsuario("Funcionario");
-		
-		
+
 		func.setNome("joao");
 		func.setCpf(Long.valueOf(12345678998l));
 		func.setNumero(912345678);
@@ -86,13 +86,14 @@ class FuncionarioTest {
 		func.setDataNascimento(data);
 		func.setNumero(27);
 		func.setEndereco(endereco);
-		
+
 		Funcionario resposta = funcionarioDao.consultarFuncionario(func);
-		System.out.println(func.getNome());
-		System.out.println(resposta.getNome());
-		assertEquals(func.getNome(), resposta.getNome()); 
-		
+
+		assertNotNull(resposta);
+		assertEquals(func.getNome(), resposta.getNome());
+
 	}
+
 	@Order(3)
 	@Test
 	public void testAlterar() {
@@ -100,14 +101,14 @@ class FuncionarioTest {
 		Usuario user = new Usuario();
 		Endereco endereco = new Endereco();
 		Estado estado = new Estado();
-		
+
 		estado.setId(2);
 		endereco.setCep(89110000);
 		func.setEndereco(endereco);
 		user.setNivelAcesso(1);
 		user.setSenha("1234");
 		user.setUsuario("Funcionario");
-		
+
 		usuarioDao.inserirUsuario(user);
 		Usuario usuario = usuarioDao.selecionarUSuarioParaCadastrar(user);
 		func.setNome("ELIEZER");
@@ -121,12 +122,17 @@ class FuncionarioTest {
 		func.setDataNascimento(data);
 		func.setNumero(27);
 		func.setEndereco(endereco);
-		
-	
+
 		boolean resposta = funcionarioDao.alterarFuncionario(func);
 
 		assertTrue(resposta);
+
+		Funcionario funcionarioBanco = funcionarioDao.consultarFuncionario(func);
+
+		assertNotNull(funcionarioBanco);
+		assertEquals(func.getNome(), funcionarioBanco.getNome());
 	}
+
 	@Order(4)
 	@Test
 	public void testExcluir() {
@@ -134,14 +140,14 @@ class FuncionarioTest {
 		Usuario user = new Usuario();
 		Endereco endereco = new Endereco();
 		Estado estado = new Estado();
-		
+
 		estado.setId(2);
 		endereco.setCep(89110000);
 		func.setEndereco(endereco);
 		user.setNivelAcesso(1);
 		user.setSenha("1234");
 		user.setUsuario("Funcionario");
-		
+
 		usuarioDao.inserirUsuario(user);
 		Usuario usuario = usuarioDao.selecionarUSuarioParaCadastrar(user);
 		func.setNome("Joao");
@@ -155,11 +161,14 @@ class FuncionarioTest {
 		func.setDataNascimento(data);
 		func.setNumero(27);
 		func.setEndereco(endereco);
-		
-	
+
 		boolean resposta = funcionarioDao.excluirFuncionario(func);
 
 		assertTrue(resposta);
+
+		Funcionario funcionarioBanco = funcionarioDao.consultarFuncionario(func);
+
+		assertNull(funcionarioBanco);
 	}
 
 }
