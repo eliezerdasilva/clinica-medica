@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
-import model.Convenio;
 import model.Endereco;
 import model.Medico;
 import model.Paciente;
@@ -24,7 +23,7 @@ public class MedicoDao implements InterfaceMedico {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
-			String query = "INSERT INTO medico(cpf, nome , sexo, email, telefone,data_nascimento, crm,especializacao, endereco_cep, numero,usuario_idusuario, complemento) values(?,?,?,?,?,?,?,?,?,?,?,?);";
+			String query = "INSERT INTO medico(cpf, nome , sexo, email, telefone, data_nascimento, crm,especializacao, endereco_cep, numero, usuario_idusuario, complemento) values(?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stm = c.prepareStatement(query);
 			stm.setLong(1, medico.getCpf());
 			stm.setString(2, medico.getNome());
@@ -34,7 +33,6 @@ public class MedicoDao implements InterfaceMedico {
 			stm.setDate(6, Date.valueOf(medico.getDataNascimento()));
 			stm.setLong(7, medico.getCrm());
 			stm.setString(8, medico.getEspecializacao());
-
 			stm.setInt(9, medico.getEndereco().getCep());
 			stm.setInt(10, medico.getNumero());
 			stm.setLong(11, medico.getUsuario().getId());
@@ -88,7 +86,7 @@ public class MedicoDao implements InterfaceMedico {
 	}
 
 	@Override
-	public boolean consultarMedico(Long cpf) {
+	public Medico consultarMedico(Long cpf) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
@@ -98,6 +96,8 @@ public class MedicoDao implements InterfaceMedico {
 			ResultSet rs = ps.executeQuery();
 			Medico medico1 = new Medico();
 
+			System.out.println("AOF");
+			System.out.println(rs);
 			while (rs.next()) {
 				Long crm = rs.getLong("crm");
 				String nome = rs.getString("nome");
@@ -108,6 +108,16 @@ public class MedicoDao implements InterfaceMedico {
 				String especializacao = rs.getString("especializacao");
 				Long cpf1 = rs.getLong("cpf");
 
+				System.out.println("ÇÇ");
+				System.out.println(nome);
+				System.out.println(crm);
+				System.out.println(sexo);
+				System.out.println(email);
+				System.out.println(telefone);
+				System.out.println(data_nascimento);
+				System.out.println(especializacao);
+				System.out.println(cpf1);
+				
 				LocalDate localDate = data_nascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				medico1.setCrm(crm);
 				medico1.setNome(nome);
@@ -118,14 +128,14 @@ public class MedicoDao implements InterfaceMedico {
 				medico1.setEspecializacao(especializacao);
 				medico1.setCpf(cpf1);
 			}
-			return false;
+			return medico1;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			con.fecharConexao();
 		}
-		return false;
+		return null;
 	}
 
 	@Override

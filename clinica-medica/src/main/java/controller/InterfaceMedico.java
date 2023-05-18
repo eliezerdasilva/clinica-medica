@@ -16,7 +16,7 @@ public interface  InterfaceMedico {
 
 	public boolean ConsultaCpfMedico(Long cpf);
 
-	boolean consultarMedico(Long cpf);
+	public Medico consultarMedico(Long cpf);
 	
 	public ArrayList<Medico> listaMedicos();
 	
