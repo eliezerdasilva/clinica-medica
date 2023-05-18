@@ -1,9 +1,11 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import model.Endereco;
@@ -27,7 +29,7 @@ public class EnderecoDao implements IEnderecoDao {
 	 * @param ConsultaEndereco
 	 * 
 	 */
-	
+
 	@Override
 	public Endereco ConsultarEndereco(Endereco endereco) {
 		con = Conexao.getInstacia();
@@ -45,7 +47,7 @@ public class EnderecoDao implements IEnderecoDao {
 				String cidade = rs.getString("cidade");
 				String bairro = rs.getString("bairro");
 				String rua = rs.getString("rua");
-				
+
 				String nome_estado = rs.getString("nome_estado");
 				String uf_estado = rs.getString("uf_estado");
 				int id_estado = rs.getInt("id_estado");
@@ -66,7 +68,7 @@ public class EnderecoDao implements IEnderecoDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}finally {
+		} finally {
 			con.fecharConexao();
 		}
 		return null;
@@ -122,7 +124,7 @@ public class EnderecoDao implements IEnderecoDao {
 
 		} catch (Exception e) {
 			// TODO: handle exception
-		}finally {
+		} finally {
 			con.fecharConexao();
 		}
 		return null;
@@ -132,23 +134,48 @@ public class EnderecoDao implements IEnderecoDao {
 	public boolean excluirEndereco(Endereco endereco) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
-		int valida = 0; 
+		int valida = 0;
 		try {
 			PreparedStatement ps = c.prepareStatement("DELETE FROM endereco WHERE cep = ?");
 			ps.setInt(1, endereco.getCep());
 
-
-			
-			valida =  ps.executeUpdate();
+			valida = ps.executeUpdate();
 
 		} catch (Exception e) {
 			// TODO: handle exception
-		}finally {
+		} finally {
 			con.fecharConexao();
 		}
-		
-		
-		return (valida == 0 ? false :  true );
+
+		return (valida == 0 ? false : true);
+	}
+
+	public boolean alterarEndereco(Endereco endereco) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+	
+		try {
+			PreparedStatement ps = c.prepareStatement(
+					"Update endereco set cidade = ?, bairro = ? ,rua = ? , id_estado = ?  where cep = ?");
+			ps.setString(1, endereco.getCidade());
+			ps.setString(2, endereco.getBairro());
+			ps.setString(3, endereco.getRua());
+			ps.setLong(4, endereco.getEstado().getId());
+			ps.setInt(5, endereco.getCep());
+
+			int alteracao = ps.executeUpdate();
+			if (alteracao != 0) {
+				return true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
+		}
+
+		return false;
+
 	}
 
 }

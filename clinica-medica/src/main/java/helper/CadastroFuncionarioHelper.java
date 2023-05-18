@@ -15,6 +15,7 @@ import controller.UsuarioDao;
 import model.Endereco;
 import model.Estado;
 import model.Funcionario;
+import model.StatusTela;
 import model.Usuario;
 import view.TelaCadastroFuncionario;
 
@@ -24,6 +25,8 @@ public class CadastroFuncionarioHelper {
 	private static Usuario usuario;
 	private Funcionario funcionario;
 	private static FuncionarioDao funcionarioDao;
+	private static Endereco endereco;
+	private static EnderecoDao enderecoDao;
 
 	public static Funcionario dadosFuncinario(TelaCadastroFuncionario telaCadatrosFuncionario) {
 
@@ -75,12 +78,12 @@ public class CadastroFuncionarioHelper {
 		Funcionario funcionario = new Funcionario();
 		Funcionario funcionarioNovo = new Funcionario();
 		funcionario = funcionarioDao.consultaERetornarCPF(Long.valueOf(cpfTxt));
-		if(funcionario == null) {
-		long id = funcionario.getUsuario().getId();
+		if (funcionario == null) {
+			long id = funcionario.getUsuario().getId();
 
-		Usuario retorno = usuarioDao.consultarUsuario(id);
+			Usuario retorno = usuarioDao.consultarUsuario(id);
 		}
-		
+
 		// Cadastrar adm
 		if (tipoUsuario == 0) {
 
@@ -114,7 +117,7 @@ public class CadastroFuncionarioHelper {
 		// Cadastrar Funcionario
 		boolean resultado = funcionarioDao.consultaCpf(Long.valueOf(cpfTxt));
 
-		if (tipoUsuario != 0 ) {
+		if (tipoUsuario != 0) {
 
 			// TODO nova validacao nome
 			if (nome == null || nome.trim() == "" || nome.isEmpty()) {
@@ -339,35 +342,159 @@ public class CadastroFuncionarioHelper {
 			} catch (Exception el) {
 				el.printStackTrace();
 			}
-			
+
 		}
 
 		return funcionarioNovo;
 
 	}
 
-	
-
 	public boolean editarFuncionario(TelaCadastroFuncionario telaCadastroFuncionario) {
 		funcionario = new Funcionario();
-		 funcionario = dadosFuncinario(telaCadastroFuncionario);
-		 funcionarioDao = new FuncionarioDao();
-		 //boolean retorno = funcionarioDao.cadastrarFuncionario(funcionario);
-		
+		funcionario = dadosFuncinario(telaCadastroFuncionario);
+		funcionarioDao = new FuncionarioDao();
+		// boolean retorno = funcionarioDao.cadastrarFuncionario(funcionario);
+
 		return false;
 
 	}
 
 	public boolean cadastrarFuncionario(TelaCadastroFuncionario telaCadastroFuncionario) {
 		funcionario = new Funcionario();
-		 funcionario = dadosFuncinario(telaCadastroFuncionario);
-		 funcionarioDao = new FuncionarioDao();
-		 boolean retorno = funcionarioDao.cadastrarFuncionario(funcionario);
-		
+		funcionario = dadosFuncinario(telaCadastroFuncionario);
+		funcionarioDao = new FuncionarioDao();
+		boolean retorno = funcionarioDao.cadastrarFuncionario(funcionario);
+
 		return retorno;
-	
+
 	}
 
-	
+	public StatusTela editarEndereco(TelaCadastroFuncionario telaCadastroFuncionario) {
+
+		StatusTela statusTela;
+		endereco = new Endereco();
+		enderecoDao = new EnderecoDao();
+		EnderecoDao enderecoDao = new EnderecoDao();
+		Endereco resultadoEndereco = new Endereco();
+		String cepString = telaCadastroFuncionario.getTxtCep().getText().replace(".", "").replace("-", "");
+		;
+		String cidade = telaCadastroFuncionario.getTxtMunicipio().getText();
+		telaCadastroFuncionario.getTxtCep().setEditable(false);
+		String bairro = telaCadastroFuncionario.getTxtBairro().getText();
+		String rua = telaCadastroFuncionario.getTxtRua().getText();
+		String validacao = "";
+
+		if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
+			validacao += "Cep\n";
+			telaCadastroFuncionario.getTxtCep().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			Integer cep = Integer.valueOf(cepString);
+			endereco.setCep(cep);
+		}
+
+		if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
+			validacao += "Bairro\n";
+			telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			endereco.setBairro(bairro);
+		}
+		if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
+			validacao += "Cidade\n";
+			telaCadastroFuncionario.getTxtMunicipio().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			endereco.setCidade(cidade);
+		}
+		if (rua == null || rua.trim() == "" || rua.isEmpty()) {
+			validacao += "Rua\n";
+			telaCadastroFuncionario.getTxtRua().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			endereco.setRua(rua);
+		}
+
+		if (validacao.trim() != "") {
+			JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
+		}
+		int posicao = telaCadastroFuncionario.getCbxEstado().getSelectedIndex();
+		Estado estado = new Estado();
+		estado.setId(posicao + 1);
+		endereco.setEstado(estado);
+
+		resultadoEndereco = enderecoDao.ConsultarEndereco(endereco);
+
+		if (resultadoEndereco == null) {
+
+			int replaced = JOptionPane.showConfirmDialog(null, "Endereço não Cadastrado, deseja cadastrar ?");
+
+			String result = "0";
+			switch (replaced) {
+
+			case JOptionPane.NO_OPTION:
+				result = "No";
+				break;
+			case JOptionPane.YES_OPTION:
+				result = "Yes";
+				break;
+
+			case JOptionPane.CANCEL_OPTION:
+				result = "Canceled";
+				break;
+			case JOptionPane.CLOSED_OPTION:
+				result = "Closed";
+				break;
+			default:
+				;
+			}
+			if (result.equals("Yes")) {
+				Boolean retornoEndereco = enderecoDao.InserirEndereco(endereco);
+				if (retornoEndereco == true) {
+					JOptionPane.showMessageDialog(null, " Endereço cadastrado");
+					telaCadastroFuncionario.getTxtCep().setEditable(true);
+					return statusTela.ENDERECOCADASTRADO;
+
+				} else {
+					telaCadastroFuncionario.getTxtCep().setEditable(true);
+					JOptionPane.showMessageDialog(null, " Erro ao cadastrar", "Erro", JOptionPane.ERROR_MESSAGE);
+
+				}
+
+			} else {
+				telaCadastroFuncionario.getTxtCep().setEditable(true);
+
+			}
+
+			return statusTela.ENDERECONAOCADASTRADO;
+
+		} else {
+
+			int replaced = JOptionPane.showConfirmDialog(null, "Deseja editar mesmo ? ");
+
+			String result = "0";
+			switch (replaced) {
+
+			case JOptionPane.NO_OPTION:
+				result = "No";
+				break;
+			case JOptionPane.YES_OPTION:
+				result = "Yes";
+				break;
+			default:
+			}
+			if (result.equals("Yes")) {
+				boolean retorno = enderecoDao.alterarEndereco(endereco);
+				if (retorno == true) {
+					telaCadastroFuncionario.getTxtCep().setEditable(true);
+					return statusTela.ENDERECOEDITADO;
+
+				} else {
+					telaCadastroFuncionario.getTxtCep().setEditable(true);
+					return statusTela.ERROEDITARENDERECO;
+				}
+			} else {
+				return statusTela.ENDERECOERRO;
+			}
+
+		}
+
+	}
 
 }

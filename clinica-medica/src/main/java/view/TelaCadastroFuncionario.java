@@ -46,6 +46,7 @@ import model.Endereco;
 import model.Estado;
 import model.Funcionario;
 import model.Medico;
+import model.StatusTela;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import utils.RoundButton;
@@ -301,7 +302,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 				// TODO Setar resultado do banco, se acasso o cep existir
 				if (resultado != null) {
-
+					limparEndereco();
 					int cepNovo = resultado.getCep();
 					String ruaNova = resultado.getRua();
 					String bairroNovo = resultado.getBairro();
@@ -314,7 +315,8 @@ public class TelaCadastroFuncionario extends JFrame {
 					enderecoPronto.setEstado(estadoNovo);
 					enderecoPronto.setRua(ruaNova);
 					enderecoPronto.setBairro(bairroNovo);
-
+					
+					txtCep.setText(cepString);
 					txtMunicipio.setText(enderecoPronto.getCidade());
 					txtBairro.setText(enderecoPronto.getBairro());
 					txtRua.setText(enderecoPronto.getRua());
@@ -322,6 +324,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					cbxEstado.setSelectedIndex(enderecoPronto.getEstado().getId() - 1);
 
 				} else {
+					limparEndereco();
 					JOptionPane.showMessageDialog(null, "Cep não cadastrado");
 
 				}
@@ -331,7 +334,22 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnBuscarCep.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(btnBuscarCep, "cell 3 0 2 1,grow");
 
-		JButton btnEditarEnderço = new JButton("");
+		RoundButton btnEditarEnderço = new RoundButton(50);
+		btnEditarEnderço.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
+				 StatusTela retorno = cadastroFuncionarioHelper.editarEndereco(telaCadastroFuncionario);
+				 if(retorno==retorno.ENDERECOEDITADO) {
+					 JOptionPane.showMessageDialog(null, " Cep editado com sucesso");
+				 }else {
+					 if(retorno==retorno.ERROEDITARENDERECO) {
+					 JOptionPane.showMessageDialog(null, " Erro ao  editar cep", "Erro", JOptionPane.ERROR_MESSAGE);
+					 }else {
+					 
+					 }
+				
+			}	
+		});
 		btnEditarEnderço.setIcon(new ImageIcon("src\\main\\resources\\imagens\\editar.png"));
 		panel_5.add(btnEditarEnderço, "cell 5 0,growy");
 
@@ -691,13 +709,19 @@ public class TelaCadastroFuncionario extends JFrame {
 	public JComboBox<Estado> getCbxEstado() {
 		return cbxEstado;
 	}
+
+	public void setTxtCep(JTextField txtCep) {
+		this.txtCep = txtCep;
+	}
+
 	public void listaTabelaBuca(ArrayList<Funcionario> listFuncionarios) {
 
 		modelTabelaBusca = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Cpf", "E-mail" });
 
 		for (int i = 0; i < listFuncionarios.size(); i++) {
 			Funcionario funcionario = listFuncionarios.get(i);
-			modelTabelaBusca.addRow(new Object[] { funcionario.getNome(), funcionario.getCpf(), funcionario.getEmail() });
+			modelTabelaBusca
+					.addRow(new Object[] { funcionario.getNome(), funcionario.getCpf(), funcionario.getEmail() });
 
 		}
 		table_1.setModel(modelTabelaBusca);
@@ -733,6 +757,14 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtRua.setText("");
 
 		txtUsuario.setText("");
+	}
+
+	private void limparEndereco() {
+
+		txtCep.setText("");
+		txtBairro.setText("");
+		txtMunicipio.setText("");
+		txtRua.setText("");
 	}
 
 	private void limpaBorda() {
