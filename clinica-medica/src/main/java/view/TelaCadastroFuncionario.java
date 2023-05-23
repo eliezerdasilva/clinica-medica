@@ -324,7 +324,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					cbxEstado.setSelectedIndex(enderecoPronto.getEstado().getId() - 1);
 
 				} else {
-					limparEndereco();
+					//limparEndereco();
 					JOptionPane.showMessageDialog(null, "Cep não cadastrado");
 
 				}
@@ -349,7 +349,8 @@ public class TelaCadastroFuncionario extends JFrame {
 					 }
 				
 			}	
-		});
+			}
+			});
 		btnEditarEnderço.setIcon(new ImageIcon("src\\main\\resources\\imagens\\editar.png"));
 		panel_5.add(btnEditarEnderço, "cell 5 0,growy");
 
@@ -557,7 +558,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_7.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 971, 178);
+		scrollPane.setBounds(65, 10, 971, 178);
 		panel_7.add(scrollPane);
 
 		table_1 = new JTable();
