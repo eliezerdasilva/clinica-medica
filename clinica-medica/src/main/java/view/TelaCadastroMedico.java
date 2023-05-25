@@ -48,9 +48,14 @@ import javax.swing.text.MaskFormatter;
 import controller.EnderecoDao;
 import controller.MedicoDao;
 import controller.UsuarioDao;
+import helper.ManterFuncionarioHelper;
+import helper.ManterEndereco;
+import helper.ManterMedicoHelper;
+import helper.ManterPacienteHelper;
 import model.Endereco;
 import model.Estado;
 import model.Medico;
+import model.StatusTela;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import utils.RoundButton;
@@ -100,8 +105,8 @@ public class TelaCadastroMedico extends JFrame {
 	private String senha;
 	private int nivelAcesso;
 
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txtBuscarCrm;
+	private JTextField txtBuscarNome;
 	private JTable table;
 	private SimpleDateFormat formatDate;
 
@@ -131,6 +136,7 @@ public class TelaCadastroMedico extends JFrame {
 
 	private JComponent panel_9;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private TelaCadastroMedico telaCadastroMedico;
 
 	/**
 	 * Create the frame.
@@ -139,7 +145,7 @@ public class TelaCadastroMedico extends JFrame {
 		this.usuario = usuario.getUsuario();
 		this.senha = usuario.getSenha();
 		this.nivelAcesso = usuario.getNivelAcesso();
-
+		this.telaCadastroMedico = this;
 		this.listaMedico = medicoDao.listaMedicos();
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/LocoHospital.png")));
@@ -347,6 +353,35 @@ public class TelaCadastroMedico extends JFrame {
 		});
 		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(btnBuscar, "cell 3 1 2 1,grow");
+		
+		JButton btnEditarEndereco = new JButton("");
+		btnEditarEndereco.setIcon(new ImageIcon("src\\main\\resources\\imagens\\editar.png"));
+		btnEditarEndereco.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ManterMedicoHelper cadastroMedicoHelper = new ManterMedicoHelper();
+				StatusTela retornoStatusTela = null;
+				Endereco retornoEndereco = cadastroMedicoHelper.setarObjetoEndereco(telaCadastroMedico);
+				if (retornoEndereco != null) {
+					ManterEndereco manterEndereco = new ManterEndereco();
+					 retornoStatusTela = manterEndereco.consultarEndereco(retornoEndereco);					
+				}
+				if(StatusTela.ENDERECOALTERADO == retornoStatusTela) {
+					JOptionPane.showMessageDialog(null, "Endereço alterado");
+				}else {
+					if(StatusTela.ENDERECOCADASTRADO == retornoStatusTela) {
+						JOptionPane.showMessageDialog(null, "Endereço cadastrado");
+					}else {
+						if(StatusTela.ERROALTERARENDERECO == retornoStatusTela) {
+							JOptionPane.showMessageDialog(null, "Erro ao alterar o endereço ");
+						}else {
+							JOptionPane.showMessageDialog(null, "Erro ao cadastrar o endereço ");
+						}
+							
+					}
+				}
+			}
+		});
+		panel_5.add(btnEditarEndereco, "cell 5 1,growy");
 
 		JLabel lblNewLabel_10 = new JLabel("Estado :");
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -497,17 +532,17 @@ public class TelaCadastroMedico extends JFrame {
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_8, "cell 0 1,alignx trailing");
 
-		textField_1 = new JTextField();
-		panel_6.add(textField_1, "cell 1 1,grow");
-		textField_1.setColumns(10);
+		txtBuscarCrm = new JTextField();
+		panel_6.add(txtBuscarCrm, "cell 1 1,grow");
+		txtBuscarCrm.setColumns(10);
 
 		JLabel lblNewLabel_16 = new JLabel("Nome : ");
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(lblNewLabel_16, "cell 3 1,alignx trailing");
 
-		textField_2 = new JTextField();
-		panel_6.add(textField_2, "cell 4 1,grow");
-		textField_2.setColumns(10);
+		txtBuscarNome = new JTextField();
+		panel_6.add(txtBuscarNome, "cell 4 1,grow");
+		txtBuscarNome.setColumns(10);
 
 		JButton btnNewButton_1 = new JButton("Buscar");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -753,7 +788,7 @@ public class TelaCadastroMedico extends JFrame {
 							// TODO cadastro do endereço
 
 							try {
-								resuEnd = enderecoDao.InserirEndereco(cadastroEndereco);
+								resuEnd = enderecoDao.inserirEndereco(cadastroEndereco);
 							} catch (Exception e2) {
 								e2.printStackTrace();
 							}
@@ -934,7 +969,77 @@ public class TelaCadastroMedico extends JFrame {
 			}
 		});
 	}
-
+	
+	
+	public JRadioButton getRdbtnFeminino1() {
+		return rdbtnFeminino1;
+	}
+	public void setRdbtnFeminino1(JRadioButton rdbtnFeminino1) {
+		this.rdbtnFeminino1 = rdbtnFeminino1;
+	}
+	public JComboBox<Estado> getCbxEstado() {
+		return cbxEstado;
+	}
+	public void setCbxEstado(JComboBox<Estado> cbxEstado) {
+		this.cbxEstado = cbxEstado;
+	}
+	public JTextField getTxtNome() {
+		return txtNome;
+	}
+	public JTextField getTxtEmail() {
+		return txtEmail;
+	}
+	public JTextField getTxtData() {
+		return txtData;
+	}
+	public JTextField getTxtCpf() {
+		return txtCpf;
+	}
+	public JTextField getTxtTelefone() {
+		return txtTelefone;
+	}
+	public JTextField getTxtCep() {
+		return txtCep;
+	}
+	public JTextField getTxtMunicipio() {
+		return txtMunicipio;
+	}
+	public JTextField getTxtBairro() {
+		return txtBairro;
+	}
+	public JTextField getTxtRua() {
+		return txtRua;
+	}
+	public JTextField getTxtCasaNumero() {
+		return txtCasaNumero;
+	}
+	public JTextField getTxtComplemento() {
+		return txtComplemento;
+	}
+	public JTextField getTxtCrm() {
+		return txtCrm;
+	}
+	public JTextField getTxtEspecializacao() {
+		return txtEspecializacao;
+	}
+	public JTextField getTxtUsuario() {
+		return txtUsuario;
+	}
+	public JPasswordField getTxtSenha() {
+		return txtSenha;
+	}
+	public String getSenha() {
+		return senha;
+	}
+	public JTextField getTxtBuscarCrm() {
+		return txtBuscarCrm;
+	}
+	public JTextField getTxtBuscarNome() {
+		return txtBuscarNome;
+	}
+	public JRadioButton getRdbtnMasculino1() {
+		return rdbtnMasculino1;
+	}
 	public void cadastroMedico() {
 
 		String validacao = "";
@@ -1165,7 +1270,7 @@ public class TelaCadastroMedico extends JFrame {
 			// TODO cadastro do endereço
 
 			try {
-				Boolean result = enderecoDao.InserirEndereco(cadastroEndereco);
+				Boolean result = enderecoDao.inserirEndereco(cadastroEndereco);
 				if (result != true) {
 					JOptionPane.showMessageDialog(null, "Erro no cadastro, endereço inválido", "Erro",
 							JOptionPane.ERROR_MESSAGE);

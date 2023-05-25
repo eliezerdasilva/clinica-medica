@@ -69,8 +69,6 @@
 							<descriptorRefs>
 								<descriptorRef>jar-with-dependencies</descriptorRef>
 							</descriptorRefs>
-
-
 						</configuration>
 					</execution>
 				</executions>

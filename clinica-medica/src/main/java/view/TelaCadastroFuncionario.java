@@ -5,7 +5,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -17,10 +16,10 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -39,26 +38,23 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import controller.EnderecoDao;
 import controller.FuncionarioDao;
 import controller.UsuarioDao;
-import helper.CadastroFuncionarioHelper;
+import helper.ManterFuncionarioHelper;
+import helper.ManterEndereco;
 import model.Endereco;
 import model.Estado;
 import model.Funcionario;
-import model.Medico;
 import model.StatusTela;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import utils.RoundButton;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.AncestorEvent;
-import javax.swing.SpringLayout;
 
 /**
  * 
@@ -92,11 +88,12 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JPasswordField jpfSenha;
 
 	private String usuario;
-	
-	  public TelaCadastroFuncionario() throws HeadlessException {
-	 
-	  }
-	 
+	/*
+	 * public TelaCadastroFuncionario() throws HeadlessException {
+	 * 
+	 * }
+	 */
+
 	private String senha;
 	private int tipoUsuario;
 
@@ -361,30 +358,26 @@ public class TelaCadastroFuncionario extends JFrame {
 					default:
 						;
 					}
-					CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
-					if(result.equals("Yes")) {
+					ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
+					if (result.equals("Yes")) {
 						StatusTela retorno = cadastroFuncionarioHelper.cadastrarEndereco(telaCadastroFuncionario);
-						
-						
-						if(retorno.ENDERECOCADASTRADO== retorno) {
+
+						if (retorno.ENDERECOCADASTRADO == retorno) {
 							JOptionPane.showMessageDialog(null, "Endereço cadastrado ");
 							limpaBordaEndereco();
-							
-						}else {
-							if(retorno== retorno.NAOEXIBIRMENSSAGEM){
-								
-							}else {
+
+						} else {
+							if (retorno == retorno.NAOEXIBIRMENSSAGEM) {
+
+							} else {
 								JOptionPane.showMessageDialog(null, "Erro ao  cadastrar endereço ");
 							}
 
 						}
-					}else {
+					} else {
 						limpaBordaEndereco();
 						txtCep.setText("");
 					}
-					
-					
-				
 
 				}
 			}
@@ -395,24 +388,25 @@ public class TelaCadastroFuncionario extends JFrame {
 		RoundButton btnEditarEnderço = new RoundButton(50);
 		btnEditarEnderço.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
-				StatusTela retorno = cadastroFuncionarioHelper.editarEndereco(telaCadastroFuncionario);
-				if (retorno == retorno.ENDERECOEDITADO) {
-					JOptionPane.showMessageDialog(null, " Cep editado com sucesso");
-				} else {
-					if (retorno == retorno.ERROEDITARENDERECO) {
-						JOptionPane.showMessageDialog(null, " Erro ao  editar cep", "Erro", JOptionPane.ERROR_MESSAGE);
-					} else {
-						if (retorno == retorno.ENDERECOCADASTRADO) {
-							JOptionPane.showMessageDialog(null, " Cep Cadastrado");
-						} else {
-							if (retorno == retorno.VALORESNULOS) {
-
-							} else {
-								JOptionPane.showMessageDialog(null, " Erro");
-							}
+				ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
+				StatusTela retornoStatusTela = null;
+				Endereco retornoEndereco = cadastroFuncionarioHelper.setarObjetoEndereco(telaCadastroFuncionario);
+				if (retornoEndereco != null) {
+					ManterEndereco manterEndereco = new ManterEndereco();
+					 retornoStatusTela = manterEndereco.consultarEndereco(retornoEndereco);					
+				}
+				if(StatusTela.ENDERECOALTERADO == retornoStatusTela) {
+					JOptionPane.showMessageDialog(null, "Endereço alterado");
+				}else {
+					if(StatusTela.ENDERECOCADASTRADO == retornoStatusTela) {
+						JOptionPane.showMessageDialog(null, "Endereço cadastrado");
+					}else {
+						if(StatusTela.ERROALTERARENDERECO == retornoStatusTela) {
+							JOptionPane.showMessageDialog(null, "Erro ao alterar o endereço ");
+						}else {
+							JOptionPane.showMessageDialog(null, "Erro ao cadastrar o endereço ");
 						}
-
+							
 					}
 				}
 			}
@@ -539,19 +533,19 @@ public class TelaCadastroFuncionario extends JFrame {
 		JButton btnCadastrarFuncionario = new JButton("Cadastrar funcionário");
 		btnCadastrarFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
+				ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
 				StatusTela retorno = cadastroFuncionarioHelper.cadastrarFuncionario(telaCadastroFuncionario);
 
 				if (retorno == retorno.ERROCADASTROFUNCIONARIO) {
 					JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamete");
 				} else {
-					if(retorno == retorno.FUNCIONARIOJACADASTRADO) {
+					if (retorno == retorno.FUNCIONARIOJACADASTRADO) {
 						JOptionPane.showMessageDialog(null, "Funcionario já cadastrado");
-					}else {
-					limparTela();
-					JOptionPane.showInternalMessageDialog(null, "cadastrado");
+					} else {
+						limparTela();
+						JOptionPane.showInternalMessageDialog(null, "cadastrado");
 
-					listaTabela();
+						listaTabela();
 					}
 				}
 			}
@@ -636,8 +630,6 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
-			
-			
 
 			public void actionPerformed(ActionEvent e) {
 				funcionarioClick = new Funcionario();
@@ -683,20 +675,20 @@ public class TelaCadastroFuncionario extends JFrame {
 					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
 					return;
 				}
-				
+
 				btnSalvar = new JButton("Salvar");
 				btnSalvar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
+						ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
 
-						StatusTela retorno =  cadastroFuncionarioHelper.editarFuncionario(telaCadastroFuncionario);
-						if(retorno.FUNCIONARIEDITADO== retorno) {
+						StatusTela retorno = cadastroFuncionarioHelper.editarFuncionario(telaCadastroFuncionario);
+						if (retorno.FUNCIONARIEDITADO == retorno) {
 							JOptionPane.showMessageDialog(null, "Funcionario editado");
 							listaTabela();
-						}else {
-							JOptionPane.showMessageDialog(null,"Erro ao editar");
+						} else {
+							JOptionPane.showMessageDialog(null, "Erro ao editar");
 						}
-						
+
 					}
 
 				});
@@ -705,8 +697,6 @@ public class TelaCadastroFuncionario extends JFrame {
 
 				funcionarioClick = listaFuncionario.get(position);
 				preencherFuncionarioTabela(funcionarioClick);
-			
-				
 
 			}
 		});
@@ -716,7 +706,6 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
 
 				int position = table_1.getSelectedRow();
 
@@ -726,10 +715,11 @@ public class TelaCadastroFuncionario extends JFrame {
 				}
 				funcionarioClick = new Funcionario();
 				funcionarioClick = listaFuncionario.get(position);
-				
-				CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
-				
-				int replaced = JOptionPane.showConfirmDialog(null, "Deseja excluit mesmo"+funcionarioClick.getNome()+" ? ");
+
+				ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
+
+				int replaced = JOptionPane.showConfirmDialog(null,
+						"Deseja excluit mesmo" + funcionarioClick.getNome() + " ? ");
 
 				String result = "0";
 				switch (replaced) {
@@ -750,20 +740,21 @@ public class TelaCadastroFuncionario extends JFrame {
 				default:
 					;
 				}
-				if(result.equals("Yes")) {
+				if (result.equals("Yes")) {
 					boolean retorno = cadastroFuncionarioHelper.excluirFuncionario(funcionarioClick);
-					if(retorno==true) {
+					if (retorno == true) {
 						JOptionPane.showMessageDialog(null, "Excluido com sucesso");
 						listaTabela();
-					}else {
-						JOptionPane.showMessageDialog(null, "Não foi possivel excluir:"+funcionarioClick.getNome(),"null",JOptionPane.ERROR_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "Não foi possivel excluir:" + funcionarioClick.getNome(),
+								"null", JOptionPane.ERROR_MESSAGE);
 					}
-				}else {
-					
+				} else {
+
 				}
-			
+
 			}
-			
+
 		});
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnExcluir, "cell 4 5,grow");
@@ -909,7 +900,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	public void setTxtCep(JTextField txtCep) {
 		this.txtCep = txtCep;
 	}
-	
+
 	public void listaTabelaBuca(ArrayList<Funcionario> listFuncionarios) {
 
 		modelTabelaBusca = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Cpf", "E-mail" });
@@ -922,6 +913,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		}
 		table_1.setModel(modelTabelaBusca);
 	}
+
 	public void listaTabela() {
 
 		modelTabela = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Cpf", "E-mail" });
@@ -1003,7 +995,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	}
 
 	private void limpaBorda() {
-		
+
 		txtNome.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtEmail.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtTelefone.setBorder(new LineBorder(new Color(255, 255, 255), 4));
@@ -1014,11 +1006,13 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtUsuario.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		jpfSenha.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 
-	}private void limpaBordaEndereco() {
+	}
+
+	private void limpaBordaEndereco() {
 		txtRua.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtBairro.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtMunicipio.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		
+
 	}
-	
+
 }

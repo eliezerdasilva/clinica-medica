@@ -20,7 +20,7 @@ import model.StatusTela;
 import model.Usuario;
 import view.TelaCadastroFuncionario;
 
-public class CadastroFuncionarioHelper {
+public class ManterFuncionarioHelper {
 
 	private static UsuarioDao usuarioDao;
 	private static Usuario usuario;
@@ -29,7 +29,7 @@ public class CadastroFuncionarioHelper {
 	private static Endereco endereco;
 	private static EnderecoDao enderecoDao;
 
-	public static Funcionario dadosFuncinario(TelaCadastroFuncionario telaCadatrosFuncionario) {
+	public static Funcionario setarObjetoFuncionario(TelaCadastroFuncionario telaCadatrosFuncionario) {
 
 		usuario = new Usuario();
 		usuarioDao = new UsuarioDao();
@@ -79,8 +79,8 @@ public class CadastroFuncionarioHelper {
 		Funcionario funcionario = new Funcionario();
 		Funcionario funcionarioNovo = new Funcionario();
 		// Vê se o funcionario é cadastrado
-		if(cpfTxt.trim()!="") {
-		funcionario = funcionarioDao.consultaERetornarCPF(Long.valueOf(cpfTxt));
+		if (cpfTxt.trim() != "") {
+			funcionario = funcionarioDao.consultaERetornarCPF(Long.valueOf(cpfTxt));
 		}
 		// Cadastrar adm
 		if (tipoUsuario == 0 && funcionario == null) {
@@ -201,7 +201,7 @@ public class CadastroFuncionarioHelper {
 					String resultadoMes = dataTest.substring(3, 4);
 					int converterDia = Integer.valueOf(resultadoDia);
 					int converteMes = Integer.valueOf(resultadoMes);
-					System.out.println(converterDia+converteMes);
+					System.out.println(converterDia + converteMes);
 					if (converterDia <= 31 && converterDia > 0 && converteMes > 1 && converteMes < 13) {
 						try {
 							LocalDate data = LocalDate.parse(dataN, formatter);
@@ -211,7 +211,7 @@ public class CadastroFuncionarioHelper {
 							e.printStackTrace();
 						}
 					} else {
-						JOptionPane.showMessageDialog(null,"Data inválida", "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Data inválida", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 
 				}
@@ -283,7 +283,7 @@ public class CadastroFuncionarioHelper {
 				// TODO cadastro do endereço
 
 				try {
-					resuEnd = enderecoDao.InserirEndereco(endereco);
+					resuEnd = enderecoDao.inserirEndereco(endereco);
 					if (resuEnd != true) {
 						JOptionPane.showMessageDialog(null, "Erro no cadastro, endereço inválido", "Erro",
 								JOptionPane.ERROR_MESSAGE);
@@ -320,7 +320,7 @@ public class CadastroFuncionarioHelper {
 		usuario = new Usuario();
 		funcionario = new Funcionario();
 		// Retorna os dados do funcionario
-		funcionario = dadosFuncinario(telaCadastroFuncionario);
+		funcionario = setarObjetoFuncionario(telaCadastroFuncionario);
 		funcionarioDao = new FuncionarioDao();
 
 		// Consulta o id usuario
@@ -358,7 +358,7 @@ public class CadastroFuncionarioHelper {
 
 	public StatusTela cadastrarFuncionario(TelaCadastroFuncionario telaCadastroFuncionario) {
 		funcionario = new Funcionario();
-		funcionario = dadosFuncinario(telaCadastroFuncionario);
+		funcionario = setarObjetoFuncionario(telaCadastroFuncionario);
 		funcionarioDao = new FuncionarioDao();
 		boolean result = funcionarioDao.consultaCpf(funcionario.getCpf());
 
@@ -378,7 +378,7 @@ public class CadastroFuncionarioHelper {
 		}
 	}
 
-	public StatusTela editarEndereco(TelaCadastroFuncionario telaCadastroFuncionario) {
+	public Endereco setarObjetoEndereco(TelaCadastroFuncionario telaCadastroFuncionario) {
 
 		StatusTela statusTela = null;
 		endereco = new Endereco();
@@ -423,96 +423,23 @@ public class CadastroFuncionarioHelper {
 		if (validacao.trim() != "") {
 			JOptionPane.showMessageDialog(null, validacao, "Dados inválidos:", JOptionPane.ERROR_MESSAGE, null);
 		}
+
 		int posicao = telaCadastroFuncionario.getCbxEstado().getSelectedIndex();
 		Estado estado = new Estado();
 		estado.setId(posicao + 1);
 		endereco.setEstado(estado);
 
 		resultadoEndereco = enderecoDao.ConsultarEndereco(endereco);
-
-		if (endereco.getBairro() != null && endereco.getCep() != null && endereco.getCidade() != null
-				&& endereco.getRua() != null && resultadoEndereco == null) {
-
-			int replaced = JOptionPane.showConfirmDialog(null, "Endereço não Cadastrado, deseja cadastrar ?");
-
-			String result = "0";
-			switch (replaced) {
-
-			case JOptionPane.NO_OPTION:
-				result = "No";
-				break;
-			case JOptionPane.YES_OPTION:
-				result = "Yes";
-				break;
-
-			case JOptionPane.CANCEL_OPTION:
-				result = "Canceled";
-				break;
-			case JOptionPane.CLOSED_OPTION:
-				result = "Closed";
-				break;
-			default:
-				;
-			}
-
-			if (result.equals("Yes")) {
-				Boolean retornoEndereco = enderecoDao.InserirEndereco(endereco);
-				if (retornoEndereco == true) {
-					telaCadastroFuncionario.getTxtCep().setEditable(true);
-					return statusTela.ENDERECOCADASTRADO;
-
-				} else {
-					telaCadastroFuncionario.getTxtCep().setEditable(true);
-					return statusTela.ENDERECONAOCADASTRADO;
-				}
-
-			} else {
-				TelaCadastroFuncionario telaCadastroF = new TelaCadastroFuncionario();
-				telaCadastroF.limparTela();
-				telaCadastroFuncionario.getTxtCep().setEditable(true);
-
-			}
-
-			return statusTela.ENDERECONAOCADASTRADO;
-
-		} else {
-			if (endereco.getBairro() != null && endereco.getCep() != null && endereco.getCidade() != null
-					&& endereco.getRua() != null && resultadoEndereco != null) {
-
-				int replaced = JOptionPane.showConfirmDialog(null, "Deseja editar mesmo ? ");
-
-				String result = "0";
-				switch (replaced) {
-
-				case JOptionPane.NO_OPTION:
-					result = "No";
-					break;
-				case JOptionPane.YES_OPTION:
-					result = "Yes";
-					break;
-				default:
-				}
-
-				if (result.equals("Yes")) {
-					boolean retorno = enderecoDao.alterarEndereco(endereco);
-					if (retorno == true) {
-						telaCadastroFuncionario.getTxtCep().setEditable(true);
-						return statusTela.ENDERECOEDITADO;
-
-					} else {
-						telaCadastroFuncionario.getTxtCep().setEditable(true);
-						return statusTela.ERROEDITARENDERECO;
-					}
-				} else {
-					return statusTela.ERROEDITARENDERECO;
-				}
-			} else {
-				return statusTela.VALORESNULOS;
-			}
-
+		
+		if(validacao.trim() == "") {
+			return endereco;
 		}
+		JOptionPane.showMessageDialog(null, validacao);
+		return null; 
 
 	}
+
+
 
 	public StatusTela cadastrarEndereco(TelaCadastroFuncionario telaCadastroFuncionario) {
 
@@ -570,12 +497,12 @@ public class CadastroFuncionarioHelper {
 		endereco.setEstado(estado);
 		if (i == 0) {
 
-			boolean resultado = enderecoDao.InserirEndereco(endereco);
+			boolean resultado = enderecoDao.inserirEndereco(endereco);
 			if (resultado == true) {
 				return statusTela.ENDERECOCADASTRADO;
 			} else {
 
-				return statusTela.ERROAOCADASTRARENDERECO;
+				return statusTela.ERROCADASTRARENDERECO;
 			}
 		}
 		return statusTela.NAOEXIBIRMENSSAGEM;

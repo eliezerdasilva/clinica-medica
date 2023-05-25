@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Estado {
 
 	private int id;
@@ -51,18 +53,20 @@ public class Estado {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-
-		if (obj instanceof Estado) {
-			return ((Estado) obj).getId() == getId();
-		} else if (obj instanceof String) {
-			return nome.equals(obj);
-		} else {
-			// Or return false...
-			return super.equals(obj);
-		}
+	public int hashCode() {
+		return Objects.hash(id, nome, uf);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Estado other = (Estado) obj;
+		return id == other.id && Objects.equals(nome, other.nome) && Objects.equals(uf, other.uf);
+	}
+	
 }

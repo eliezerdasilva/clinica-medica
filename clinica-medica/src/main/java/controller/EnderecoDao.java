@@ -76,7 +76,7 @@ public class EnderecoDao implements IEnderecoDao {
 	}
 
 	@Override
-	public boolean InserirEndereco(Endereco endereco) {
+	public boolean inserirEndereco(Endereco endereco) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		PreparedStatement st = null;
@@ -153,7 +153,7 @@ public class EnderecoDao implements IEnderecoDao {
 	public boolean alterarEndereco(Endereco endereco) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
-	
+		int valida = 0;
 		try {
 			PreparedStatement ps = c.prepareStatement(
 					"Update endereco set cidade = ?, bairro = ? ,rua = ? , id_estado = ?  where cep = ?");
@@ -163,10 +163,7 @@ public class EnderecoDao implements IEnderecoDao {
 			ps.setLong(4, endereco.getEstado().getId());
 			ps.setInt(5, endereco.getCep());
 
-			int alteracao = ps.executeUpdate();
-			if (alteracao != 0) {
-				return true;
-			}
+			valida = ps.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -174,7 +171,7 @@ public class EnderecoDao implements IEnderecoDao {
 			con.fecharConexao();
 		}
 
-		return false;
+		return (valida == 0 ? false : true);
 
 	}
 
