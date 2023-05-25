@@ -86,20 +86,18 @@ public class MedicoDao implements InterfaceMedico {
 	}
 
 	@Override
-	public Medico consultarMedico(Long cpf) {
+	public Medico consultarMedico(Long crm) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
 			PreparedStatement ps = c.prepareStatement("select * from medico where crm = ? ");
-			ps.setLong(1, cpf);
+			ps.setLong(1, crm);
 
 			ResultSet rs = ps.executeQuery();
 			Medico medico1 = new Medico();
 
-			System.out.println("AOF");
-			System.out.println(rs);
 			while (rs.next()) {
-				Long crm = rs.getLong("crm");
+				Long medCrm = rs.getLong("crm");
 				String nome = rs.getString("nome");
 				String sexo = rs.getString("sexo");
 				String email = rs.getString("email");
@@ -108,23 +106,13 @@ public class MedicoDao implements InterfaceMedico {
 				String especializacao = rs.getString("especializacao");
 				Long cpf1 = rs.getLong("cpf");
 
-				System.out.println("ÇÇ");
-				System.out.println(nome);
-				System.out.println(crm);
-				System.out.println(sexo);
-				System.out.println(email);
-				System.out.println(telefone);
-				System.out.println(data_nascimento);
-				System.out.println(especializacao);
-				System.out.println(cpf1);
 				
-				LocalDate localDate = data_nascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				medico1.setCrm(crm);
+				medico1.setCrm(medCrm);
 				medico1.setNome(nome);
 				medico1.setSexo(sexo);
 				medico1.setEmail(email);
 				medico1.setTelefone(telefone);
-				medico1.setDataNascimento(localDate);
+				medico1.setDataNascimento(data_nascimento.toLocalDate());
 				medico1.setEspecializacao(especializacao);
 				medico1.setCpf(cpf1);
 			}
@@ -158,37 +146,6 @@ public class MedicoDao implements InterfaceMedico {
 		}
 
 		return false;
-	}
-
-	@Override
-	public boolean ConsultaCpfMedico(Long cpf) {
-		/**
-		 * Consultar se tem medico já cadastrado
-		 */
-		con = Conexao.getInstacia();
-		Connection c = con.conectar();
-
-		boolean resultado = false;
-		try {
-			PreparedStatement ps = c.prepareStatement("select * from medico where cpf = ?");
-			ps.setLong(1, cpf);
-			ResultSet rs = ps.executeQuery();
-
-			ArrayList<Medico> medicoList = new ArrayList<>();
-			Medico medico = new Medico();
-			while (rs.next()) {
-				medico.setCpf(rs.getLong("cpf"));
-				medicoList.add(medico);
-				resultado = true; 
-			}
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		} finally {
-			con.fecharConexao();
-		}
-		return resultado;
 	}
 
 	@Override
