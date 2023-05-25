@@ -822,7 +822,12 @@ public class TelaCadastroMedico extends JFrame {
 
 						medicoDao = new MedicoDao();
 
-						boolean consultaMedicoExistente = medicoDao.ConsultaCpfMedico(cpf);
+						Medico med = medicoDao.consultarMedico(cpf);
+						boolean consultaMedicoExistente = false;
+						if(med != null) {
+							consultaMedicoExistente = true;
+						}
+						
 						if (consultaMedicoExistente != false) {
 
 							resultado = endereco.ConsultarEndereco(cadastroEndereco);
@@ -1180,8 +1185,13 @@ public class TelaCadastroMedico extends JFrame {
 		//if (consultaUsuarioCadastrado != true) {
 
 			medicoDao = new MedicoDao();
-
-			boolean consultaMedicoExistente = medicoDao.ConsultaCpfMedico(cpf);
+			
+			Medico med = medicoDao.consultarMedico(cpf);
+			boolean consultaMedicoExistente = false;
+			if(med != null) {
+				consultaMedicoExistente = true;
+			}
+			
 			if (consultaMedicoExistente != true) {
 
 				resultado = endereco.ConsultarEndereco(cadastroEndereco);
