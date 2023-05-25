@@ -17,4 +17,6 @@ public interface InterfaceUsuario {
 	public Usuario consultarUsuario(Long id);
 	
 	public boolean consultarUsuarioExistente(String Usuario);
+	public Usuario alterarUsuarioID(Usuario usuario);
+	public Usuario consultarUsuario(Usuario usuarioModelo) ;
 }

@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -13,7 +14,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -89,6 +92,11 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JPasswordField jpfSenha;
 
 	private String usuario;
+	
+	  public TelaCadastroFuncionario() throws HeadlessException {
+	 
+	  }
+	 
 	private String senha;
 	private int tipoUsuario;
 
@@ -104,7 +112,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	private ArrayList<Funcionario> listaEndereco = new ArrayList<>();
 	ArrayList<Estado> estados = new ArrayList<>();
 	private JComboBox<Estado> cbxEstado;
-	private JTable table_1;
+	private JTable table_1 = new JTable();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 
@@ -120,6 +128,13 @@ public class TelaCadastroFuncionario extends JFrame {
 
 	private DefaultTableModel modelTabelaBusca;
 
+	private AbstractButton btnExcluir;
+
+	private SimpleDateFormat formatDate;
+	private JButton btnEditar;
+	private Funcionario funcionarioClick;
+	private AbstractButton btnSalvar;
+
 	/**
 	 * Create the frame.
 	 */
@@ -130,7 +145,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		funcionarioDao = new FuncionarioDao();
 
 		this.telaCadastroFuncionario = this;
-		this.listaFuncionario = funcionarioDao.consultarTodosFuncionario();
+		listaTabela();
 
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/LocoHospital.png")));
@@ -197,6 +212,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_3.add(txtNome, "cell 1 0,grow");
 		txtNome.setColumns(10);
 
+		formatDate = new SimpleDateFormat("dd/MM/yyyy");
 		JLabel lblNewLabel_4 = new JLabel("Data de nascimento:");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_4, "flowx,cell 3 0,growx");
@@ -315,7 +331,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					enderecoPronto.setEstado(estadoNovo);
 					enderecoPronto.setRua(ruaNova);
 					enderecoPronto.setBairro(bairroNovo);
-					
+
 					txtCep.setText(cepString);
 					txtMunicipio.setText(enderecoPronto.getCidade());
 					txtBairro.setText(enderecoPronto.getBairro());
@@ -324,11 +340,53 @@ public class TelaCadastroFuncionario extends JFrame {
 					cbxEstado.setSelectedIndex(enderecoPronto.getEstado().getId() - 1);
 
 				} else {
-					//limparEndereco();
-					JOptionPane.showMessageDialog(null, "Cep não cadastrado");
+					int replaced = JOptionPane.showConfirmDialog(null, "Endereço não Cadastrado, deseja cadastrar ?");
+
+					String result = "0";
+					switch (replaced) {
+
+					case JOptionPane.NO_OPTION:
+						result = "No";
+						break;
+					case JOptionPane.YES_OPTION:
+						result = "Yes";
+						break;
+
+					case JOptionPane.CANCEL_OPTION:
+						result = "Canceled";
+						break;
+					case JOptionPane.CLOSED_OPTION:
+						result = "Closed";
+						break;
+					default:
+						;
+					}
+					CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
+					if(result.equals("Yes")) {
+						StatusTela retorno = cadastroFuncionarioHelper.cadastrarEndereco(telaCadastroFuncionario);
+						
+						
+						if(retorno.ENDERECOCADASTRADO== retorno) {
+							JOptionPane.showMessageDialog(null, "Endereço cadastrado ");
+							limpaBordaEndereco();
+							
+						}else {
+							if(retorno== retorno.NAOEXIBIRMENSSAGEM){
+								
+							}else {
+								JOptionPane.showMessageDialog(null, "Erro ao  cadastrar endereço ");
+							}
+
+						}
+					}else {
+						limpaBordaEndereco();
+						txtCep.setText("");
+					}
+					
+					
+				
 
 				}
-
 			}
 		});
 		btnBuscarCep.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -338,19 +396,27 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnEditarEnderço.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
-				 StatusTela retorno = cadastroFuncionarioHelper.editarEndereco(telaCadastroFuncionario);
-				 if(retorno==retorno.ENDERECOEDITADO) {
-					 JOptionPane.showMessageDialog(null, " Cep editado com sucesso");
-				 }else {
-					 if(retorno==retorno.ERROEDITARENDERECO) {
-					 JOptionPane.showMessageDialog(null, " Erro ao  editar cep", "Erro", JOptionPane.ERROR_MESSAGE);
-					 }else {
-					 
-					 }
-				
-			}	
+				StatusTela retorno = cadastroFuncionarioHelper.editarEndereco(telaCadastroFuncionario);
+				if (retorno == retorno.ENDERECOEDITADO) {
+					JOptionPane.showMessageDialog(null, " Cep editado com sucesso");
+				} else {
+					if (retorno == retorno.ERROEDITARENDERECO) {
+						JOptionPane.showMessageDialog(null, " Erro ao  editar cep", "Erro", JOptionPane.ERROR_MESSAGE);
+					} else {
+						if (retorno == retorno.ENDERECOCADASTRADO) {
+							JOptionPane.showMessageDialog(null, " Cep Cadastrado");
+						} else {
+							if (retorno == retorno.VALORESNULOS) {
+
+							} else {
+								JOptionPane.showMessageDialog(null, " Erro");
+							}
+						}
+
+					}
+				}
 			}
-			});
+		});
 		btnEditarEnderço.setIcon(new ImageIcon("src\\main\\resources\\imagens\\editar.png"));
 		panel_5.add(btnEditarEnderço, "cell 5 0,growy");
 
@@ -410,7 +476,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtRua = new JTextField();
 		panel_5.add(txtRua, "cell 7 2,grow");
 		txtRua.setColumns(10);
-
+		listaTabela();
 		JLabel lblNewLabel_14 = new JLabel("N°:");
 		lblNewLabel_14.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_14, "cell 0 4,alignx trailing");
@@ -470,25 +536,28 @@ public class TelaCadastroFuncionario extends JFrame {
 		rdbtnFuncionario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_9.add(rdbtnFuncionario, "cell 6 1");
 
-		JButton btnCadastrarUsuario = new JButton("Cadastrar funcionário");
-		btnCadastrarUsuario.addActionListener(new ActionListener() {
+		JButton btnCadastrarFuncionario = new JButton("Cadastrar funcionário");
+		btnCadastrarFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
-				boolean retorno = cadastroFuncionarioHelper.cadastrarFuncionario(telaCadastroFuncionario);
+				StatusTela retorno = cadastroFuncionarioHelper.cadastrarFuncionario(telaCadastroFuncionario);
 
-				if (retorno == false) {
+				if (retorno == retorno.ERROCADASTROFUNCIONARIO) {
 					JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamete");
 				} else {
+					if(retorno == retorno.FUNCIONARIOJACADASTRADO) {
+						JOptionPane.showMessageDialog(null, "Funcionario já cadastrado");
+					}else {
 					limparTela();
 					JOptionPane.showInternalMessageDialog(null, "cadastrado");
 
 					listaTabela();
-
+					}
 				}
 			}
 		});
-		btnCadastrarUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_9.add(btnCadastrarUsuario, "cell 7 1,grow");
+		btnCadastrarFuncionario.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_9.add(btnCadastrarFuncionario, "cell 7 1,grow");
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(236, 253, 232));
@@ -531,19 +600,19 @@ public class TelaCadastroFuncionario extends JFrame {
 				String cpf = txtBuscarCpf.getText().replace(".", "").replace("-", "");
 				String nome = txtBuscarNome.getText();
 				funcionarioDao = new FuncionarioDao();
-				if ((cpf != null && nome != null ) || (cpf != null && nome == null) || (cpf == null && nome != null)) {
-					ArrayList<Funcionario> listfuncionario = new  ArrayList<>();
-					if(cpf.trim() == "") {
-					cpf = "0";
-							
+				if ((cpf != null && nome != null) || (cpf != null && nome == null) || (cpf == null && nome != null)) {
+					ArrayList<Funcionario> listfuncionario = new ArrayList<>();
+					if (cpf.trim() == "") {
+						cpf = "0";
+
 					}
-					if(nome.trim() == "") {
+					if (nome.trim() == "") {
 						nome = "0";
-								
-						}
+
+					}
 					listfuncionario = funcionarioDao.consultaCPFNome(nome, Long.parseLong(cpf));
 					listaTabelaBuca(listfuncionario);
-				
+
 				}
 
 			}
@@ -565,11 +634,137 @@ public class TelaCadastroFuncionario extends JFrame {
 		table_1.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Cpf", "E-mail" }));
 		scrollPane.setViewportView(table_1);
 
-		JButton btnEditar = new JButton("Editar");
+		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			
+			
+
+			public void actionPerformed(ActionEvent e) {
+				funcionarioClick = new Funcionario();
+
+				btnCadastrarFuncionario.setVisible(false);
+				panel_9.remove(btnCadastrarFuncionario);
+
+				btnEditar.setVisible(false);
+				panel_6.remove(btnEditar);
+
+				btnExcluir.setVisible(false);
+				panel_6.remove(btnExcluir);
+
+				JButton voltar = new JButton("Volta");
+				voltar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						limpaBorda();
+						panel_9.add(btnCadastrarFuncionario);
+						btnCadastrarFuncionario.setVisible(true);
+
+						btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
+						panel_6.add(btnEditar, "cell 1 5,growx");
+						btnEditar.setVisible(true);
+
+						btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
+						panel_6.add(btnExcluir, "cell 3 5,grow");
+						btnExcluir.setVisible(true);
+
+						panel_6.remove(voltar);
+
+						btnSalvar.setVisible(false);
+						panel_9.remove(btnSalvar);
+
+						limparTela();
+					}
+				});
+				voltar.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_6.add(voltar, "cell 1 5,growx");
+
+				int position = table_1.getSelectedRow();
+
+				if (position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+				
+				btnSalvar = new JButton("Salvar");
+				btnSalvar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
+
+						StatusTela retorno =  cadastroFuncionarioHelper.editarFuncionario(telaCadastroFuncionario);
+						if(retorno.FUNCIONARIEDITADO== retorno) {
+							JOptionPane.showMessageDialog(null, "Funcionario editado");
+							listaTabela();
+						}else {
+							JOptionPane.showMessageDialog(null,"Erro ao editar");
+						}
+						
+					}
+
+				});
+				btnSalvar.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_9.add(btnSalvar, "cell 5 1,grow");
+
+				funcionarioClick = listaFuncionario.get(position);
+				preencherFuncionarioTabela(funcionarioClick);
+			
+				
+
+			}
+		});
 		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnEditar, "cell 1 5,grow");
 
-		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+
+				int position = table_1.getSelectedRow();
+
+				if (position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+				funcionarioClick = new Funcionario();
+				funcionarioClick = listaFuncionario.get(position);
+				
+				CadastroFuncionarioHelper cadastroFuncionarioHelper = new CadastroFuncionarioHelper();
+				
+				int replaced = JOptionPane.showConfirmDialog(null, "Deseja excluit mesmo"+funcionarioClick.getNome()+" ? ");
+
+				String result = "0";
+				switch (replaced) {
+
+				case JOptionPane.NO_OPTION:
+					result = "No";
+					break;
+				case JOptionPane.YES_OPTION:
+					result = "Yes";
+					break;
+
+				case JOptionPane.CANCEL_OPTION:
+					result = "Canceled";
+					break;
+				case JOptionPane.CLOSED_OPTION:
+					result = "Closed";
+					break;
+				default:
+					;
+				}
+				if(result.equals("Yes")) {
+					boolean retorno = cadastroFuncionarioHelper.excluirFuncionario(funcionarioClick);
+					if(retorno==true) {
+						JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+						listaTabela();
+					}else {
+						JOptionPane.showMessageDialog(null, "Não foi possivel excluir:"+funcionarioClick.getNome(),"null",JOptionPane.ERROR_MESSAGE);
+					}
+				}else {
+					
+				}
+			
+			}
+			
+		});
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnExcluir, "cell 4 5,grow");
 
@@ -714,7 +909,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	public void setTxtCep(JTextField txtCep) {
 		this.txtCep = txtCep;
 	}
-
+	
 	public void listaTabelaBuca(ArrayList<Funcionario> listFuncionarios) {
 
 		modelTabelaBusca = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Cpf", "E-mail" });
@@ -727,7 +922,6 @@ public class TelaCadastroFuncionario extends JFrame {
 		}
 		table_1.setModel(modelTabelaBusca);
 	}
-
 	public void listaTabela() {
 
 		modelTabela = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Cpf", "E-mail" });
@@ -742,7 +936,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		table_1.setModel(modelTabela);
 	}
 
-	private void limparTela() {
+	public void limparTela() {
 		txtNome.setText("");
 		txtEmail.setText("");
 		txtTelefone.setText("");
@@ -768,8 +962,48 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtRua.setText("");
 	}
 
-	private void limpaBorda() {
+	protected void preencherFuncionarioTabela(Funcionario funcionarioClick) {
 
+		txtNome.setText(funcionarioClick.getNome());
+		txtEmail.setText(funcionarioClick.getEmail());
+		txtTelefone.setText(funcionarioClick.getTelefone());
+		txtComplemento.setText(funcionarioClick.getComplemento());
+		txtNumero.setText(String.valueOf(funcionarioClick.getNumero()));
+		txtCpf.setEditable(false);
+		txtCpf.setText(String.valueOf(funcionarioClick.getCpf()));
+		Date data = Date.valueOf(funcionarioClick.getDataNascimento());
+		txtData.setText(formatDate.format(data));
+		Long usuarioid = funcionarioClick.getUsuario().getId();
+		usuarioDao = new UsuarioDao();
+		Usuario usuario = usuarioDao.consultarUsuario(usuarioid);
+		txtUsuario.setText(usuario.getUsuario());
+		jpfSenha.setText(usuario.getSenha());
+		String sexo = funcionarioClick.getSexo();
+		if (sexo.equals("F")) {
+			rdbtnFeminino.setSelected(true);
+		} else if (sexo.equals("M")) {
+			rdbtnMasculino.setSelected(true);
+		}
+
+		Integer cep = funcionarioClick.getEndereco().getCep();
+		EnderecoDao enderecoDao = new EnderecoDao();
+		Endereco endereco = new Endereco(cep);
+		Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
+		txtCep.setText(String.valueOf(enderecoDoBanco.getCep()));
+		txtBairro.setText(enderecoDoBanco.getBairro());
+		txtMunicipio.setText(enderecoDoBanco.getCidade());
+		txtRua.setText(enderecoDoBanco.getRua());
+		cbxEstado.setSelectedIndex(enderecoDoBanco.getEstado().getId() - 1);
+		long nivelAcesso = usuario.getId();
+		if (nivelAcesso == 0) {
+			rdbtnAdministrador.setSelected(true);
+		} else {
+			rdbtnFuncionario.setSelected(true);
+		}
+	}
+
+	private void limpaBorda() {
+		
 		txtNome.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtEmail.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtTelefone.setBorder(new LineBorder(new Color(255, 255, 255), 4));
@@ -780,5 +1014,11 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtUsuario.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		jpfSenha.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 
+	}private void limpaBordaEndereco() {
+		txtRua.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtBairro.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtMunicipio.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		
 	}
+	
 }

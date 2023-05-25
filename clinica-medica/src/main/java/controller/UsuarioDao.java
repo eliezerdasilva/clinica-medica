@@ -11,39 +11,33 @@ import model.Estado;
 import model.Paciente;
 import model.Usuario;
 
-public class UsuarioDao implements InterfaceUsuario { 
+public class UsuarioDao implements InterfaceUsuario {
 	private Conexao con;
 	private Usuario usuarioModelo;
 	private Usuario usuario;
 
 	@Override
 	public boolean inserirUsuario(Usuario usuario) {
-			this.usuario = usuario; 
-			con = Conexao.getInstacia();
-			Connection c = con.conectar();
-			int valida = 0;
-			
-		
-			try {
-				String query = "INSERT INTO usuario(login,senha,tipo_usuario) values(?,?,?);";
-				PreparedStatement stm = c.prepareStatement(query);
-				stm.setString(1, usuario.getUsuario());
-				stm.setString(2, usuario.getSenha());
-				stm.setInt(3, usuario.getNivelAcesso());
-	
-				
-				valida =  stm.executeUpdate();
+		this.usuario = usuario;
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int valida = 0;
 
-			
-				
-			
-			}catch (Exception e) {
+		try {
+			String query = "INSERT INTO usuario(login,senha,tipo_usuario) values(?,?,?);";
+			PreparedStatement stm = c.prepareStatement(query);
+			stm.setString(1, usuario.getUsuario());
+			stm.setString(2, usuario.getSenha());
+			stm.setInt(3, usuario.getNivelAcesso());
+
+			valida = stm.executeUpdate();
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			con.fecharConexao();
 		}
-			return (valida == 0 ? false : true);
-
+		return (valida == 0 ? false : true);
 
 	}
 
@@ -53,39 +47,34 @@ public class UsuarioDao implements InterfaceUsuario {
 		return false;
 	}
 
-	public Usuario consultarUsuarioCadastrado(Usuario usuarioModelo) {
-		 
+	public Usuario consultarUsuario(Usuario usuarioModelo) {
+
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
-		
-	
+
 		try {
 			PreparedStatement ps = c.prepareStatement("select * from usuario where login = ? ");
-			  ps.setString(1, usuarioModelo.getUsuario());
-		
-			
+			ps.setString(1, usuarioModelo.getUsuario());
+
 			ResultSet rs = ps.executeQuery();
 
-			
 			Usuario usuario1 = new Usuario();
 			while (rs.next()) {
 				usuario1.setId(rs.getLong("idusuario"));
 				usuario1.setUsuario(rs.getString("login"));
 				usuario1.setSenha(rs.getString("senha"));
 				usuario1.setNivelAcesso(rs.getInt("tipo_usuario"));
-				
-				
-				return  usuario1;
+
+				return usuario1;
 			}
-			
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
-		}finally {
+		} finally {
 			con.fecharConexao();
 		}
 		return null;
-		
+
 	}
 
 	@Override
@@ -93,10 +82,9 @@ public class UsuarioDao implements InterfaceUsuario {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
-			PreparedStatement ps = c.prepareStatement(
-					"select * from usuario where login = ? and senha = ? ");
+			PreparedStatement ps = c.prepareStatement("select * from usuario where login = ? and senha = ? ");
 			ps.setString(1, usuarioModelo.getUsuario());
-			ps.setString(2,  usuarioModelo.getSenha());
+			ps.setString(2, usuarioModelo.getSenha());
 
 			ResultSet rs = ps.executeQuery();
 			Endereco enderecoConfirmado = new Endereco();
@@ -107,26 +95,21 @@ public class UsuarioDao implements InterfaceUsuario {
 				String senha = rs.getString("senha");
 				int tipoUsuario = rs.getInt("tipo_usuario");
 
-
 				Usuario u = new Usuario();
 				u.setId(id);
 				u.setSenha(senha);
 				u.setUsuario(usuario);
 				u.setNivelAcesso(tipoUsuario);
-			
-
-				
 
 				return u;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}finally {
+		} finally {
 			con.fecharConexao();
 		}
 		return null;
-		
 
 	}
 
@@ -143,29 +126,27 @@ public class UsuarioDao implements InterfaceUsuario {
 
 			while (rs.next()) {
 				Long idUsuario = rs.getLong("idusuario");
-				String usuarioLogin= rs.getString("login");
+				String usuarioLogin = rs.getString("login");
 				String senha = rs.getString("senha");
 				int n_usuario = rs.getInt("tipo_usuario");
-				
-
 
 				Usuario usuarioNovo = new Usuario();
-				
+
 				usuarioNovo.setId(idUsuario);
 				usuarioNovo.setUsuario(usuarioLogin);
 				usuarioNovo.setSenha(senha);
 				usuarioNovo.setNivelAcesso(n_usuario);
-				
+
 				return usuarioNovo;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}finally {
+		} finally {
 			con.fecharConexao();
 		}
 		return null;
-		
+
 	}
 
 	@Override
@@ -173,46 +154,44 @@ public class UsuarioDao implements InterfaceUsuario {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		PreparedStatement stm = null;
-		int valida = 0; 
+		int valida = 0;
 		Usuario usuarioNovo = new Usuario();
 		try {
-			stm= c.prepareStatement("Select * from  usuario where login = ? and senha = ?");
+			stm = c.prepareStatement("Select * from  usuario where login = ? and senha = ?");
 			stm.setString(1, usuario.getUsuario());
-			stm.setString(2,usuario.getSenha());
-			
+			stm.setString(2, usuario.getSenha());
+
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
 				Long idUsuario = rs.getLong("idusuario");
-				String usuarioLogin= rs.getString("login");
+				String usuarioLogin = rs.getString("login");
 				String senha = rs.getString("senha");
 				int n_usuario = rs.getInt("tipo_usuario");
-				
+
 				usuarioNovo.setId(idUsuario);
 				usuarioNovo.setUsuario(usuarioLogin);
 				usuarioNovo.setSenha(senha);
 				usuarioNovo.setNivelAcesso(n_usuario);
-			} 
-			
-			
-		}catch (Exception e) {
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
-			stm = c.prepareStatement ("update usuario SET login = ?, senha = ? , tipo_usuario = ? WHERE idusuario = ? "
-					);
-			
+			stm = c.prepareStatement("update usuario SET login = ?, senha = ? , tipo_usuario = ? WHERE idusuario = ? ");
+
 			stm.setString(1, usuarioNovo.getUsuario());
 			stm.setString(2, usuarioNovo.getSenha());
 			stm.setInt(3, usuarioNovo.getNivelAcesso());
-			stm.setLong(4,usuarioNovo.getId());
-			 stm.executeUpdate();
+			stm.setLong(4, usuarioNovo.getId());
+			stm.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			con.fecharConexao();
 		}
-		
+
 		return usuarioNovo;
 	}
 
@@ -226,16 +205,49 @@ public class UsuarioDao implements InterfaceUsuario {
 			stm.setString(1, Usuario);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
-			   valida = 1;
+				valida = 1;
 			}
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			con.fecharConexao();
 		}
-		
+
 		return (valida == 0 ? false : true);
+	}
+
+	@Override
+	public Usuario alterarUsuarioID (Usuario usuario) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		PreparedStatement stm = null;
+		int valida = 0;
+		Usuario usuarioNovo = new Usuario();
+		try {
+			stm = c.prepareStatement("update usuario SET login = ?, senha = ? , tipo_usuario = ? WHERE idusuario = ? ");
+
+			stm.setString(1, usuario.getUsuario());
+			stm.setString(2, usuario.getSenha());
+			stm.setInt(3, usuario.getNivelAcesso());
+			stm.setLong(4, usuario.getId());
+			stm.executeUpdate();
+			return usuario;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
+		}
+
+		return null;
+
+	}
+
+	@Override
+	public Usuario consultarUsuarioCadastrado(Usuario usuarioModelo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

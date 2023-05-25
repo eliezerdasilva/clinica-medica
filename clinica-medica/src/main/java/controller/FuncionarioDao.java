@@ -233,7 +233,7 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 	public ArrayList<Funcionario> consultarTodosFuncionario() {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
-		Funcionario funcionarioSelect = new Funcionario();
+		
 		int valida = 0;
 		ArrayList<Funcionario> listaFuncionario = new ArrayList<>();
 		try {
@@ -242,6 +242,7 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
+				Funcionario funcionarioSelect = new Funcionario();
 
 				int endereco_cep = rs.getInt("endereco_cep");
 				int numero = rs.getInt("numero");
@@ -274,7 +275,7 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 		} finally {
 			con.fecharConexao();
 		}
-		return listaFuncionario;
+		return null;
 
 	}
 
