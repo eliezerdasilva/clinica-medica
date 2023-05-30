@@ -31,7 +31,7 @@ public class EnderecoDao implements IEnderecoDao {
 	 */
 
 	@Override
-	public Endereco ConsultarEndereco(Endereco endereco) {
+	public Endereco consultarEndereco(Endereco endereco) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {

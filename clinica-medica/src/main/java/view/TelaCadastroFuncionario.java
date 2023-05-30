@@ -311,7 +311,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				Endereco resultado = new Endereco();
 				// TODO metodo de consulta
 
-				resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
+				resultado = enderecoDao.consultarEndereco(consultaEndereco);
 
 				// TODO Setar resultado do banco, se acasso o cep existir
 				if (resultado != null) {
@@ -967,7 +967,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtData.setText(formatDate.format(data));
 		Long usuarioid = funcionarioClick.getUsuario().getId();
 		usuarioDao = new UsuarioDao();
-		Usuario usuario = usuarioDao.consultarUsuario(usuarioid);
+		Usuario usuario = usuarioDao.consultarUsuarioID(usuarioid);
 		txtUsuario.setText(usuario.getUsuario());
 		jpfSenha.setText(usuario.getSenha());
 		String sexo = funcionarioClick.getSexo();
@@ -980,7 +980,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		Integer cep = funcionarioClick.getEndereco().getCep();
 		EnderecoDao enderecoDao = new EnderecoDao();
 		Endereco endereco = new Endereco(cep);
-		Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
+		Endereco enderecoDoBanco = enderecoDao.consultarEndereco(endereco);
 		txtCep.setText(String.valueOf(enderecoDoBanco.getCep()));
 		txtBairro.setText(enderecoDoBanco.getBairro());
 		txtMunicipio.setText(enderecoDoBanco.getCidade());

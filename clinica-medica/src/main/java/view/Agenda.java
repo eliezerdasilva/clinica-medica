@@ -495,7 +495,7 @@ public class Agenda extends JFrame {
 		txtCaledar.setDate(date);
 		txtObservacao.setText(consultaClick2.getObservacao());
 		MedicoDao medicoDao = new MedicoDao();
-		Medico medico = medicoDao.consultaDadosMedico(consultaClick2.getMedico().getCpf());
+		Medico medico = medicoDao.consultaDadosMedicoCPF(consultaClick2.getMedico().getCpf());
 		Long.valueOf(medico.getCpf()).intValue();
 		cbxMedico.getSelectedIndex();
 		cbxMedico.setSelectedItem(medico);

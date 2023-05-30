@@ -14,11 +14,11 @@ public interface  InterfaceMedico {
 	
 	public boolean alterarMedico(Medico medico);
 
-	public Medico consultarMedico(Long cpf);
+	public Medico consultarDadosMedicoCRM(Long crm);
 	
 	public ArrayList<Medico> listaMedicos();
 	
-	public Medico consultaDadosMedico(Long cpf);
+	public Medico consultaDadosMedicoCPF(Long cpf);
 	
 
 }

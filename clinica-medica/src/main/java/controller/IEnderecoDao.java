@@ -9,7 +9,7 @@ import model.Estado;
 
 public interface IEnderecoDao {
 	
-	public Endereco ConsultarEndereco(Endereco endereco);
+	public Endereco consultarEndereco(Endereco endereco);
 	
 	public boolean inserirEndereco(Endereco endereco);
 	

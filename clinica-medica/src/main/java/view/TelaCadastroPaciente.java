@@ -21,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -37,6 +38,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.AncestorEvent;
@@ -51,6 +53,7 @@ import helper.ManterPacienteHelper;
 import model.Convenio;
 import model.Endereco;
 import model.Estado;
+import model.Medico;
 import model.Paciente;
 import model.StatusTela;
 import model.Usuario;
@@ -373,7 +376,7 @@ public class TelaCadastroPaciente extends JFrame {
 				Endereco resultado = new Endereco();
 				// TODO metodo de consulta
 
-				resultado = enderecoDao.ConsultarEndereco(consultaEndereco);
+				resultado = enderecoDao.consultarEndereco(consultaEndereco);
 
 				// TODO Setar resultado do banco, se acasso o cep existir
 				if (resultado != null) {
@@ -463,242 +466,34 @@ public class TelaCadastroPaciente extends JFrame {
 				panel_6.add(btnVoltarCadastro, "cell 1 4,grow");
 				btnVoltarCadastro.setVisible(true);
 
-				String nome = txtNome.getText();
-				String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
+				Paciente paciente = new Paciente();
+				Endereco endereco = new Endereco();
+				paciente = setarObjetoPaciente();
+				endereco = setarObjetoEndereco();
 
-				String sexo = "";
-				if (jrbMasc.isSelected()) {
+				if (paciente == null || endereco == null) {
 
-					sexo = "M";
-				}
-
-				if (jrbFemi.isSelected()) {
-
-					sexo = "F";
-				}
-				if (jrbFemi == null || jrbMasc == null) {
-					sexo = null;
-				}
-
-				String email = txtEmail.getText();
-
-				String telefone = txtTelefone.getText().replace("-", "").replace("(", "").replace(")", "");
-
-				String profissao = txtProfissao.getText();
-
-				String dataN = txtData.getText();
-
-				String complemento = txtComplemento.getText();
-
-				String n = txtNCasa.getText();
-
-				String validacao = "";
-
-				// TODO Construindo Objeto
-				Paciente p = new Paciente();
-
-				// TODO nova validacao nome
-				if (nome == null || nome.trim() == "" || nome.isEmpty()) {
-					txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "Nome\n";
 				} else {
-					txtNome.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					p.setNome(nome);
-				}
-				// cpf
-
-				if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
-					txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "CPF\n";
-				} else {
-					txtCpf.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					Long cpf = Long.valueOf(cpfTxt);
-					Long cpfConsulta = Long.valueOf(cpfTxt);
-					p.setCpf(cpf);
-				}
-				// sexo
-
-				if (sexo == null || sexo.isEmpty()) {
-					jrbFemi.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					jrbMasc.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "Sexo\n";
-				} else {
-					jrbFemi.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					jrbMasc.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					p.setSexo(sexo);
-				}
-				// email
-				if (email == null || email.trim() == "" || email.isEmpty()) {
-					txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "Email\n";
-				} else {
-					txtEmail.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					p.setEmail(email);
-				}
-				// telefone
-				if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
-					txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "Telefone\n";
-				} else {
-					txtTelefone.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					p.setTelefone(telefone);
-
-				}
-				// profissao
-				if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
-					txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "Profissao\n";
-				} else {
-					txtProfissao.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					p.setProfissao(profissao);
-				}
-				// convenio
-				if (convenio == null || convenio.isEmpty()) {
-					cbxConvenio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-					validacao += "Convenio\n";
-				} else {
-
-					// cbx.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					Convenio convenios = (Convenio) cbxConvenio.getSelectedItem();
-					int id = convenios.getId();
-					String convenio = convenios.getConvenio();
-
-					p.setConvenio(convenios);
-
-				}
-
-				// data Nascimento
-				if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
-					validacao += "Data\n";
-					txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-				} else {
-					String dataTest = dataN.replace("/", "").trim();
-					if (dataTest.length() == 0) {
-						validacao += "Data\n";
-						txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+					paciente.setEndereco(endereco);
+					ManterPacienteHelper manterPacienteHelper = new ManterPacienteHelper();
+					StatusTela retorno = manterPacienteHelper.cadastrarPaciente(paciente);
+					if (retorno.PACIENTECADASTRADO == retorno) {
+						JOptionPane.showMessageDialog(null, "Sucesso, paciente cadastrado");
+						atualizarTabela();
+						limparTela();
+						limpaBorda();
 					} else {
-						txtData.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-						LocalDate dta = LocalDate.parse(dataN, formatter);
-						dta.format(formatter);
-						p.setDataNascimento(dta);
-					}
-
-				}
-
-				// Complemento
-				p.setComplemento(complemento);
-
-				if (n == null || n.trim() == "" || n.isEmpty()) {
-					validacao += "Numero\n";
-					txtNCasa.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-				} else {
-					txtNCasa.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					Integer nCasa = Integer.valueOf(n);
-					p.setNumero(nCasa);
-				}
-				// TODO CADASTRO DO CEP NAO CADASTRADO
-
-				// Validacao endereco
-				String cepString = txtCep.getText().replace("-", "");
-				String bairro = txtBairro.getText();
-				String cidade = txtMunicipio.getText();
-				String rua = txtRua.getText();
-
-				if (cadastroEndereco == null) {
-					cadastroEndereco = new Endereco();
-				}
-
-				EnderecoDao endereco = new EnderecoDao();
-
-				if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
-					validacao += "Cep\n";
-					txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-				} else {
-					txtCep.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					Integer cep = Integer.valueOf(cepString);
-					cadastroEndereco.setCep(cep);
-				}
-
-				if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
-					validacao += "Bairro\n";
-					txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-				} else {
-					txtBairro.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					cadastroEndereco.setBairro(bairro);
-				}
-
-				if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
-					validacao += "Cidade\n";
-					txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-				} else {
-					txtMunicipio.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					cadastroEndereco.setCidade(cidade);
-				}
-
-				if (rua == null || rua.trim() == "" || rua.isEmpty()) {
-					validacao += "Rua\n";
-					txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-				} else {
-					txtRua.setBorder(new LineBorder(new Color(00, 00, 00), 1));
-					cadastroEndereco.setRua(rua);
-				}
-
-				if (validacao.trim() != "") {
-					JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
-					return;
-				}
-
-				Endereco resultado = new Endereco();
-				resultado = endereco.ConsultarEndereco(cadastroEndereco);
-
-				if (resultado == null) {
-					Estado estado = (Estado) cbxEstado.getSelectedItem();
-					int id = estado.getId();
-					estado.setId(id);
-
-					cadastroEndereco.setEstado(estado);
-
-					// TODO cadastro do endereço
-					boolean resuEnd = false;
-					try {
-						resuEnd = enderecoDao.inserirEndereco(cadastroEndereco);
-					} catch (Exception e2) {
-						e2.printStackTrace();
-					}
-
-				}
-
-				Long cpfConsulta = null;
-				// TODO ver se paciente existe
-				boolean resultadoPacienteCadastrado = pacienteDao.ConsultaCpfPaciente(cpfConsulta);
-
-				if (resultadoPacienteCadastrado != true) {
-					resultado = endereco.ConsultarEndereco(cadastroEndereco);
-
-					if (resultado != null) {
-						boolean cds = false;
-
-						try {
-							// Inserir o endereco no paciente
-							p.setEndereco(cadastroEndereco);
-							cds = pacienteDao.cadastrarPaciente(p);
-							limparTela();
-
-						} catch (Exception e1) {
-							e1.printStackTrace();
-						}
-
-						if (cds == false) {
-							JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamente");
+						if (retorno.PACIENTECADASTRADO == retorno) {
+							JOptionPane.showMessageDialog(null, "Erro, paciente não cadastrado");
+							limpaBorda();
 						} else {
-							JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
-							atualizarTabela();
+							JOptionPane.showMessageDialog(null, "CPF EXISTENTE");
 						}
+
 					}
-				} else {
-					JOptionPane.showMessageDialog(null, "ERRO: Paciente já Cadastrado no sistema");
+
 				}
+
 			}
 
 		});
@@ -731,27 +526,9 @@ public class TelaCadastroPaciente extends JFrame {
 		btnEditarEndereco.setIcon(new ImageIcon("src\\main\\resources\\imagens\\editar.png"));
 		btnEditarEndereco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ManterPacienteHelper manterPacienteHelper = new ManterPacienteHelper();
-				StatusTela retornoStatusTela = null;
-				Endereco retornoEndereco = manterPacienteHelper.setarObjetoEndereco(telaCadastroPaciente);
-				if (retornoEndereco != null) {
-					ManterEndereco manterEndereco = new ManterEndereco();
-					retornoStatusTela = manterEndereco.consultarEndereco(retornoEndereco);
-				}
-				if (StatusTela.ENDERECOALTERADO == retornoStatusTela) {
-					JOptionPane.showMessageDialog(null, "Endereço alterado");
-				} else {
-					if (StatusTela.ENDERECOCADASTRADO == retornoStatusTela) {
-						JOptionPane.showMessageDialog(null, "Endereço cadastrado");
-					} else {
-						if (StatusTela.ERROALTERARENDERECO == retornoStatusTela) {
-							JOptionPane.showMessageDialog(null, "Erro ao alterar o endereço ");
-						} else {
-							JOptionPane.showMessageDialog(null, "Erro ao cadastrar o endereço ");
-						}
 
-					}
-				}
+				Endereco retornoEndereco = setarObjetoEndereco();
+
 			}
 		});
 		panel_6.add(btnEditarEndereco, "cell 7 1,growy");
@@ -807,246 +584,36 @@ public class TelaCadastroPaciente extends JFrame {
 					btnEditar = new JButton("Salvar");
 					btnEditar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
+							
+							Paciente paciente = new Paciente();
+							Endereco endereco = new Endereco();
+							paciente = setarObjetoPaciente();
+							endereco = setarObjetoEndereco();
 
-							String nome = txtNome.getText();
-							Long cpfConsulta = null;
-							String cpfTxt = txtCpf.getText().replace(".", "").replace("-", "");
+							if (paciente == null || endereco == null) {
 
-							String sexo = "";
-							if (jrbMasc.isSelected()) {
-
-								sexo = "M";
-							}
-
-							if (jrbFemi.isSelected()) {
-
-								sexo = "F";
-							}
-							if (jrbFemi == null || jrbMasc == null) {
-								sexo = null;
-							}
-
-							String email = txtEmail.getText();
-
-							String telefone = txtTelefone.getText().replace("-", "").replace("(", "").replace(")", "");
-
-							String profissao = txtProfissao.getText();
-
-							String dataN = txtData.getText();
-
-							String complemento = txtComplemento.getText();
-
-							String n = txtNCasa.getText();
-
-							// TODO Construindo Objeto
-							Paciente p = new Paciente();
-
-							// TODO nova validacao nome
-							if (nome == null || nome.trim() == "" || nome.isEmpty()) {
-								txtNome.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								JOptionPane.showMessageDialog(null, "Nome Vazio", "ok", JOptionPane.ERROR_MESSAGE,
-										null);
-								return;
 							} else {
-								p.setNome(nome);
-							}
-							// cpf
-
-							if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
-								txtCpf.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								JOptionPane.showMessageDialog(null, "CPF Vazio", "ok", JOptionPane.ERROR_MESSAGE);
-								return;
-							} else {
-								Long cpf = Long.valueOf(cpfTxt);
-								cpfConsulta = Long.valueOf(cpfTxt);
-								p.setCpf(cpf);
-							}
-							// sexo
-
-							if (sexo == null || sexo.isEmpty()) {
-								JOptionPane.showMessageDialog(null, "Sexo Vazio", "ok", JOptionPane.ERROR_MESSAGE,
-										null);
-								jrbFemi.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								jrbMasc.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								return;
-							} else {
-								p.setSexo(sexo);
-							}
-							// email
-							if (email == null || email.trim() == "" || email.isEmpty()) {
-								JOptionPane.showMessageDialog(null, "E-mail Vazio", "ok", JOptionPane.ERROR_MESSAGE,
-										null);
-								txtEmail.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								return;
-							} else {
-								p.setEmail(email);
-							}
-							// telefone
-							if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
-								JOptionPane.showMessageDialog(null, "Telefone Vazio", "ok", JOptionPane.ERROR_MESSAGE,
-										null);
-								txtTelefone.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								return;
-							} else {
-								p.setTelefone(telefone);
-
-							}
-							// profissao
-							if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
-								JOptionPane.showMessageDialog(null, "Profissao Vazia", "ok", JOptionPane.ERROR_MESSAGE,
-										null);
-								txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								return;
-							} else {
-								p.setProfissao(profissao);
-							}
-							// convenio
-							if (convenio == null || convenio.isEmpty()) {
-								cbxConvenio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								JOptionPane.showMessageDialog(null, "Convenio Vazia", "ok", JOptionPane.ERROR_MESSAGE,
-										null);
-								return;
-							} else {
-
-								Convenio convenios = (Convenio) cbxConvenio.getSelectedItem();
-								int id = convenios.getId();
-								String convenio = convenios.getConvenio();
-
-								p.setConvenio(convenios);
-
-							}
-
-							// data Nascimento
-							if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
-								JOptionPane.showMessageDialog(null, "Data Vazia", "ok", JOptionPane.ERROR_MESSAGE,
-										null);
-								txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								return;
-							} else {
-								DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-								try {
-
-									LocalDate date = LocalDate.parse(dataN, formatter);
-									p.setDataNascimento(date);
-								} catch (Exception e2) {
-									JOptionPane.showMessageDialog(null, "Data Vazia", "ok", JOptionPane.ERROR_MESSAGE,
-											null);
-									txtData.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-									return;
-								}
-
-							}
-
-							// Complemento
-							p.setComplemento(complemento);
-
-							if (n == null || n.trim() == "" || n.isEmpty()) {
-								JOptionPane.showMessageDialog(null, "Numero Vazia", "ok", JOptionPane.ERROR_MESSAGE,
-										null);
-								txtNCasa.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								return;
-							} else {
-								Integer nCasa = Integer.valueOf(n);
-								p.setNumero(nCasa);
-							}
-							// TODO CADASTRO DO CEP NAO CADASTRADO
-
-							// Validacao endereco
-							String cepString = txtCep.getText().replace("-", "");
-							String bairro = txtBairro.getText();
-							String cidade = txtMunicipio.getText();
-							String rua = txtRua.getText();
-
-							if (cadastroEndereco == null) {
-								cadastroEndereco = new Endereco();
-							}
-
-							EnderecoDao endereco = new EnderecoDao();
-
-							if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
-								JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
-								txtCep.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								return;
-							} else {
-								Integer cep = Integer.valueOf(cepString);
-								cadastroEndereco.setCep(cep);
-							}
-
-							if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
-								JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
-								txtBairro.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								return;
-							} else {
-								cadastroEndereco.setBairro(bairro);
-							}
-							if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
-								JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
-								txtMunicipio.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								return;
-							} else {
-								cadastroEndereco.setCidade(cidade);
-							}
-							if (rua == null || rua.trim() == "" || rua.isEmpty()) {
-								JOptionPane.showMessageDialog(null, "cep Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
-								txtRua.setBorder(new LineBorder(new Color(255, 00, 00), 4));
-								return;
-							} else {
-								cadastroEndereco.setRua(rua);
-							}
-							Endereco resultado = new Endereco();
-							resultado = endereco.ConsultarEndereco(cadastroEndereco);
-
-							boolean resuEnd = false;
-
-							if (resultado == null) {
-								Estado estado = (Estado) cbxEstado.getSelectedItem();
-								int id = estado.getId();
-								String nomeEstado = estado.getNome();
-								String uf = estado.getUf();
-
-								Estado estadoSel = new Estado();
-								estadoSel.setId(id);
-
-								estadoSel.setNome(nomeEstado);
-								estadoSel.setUf(uf);
-
-								cadastroEndereco.setEstado(estado);
-								// TODO cadastro do endereço
-
-								try {
-									resuEnd = enderecoDao.inserirEndereco(cadastroEndereco);
-								} catch (Exception e2) {
-									e2.printStackTrace();
-								}
-
-							}
-
-							if (resultado != null || resuEnd == true) {
-								boolean cds = false;
-
-								try {
-									// Inserir o endereco no paciente
-									p.setEndereco(cadastroEndereco);
-									cds = pacienteDao.alterarPaciente(p);
-									limparTela();
-
-								} catch (Exception e1) {
-									e1.printStackTrace();
-								}
-
-								if (cds == false) {
-									JOptionPane.showMessageDialog(null, "Erro ao editar, tente novamente");
-
-								} else {
-									JOptionPane.showMessageDialog(null, "Alterção sucesso");
+								paciente.setEndereco(endereco);
+								ManterPacienteHelper manterPacienteHelper = new ManterPacienteHelper();
+								StatusTela retorno = manterPacienteHelper.editarPaciente(paciente);
+								if (retorno.PACIENTEALTERADO == retorno) {
+									JOptionPane.showMessageDialog(null, "Sucesso, paciente alterado");
 									atualizarTabela();
+									limparTela();
+									limpaBorda();
+								} else {
+									if (retorno.PACIENTECADASTRADO == retorno) {
+										JOptionPane.showMessageDialog(null, "Erro, paciente já cadastrado");
+										limpaBorda();
+									} else {
+										JOptionPane.showMessageDialog(null, "Erro ao alterar o usuário", "SISTEMA", JOptionPane.ERROR_MESSAGE);
+									}
 
 								}
+
 							}
 
-							btnEditar.setVisible(false);
-
-							habilitarInsercao();
+						
 
 						}
 
@@ -1275,6 +842,197 @@ public class TelaCadastroPaciente extends JFrame {
 		return jrbMasc;
 	}
 
+	public Paciente setarObjetoPaciente() {
+
+		String validacao = "";
+		Paciente paciente = new Paciente();
+
+		String nome = telaCadastroPaciente.getTxtNome().getText();
+
+		String cpfTxt = telaCadastroPaciente.getTxtCpf().getText().replace(".", "").replace("-", "");
+
+		String sexo = "";
+
+		String email = telaCadastroPaciente.getTxtEmail().getText();
+
+		String telefone = telaCadastroPaciente.getTxtTelefone().getText().replace("-", "").replace("(", "").replace(")",
+				"");
+
+		String dataN = telaCadastroPaciente.getTxtData().getText();
+
+		String complemento = telaCadastroPaciente.getTxtComplemento().getText();
+
+		String numeroCasa = telaCadastroPaciente.getTxtNCasa().getText();
+
+		String profissao = txtProfissao.getText();
+
+		if (telaCadastroPaciente.getJrbFemi().isSelected()) {
+			sexo = "F";
+		}
+		if (telaCadastroPaciente.getJrbMasc().isSelected()) {
+			sexo = "M";
+		}
+		if (telaCadastroPaciente.getJrbMasc() == null || telaCadastroPaciente.getJrbFemi() == null) {
+			sexo = null;
+		}
+		// TODO nova validacao nome
+		if (nome == null || nome.trim() == "" || nome.isEmpty()) {
+			telaCadastroPaciente.getTxtNome().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Nome\n";
+		} else {
+			telaCadastroPaciente.getTxtNome().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			paciente.setNome(nome);
+		}
+		// cpf
+
+		if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
+			telaCadastroPaciente.getTxtCpf().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "CPF\n";
+		} else {
+			telaCadastroPaciente.getTxtCpf().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			Long cpf = Long.valueOf(cpfTxt);
+			Long cpfConsulta = Long.valueOf(cpfTxt);
+			paciente.setCpf(cpf);
+		}
+		// sexo
+
+		if (sexo == null || sexo.isEmpty()) {
+			telaCadastroPaciente.getJrbFemi().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			telaCadastroPaciente.getJrbMasc().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Sexo\n";
+		} else {
+			telaCadastroPaciente.getJrbFemi().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			telaCadastroPaciente.getJrbMasc().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			paciente.setSexo(sexo);
+		}
+		// email
+		if (email == null || email.trim() == "" || email.isEmpty()) {
+			telaCadastroPaciente.getTxtEmail().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Email\n";
+		} else {
+			telaCadastroPaciente.getTxtEmail().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			paciente.setEmail(email);
+		}
+		// telefone
+		if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
+			telaCadastroPaciente.getTxtTelefone().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Telefone\n";
+		} else {
+			telaCadastroPaciente.getTxtTelefone().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			paciente.setTelefone(telefone);
+
+		}
+
+		// data Nascimento
+		if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
+			validacao += "Data\n";
+			telaCadastroPaciente.getTxtData().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			String dataTest = dataN.replace("/", "").trim();
+			if (dataTest.length() == 0) {
+				validacao += "Data\n";
+				telaCadastroPaciente.getTxtData().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			} else {
+				telaCadastroPaciente.getTxtData().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate dta = LocalDate.parse(dataN, formatter);
+				dta.format(formatter);
+				paciente.setDataNascimento(dta);
+			}
+
+		}
+		if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Profissao Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
+			txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
+
+		} else {
+			paciente.setProfissao(profissao);
+		}
+
+		// Complemento
+		paciente.setComplemento(complemento);
+
+		if (numeroCasa == null || numeroCasa.trim() == "" || numeroCasa.isEmpty()) {
+			validacao += "Numero\n";
+			telaCadastroPaciente.getTxtNCasa().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			telaCadastroPaciente.getTxtNCasa().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			Integer nCasa = Integer.valueOf(numeroCasa);
+			paciente.setNumero(nCasa);
+		}
+
+		int posicao = telaCadastroPaciente.getCbxConvenio().getSelectedIndex();
+		Convenio convenio = new Convenio();
+		convenio.setId(posicao + 1);
+		paciente.setConvenio(convenio);
+
+		if (validacao.trim() != "") {
+			JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
+			return null;
+		}
+
+		return paciente;
+
+	}
+
+	public Endereco setarObjetoEndereco() {
+
+		StatusTela statusTela = null;
+		Endereco endereco = new Endereco();
+		enderecoDao = new EnderecoDao();
+		EnderecoDao enderecoDao = new EnderecoDao();
+		Endereco resultadoEndereco = new Endereco();
+		String cepString = telaCadastroPaciente.getTxtCep().getText().replace(".", "").replace("-", "");
+
+		String cidade = telaCadastroPaciente.getTxtMunicipio().getText();
+		String bairro = telaCadastroPaciente.getTxtBairro().getText();
+		String rua = telaCadastroPaciente.getTxtRua().getText();
+		String validacao = "";
+
+		if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
+			validacao += " Cep\n";
+			telaCadastroPaciente.getTxtCep().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			Integer cep = Integer.valueOf(cepString);
+			endereco.setCep(cep);
+		}
+
+		if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
+			validacao += " Bairro\n";
+			telaCadastroPaciente.getTxtBairro().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			endereco.setBairro(bairro);
+		}
+		if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
+			validacao += " Cidade\n";
+			telaCadastroPaciente.getTxtMunicipio().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			endereco.setCidade(cidade);
+		}
+		if (rua == null || rua.trim() == "" || rua.isEmpty()) {
+			validacao += " Rua\n";
+			telaCadastroPaciente.getTxtRua().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			endereco.setRua(rua);
+		}
+
+		if (validacao.trim() != "") {
+			JOptionPane.showMessageDialog(null, validacao, "Dados inválidos:", JOptionPane.ERROR_MESSAGE, null);
+		}
+
+		int posicao = telaCadastroPaciente.getCbxEstado().getSelectedIndex();
+		Estado estado = new Estado();
+		estado.setId(posicao + 1);
+		endereco.setEstado(estado);
+
+		if (validacao.trim() == "") {
+			return endereco;
+		}
+		JOptionPane.showMessageDialog(null, validacao);
+		return null;
+
+	}
+
 	protected void prencherPaciente(Paciente pacienteClick2) {
 
 		txtNome.setText(pacienteClick.getNome());
@@ -1299,7 +1057,7 @@ public class TelaCadastroPaciente extends JFrame {
 		Integer cep = pacienteClick.getEndereco().getCep();
 		EnderecoDao enderecoDao = new EnderecoDao();
 		Endereco endereco = new Endereco(cep);
-		Endereco enderecoDoBanco = enderecoDao.ConsultarEndereco(endereco);
+		Endereco enderecoDoBanco = enderecoDao.consultarEndereco(endereco);
 		txtCep.setText(String.valueOf(enderecoDoBanco.getCep()));
 		txtBairro.setText(enderecoDoBanco.getBairro());
 		txtMunicipio.setText(enderecoDoBanco.getCidade());
@@ -1338,6 +1096,26 @@ public class TelaCadastroPaciente extends JFrame {
 		txtBairro.setText("");
 		txtMunicipio.setText("");
 		txtRua.setText("");
+	}
+	private void limpaBorda() {
+		Border blackline = BorderFactory.createLineBorder(Color.black);
+
+		txtNome.setBorder(blackline);
+		txtEmail.setBorder(blackline);
+		txtTelefone.setBorder(blackline);
+		txtData.setBorder(blackline);
+		txtCpf.setBorder(blackline);
+
+		txtComplemento.setBorder(blackline);
+		txtNCasa.setBorder(blackline);
+
+		txtCep.setBorder(blackline);
+		txtRua.setBorder(blackline);
+		txtBairro.setBorder(blackline);
+		txtMunicipio.setBorder(blackline);
+
+		txtProfissao.setBorder(blackline);
+
 	}
 
 }

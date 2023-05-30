@@ -10,7 +10,7 @@ public class ManterEndereco {
 	
 	public StatusTela consultarEndereco(Endereco endereco) {
 		
-		Endereco enderecoBD = enderecoDao.ConsultarEndereco(endereco);
+		Endereco enderecoBD = enderecoDao.consultarEndereco(endereco);
 		if(endereco.equals(enderecoBD)) {
 			
 		}

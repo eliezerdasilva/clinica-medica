@@ -32,11 +32,11 @@ class EnderecoTest {
 		endereco.setEstado(estado);
 		endereco.setRua("Rua Silvio Garzewski");
 
-		boolean result = enderecoDao.InserirEndereco(endereco);
+		boolean result = enderecoDao.inserirEndereco(endereco);
 		
 		assertTrue(result);
 		
-		Endereco end = enderecoDao.ConsultarEndereco(endereco);
+		Endereco end = enderecoDao.consultarEndereco(endereco);
 		
 		assertNotNull(end);
 		assertEquals(endereco.getBairro(), end.getBairro());
@@ -47,7 +47,7 @@ class EnderecoTest {
 	void testConsulta() {
 		Endereco endereco = new Endereco();
 		endereco.setCep(89110111);
-		Endereco result = enderecoDao.ConsultarEndereco(endereco);	
+		Endereco result = enderecoDao.consultarEndereco(endereco);	
 		assertEquals(endereco.getCep(), result.getCep());
 	}
 	
@@ -69,7 +69,7 @@ class EnderecoTest {
 		boolean result = enderecoDao.excluirEndereco(endereco);
 		assertEquals(true, result);
 		
-		Endereco end = enderecoDao.ConsultarEndereco(endereco);
+		Endereco end = enderecoDao.consultarEndereco(endereco);
 		assertEquals(null, end);
 	}
 }

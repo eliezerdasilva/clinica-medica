@@ -114,7 +114,7 @@ public class UsuarioDao implements InterfaceUsuario {
 	}
 
 	@Override
-	public Usuario consultarUsuario(Long id) {
+	public Usuario consultarUsuarioID(Long id) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {

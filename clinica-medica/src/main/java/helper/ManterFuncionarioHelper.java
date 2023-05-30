@@ -138,7 +138,7 @@ public class ManterFuncionarioHelper {
 			} else {
 
 				if (funcionario.getCpf() != null) {
-					usuario = usuarioDao.consultarUsuario(funcionario.getUsuario().getId());
+					usuario = usuarioDao.consultarUsuarioID(funcionario.getUsuario().getId());
 					usuario.setUsuario(usuarioLogin);
 
 				}
@@ -270,7 +270,7 @@ public class ManterFuncionarioHelper {
 			}
 			EnderecoDao enderecoDao = new EnderecoDao();
 			Endereco resultadoEndereco = new Endereco();
-			resultadoEndereco = enderecoDao.ConsultarEndereco(endereco);
+			resultadoEndereco = enderecoDao.consultarEndereco(endereco);
 
 			boolean resuEnd = false;
 			if (resultadoEndereco == null) {
@@ -326,7 +326,7 @@ public class ManterFuncionarioHelper {
 		// Consulta o id usuario
 		funcionarioConsulta = funcionarioDao.consultaERetornarCPF(funcionario.getCpf());
 		// consulta o usuario
-		usuario = usuarioDao.consultarUsuario(funcionarioConsulta.getUsuario().getId());
+		usuario = usuarioDao.consultarUsuarioID(funcionarioConsulta.getUsuario().getId());
 		usuario.setNivelAcesso(2);
 		// conferi se a mudança no usuario
 		if ((!funcionario.getUsuario().getSenha().equals(usuario.getSenha())
@@ -429,7 +429,7 @@ public class ManterFuncionarioHelper {
 		estado.setId(posicao + 1);
 		endereco.setEstado(estado);
 
-		resultadoEndereco = enderecoDao.ConsultarEndereco(endereco);
+		resultadoEndereco = enderecoDao.consultarEndereco(endereco);
 		
 		if(validacao.trim() == "") {
 			return endereco;

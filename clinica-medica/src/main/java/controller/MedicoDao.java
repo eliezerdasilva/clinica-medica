@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 
 import model.Endereco;
+import model.Estado;
 import model.Medico;
 import model.Paciente;
 import model.Usuario;
@@ -86,12 +87,13 @@ public class MedicoDao implements InterfaceMedico {
 	}
 
 	@Override
-	public Medico consultarMedico(Long crm) {
+	public Medico consultarDadosMedicoCRM(Long crm) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
 			PreparedStatement ps = c.prepareStatement("select * from medico where crm = ? ");
 			ps.setLong(1, crm);
+		
 
 			ResultSet rs = ps.executeQuery();
 			Medico medico1 = new Medico();
@@ -106,7 +108,6 @@ public class MedicoDao implements InterfaceMedico {
 				String especializacao = rs.getString("especializacao");
 				Long cpf1 = rs.getLong("cpf");
 
-				
 				medico1.setCrm(medCrm);
 				medico1.setNome(nome);
 				medico1.setSexo(sexo);
@@ -156,14 +157,18 @@ public class MedicoDao implements InterfaceMedico {
 		ArrayList<Medico> listMedicos = new ArrayList<>();
 		try {
 
-			PreparedStatement ps = c.prepareStatement("Select * from medico");
+			PreparedStatement ps = c.prepareStatement("select medico.*,endereco.*,usuario.* from medico\r\n"
+					+ "join endereco on medico.endereco_cep = endereco.cep\r\n"
+					+ "join usuario on medico.usuario_idusuario = usuario.idusuario;");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 
 				Medico medico = new Medico();
 				Endereco endereco = new Endereco();
+				var estado = new Estado();
 				Usuario usuario = new Usuario();
 
+				// Medico
 				medico.setCpf(rs.getLong("cpf"));
 				medico.setNome(rs.getString("nome"));
 				medico.setSexo(rs.getString("sexo"));
@@ -172,12 +177,24 @@ public class MedicoDao implements InterfaceMedico {
 				medico.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
 				medico.setCrm(rs.getLong("crm"));
 				medico.setEspecializacao(rs.getString("especializacao"));
-				endereco.setCep(rs.getInt("endereco_cep"));
-				medico.setEndereco(endereco);
+
+				// Endereco
+				endereco.setCep(rs.getInt("cep"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setBairro(rs.getString("bairro"));
+				endereco.setRua(rs.getString("rua"));
+				estado.setId(rs.getInt("id_estado"));
+				endereco.setEstado(estado);
 				medico.setNumero(rs.getInt("numero"));
-				usuario.setId(rs.getLong("usuario_idusuario"));
-				medico.setUsuario(usuario);
 				medico.setComplemento(rs.getString("complemento"));
+				medico.setEndereco(endereco);
+
+				// Usuario
+				usuario.setId(rs.getLong("idusuario"));
+				usuario.setUsuario(rs.getString("login"));
+				usuario.setSenha(rs.getString("senha"));
+				usuario.setNivelAcesso(rs.getInt("tipo_usuario"));
+				medico.setUsuario(usuario);
 
 				listMedicos.add(medico);
 
@@ -191,7 +208,7 @@ public class MedicoDao implements InterfaceMedico {
 	}
 
 	@Override
-	public Medico consultaDadosMedico(Long cpf) {
+	public Medico consultaDadosMedicoCPF(Long cpf) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		try {
@@ -229,6 +246,6 @@ public class MedicoDao implements InterfaceMedico {
 		} finally {
 			con.fecharConexao();
 		}
-		return null; 
+		return null;
 	}
 }

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Usuario {
 
 	private Long id;
@@ -65,5 +67,26 @@ public class Usuario {
 	public final void setNivelAcesso(int nivelAcesso) {
 		this.nivelAcesso = nivelAcesso;
 	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, nivelAcesso, senha, usuario);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(id, other.id) && nivelAcesso == other.nivelAcesso && Objects.equals(senha, other.senha)
+				&& Objects.equals(usuario, other.usuario);
+	}
+	
 
 }
