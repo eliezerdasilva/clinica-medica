@@ -80,7 +80,7 @@ public class ManterFuncionarioHelper {
 		Funcionario funcionarioNovo = new Funcionario();
 		// Vê se o funcionario é cadastrado
 		if (cpfTxt.trim() != "") {
-			funcionario = funcionarioDao.consultaERetornarCPF(Long.valueOf(cpfTxt));
+			funcionario = funcionarioDao.consultaFuncionairoCPF(Long.valueOf(cpfTxt));
 		}
 		// Cadastrar adm
 		if (tipoUsuario == 0 && funcionario == null) {
@@ -324,7 +324,7 @@ public class ManterFuncionarioHelper {
 		funcionarioDao = new FuncionarioDao();
 
 		// Consulta o id usuario
-		funcionarioConsulta = funcionarioDao.consultaERetornarCPF(funcionario.getCpf());
+		funcionarioConsulta = funcionarioDao.consultaFuncionairoCPF(funcionario.getCpf());
 		// consulta o usuario
 		usuario = usuarioDao.consultarUsuarioID(funcionarioConsulta.getUsuario().getId());
 		usuario.setNivelAcesso(2);
@@ -360,7 +360,7 @@ public class ManterFuncionarioHelper {
 		funcionario = new Funcionario();
 		funcionario = setarObjetoFuncionario(telaCadastroFuncionario);
 		funcionarioDao = new FuncionarioDao();
-		boolean result = funcionarioDao.consultaCpf(funcionario.getCpf());
+		boolean result = funcionarioDao.consultaCpfBoolean(funcionario.getCpf());
 
 		if (result != true) {
 			boolean retornoUsuario = usuarioDao.inserirUsuario(funcionario.getUsuario());

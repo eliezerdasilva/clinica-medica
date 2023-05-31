@@ -7,18 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.apache.commons.lang3.Validate;
-
 import model.Endereco;
+import model.Estado;
 import model.Funcionario;
-import model.Medico;
-import model.Usuario;
-
 import model.Usuario;
 
 public class FuncionarioDao implements InterfaceFuncionarioDao {
 
 	private Conexao con;
+	private Endereco endereco;
+	private Estado estado;
+	private Usuario usuario;
+	private Funcionario funcionario;
+	
 
 	@Override
 	public boolean cadastrarFuncionario(Funcionario funcionario) {
@@ -106,43 +107,59 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 	}
 
 	@Override
-	public Funcionario consultarFuncionario(Funcionario funcionario) {
+	public Funcionario consultarFuncionarioCPF(Funcionario funcionario) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 
 		try {
 
-			PreparedStatement ps = c.prepareStatement("select * from funcionario where cpf = ? ");
+			PreparedStatement ps = c.prepareStatement("select funcionario.*, usuario.*, endereco.* from funcionario\r\n"
+					+ "join usuario on funcionario.usuario_idusuario = usuario.idusuario\r\n"
+					+ "join endereco on funcionario.endereco_cep = endereco.cep\r\n"
+					+ "where cpf = ?;");
 			ps.setLong(1, funcionario.getCpf());
 			ResultSet rs = ps.executeQuery();
 			System.out.println(rs);
 
 			while (rs.next()) {
+				funcionario = new Funcionario();
+				endereco = new Endereco();
+				estado = new Estado();
+				usuario = new Usuario();
+				
+				//estado 
+				estado.setId(rs.getInt("id_estado"));
+				
+				//Endereco 
+				endereco.setBairro(rs.getString("Bairro"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setEstado(estado);
+				endereco.setRua(rs.getString("rua"));
+				endereco.setCep(rs.getInt("cep"));
+				
+				funcionario.setNumero(rs.getInt("numero"));
+				funcionario.setComplemento(rs.getString("complemento"));
+					
+				//Usuario
+				usuario.setId(rs.getLong("idusuario"));
+				usuario.setUsuario(rs.getString("login"));
+				usuario.setSenha(rs.getString("senha"));
+				usuario.setNivelAcesso(rs.getInt("tipo_usuario"));
 
-				Funcionario funcionarioSelect = new Funcionario();
-				int endereco_cep = rs.getInt("endereco_cep");
-				int numero = rs.getInt("numero");
-				String complemento = rs.getString("complemento");
+				funcionario.setCpf(rs.getLong("cpf"));
+				funcionario.setNome(rs.getString("nome"));
+				funcionario.setSexo(rs.getString("sexo"));
+				funcionario.setEmail(rs.getString("email"));
+				funcionario.setTelefone(rs.getString("telefone"));
+				funcionario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				
+				funcionario.setNumero(rs.getInt("numero"));
+				funcionario.setComplemento(rs.getString("complemento"));
+				
+				funcionario.setEndereco(endereco);
+				funcionario.setUsuario(usuario);
 
-				Endereco endereco = new Endereco();
-				Usuario usuario = new Usuario();
-				int idusuario = rs.getInt("usuario_idusuario");
-				usuario.setId(rs.getLong("usuario_idusuario"));
-
-				funcionarioSelect.setCpf(rs.getLong("cpf"));
-				funcionarioSelect.setNome(rs.getString("nome"));
-				funcionarioSelect.setSexo(rs.getString("sexo"));
-				funcionarioSelect.setEmail(rs.getString("email"));
-				funcionarioSelect.setTelefone(rs.getString("telefone"));
-
-				funcionarioSelect.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-				endereco.setCep(rs.getInt("endereco_cep"));
-				funcionarioSelect.setEndereco(endereco);
-				funcionarioSelect.setNumero(rs.getInt("numero"));
-				funcionarioSelect.setComplemento(rs.getString("complemento"));
-				funcionarioSelect.setUsuario(usuario);
-
-				return funcionarioSelect;
+				return funcionario;
 
 			}
 		} catch (SQLException e) {
@@ -155,7 +172,7 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 	}
 
 	@Override
-	public boolean consultaCpf(Long cpf) {
+	public boolean consultaCpfBoolean(Long cpf) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		int valida = 0;
@@ -185,7 +202,11 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 		int valida = 0;
 		ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
 		try {
-			PreparedStatement ps = c.prepareStatement("select * from funcionario where cpf = ? or nome = ? ");
+			PreparedStatement ps = c.prepareStatement("select funcionario.*, usuario.*, endereco.* from funcionario\r\n"
+					+ "join usuario on funcionario.usuario_idusuario = usuario.idusuario\r\n"
+					+ "join endereco on funcionario.endereco_cep = endereco.cep\r\n"
+					+ "where cpf = ? or nome = ? ");
+			
 			ps.setLong(1, cpf);
 			ps.setString(2, nome);
 
@@ -193,29 +214,42 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 
 			
 			while (rs.next()) {
+				funcionario = new Funcionario();
+				endereco = new Endereco();
+				estado = new Estado();
+				usuario = new Usuario();
+				
+				//estado 
+				estado.setId(rs.getInt("id_estado"));
+				
+				//Endereco 
+				endereco.setBairro(rs.getString("Bairro"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setEstado(estado);
+				endereco.setRua(rs.getString("rua"));
+				endereco.setCep(rs.getInt("cep"));
+				
+				funcionario.setNumero(rs.getInt("numero"));
+				funcionario.setComplemento(rs.getString("complemento"));
+					
+				//Usuario
+				usuario.setId(rs.getLong("idusuario"));
+				usuario.setUsuario(rs.getString("login"));
+				usuario.setSenha(rs.getString("senha"));
+				usuario.setNivelAcesso(rs.getInt("tipo_usuario"));
 
-				int endereco_cep = rs.getInt("endereco_cep");
-				int numero = rs.getInt("numero");
-				String complemento = rs.getString("complemento");
-
-				Endereco endereco = new Endereco();
-				Usuario usuario = new Usuario();
-				int idusuario = rs.getInt("usuario_idusuario");
-				usuario.setId(rs.getLong("usuario_idusuario"));
-
-				funcionarioSelect.setCpf(rs.getLong("cpf"));
-				funcionarioSelect.setNome(rs.getString("nome"));
-				funcionarioSelect.setSexo(rs.getString("sexo"));
-				funcionarioSelect.setEmail(rs.getString("email"));
-				funcionarioSelect.setTelefone(rs.getString("telefone"));
-
-				funcionarioSelect.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-				endereco.setCep(rs.getInt("endereco_cep"));
-				funcionarioSelect.setEndereco(endereco);
-				funcionarioSelect.setNumero(rs.getInt("numero"));
-				funcionarioSelect.setComplemento(rs.getString("complemento"));
-				funcionarioSelect.setUsuario(usuario);
-				listaFuncionarios.add(funcionarioSelect);
+				funcionario.setCpf(rs.getLong("cpf"));
+				funcionario.setNome(rs.getString("nome"));
+				funcionario.setSexo(rs.getString("sexo"));
+				funcionario.setEmail(rs.getString("email"));
+				funcionario.setTelefone(rs.getString("telefone"));
+				funcionario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				
+				funcionario.setNumero(rs.getInt("numero"));
+				funcionario.setComplemento(rs.getString("complemento"));
+				
+				funcionario.setEndereco(endereco);
+				funcionario.setUsuario(usuario);
 
 			}
 			return listaFuncionarios;
@@ -237,36 +271,50 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 		int valida = 0;
 		ArrayList<Funcionario> listaFuncionario = new ArrayList<>();
 		try {
-			PreparedStatement ps = c.prepareStatement("select * from funcionario");
+			PreparedStatement ps = c.prepareStatement("select funcionario.*, usuario.*, endereco.* from funcionario \r\n"
+					+ "join usuario on funcionario.usuario_idusuario = usuario.idusuario \r\n "
+					+ "join endereco on funcionario.endereco_cep = endereco.cep ");
 			
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Funcionario funcionarioSelect = new Funcionario();
-
-				int endereco_cep = rs.getInt("endereco_cep");
-				int numero = rs.getInt("numero");
-				String complemento = rs.getString("complemento");
-
-				Endereco endereco = new Endereco();
-				Usuario usuario = new Usuario();
-				int idusuario = rs.getInt("usuario_idusuario");
-				usuario.setId(rs.getLong("usuario_idusuario"));
-
-				funcionarioSelect.setCpf(rs.getLong("cpf"));
-				funcionarioSelect.setNome(rs.getString("nome"));
-				funcionarioSelect.setSexo(rs.getString("sexo"));
-				funcionarioSelect.setEmail(rs.getString("email"));
-				funcionarioSelect.setTelefone(rs.getString("telefone"));
-
-				funcionarioSelect.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-				endereco.setCep(rs.getInt("endereco_cep"));
-				funcionarioSelect.setEndereco(endereco);
-				funcionarioSelect.setNumero(rs.getInt("numero"));
-				funcionarioSelect.setComplemento(rs.getString("complemento"));
-				funcionarioSelect.setUsuario(usuario);
+				funcionario = new Funcionario();
+				endereco = new Endereco();
+				estado = new Estado();
+				usuario = new Usuario();
 				
-				listaFuncionario.add(funcionarioSelect);
+				//estado 
+				estado.setId(rs.getInt("id_estado"));
+				
+				//Endereco 
+				endereco.setBairro(rs.getString("Bairro"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setEstado(estado);
+				endereco.setRua(rs.getString("rua"));
+				endereco.setCep(rs.getInt("cep"));
+				
+				funcionario.setNumero(rs.getInt("numero"));
+				funcionario.setComplemento(rs.getString("complemento"));
+					
+				//Usuario
+				usuario.setId(rs.getLong("idusuario"));
+				usuario.setUsuario(rs.getString("login"));
+				usuario.setSenha(rs.getString("senha"));
+				usuario.setNivelAcesso(rs.getInt("tipo_usuario"));
+
+				funcionario.setCpf(rs.getLong("cpf"));
+				funcionario.setNome(rs.getString("nome"));
+				funcionario.setSexo(rs.getString("sexo"));
+				funcionario.setEmail(rs.getString("email"));
+				funcionario.setTelefone(rs.getString("telefone"));
+				funcionario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				
+				funcionario.setNumero(rs.getInt("numero"));
+				funcionario.setComplemento(rs.getString("complemento"));
+				
+				funcionario.setEndereco(endereco);
+				funcionario.setUsuario(usuario);
+				listaFuncionario.add(funcionario);
 			}
 			return listaFuncionario;
 
@@ -280,14 +328,17 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 	}
 
 	@Override
-	public Funcionario consultaERetornarCPF(Long cpf) {
+	public Funcionario consultaFuncionairoCPF(Long cpf) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		Funcionario funcionarioSelect = new Funcionario();
 		int valida = 0;
 		
 		try {
-			PreparedStatement ps = c.prepareStatement("select * from funcionario where cpf = ?  ");
+			PreparedStatement ps = c.prepareStatement("select funcionario.*, usuario.*, endereco.* from funcionario\r\n"
+					+ "join usuario on funcionario.usuario_idusuario = usuario.idusuario\r\n"
+					+ "join endereco on funcionario.endereco_cep = endereco.cep\r\n"
+					+ "where cpf = ?; ");
 			ps.setLong(1, cpf);
 	
 

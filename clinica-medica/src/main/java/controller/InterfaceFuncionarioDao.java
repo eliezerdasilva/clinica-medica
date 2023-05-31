@@ -12,14 +12,14 @@ public interface InterfaceFuncionarioDao {
 	
 	public boolean alterarFuncionario(Funcionario funcionario);
 	
-	public Funcionario consultarFuncionario(Funcionario funcionario);
+	public Funcionario consultarFuncionarioCPF(Funcionario funcionario);
 
-	public boolean consultaCpf(Long cpf);
+	public boolean consultaCpfBoolean(Long cpf);
 	
 	public ArrayList<Funcionario> consultaCPFNome(String nome, long cpf);
 	
 	public ArrayList<Funcionario> consultarTodosFuncionario();
 	
-	public Funcionario consultaERetornarCPF(Long cpf);
+	public Funcionario consultaFuncionairoCPF(Long cpf);
 
 }

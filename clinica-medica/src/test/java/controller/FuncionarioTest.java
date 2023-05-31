@@ -54,7 +54,7 @@ class FuncionarioTest {
 
 		assertTrue(resposta);
 
-		Funcionario funcionarioBanco = funcionarioDao.consultarFuncionario(func);
+		Funcionario funcionarioBanco = funcionarioDao.consultarFuncionarioCPF(func);
 
 		assertNotNull(funcionarioBanco);
 		assertEquals(func.getNome(), funcionarioBanco.getNome());
@@ -87,7 +87,7 @@ class FuncionarioTest {
 		func.setNumero(27);
 		func.setEndereco(endereco);
 
-		Funcionario resposta = funcionarioDao.consultarFuncionario(func);
+		Funcionario resposta = funcionarioDao.consultarFuncionarioCPF(func);
 
 		assertNotNull(resposta);
 		assertEquals(func.getNome(), resposta.getNome());
@@ -127,7 +127,7 @@ class FuncionarioTest {
 
 		assertTrue(resposta);
 
-		Funcionario funcionarioBanco = funcionarioDao.consultarFuncionario(func);
+		Funcionario funcionarioBanco = funcionarioDao.consultarFuncionarioCPF(func);
 
 		assertNotNull(funcionarioBanco);
 		assertEquals(func.getNome(), funcionarioBanco.getNome());
@@ -166,7 +166,7 @@ class FuncionarioTest {
 
 		assertTrue(resposta);
 
-		Funcionario funcionarioBanco = funcionarioDao.consultarFuncionario(func);
+		Funcionario funcionarioBanco = funcionarioDao.consultarFuncionarioCPF(func);
 
 		assertNull(funcionarioBanco);
 	}
