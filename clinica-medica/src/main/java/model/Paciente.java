@@ -7,6 +7,7 @@ public class Paciente extends Pessoa {
 	private String observacao;
 	private String profissao;
 	private Convenio convenio;
+	private String sobre;
 
 	public Paciente() {
 		super();
