@@ -314,13 +314,10 @@ public class ManterFuncionarioHelper {
 
 	}
 
-	public StatusTela editarFuncionario(TelaCadastroFuncionario telaCadastroFuncionario) {
+	public StatusTela editarFuncionario(Funcionario funcionario) {
 		Usuario usuarioAlterado = new Usuario();
 		Funcionario funcionarioConsulta = new Funcionario();
 		usuario = new Usuario();
-		funcionario = new Funcionario();
-		// Retorna os dados do funcionario
-		funcionario = setarObjetoFuncionario(telaCadastroFuncionario);
 		funcionarioDao = new FuncionarioDao();
 
 		// Consulta o id usuario
@@ -356,9 +353,7 @@ public class ManterFuncionarioHelper {
 
 	}
 
-	public StatusTela cadastrarFuncionario(TelaCadastroFuncionario telaCadastroFuncionario) {
-		funcionario = new Funcionario();
-		funcionario = setarObjetoFuncionario(telaCadastroFuncionario);
+	public StatusTela cadastrarFuncionario(Funcionario funcionario) {
 		funcionarioDao = new FuncionarioDao();
 		boolean result = funcionarioDao.consultaCpfBoolean(funcionario.getCpf());
 

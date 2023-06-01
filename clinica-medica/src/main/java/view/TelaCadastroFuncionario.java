@@ -11,11 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
@@ -87,26 +88,15 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTextField txtUsuario;
 	private JPasswordField jpfSenha;
 
-	private String usuario;
-	/*
-	 * public TelaCadastroFuncionario() throws HeadlessException {
-	 * 
-	 * }
-	 */
-
 	private String senha;
 	private int tipoUsuario;
 
-	private Endereco cadastroEndereco;
-	private Usuario usuarioModel;
-	private Funcionario funcionario;
 	private FuncionarioDao funcionarioDao;
 	private EnderecoDao enderecoDao;
 	private UsuarioDao usuarioDao;
 	private TelaCadastroFuncionario telaCadastroFuncionario;
 
 	private ArrayList<Funcionario> listaFuncionario = new ArrayList<>();
-	private ArrayList<Funcionario> listaEndereco = new ArrayList<>();
 	ArrayList<Estado> estados = new ArrayList<>();
 	private JComboBox<Estado> cbxEstado;
 	private JTable table_1 = new JTable();
@@ -136,7 +126,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroFuncionario(Usuario usuario) {
-		this.usuario = usuario.getUsuario();
+		usuario.getUsuario();
 		this.senha = usuario.getSenha();
 		this.tipoUsuario = usuario.getNivelAcesso();
 		funcionarioDao = new FuncionarioDao();
@@ -165,8 +155,6 @@ public class TelaCadastroFuncionario extends JFrame {
 		setBounds(100, 100, 2000, 1050);
 
 		setContentPane(contentPane);
-
-		BufferedImage bg = null;
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(51, 153, 0));
@@ -295,25 +283,17 @@ public class TelaCadastroFuncionario extends JFrame {
 		JButton btnBuscarCep = new JButton("Buscar");
 		btnBuscarCep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO Cidade
+
 				String cepString = txtCep.getText().replace("-", "");
-
+				
 				Integer cep = Integer.parseInt(cepString);
-
-				// TODO instância para os get e setrs do endereco
+				
 				Endereco consultaEndereco = new Endereco(cep);
-
-				// TODO instâcia para cadastrar um endereco novo
-
-				// TODO instância para consultar cep cadastrado
-
-				// TODO instância para ver o resultado da busca de cep
+				
 				Endereco resultado = new Endereco();
-				// TODO metodo de consulta
-
+				
 				resultado = enderecoDao.consultarEndereco(consultaEndereco);
 
-				// TODO Setar resultado do banco, se acasso o cep existir
 				if (resultado != null) {
 					limparEndereco();
 					int cepNovo = resultado.getCep();
@@ -362,12 +342,12 @@ public class TelaCadastroFuncionario extends JFrame {
 					if (result.equals("Yes")) {
 						StatusTela retorno = cadastroFuncionarioHelper.cadastrarEndereco(telaCadastroFuncionario);
 
-						if (retorno.ENDERECOCADASTRADO == retorno) {
+						if (StatusTela.ENDERECOCADASTRADO == retorno) {
 							JOptionPane.showMessageDialog(null, "Endereço cadastrado ");
 							limpaBordaEndereco();
 
 						} else {
-							if (retorno == retorno.NAOEXIBIRMENSSAGEM) {
+							if (retorno == StatusTela.NAOEXIBIRMENSSAGEM) {
 
 							} else {
 								JOptionPane.showMessageDialog(null, "Erro ao  cadastrar endereço ");
@@ -533,23 +513,27 @@ public class TelaCadastroFuncionario extends JFrame {
 		JButton btnCadastrarFuncionario = new JButton("Cadastrar funcionário");
 		btnCadastrarFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
-				StatusTela retorno = cadastroFuncionarioHelper.cadastrarFuncionario(telaCadastroFuncionario);
 
-				if (retorno == retorno.ERROCADASTROFUNCIONARIO) {
-					JOptionPane.showMessageDialog(null, "Erro no cadastro, tente novamete");
-				} else {
-					if (retorno == retorno.FUNCIONARIOJACADASTRADO) {
-						JOptionPane.showMessageDialog(null, "Funcionario já cadastrado");
+				ManterFuncionarioHelper manterFuncionarioHelper = new ManterFuncionarioHelper();
+				Funcionario funcionario = new Funcionario();
+				funcionario = setarObjetoFuncionario();
+				if (funcionario != null) {
+					StatusTela retorno = manterFuncionarioHelper.cadastrarFuncionario(funcionario);
+					if (StatusTela.USUARIOEXISTENTE == retorno) {
+						JOptionPane.showMessageDialog(null, "Usuário existente, informe outro");
 					} else {
-						limparTela();
-						JOptionPane.showInternalMessageDialog(null, "cadastrado");
+						if (StatusTela.MEDICOCADASTRADO == retorno) {
+							JOptionPane.showMessageDialog(null, "Médico cadastrado");
+						} else {
 
-						listaTabela();
+						}
+
 					}
+
 				}
-			}
-		});
+
+			
+		}});
 		btnCadastrarFuncionario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(btnCadastrarFuncionario, "cell 7 1,grow");
 
@@ -679,10 +663,12 @@ public class TelaCadastroFuncionario extends JFrame {
 				btnSalvar = new JButton("Salvar");
 				btnSalvar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
+						Funcionario funcionario = new Funcionario();
+						funcionario = setarObjetoFuncionario();
 						ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
-
-						StatusTela retorno = cadastroFuncionarioHelper.editarFuncionario(telaCadastroFuncionario);
-						if (retorno.FUNCIONARIEDITADO == retorno) {
+						StatusTela retorno = cadastroFuncionarioHelper.editarFuncionario(funcionario);
+						if (StatusTela.FUNCIONARIEDITADO == retorno) {
 							JOptionPane.showMessageDialog(null, "Funcionario editado");
 							listaTabela();
 						} else {
@@ -1012,6 +998,223 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtRua.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtBairro.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		txtMunicipio.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+
+	}
+
+	public Funcionario setarObjetoFuncionario() {
+		String validacao = "";
+		Funcionario funcionario = new Funcionario();
+		
+		String nome = telaCadastroFuncionario.getTxtNome().getText();		
+		
+
+		String cpfTxt = telaCadastroFuncionario.getTxtCpf().getText().replace(".", "").replace("-", "");
+
+		String sexo = "";
+		if (telaCadastroFuncionario.getRdbtnFeminino().isSelected()) {
+			sexo = "F";
+		}
+		if (telaCadastroFuncionario.getRdbtnMasculino().isSelected()) {
+			sexo = "M";
+		}
+		if (telaCadastroFuncionario.getRdbtnMasculino() == null || telaCadastroFuncionario.getRdbtnFeminino() == null) {
+			sexo = null;
+		}
+		String email = telaCadastroFuncionario.getTxtEmail().getText();
+
+		String telefone = telaCadastroFuncionario.getTxtTelefone().getText().replace("-", "").replace("(", "").replace(")",
+				"");
+
+		String dataN = telaCadastroFuncionario.getTxtData().getText();
+
+		String complemento = telaCadastroFuncionario.getTxtComplemento().getText();
+
+		String numeroCasa = telaCadastroFuncionario.getTxtNumero().getText();
+
+		//  nova validacao nome
+		if (nome == null || nome.trim() == "" || nome.isEmpty()) {
+			telaCadastroFuncionario.getTxtNome().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Nome\n";
+		} else {
+			telaCadastroFuncionario.getTxtNome().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			funcionario.setNome(nome);
+		}
+		// cpf
+
+		if (cpfTxt == null || cpfTxt.trim() == "" || cpfTxt.isEmpty()) {
+			telaCadastroFuncionario.getTxtCpf().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "CPF\n";
+		} else {
+			telaCadastroFuncionario.getTxtCpf().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			Long cpf = Long.valueOf(cpfTxt);
+			funcionario.setCpf(cpf);
+		}
+		// sexo
+
+		if (sexo == null || sexo.isEmpty()) {
+			telaCadastroFuncionario.getRdbtnFeminino().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			telaCadastroFuncionario.getRdbtnMasculino().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Sexo\n";
+		} else {
+			telaCadastroFuncionario.getRdbtnFeminino().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			telaCadastroFuncionario.getRdbtnMasculino().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			funcionario.setSexo(sexo);
+		}
+		// email
+		if (email == null || email.trim() == "" || email.isEmpty()) {
+			telaCadastroFuncionario.getTxtEmail().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Email\n";
+		} else {
+			telaCadastroFuncionario.getTxtEmail().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			funcionario.setEmail(email);
+		}
+		// telefone
+		if (telefone == null || telefone.trim() == "" || telefone.isEmpty()) {
+			telaCadastroFuncionario.getTxtTelefone().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Telefone\n";
+		} else {
+			telaCadastroFuncionario.getTxtTelefone().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			funcionario.setTelefone(telefone);
+
+		}
+
+		// data Nascimento
+		if (dataN == null || dataN.trim() == "" || dataN.isEmpty()) {
+			validacao += "Data\n";
+			telaCadastroFuncionario.getTxtData().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			String dataTest = dataN.replace("/", "").trim();
+			if (dataTest.length() == 0) {
+				validacao += "Data\n";
+				telaCadastroFuncionario.getTxtData().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			} else {
+				telaCadastroFuncionario.getTxtData().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate dta = LocalDate.parse(dataN, formatter);
+				dta.format(formatter);
+				funcionario.setDataNascimento(dta);
+			}
+
+		}
+
+		// Complemento
+		funcionario.setComplemento(complemento);
+
+		if (numeroCasa == null || numeroCasa.trim() == "" || numeroCasa.isEmpty()) {
+			validacao += "Numero\n";
+			telaCadastroFuncionario.getTxtNumero().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			telaCadastroFuncionario.getTxtNumero().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			Integer nCasa = Integer.valueOf(numeroCasa);
+			funcionario.setNumero(nCasa);
+		}
+
+
+		Usuario usuario = new Usuario();
+		usuario = setarObjetoUsuario();
+		Endereco endereco = new Endereco();
+		endereco = setarObjetoEndereco();
+
+		if (endereco != null && usuario != null) {
+			if (validacao.trim() != "") {
+				JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
+				return null;
+			} else {
+				funcionario.setUsuario(usuario);
+				funcionario.setEndereco(endereco);
+				return funcionario;
+
+			}
+		}
+		return null;
+		
+		
+	}
+
+	public Endereco setarObjetoEndereco() {
+
+		Endereco endereco = new Endereco();
+		enderecoDao = new EnderecoDao();
+		new EnderecoDao();
+		String cepString = telaCadastroFuncionario.getTxtCep().getText().replace(".", "").replace("-", "");
+
+		String cidade = telaCadastroFuncionario.getTxtMunicipio().getText();
+		String bairro = telaCadastroFuncionario.getTxtBairro().getText();
+		String rua = telaCadastroFuncionario.getTxtRua().getText();
+		String validacao = "";
+
+		if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
+			validacao += " Cep\n";
+			telaCadastroFuncionario.getTxtCep().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			Integer cep = Integer.valueOf(cepString);
+			endereco.setCep(cep);
+		}
+
+		if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
+			validacao += " Bairro\n";
+			telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			endereco.setBairro(bairro);
+		}
+		if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
+			validacao += " Cidade\n";
+			telaCadastroFuncionario.getTxtMunicipio().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			endereco.setCidade(cidade);
+		}
+		if (rua == null || rua.trim() == "" || rua.isEmpty()) {
+			validacao += " Rua\n";
+			telaCadastroFuncionario.getTxtRua().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			endereco.setRua(rua);
+		}
+
+		if (validacao.trim() != "") {
+			JOptionPane.showMessageDialog(null, validacao, "Dados inválidos:", JOptionPane.ERROR_MESSAGE, null);
+		}
+
+		int posicao = telaCadastroFuncionario.getCbxEstado().getSelectedIndex();
+		Estado estado = new Estado();
+		estado.setId(posicao + 1);
+		endereco.setEstado(estado);
+
+		if (validacao.trim() == "") {
+			return endereco;
+		}
+		JOptionPane.showMessageDialog(null, validacao);
+		return null;
+
+	}
+
+	public Usuario setarObjetoUsuario() {
+		String usuarioLogin = telaCadastroFuncionario.getTxtUsuario().getText();
+		String senha = telaCadastroFuncionario.getJpfSenha().getSelectedText();
+
+		Usuario usuario = new Usuario();
+
+		String validacao = "";
+
+		if (usuarioLogin == null || usuarioLogin.trim() == "" || usuarioLogin.isEmpty()) {
+			telaCadastroFuncionario.getTxtUsuario().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Usuario\n";
+		} else {
+			telaCadastroFuncionario.getTxtUsuario().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			usuario.setUsuario(usuarioLogin);
+		}
+		if (senha == null || senha.trim() == "" || senha.isEmpty()) {
+			telaCadastroFuncionario.getJpfSenha().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Senha\n";
+		} else {
+			telaCadastroFuncionario.getJpfSenha().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			usuario.setSenha(senha);
+		}
+		if (validacao.trim() == "") {
+			usuario.setNivelAcesso(1);
+			return usuario;
+		}
+		JOptionPane.showMessageDialog(null, validacao);
+		return null;
 
 	}
 
