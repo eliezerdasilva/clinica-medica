@@ -110,6 +110,7 @@ public class TelaCadastroPaciente extends JFrame {
 	private String usuarioLogin;
 	private String senha;
 	private int nivelAcesso;
+	private String validacao = "";
 
 	private JRadioButton jrbFemi;
 	private JComboBox<Estado> cbxEstado;
@@ -844,7 +845,6 @@ public class TelaCadastroPaciente extends JFrame {
 
 	public Paciente setarObjetoPaciente() {
 
-		String validacao = "";
 		Paciente paciente = new Paciente();
 
 		String nome = telaCadastroPaciente.getTxtNome().getText();
@@ -942,7 +942,6 @@ public class TelaCadastroPaciente extends JFrame {
 
 		}
 		if (profissao == null || profissao.trim() == "" || profissao.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Profissao Vazia", "ok", JOptionPane.ERROR_MESSAGE, null);
 			txtProfissao.setBorder(new LineBorder(new Color(255, 00, 00), 4));
 
 		} else {
@@ -970,7 +969,6 @@ public class TelaCadastroPaciente extends JFrame {
 			JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
 			return null;
 		}
-
 		return paciente;
 
 	}
@@ -987,7 +985,6 @@ public class TelaCadastroPaciente extends JFrame {
 		String cidade = telaCadastroPaciente.getTxtMunicipio().getText();
 		String bairro = telaCadastroPaciente.getTxtBairro().getText();
 		String rua = telaCadastroPaciente.getTxtRua().getText();
-		String validacao = "";
 
 		if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
 			validacao += " Cep\n";
@@ -1016,10 +1013,6 @@ public class TelaCadastroPaciente extends JFrame {
 			endereco.setRua(rua);
 		}
 
-		if (validacao.trim() != "") {
-			JOptionPane.showMessageDialog(null, validacao, "Dados inválidos:", JOptionPane.ERROR_MESSAGE, null);
-		}
-
 		int posicao = telaCadastroPaciente.getCbxEstado().getSelectedIndex();
 		Estado estado = new Estado();
 		estado.setId(posicao + 1);
@@ -1028,7 +1021,7 @@ public class TelaCadastroPaciente extends JFrame {
 		if (validacao.trim() == "") {
 			return endereco;
 		}
-		JOptionPane.showMessageDialog(null, validacao);
+		validacao = "";
 		return null;
 
 	}

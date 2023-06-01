@@ -105,6 +105,7 @@ public class TelaCadastroMedico extends JFrame {
 	// USuario
 	private String usuario;
 	private String senha;
+	private String validacao = "";
 	private int nivelAcesso;
 
 	private JTextField txtBuscarCrm;
@@ -903,8 +904,7 @@ public class TelaCadastroMedico extends JFrame {
 	}
 
 	public Medico setarObjetoMedico() {
-
-		String validacao = "";
+		
 		Medico medico = new Medico();
 
 		String nome = telaCadastroMedico.getTxtNome().getText();
@@ -1055,6 +1055,7 @@ public class TelaCadastroMedico extends JFrame {
 
 			}
 		}
+		validacao = "";
 		return null;
 
 	}
@@ -1071,7 +1072,6 @@ public class TelaCadastroMedico extends JFrame {
 		String cidade = telaCadastroMedico.getTxtMunicipio().getText();
 		String bairro = telaCadastroMedico.getTxtBairro().getText();
 		String rua = telaCadastroMedico.getTxtRua().getText();
-		String validacao = "";
 
 		if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
 			validacao += " Cep\n";
@@ -1112,7 +1112,6 @@ public class TelaCadastroMedico extends JFrame {
 		if (validacao.trim() == "") {
 			return endereco;
 		}
-		JOptionPane.showMessageDialog(null, validacao);
 		return null;
 
 	}
@@ -1122,8 +1121,6 @@ public class TelaCadastroMedico extends JFrame {
 		String senha = telaCadastroMedico.getTxtSenha().getText();
 
 		Usuario usuario = new Usuario();
-
-		String validacao = "";
 
 		if (usuarioLogin == null || usuarioLogin.trim() == "" || usuarioLogin.isEmpty()) {
 			telaCadastroMedico.getTxtUsuario().setBorder(new LineBorder(new Color(255, 00, 00), 4));
@@ -1143,7 +1140,6 @@ public class TelaCadastroMedico extends JFrame {
 			usuario.setNivelAcesso(1);
 			return usuario;
 		}
-		JOptionPane.showMessageDialog(null, validacao);
 		return null;
 
 	}

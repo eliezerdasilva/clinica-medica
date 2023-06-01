@@ -89,6 +89,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JPasswordField jpfSenha;
 
 	private String senha;
+	private String validacao = "";
 	private int tipoUsuario;
 
 	private FuncionarioDao funcionarioDao;
@@ -1002,7 +1003,6 @@ public class TelaCadastroFuncionario extends JFrame {
 	}
 
 	public Funcionario setarObjetoFuncionario() {
-		String validacao = "";
 		Funcionario funcionario = new Funcionario();
 		
 		String nome = telaCadastroFuncionario.getTxtNome().getText();		
@@ -1126,9 +1126,8 @@ public class TelaCadastroFuncionario extends JFrame {
 
 			}
 		}
+		validacao = "";
 		return null;
-		
-		
 	}
 
 	public Endereco setarObjetoEndereco() {
@@ -1141,7 +1140,6 @@ public class TelaCadastroFuncionario extends JFrame {
 		String cidade = telaCadastroFuncionario.getTxtMunicipio().getText();
 		String bairro = telaCadastroFuncionario.getTxtBairro().getText();
 		String rua = telaCadastroFuncionario.getTxtRua().getText();
-		String validacao = "";
 
 		if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
 			validacao += " Cep\n";
@@ -1182,7 +1180,6 @@ public class TelaCadastroFuncionario extends JFrame {
 		if (validacao.trim() == "") {
 			return endereco;
 		}
-		JOptionPane.showMessageDialog(null, validacao);
 		return null;
 
 	}
@@ -1192,8 +1189,6 @@ public class TelaCadastroFuncionario extends JFrame {
 		String senha = telaCadastroFuncionario.getJpfSenha().getSelectedText();
 
 		Usuario usuario = new Usuario();
-
-		String validacao = "";
 
 		if (usuarioLogin == null || usuarioLogin.trim() == "" || usuarioLogin.isEmpty()) {
 			telaCadastroFuncionario.getTxtUsuario().setBorder(new LineBorder(new Color(255, 00, 00), 4));
@@ -1213,7 +1208,6 @@ public class TelaCadastroFuncionario extends JFrame {
 			usuario.setNivelAcesso(1);
 			return usuario;
 		}
-		JOptionPane.showMessageDialog(null, validacao);
 		return null;
 
 	}
