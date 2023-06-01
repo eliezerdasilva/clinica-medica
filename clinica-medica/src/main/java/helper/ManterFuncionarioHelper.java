@@ -355,6 +355,7 @@ public class ManterFuncionarioHelper {
 
 	public StatusTela cadastrarFuncionario(Funcionario funcionario) {
 		funcionarioDao = new FuncionarioDao();
+		usuarioDao = new UsuarioDao();
 		boolean result = funcionarioDao.consultaCpfBoolean(funcionario.getCpf());
 
 		if (result != true) {

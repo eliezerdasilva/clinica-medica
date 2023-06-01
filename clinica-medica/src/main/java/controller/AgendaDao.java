@@ -221,4 +221,9 @@ public class AgendaDao implements InterfaceConsulta {
 		
 	}
 
+	public ArrayList<Consulta> consultarCosultaDia() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

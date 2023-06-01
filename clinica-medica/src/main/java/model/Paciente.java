@@ -13,18 +13,21 @@ public class Paciente extends Pessoa {
 		super();
 	}
 
-	public Paciente(String observacao, String profissao, Convenio convenio) {
+
+	public Paciente(String observacao, String profissao, Convenio convenio, String sobre) {
 		super();
 		this.observacao = observacao;
 		this.profissao = profissao;
 		this.convenio = convenio;
+		this.sobre = sobre;
 	}
 	public Paciente(String nome, String sexo, Endereco endereco, Long cpf, LocalDate dataNascimento, String telefone,
-			String email, String rg, String observacao, String profissao, Convenio convenio) {
+			String email, String rg, String observacao, String profissao, Convenio convenio, String sobre) {
 		super(nome, sexo, endereco, cpf, dataNascimento, telefone, email, rg);
 		this.observacao = observacao;
 		this.profissao = profissao;
 		this.convenio = convenio;
+		this.sobre = sobre;
 	}
 
 	public final String getObservacao() {
@@ -50,6 +53,13 @@ public class Paciente extends Pessoa {
 	public void setConvenio(Convenio convenio) {
 		this.convenio = convenio;
 	}
+	public String getSobre() {
+		return sobre;
+	}
+	public void setSobre(String sobre) {
+		this.sobre = sobre;
+	}
+	
 	
 
 

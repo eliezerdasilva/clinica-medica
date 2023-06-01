@@ -21,13 +21,13 @@ import javax.swing.border.MatteBorder;
 public class TelaConsultaMedico extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField txtTxtnome;
+	private JTextField txtTxtcpf;
+	private JTextField txtTelefone;
+	private JTextField txt;
 	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField TXTHora;
+	private JTextField txtData;
 
 	/**
 	 * Launch the application.
@@ -102,10 +102,10 @@ public class TelaConsultaMedico extends JFrame {
 		panel_1.add(textPane_1);
 		panel.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(147, 239, 338, 31);
-		panel.add(textField);
-		textField.setColumns(10);
+		txtTxtnome = new JTextField();
+		txtTxtnome.setBounds(147, 239, 338, 31);
+		panel.add(txtTxtnome);
+		txtTxtnome.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nome :");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -117,20 +117,21 @@ public class TelaConsultaMedico extends JFrame {
 		lblNewLabel_2.setBounds(99, 286, 49, 33);
 		panel.add(lblNewLabel_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(147, 280, 338, 33);
-		panel.add(textField_1);
+		txtTxtcpf = new JTextField();
+		txtTxtcpf.setText("txtCPF");
+		txtTxtcpf.setColumns(10);
+		txtTxtcpf.setBounds(147, 280, 338, 33);
+		panel.add(txtTxtcpf);
 		
 		JLabel lblNewLabel_3 = new JLabel("Telefone :");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_3.setBounds(56, 368, 93, 32);
 		panel.add(lblNewLabel_3);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(147, 367, 338, 33);
-		panel.add(textField_2);
+		txtTelefone = new JTextField();
+		txtTelefone.setColumns(10);
+		txtTelefone.setBounds(147, 367, 338, 33);
+		panel.add(txtTelefone);
 		
 		JLabel lblNewLabel_4 = new JLabel("Observação :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -142,10 +143,10 @@ public class TelaConsultaMedico extends JFrame {
 		lblNewLabel_5.setBounds(56, 411, 93, 33);
 		panel.add(lblNewLabel_5);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(147, 411, 338, 33);
-		panel.add(textField_3);
+		txt = new JTextField();
+		txt.setColumns(10);
+		txt.setBounds(147, 411, 338, 33);
+		panel.add(txt);
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setBounds(147, 455, 338, 87);
@@ -166,15 +167,15 @@ public class TelaConsultaMedico extends JFrame {
 		lblNewLabel.setBounds(79, 324, 66, 33);
 		panel.add(lblNewLabel);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(147, 324, 127, 33);
-		panel.add(textField_5);
+		TXTHora = new JTextField();
+		TXTHora.setColumns(10);
+		TXTHora.setBounds(147, 324, 127, 33);
+		panel.add(TXTHora);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(358, 324, 127, 33);
-		panel.add(textField_6);
+		txtData = new JTextField();
+		txtData.setColumns(10);
+		txtData.setBounds(358, 324, 127, 33);
+		panel.add(txtData);
 		
 		JLabel lblNewLabel_7 = new JLabel("Data :");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 16));

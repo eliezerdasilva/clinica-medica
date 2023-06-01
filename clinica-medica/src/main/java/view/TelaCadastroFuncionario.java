@@ -523,8 +523,10 @@ public class TelaCadastroFuncionario extends JFrame {
 					if (StatusTela.USUARIOEXISTENTE == retorno) {
 						JOptionPane.showMessageDialog(null, "Usuário existente, informe outro");
 					} else {
-						if (StatusTela.MEDICOCADASTRADO == retorno) {
+						if (StatusTela.FUNCIONARIOCADASTRADO == retorno) {
 							JOptionPane.showMessageDialog(null, "Médico cadastrado");
+							listaTabela();
+							limparTela();
 						} else {
 
 						}
@@ -1186,7 +1188,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 	public Usuario setarObjetoUsuario() {
 		String usuarioLogin = telaCadastroFuncionario.getTxtUsuario().getText();
-		String senha = telaCadastroFuncionario.getJpfSenha().getSelectedText();
+		String senha = telaCadastroFuncionario.getJpfSenha().getText();
 
 		Usuario usuario = new Usuario();
 
