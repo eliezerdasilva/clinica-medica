@@ -195,4 +195,4 @@ insert into funcionario(cpf,nome,sexo,email,telefone,data_nascimento,endereco_ce
 
 
 insert into consulta(data_consulta,hora_consulta,paciente_cpf,sobre_consulta,tipo_consulta,medico_cpf,observacao)
-VALUES ('2023-05-31', '14:00', '12345678998', 'Consulta de rotina', 'Consulta médica', '98765432145', 'Nenhuma observação no momento');
+VALUES (CURRENT_DATE(), '14:00', '12345678998', 'Consulta de rotina', 'Consulta médica', '98765432145', 'Nenhuma observação no momento');

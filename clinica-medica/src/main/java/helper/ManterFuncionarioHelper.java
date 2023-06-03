@@ -12,6 +12,7 @@ import org.junit.platform.commons.util.FunctionUtils;
 
 import controller.EnderecoDao;
 import controller.FuncionarioDao;
+import controller.MedicoDao;
 import controller.UsuarioDao;
 import model.Endereco;
 import model.Estado;
@@ -318,8 +319,49 @@ public class ManterFuncionarioHelper {
 		Usuario usuarioAlterado = new Usuario();
 		Funcionario funcionarioConsulta = new Funcionario();
 		usuario = new Usuario();
+		usuarioDao  = new UsuarioDao();
+		enderecoDao = new EnderecoDao();
+		endereco = new Endereco();
 		funcionarioDao = new FuncionarioDao();
 
+		endereco = enderecoDao.consultarEndereco(funcionario.getEndereco());
+		
+		if (endereco == null) {
+			int i = JOptionPane.showConfirmDialog(null, "Deseja cadastrar o cep ?");
+			if (i == JOptionPane.YES_OPTION) {
+				boolean retorno = enderecoDao.inserirEndereco(funcionario.getEndereco());
+				if (retorno == true) {
+					JOptionPane.showMessageDialog(null, "Endereço cadastrado");
+				} else {
+					JOptionPane.showMessageDialog(null, "Endereço não cadastrado");
+					return StatusTela.NAOEXIBIRMENSSAGEM;
+				}
+			} else {
+				return StatusTela.NAOEXIBIRMENSSAGEM;
+			}
+
+		}
+		if (!endereco.getBairro().equals(funcionario.getEndereco().getBairro())
+				|| !endereco.getCidade().equals(funcionario.getEndereco().getCidade())
+				|| !(endereco.getEstado().getId() == funcionario.getEndereco().getEstado().getId())
+				|| !endereco.getRua().equals(funcionario.getEndereco().getRua())) {
+
+			int i = JOptionPane.showConfirmDialog(null, "Deseja Alterar o endereço ?");
+			if (i == JOptionPane.YES_OPTION) {
+				boolean retorno = enderecoDao.alterarEndereco(funcionario.getEndereco());
+				if (retorno == true) {
+					JOptionPane.showMessageDialog(null, "Endereço cadastrado");
+				} else {
+					JOptionPane.showMessageDialog(null, "Erro ao editar endereco");
+					return StatusTela.NAOEXIBIRMENSSAGEM;
+				}
+			} else {
+				return StatusTela.NAOEXIBIRMENSSAGEM;
+			}
+		}
+		
+		
+		
 		// Consulta o id usuario
 		funcionarioConsulta = funcionarioDao.consultaFuncionairoCPF(funcionario.getCpf());
 		// consulta o usuario
@@ -354,156 +396,69 @@ public class ManterFuncionarioHelper {
 	}
 
 	public StatusTela cadastrarFuncionario(Funcionario funcionario) {
-		funcionarioDao = new FuncionarioDao();
+		endereco = new Endereco();
+		usuario = new Usuario();
+		enderecoDao = new EnderecoDao();
 		usuarioDao = new UsuarioDao();
-		boolean result = funcionarioDao.consultaCpfBoolean(funcionario.getCpf());
 
-		if (result != true) {
-			boolean retornoUsuario = usuarioDao.inserirUsuario(funcionario.getUsuario());
-			usuario = new Usuario();
-			usuario = usuarioDao.selecionarUSuarioParaCadastrar(funcionario.getUsuario());
-			funcionario.setUsuario(usuario);
-			boolean retorno = funcionarioDao.cadastrarFuncionario(funcionario);
-			if (retorno == true) {
-				return StatusTela.FUNCIONARIOCADASTRADO;
+		endereco = enderecoDao.consultarEndereco(funcionario.getEndereco());
+		usuario = usuarioDao.consultarUsuario(funcionario.getUsuario());
+
+		if (endereco.getCep() == null) {
+			int i = JOptionPane.showConfirmDialog(null, "Deseja cadastrar o cep ?");
+			if (i == JOptionPane.YES_OPTION) {
+				boolean retorno = enderecoDao.inserirEndereco(funcionario.getEndereco());
+				if (retorno == true) {
+					JOptionPane.showMessageDialog(null, "Endereço cadastrado");
+				} else {
+					JOptionPane.showMessageDialog(null, "Endereço não cadastrado");
+					return StatusTela.NAOEXIBIRMENSSAGEM;
+				}
 			} else {
-				return StatusTela.ERROCADASTROFUNCIONARIO;
+				return StatusTela.NAOEXIBIRMENSSAGEM;
 			}
-		} else {
-			return StatusTela.FUNCIONARIOJACADASTRADO;
-		}
-	}
-
-	public Endereco setarObjetoEndereco(TelaCadastroFuncionario telaCadastroFuncionario) {
-
-		StatusTela statusTela = null;
-		endereco = new Endereco();
-		enderecoDao = new EnderecoDao();
-		EnderecoDao enderecoDao = new EnderecoDao();
-		Endereco resultadoEndereco = new Endereco();
-		String cepString = telaCadastroFuncionario.getTxtCep().getText().replace(".", "").replace("-", "");
-
-		String cidade = telaCadastroFuncionario.getTxtMunicipio().getText();
-		telaCadastroFuncionario.getTxtCep().setEditable(false);
-		String bairro = telaCadastroFuncionario.getTxtBairro().getText();
-		String rua = telaCadastroFuncionario.getTxtRua().getText();
-		String validacao = "";
-
-		if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
-			validacao += " Cep\n";
-			telaCadastroFuncionario.getTxtCep().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-		} else {
-			Integer cep = Integer.valueOf(cepString);
-			endereco.setCep(cep);
-		}
-
-		if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
-			validacao += " Bairro\n";
-			telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-		} else {
-			endereco.setBairro(bairro);
-		}
-		if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
-			validacao += " Cidade\n";
-			telaCadastroFuncionario.getTxtMunicipio().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-		} else {
-			endereco.setCidade(cidade);
-		}
-		if (rua == null || rua.trim() == "" || rua.isEmpty()) {
-			validacao += " Rua\n";
-			telaCadastroFuncionario.getTxtRua().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-		} else {
-			endereco.setRua(rua);
-		}
-
-		if (validacao.trim() != "") {
-			JOptionPane.showMessageDialog(null, validacao, "Dados inválidos:", JOptionPane.ERROR_MESSAGE, null);
-		}
-
-		int posicao = telaCadastroFuncionario.getCbxEstado().getSelectedIndex();
-		Estado estado = new Estado();
-		estado.setId(posicao + 1);
-		endereco.setEstado(estado);
-
-		resultadoEndereco = enderecoDao.consultarEndereco(endereco);
-		
-		if(validacao.trim() == "") {
-			return endereco;
-		}
-		JOptionPane.showMessageDialog(null, validacao);
-		return null; 
-
-	}
-
-
-
-	public StatusTela cadastrarEndereco(TelaCadastroFuncionario telaCadastroFuncionario) {
-
-		StatusTela statusTela = null;
-		endereco = new Endereco();
-		enderecoDao = new EnderecoDao();
-		EnderecoDao enderecoDao = new EnderecoDao();
-		Endereco resultadoEndereco = new Endereco();
-		int i = 0;
-
-		String cepString = telaCadastroFuncionario.getTxtCep().getText().replace(".", "").replace("-", "");
-		String cidade = telaCadastroFuncionario.getTxtMunicipio().getText();
-		String bairro = telaCadastroFuncionario.getTxtBairro().getText();
-		String rua = telaCadastroFuncionario.getTxtRua().getText();
-		String validacao = "";
-
-		if (cepString == null || cepString.trim() == "" || cepString.isEmpty()) {
-			validacao += " Cep\n";
-			i++;
-			telaCadastroFuncionario.getTxtCep().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-		} else {
-			Integer cep = Integer.valueOf(cepString);
-			endereco.setCep(cep);
-		}
-
-		if (bairro == null || bairro.trim() == "" || bairro.isEmpty()) {
-			validacao += " Bairro\n";
-			telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			i++;
-		} else {
-			endereco.setBairro(bairro);
-		}
-		if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
-			validacao += " Cidade\n";
-			i++;
-			telaCadastroFuncionario.getTxtMunicipio().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-		} else {
-			endereco.setCidade(cidade);
-		}
-		if (rua == null || rua.trim() == "" || rua.isEmpty()) {
-			validacao += " Rua\n";
-			i++;
-			telaCadastroFuncionario.getTxtRua().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-		} else {
-			endereco.setRua(rua);
 
 		}
+		if (!endereco.getBairro().equals(funcionario.getEndereco().getBairro())
+				|| !endereco.getCidade().equals(funcionario.getEndereco().getCidade())
+				|| !(endereco.getEstado().getId() == funcionario.getEndereco().getEstado().getId())
+				|| !endereco.getRua().equals(funcionario.getEndereco().getRua())) {
 
-		if (validacao.trim() != "") {
-			JOptionPane.showMessageDialog(null, validacao, "Dados inválidos:", JOptionPane.ERROR_MESSAGE, null);
-		}
-		int posicao = telaCadastroFuncionario.getCbxEstado().getSelectedIndex();
-		Estado estado = new Estado();
-		estado.setId(posicao + 1);
-		endereco.setEstado(estado);
-		if (i == 0) {
-
-			boolean resultado = enderecoDao.inserirEndereco(endereco);
-			if (resultado == true) {
-				return statusTela.ENDERECOCADASTRADO;
+			int i = JOptionPane.showConfirmDialog(null, "Deseja Alterar o endereço ?");
+			if (i == JOptionPane.YES_OPTION) {
+				boolean retorno = enderecoDao.alterarEndereco(funcionario.getEndereco());
+				if (retorno == true) {
+					JOptionPane.showMessageDialog(null, "Endereço cadastrado");
+				} else {
+					JOptionPane.showMessageDialog(null, "Erro ao editar endereco");
+					return StatusTela.NAOEXIBIRMENSSAGEM;
+				}
 			} else {
-
-				return statusTela.ERROCADASTRARENDERECO;
+				return StatusTela.NAOEXIBIRMENSSAGEM;
 			}
+
 		}
-		return statusTela.NAOEXIBIRMENSSAGEM;
+		if (usuario != null) {
+			return StatusTela.USUARIOEXISTENTE;
+		}
+		boolean retornoUsuairo = usuarioDao.inserirUsuario(funcionario.getUsuario());
+		usuario = usuarioDao.consultarUsuario(funcionario.getUsuario());
+		if (retornoUsuairo != true) {
+			JOptionPane.showMessageDialog(null, "Erro ao inserir o usuario");
+			return StatusTela.NAOEXIBIRMENSSAGEM;
+		}
+		usuario = usuarioDao.consultarUsuario(funcionario.getUsuario());
+		funcionario.setUsuario(usuario);
+		funcionarioDao = new FuncionarioDao();
+		boolean retornoMedico = funcionarioDao.cadastrarFuncionario(funcionario);
+		if (retornoMedico == true) {
+			return StatusTela.FUNCIONARIOCADASTRADO;
+		}
+		JOptionPane.showMessageDialog(null, "Erro ao inserir médico");
+		return StatusTela.NAOEXIBIRMENSSAGEM;
 	}
 
+	
 	public boolean excluirFuncionario(Funcionario funcionarioClick) {
 		funcionarioDao = new FuncionarioDao();
 		boolean result = funcionarioDao.excluirFuncionario(funcionarioClick);

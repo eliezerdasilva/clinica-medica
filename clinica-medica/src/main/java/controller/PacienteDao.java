@@ -11,7 +11,10 @@ import java.util.ArrayList;
 
 import model.Convenio;
 import model.Endereco;
+import model.Estado;
+import model.Funcionario;
 import model.Paciente;
+import model.Usuario;
 
 public class PacienteDao implements InterfacePacienteDao {
 
@@ -320,6 +323,66 @@ public class PacienteDao implements InterfacePacienteDao {
 		return null;
 	}
 
+	public ArrayList<Paciente> consultaCPFNome(String nome, long cpf) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int valida = 0;
+		ArrayList<Paciente> listaPaciente = new ArrayList<>();
+		try {
+			PreparedStatement ps = c.prepareStatement("select paciente.*, endereco.* from paciente  \r\n"
+					+ "join endereco on paciente.endereco_cep = endereco.cep  \r\n"
+                    + "where cpf = ? or nome = ? ;") ;
+			
+			ps.setLong(1, cpf);
+			ps.setString(2, nome);
 
+			ResultSet rs = ps.executeQuery();
+
+			
+			while (rs.next()) {
+				var paciente = new Paciente();
+				var endereco = new Endereco();
+				var estado = new Estado();
+			
+				
+				//estado 
+				estado.setId(rs.getInt("id_estado"));
+				
+				//Endereco 
+				endereco.setBairro(rs.getString("Bairro"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setEstado(estado);
+				endereco.setRua(rs.getString("rua"));
+				endereco.setCep(rs.getInt("cep"));
+				
+				paciente.setNumero(rs.getInt("numero"));
+				paciente.setComplemento(rs.getString("complemento"));
+					
+	
+				paciente.setCpf(rs.getLong("cpf"));
+				paciente.setNome(rs.getString("nome"));
+				paciente.setSexo(rs.getString("sexo"));
+				paciente.setEmail(rs.getString("email"));
+				paciente.setTelefone(rs.getString("telefone"));
+				paciente.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				
+				paciente.setNumero(rs.getInt("numero"));
+				paciente.setComplemento(rs.getString("complemento"));
+				
+				paciente.setEndereco(endereco);
+				
+				listaPaciente.add(paciente);
+			
+
+			}
+			return listaPaciente;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			con.fecharConexao();
+		}
+		return listaPaciente;
+	}
 
 }

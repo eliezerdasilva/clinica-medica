@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.net.URL;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -20,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -36,7 +39,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.AncestorEvent;
@@ -47,8 +52,8 @@ import javax.swing.text.MaskFormatter;
 import controller.EnderecoDao;
 import controller.FuncionarioDao;
 import controller.UsuarioDao;
-import helper.ManterFuncionarioHelper;
 import helper.ManterEndereco;
+import helper.ManterFuncionarioHelper;
 import model.Endereco;
 import model.Estado;
 import model.Funcionario;
@@ -122,6 +127,17 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JButton btnEditar;
 	private Funcionario funcionarioClick;
 	private AbstractButton btnSalvar;
+	private JButton voltar;
+	int d = 0;
+	private int menu = 0;
+	private int sairPerfil = 0;
+
+	private JPanel panelSairPerfil;
+
+	private JButton btnSair;
+
+	private JButton btnPerfil;
+	private Date date;
 
 	/**
 	 * Create the frame.
@@ -133,11 +149,11 @@ public class TelaCadastroFuncionario extends JFrame {
 		funcionarioDao = new FuncionarioDao();
 
 		this.telaCadastroFuncionario = this;
-		listaTabela();
+		AtualizarTabela();
 
 		setMinimumSize(new Dimension(1250, 1000));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/imagens/LocoHospital.png")));
-		setTitle("Cadastro do funcinário");
+		setTitle("Tela cadastro de funcinário");
 
 		URL resourceIcon = TelaLogin.class.getResource("/imagens/LocoHospital.png");
 		if (resourceIcon != null) {
@@ -151,23 +167,25 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
-		contentPane.setBackground(new Color(144, 238, 144));
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBounds(100, 100, 2000, 1050);
 
 		setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(51, 153, 0));
+		panel.setBounds(437, 84, 1157, 887);
+		panel.setBorder(new LineBorder(new Color(143, 188, 143), 4));
+		panel.setBackground(new Color(143, 188, 143));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(Color.BLACK);
-		panel_1.setBackground(new Color(236, 253, 232));
-		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
+		panel_1.setBackground(new Color(143, 188, 143));
+		// panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 8));
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(51, 153, 0));
+		panel_2.setBackground(new Color(143, 188, 143));
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new CardLayout(0, 15));
 
@@ -181,10 +199,10 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_4.setBackground(new Color(204, 255, 204));
 		panel_1.add(panel_4, BorderLayout.CENTER);
 		panel_4.setLayout(
-				new MigLayout("", "[978.00:n:1280,grow]", "[][160:n:160,grow][100:n:100,grow][380:n:380,grow]"));
+				new MigLayout("", "[1142.00:n:1134,grow]", "[][160:n:160,grow][100:n:100,grow][380:n:390,grow]"));
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(51, 153, 0), 4));
+		panel_3.setBorder(new LineBorder(new Color(143, 188, 143), 3));
 		panel_3.setBackground(new Color(236, 253, 232));
 		panel_4.add(panel_3, "cell 0 0,grow");
 		panel_3.setLayout(new MigLayout("", "[80:n:80][300:n:300,grow][][300:n:300][][][150:n:150,grow]",
@@ -261,7 +279,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(236, 253, 232));
-		panel_5.setBorder(new LineBorder(new Color(51, 153, 0), 5));
+		panel_5.setBorder(new LineBorder(new Color(143, 188, 143), 3));
 		panel_4.add(panel_5, "cell 0 1,grow");
 		panel_5.setLayout(new MigLayout("",
 				"[80:n:80][150:n:150,grow][150:n:150][150:n:150,grow][100:n:100][180:n:180,grow][70:n:70][170:n:170,grow]",
@@ -282,112 +300,123 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtCep.setColumns(10);
 
 		JButton btnBuscarCep = new JButton("Buscar");
+		btnBuscarCep.setForeground(new Color(255, 255, 255));
+		btnBuscarCep.setBackground(new Color(149, 208, 157));
 		btnBuscarCep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				String cepString = txtCep.getText().replace("-", "");
-				
-				Integer cep = Integer.parseInt(cepString);
-				
-				Endereco consultaEndereco = new Endereco(cep);
-				
+
 				Endereco resultado = new Endereco();
-				
-				resultado = enderecoDao.consultarEndereco(consultaEndereco);
 
-				if (resultado != null) {
-					limparEndereco();
-					int cepNovo = resultado.getCep();
-					String ruaNova = resultado.getRua();
-					String bairroNovo = resultado.getBairro();
-					String cidadeNova = resultado.getCidade();
-					Estado estadoNovo = resultado.getEstado();
+				validacao = "";
 
-					enderecoPronto = new Endereco();
-					enderecoPronto.setCep(cepNovo);
-					enderecoPronto.setCidade(cidadeNova);
-					enderecoPronto.setEstado(estadoNovo);
-					enderecoPronto.setRua(ruaNova);
-					enderecoPronto.setBairro(bairroNovo);
+				if (cepString != null && cepString.trim() != "" && !cepString.isEmpty()) {
+					Integer cep = Integer.parseInt(cepString);
+					Endereco consultaEndereco = new Endereco(cep);
+					resultado = enderecoDao.consultarEndereco(consultaEndereco);
 
-					txtCep.setText(cepString);
-					txtMunicipio.setText(enderecoPronto.getCidade());
-					txtBairro.setText(enderecoPronto.getBairro());
-					txtRua.setText(enderecoPronto.getRua());
+					if (resultado != null) {
+						limparEndereco();
+						int cepNovo = resultado.getCep();
+						String ruaNova = resultado.getRua();
+						String bairroNovo = resultado.getBairro();
+						String cidadeNova = resultado.getCidade();
+						Estado estadoNovo = resultado.getEstado();
 
-					cbxEstado.setSelectedIndex(enderecoPronto.getEstado().getId() - 1);
+						enderecoPronto = new Endereco();
+						enderecoPronto.setCep(cepNovo);
+						enderecoPronto.setCidade(cidadeNova);
+						enderecoPronto.setEstado(estadoNovo);
+						enderecoPronto.setRua(ruaNova);
+						enderecoPronto.setBairro(bairroNovo);
 
-				} else {
-					int replaced = JOptionPane.showConfirmDialog(null, "Endereço não Cadastrado, deseja cadastrar ?");
+						txtCep.setText(cepString);
+						txtMunicipio.setText(enderecoPronto.getCidade());
+						txtBairro.setText(enderecoPronto.getBairro());
+						txtRua.setText(enderecoPronto.getRua());
 
-					String result = "0";
-					switch (replaced) {
+						cbxEstado.setSelectedIndex(enderecoPronto.getEstado().getId() - 1);
 
-					case JOptionPane.NO_OPTION:
-						result = "No";
-						break;
-					case JOptionPane.YES_OPTION:
-						result = "Yes";
-						break;
+						telaCadastroFuncionario.getTxtCep().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+						telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+						telaCadastroFuncionario.getTxtMunicipio().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+						telaCadastroFuncionario.getTxtRua().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+					} else {
+						int replaced = JOptionPane.showConfirmDialog(null,
+								"Endereço não Cadastrado, deseja cadastrar ?");
 
-					case JOptionPane.CANCEL_OPTION:
-						result = "Canceled";
-						break;
-					case JOptionPane.CLOSED_OPTION:
-						result = "Closed";
-						break;
-					default:
-						;
-					}
-					ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
-					if (result.equals("Yes")) {
-						StatusTela retorno = cadastroFuncionarioHelper.cadastrarEndereco(telaCadastroFuncionario);
+						String result = "0";
+						switch (replaced) {
 
-						if (StatusTela.ENDERECOCADASTRADO == retorno) {
-							JOptionPane.showMessageDialog(null, "Endereço cadastrado ");
-							limpaBordaEndereco();
+						case JOptionPane.NO_OPTION:
+							result = "No";
+							break;
+						case JOptionPane.YES_OPTION:
+							result = "Yes";
+							break;
 
-						} else {
-							if (retorno == StatusTela.NAOEXIBIRMENSSAGEM) {
-
-							} else {
-								JOptionPane.showMessageDialog(null, "Erro ao  cadastrar endereço ");
+						case JOptionPane.CANCEL_OPTION:
+							result = "Canceled";
+							break;
+						case JOptionPane.CLOSED_OPTION:
+							result = "Closed";
+							break;
+						default:
+							;
+						}
+						ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
+						if (result.equals("Yes")) {
+							consultaEndereco = setarObjetoEndereco();
+							if (consultaEndereco != null) {
+								boolean retorno = enderecoDao.inserirEndereco(consultaEndereco);
+								if (retorno == true) {
+									JOptionPane.showMessageDialog(null, "Endereço cadastrado com sucesso!");
+								} else {
+									JOptionPane.showMessageDialog(null, "Falha ao cadastrar!", "Erro",
+											JOptionPane.ERROR_MESSAGE);
+								}
 							}
 
+						} else {
+							limpaBordaEndereco();
+							txtCep.setText("");
 						}
-					} else {
-						limpaBordaEndereco();
-						txtCep.setText("");
-					}
 
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Informe o cep");
 				}
 			}
 		});
 		btnBuscarCep.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(btnBuscarCep, "cell 3 0 2 1,grow");
 
-		RoundButton btnEditarEnderço = new RoundButton(50);
+		JButton btnEditarEnderço = new JButton();	
+		btnEditarEnderço.setForeground(new Color(255, 255, 255));
+		btnEditarEnderço.setBackground(new Color(149, 208, 157));
+		btnEditarEnderço.setIcon(new ImageIcon("src\\main\\resources\\imagens\\editar.png"));
 		btnEditarEnderço.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
 				StatusTela retornoStatusTela = null;
-				Endereco retornoEndereco = cadastroFuncionarioHelper.setarObjetoEndereco(telaCadastroFuncionario);
+				Endereco retornoEndereco = setarObjetoEndereco();
 				if (retornoEndereco != null) {
 					ManterEndereco manterEndereco = new ManterEndereco();
-					 retornoStatusTela = manterEndereco.consultarEndereco(retornoEndereco);					
+					retornoStatusTela = manterEndereco.consultarEndereco(retornoEndereco);
 				}
-				if(StatusTela.ENDERECOALTERADO == retornoStatusTela) {
+				if (StatusTela.ENDERECOALTERADO == retornoStatusTela) {
 					JOptionPane.showMessageDialog(null, "Endereço alterado");
-				}else {
-					if(StatusTela.ENDERECOCADASTRADO == retornoStatusTela) {
+				} else {
+					if (StatusTela.ENDERECOCADASTRADO == retornoStatusTela) {
 						JOptionPane.showMessageDialog(null, "Endereço cadastrado");
-					}else {
-						if(StatusTela.ERROALTERARENDERECO == retornoStatusTela) {
+					} else {
+						if (StatusTela.ERROALTERARENDERECO == retornoStatusTela) {
 							JOptionPane.showMessageDialog(null, "Erro ao alterar o endereço ");
-						}else {
+						} else {
 							JOptionPane.showMessageDialog(null, "Erro ao cadastrar o endereço ");
 						}
-							
+
 					}
 				}
 			}
@@ -451,7 +480,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtRua = new JTextField();
 		panel_5.add(txtRua, "cell 7 2,grow");
 		txtRua.setColumns(10);
-		listaTabela();
+		AtualizarTabela();
 		JLabel lblNewLabel_14 = new JLabel("N°:");
 		lblNewLabel_14.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_5.add(lblNewLabel_14, "cell 0 4,alignx trailing");
@@ -474,10 +503,9 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		JPanel panel_9 = new JPanel();
 		panel_9.setBackground(new Color(240, 255, 240));
-		panel_9.setBorder(new LineBorder(new Color(51, 153, 0), 4));
+		panel_9.setBorder(new LineBorder(new Color(143, 188, 143), 3));
 		panel_4.add(panel_9, "cell 0 2,grow");
-		panel_9.setLayout(new MigLayout("",
-				"[80:n:80][200:n:200,grow][110:n:110][200:n:200,grow][10:n:10][][][150:n:150]", "[30:n:30][30:n:30]"));
+		panel_9.setLayout(new MigLayout("", "[80:n:80][200:n:200,grow][110:n:110][200:n:200,grow][10:n:10][][][214.00:n:200]", "[30:n:30][30:n:30]"));
 
 		JLabel lblNewLabel_23 = new JLabel("Login");
 		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
@@ -512,37 +540,53 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_9.add(rdbtnFuncionario, "cell 6 1");
 
 		JButton btnCadastrarFuncionario = new JButton("Cadastrar funcionário");
+		btnCadastrarFuncionario.setForeground(new Color(255, 255, 255));
+		btnCadastrarFuncionario.setBackground(new Color(149, 208, 157));
 		btnCadastrarFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				ManterFuncionarioHelper manterFuncionarioHelper = new ManterFuncionarioHelper();
+
 				Funcionario funcionario = new Funcionario();
+				Endereco endereco = new Endereco();
+				Usuario usuario = new Usuario();
+
+				validacao = "";
+
 				funcionario = setarObjetoFuncionario();
-				if (funcionario != null) {
+				usuario = setarObjetoUsuario();
+				endereco = setarObjetoEndereco();
+
+				if (funcionario != null && usuario != null && endereco != null) {
 					StatusTela retorno = manterFuncionarioHelper.cadastrarFuncionario(funcionario);
 					if (StatusTela.USUARIOEXISTENTE == retorno) {
-						JOptionPane.showMessageDialog(null, "Usuário existente, informe outro");
+						JOptionPane.showMessageDialog(null, "Usuário existente, informe outro","ERRO", JOptionPane.ERROR_MESSAGE);
 					} else {
 						if (StatusTela.FUNCIONARIOCADASTRADO == retorno) {
-							JOptionPane.showMessageDialog(null, "Médico cadastrado");
-							listaTabela();
+							JOptionPane.showMessageDialog(null, "Funcionario cadastrado");
+							AtualizarTabela();
 							limparTela();
-						} else {
+							limparBorda();
 
+						} else {
+							JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar", "ERRO",
+									JOptionPane.ERROR_MESSAGE);
 						}
 
 					}
 
+				} else {
+					JOptionPane.showMessageDialog(null, validacao, "Dados inválidos:", JOptionPane.ERROR_MESSAGE, null);
 				}
 
-			
-		}});
+			}
+		});
 		btnCadastrarFuncionario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_9.add(btnCadastrarFuncionario, "cell 7 1,grow");
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(236, 253, 232));
-		panel_6.setBorder(new LineBorder(new Color(51, 153, 0), 4));
+		panel_6.setBorder(new LineBorder(new Color(143, 188, 143), 3));
 		panel_4.add(panel_6, "cell 0 3,grow");
 		panel_6.setLayout(
 				new MigLayout("", "[80:n:80][200:n:200,grow][][100:n:100][200:n:200,grow][][220:n:220][230:n:230][]",
@@ -575,12 +619,15 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtBuscarNome.setColumns(10);
 
 		JButton btnBuscarFuncionario = new JButton("Buscar");
+		btnBuscarFuncionario.setForeground(new Color(255, 255, 255));
+		btnBuscarFuncionario.setBackground(new Color(149, 208, 157));
 		btnBuscarFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				String cpf = txtBuscarCpf.getText().replace(".", "").replace("-", "");
 				String nome = txtBuscarNome.getText();
 				funcionarioDao = new FuncionarioDao();
+
 				if ((cpf != null && nome != null) || (cpf != null && nome == null) || (cpf == null && nome != null)) {
 					ArrayList<Funcionario> listfuncionario = new ArrayList<>();
 					if (cpf.trim() == "") {
@@ -592,7 +639,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 					}
 					listfuncionario = funcionarioDao.consultaCPFNome(nome, Long.parseLong(cpf));
-					listaTabelaBuca(listfuncionario);
+					listaTabelaBusca(listfuncionario);
 
 				}
 
@@ -601,14 +648,72 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnBuscarFuncionario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnBuscarFuncionario, "cell 6 1,grow");
 
+		panelSairPerfil = new JPanel();
+		panelSairPerfil.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		panelSairPerfil.setBackground(new Color(143, 188, 143));
+		panelSairPerfil.setBounds(1650, 80, 266, 200);
+		panelSairPerfil.setForeground(Color.BLACK);
+		panelSairPerfil.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][50:n][10:n][50:n][10:n][50:n]"));
+		contentPane.add(panelSairPerfil);
+		panelSairPerfil.setVisible(false);
+
+		lblNewLabel = new JLabel("/");
+		lblNewLabel.setForeground(SystemColor.window);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panelSairPerfil.add(lblNewLabel, "cell 0 0,alignx center");
+
+		btnSair = new JButton("Sair do sistema ");
+		btnSair.setBackground(SystemColor.controlHighlight);
+		btnSair.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnSair.setBorder(null);
+		btnSair.setForeground(Color.BLACK);
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaLogin tl = new TelaLogin();
+				tl.setLocationRelativeTo(null);
+				tl.setVisible(true);
+				dispose();
+
+			}
+		});
+		panelSairPerfil.add(btnSair, "cell 0 1,grow");
+
+		btnPerfil = new JButton("Perfil");
+		btnPerfil.setBackground(SystemColor.controlHighlight);
+		btnPerfil.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnPerfil.setBorder(null);
+		btnPerfil.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		panelSairPerfil.add(btnPerfil, "cell 0 3,grow");
+		btnPerfil.setVisible(true);
+		btnSair.setVisible(true);
+		lblNewLabel.setVisible(true);
+
+		contentPane.add(panelSairPerfil);
+		panelSairPerfil.setVisible(false);
+		
+		JButton btnLimpar = new JButton("   Limpar   ");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AtualizarTabela();
+			}
+		});
+		btnLimpar.setForeground(Color.WHITE);
+		btnLimpar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnLimpar.setBackground(new Color(149, 208, 157));
+		panel_6.add(btnLimpar, "cell 7 1");
 		JPanel panel_7 = new JPanel();
 		panel_7.setBackground(new Color(240, 255, 240));
-		panel_7.setBorder(new LineBorder(new Color(51, 153, 0), 4));
+		panel_7.setBorder(new LineBorder(new Color(143, 188, 143), 3));
 		panel_6.add(panel_7, "cell 1 3 7 1,grow");
 		panel_7.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(65, 10, 971, 178);
+		scrollPane.setBounds(10, 11, 968, 178);
 		panel_7.add(scrollPane);
 
 		table_1 = new JTable();
@@ -616,9 +721,13 @@ public class TelaCadastroFuncionario extends JFrame {
 		scrollPane.setViewportView(table_1);
 
 		btnEditar = new JButton("Editar");
+		btnEditar.setForeground(new Color(255, 255, 255));
+		btnEditar.setBackground(new Color(149, 208, 157));
 		btnEditar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+
+				
 				funcionarioClick = new Funcionario();
 
 				btnCadastrarFuncionario.setVisible(false);
@@ -630,10 +739,13 @@ public class TelaCadastroFuncionario extends JFrame {
 				btnExcluir.setVisible(false);
 				panel_6.remove(btnExcluir);
 
-				JButton voltar = new JButton("Volta");
+				voltar = new JButton("Cancelar");
+				voltar.setForeground(new Color(255, 255, 255));
+				voltar.setBackground(new Color(149, 208, 157));
+				
 				voltar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						limpaBorda();
+						limparBorda();
 						panel_9.add(btnCadastrarFuncionario);
 						btnCadastrarFuncionario.setVisible(true);
 
@@ -663,29 +775,72 @@ public class TelaCadastroFuncionario extends JFrame {
 					return;
 				}
 
+				funcionarioClick = listaFuncionario.get(position);
+				
+				preencherFuncionarioTabela(funcionarioClick);
+				
 				btnSalvar = new JButton("Salvar");
+				btnSalvar.setForeground(new Color(255, 255, 255));
+				btnSalvar.setBackground(new Color(149, 208, 157));
 				btnSalvar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
+						validacao = "";
+
 						Funcionario funcionario = new Funcionario();
+						var endereco = new Endereco();
+						var usuario = new Usuario();
 						funcionario = setarObjetoFuncionario();
-						ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
-						StatusTela retorno = cadastroFuncionarioHelper.editarFuncionario(funcionario);
-						if (StatusTela.FUNCIONARIEDITADO == retorno) {
-							JOptionPane.showMessageDialog(null, "Funcionario editado");
-							listaTabela();
+						endereco = setarObjetoEndereco();
+						usuario = setarObjetoUsuario();
+
+						if (funcionario != null && usuario != null && endereco != null) {
+
+							funcionario.setEndereco(endereco);
+							funcionario.setUsuario(usuario);
+
+							ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
+							StatusTela retorno = cadastroFuncionarioHelper.editarFuncionario(funcionario);
+							if (StatusTela.FUNCIONARIEDITADO == retorno) {
+								JOptionPane.showMessageDialog(null, "Funcionario editado");
+								AtualizarTabela();
+								limparTela();
+
+							} else {
+								JOptionPane.showMessageDialog(null, "Erro ao editar");
+							}
+
+							panel_9.add(btnCadastrarFuncionario);
+							btnCadastrarFuncionario.setVisible(true);
+
+							btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
+							panel_6.add(btnEditar, "cell 1 5,growx");
+							btnEditar.setVisible(true);
+
+							btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
+							panel_6.add(btnExcluir, "cell 3 5,grow");
+							btnExcluir.setVisible(true);
+							limparBorda();
+							voltar.setVisible(false);
+							panel_6.remove(voltar);
+							limparTela();
+
+							btnSalvar.setVisible(false);
+							panel_9.remove(btnSalvar);
+
 						} else {
-							JOptionPane.showMessageDialog(null, "Erro ao editar");
+							JOptionPane.showMessageDialog(null, validacao, "Dados inválidos:",
+									JOptionPane.ERROR_MESSAGE, null);
 						}
 
 					}
 
 				});
 				btnSalvar.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_9.add(btnSalvar, "cell 5 1,grow");
+				panel_9.add(btnSalvar, "cell 7 1,grow");
 
-				funcionarioClick = listaFuncionario.get(position);
-				preencherFuncionarioTabela(funcionarioClick);
+			
+			
 
 			}
 		});
@@ -693,6 +848,8 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_6.add(btnEditar, "cell 1 5,grow");
 
 		btnExcluir = new JButton("Excluir");
+		btnExcluir.setForeground(new Color(255, 255, 255));
+		btnExcluir.setBackground(new Color(149, 208, 157));
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -731,9 +888,13 @@ public class TelaCadastroFuncionario extends JFrame {
 				}
 				if (result.equals("Yes")) {
 					boolean retorno = cadastroFuncionarioHelper.excluirFuncionario(funcionarioClick);
+					
 					if (retorno == true) {
 						JOptionPane.showMessageDialog(null, "Excluido com sucesso");
-						listaTabela();
+						UsuarioDao usuarioDao = new UsuarioDao();
+						usuarioDao.deletarUsuario(funcionarioClick.getUsuario());
+						
+						AtualizarTabela();
 					} else {
 						JOptionPane.showMessageDialog(null, "Não foi possivel excluir:" + funcionarioClick.getNome(),
 								"null", JOptionPane.ERROR_MESSAGE);
@@ -749,6 +910,8 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_6.add(btnExcluir, "cell 4 5,grow");
 
 		JButton btnVoltar = new JButton("     Voltar       ");
+		btnVoltar.setForeground(new Color(255, 255, 255));
+		btnVoltar.setBackground(new Color(149, 208, 157));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaMenuPrincipal mp = new TelaMenuPrincipal(usuario);
@@ -760,24 +923,50 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnVoltar, "cell 7 5,alignx trailing,growy");
 		contentPane.setLayout(null);
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup().addGap(395)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1157, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(362, Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane
-						.createSequentialGroup().addGap(25).addComponent(panel, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(101, Short.MAX_VALUE)));
+
+		JPanel panel_8 = new JPanel();
+		panel_8.setBounds(0, 0, 1929, 73);
+		panel_8.setBackground(new Color(143, 188, 143));
+
+		JLabel lblNewLabel_1_1 = new JLabel("Manter funcionário ");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+
+		JButton btnLoginSair = new JButton("");
+		btnLoginSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (sairPerfil == 0) {
+					sairPerfil = 1;
+					panelSairPerfil.setVisible(true);
+				} else {
+					panelSairPerfil.setVisible(false);
+					sairPerfil = 0;
+				}
+			}
+		});
+		btnLoginSair.setBackground(Color.WHITE);
+		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
+		gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_8.createSequentialGroup().addGap(73)
+						.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 841, GroupLayout.PREFERRED_SIZE)
+						.addGap(888).addComponent(btnLoginSair)));
+		gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_8.createSequentialGroup().addGap(7).addComponent(btnLoginSair,
+						GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_panel_8.createSequentialGroup().addContainerGap()
+						.addComponent(lblNewLabel_1_1, GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+						.addContainerGap()));
+		panel_8.setLayout(gl_panel_8);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addComponent(panel_1,
-				GroupLayout.PREFERRED_SIZE, 1157, GroupLayout.PREFERRED_SIZE));
-		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup().addGap(11).addComponent(panel_1, GroupLayout.PREFERRED_SIZE,
-						GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)));
+				GroupLayout.DEFAULT_SIZE, 1149, Short.MAX_VALUE));
+		gl_panel.setVerticalGroup(
+				gl_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_panel.createSequentialGroup()
+						.addContainerGap().addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)));
 		panel.setLayout(gl_panel);
-		contentPane.setLayout(gl_contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(panelSairPerfil);
+		contentPane.add(panel_8);
+		contentPane.add(panel);
 
 		JButton btnNewButton = new RoundButton("Entrar");
 		btnNewButton.setIcon(new ImageIcon(
@@ -794,7 +983,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				btnNewButton.setBackground(new Color(51, 153, 51));
 			}
 		});
-		listaTabela();
+		AtualizarTabela();
 
 	}
 
@@ -890,7 +1079,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		this.txtCep = txtCep;
 	}
 
-	public void listaTabelaBuca(ArrayList<Funcionario> listFuncionarios) {
+	public void listaTabelaBusca(ArrayList<Funcionario> listFuncionarios) {
 
 		modelTabelaBusca = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Cpf", "E-mail" });
 
@@ -903,7 +1092,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		table_1.setModel(modelTabelaBusca);
 	}
 
-	public void listaTabela() {
+	public void AtualizarTabela() {
 
 		modelTabela = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Cpf", "E-mail" });
 
@@ -922,6 +1111,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtEmail.setText("");
 		txtTelefone.setText("");
 		txtComplemento.setText("");
+		txtData.setText("");
 
 		txtCpf.setText("");
 		txtCpf.setEditable(true);
@@ -933,10 +1123,10 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtRua.setText("");
 
 		txtUsuario.setText("");
+		jpfSenha.setText("");
 	}
 
 	private void limparEndereco() {
-
 		txtCep.setText("");
 		txtBairro.setText("");
 		txtMunicipio.setText("");
@@ -945,6 +1135,9 @@ public class TelaCadastroFuncionario extends JFrame {
 
 	protected void preencherFuncionarioTabela(Funcionario funcionarioClick) {
 
+		Date data = Date.valueOf(funcionarioClick.getDataNascimento());
+		txtData.setText(formatDate.format(data));
+
 		txtNome.setText(funcionarioClick.getNome());
 		txtEmail.setText(funcionarioClick.getEmail());
 		txtTelefone.setText(funcionarioClick.getTelefone());
@@ -952,8 +1145,9 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtNumero.setText(String.valueOf(funcionarioClick.getNumero()));
 		txtCpf.setEditable(false);
 		txtCpf.setText(String.valueOf(funcionarioClick.getCpf()));
-		Date data = Date.valueOf(funcionarioClick.getDataNascimento());
-		txtData.setText(formatDate.format(data));
+	
+		
+		
 		Long usuarioid = funcionarioClick.getUsuario().getId();
 		usuarioDao = new UsuarioDao();
 		Usuario usuario = usuarioDao.consultarUsuarioID(usuarioid);
@@ -983,32 +1177,39 @@ public class TelaCadastroFuncionario extends JFrame {
 		}
 	}
 
-	private void limpaBorda() {
+	private void limparBorda() {
+		Border blackline = BorderFactory.createLineBorder(Color.black);
+		txtNome.setBorder(blackline);
+		txtEmail.setBorder(blackline);
+		txtTelefone.setBorder(blackline);
+		txtComplemento.setBorder(blackline);
+		txtNumero.setBorder(blackline);
+		txtCpf.setBorder(blackline);
+		txtData.setBorder(blackline);
 
-		txtNome.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		txtEmail.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		txtTelefone.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		txtComplemento.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		txtNumero.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		txtCpf.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		txtData.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		txtUsuario.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		jpfSenha.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtUsuario.setBorder(blackline);
+		jpfSenha.setBorder(blackline);
 
+		txtCep.setBorder(blackline);
+		txtRua.setBorder(blackline);
+		txtBairro.setBorder(blackline);
+		txtMunicipio.setBorder(blackline);
 	}
 
 	private void limpaBordaEndereco() {
-		txtRua.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		txtBairro.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		txtMunicipio.setBorder(new LineBorder(new Color(255, 255, 255), 4));
+		txtCep.setBorder(new LineBorder(new Color(00, 00, 00), 1));
+		txtRua.setBorder(new LineBorder(new Color(00, 00, 00), 1));
+		txtBairro.setBorder(new LineBorder(new Color(00, 00, 00), 1));
+		txtMunicipio.setBorder(new LineBorder(new Color(00, 00, 00), 1));
 
 	}
 
 	public Funcionario setarObjetoFuncionario() {
+
+
 		Funcionario funcionario = new Funcionario();
-		
-		String nome = telaCadastroFuncionario.getTxtNome().getText();		
-		
+
+		String nome = telaCadastroFuncionario.getTxtNome().getText();
 
 		String cpfTxt = telaCadastroFuncionario.getTxtCpf().getText().replace(".", "").replace("-", "");
 
@@ -1024,8 +1225,8 @@ public class TelaCadastroFuncionario extends JFrame {
 		}
 		String email = telaCadastroFuncionario.getTxtEmail().getText();
 
-		String telefone = telaCadastroFuncionario.getTxtTelefone().getText().replace("-", "").replace("(", "").replace(")",
-				"");
+		String telefone = telaCadastroFuncionario.getTxtTelefone().getText().replace("-", "").replace("(", "")
+				.replace(")", "");
 
 		String dataN = telaCadastroFuncionario.getTxtData().getText();
 
@@ -1033,7 +1234,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		String numeroCasa = telaCadastroFuncionario.getTxtNumero().getText();
 
-		//  nova validacao nome
+		// nova validacao nome
 		if (nome == null || nome.trim() == "" || nome.isEmpty()) {
 			telaCadastroFuncionario.getTxtNome().setBorder(new LineBorder(new Color(255, 00, 00), 4));
 			validacao += "Nome\n";
@@ -1094,7 +1295,16 @@ public class TelaCadastroFuncionario extends JFrame {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				LocalDate dta = LocalDate.parse(dataN, formatter);
 				dta.format(formatter);
-				funcionario.setDataNascimento(dta);
+
+				LocalDate dataAtual = LocalDate.now();
+
+				if (dataAtual.isBefore(dta)) {
+					validacao += "Informe uma data anterior";
+
+				} else {
+					funcionario.setDataNascimento(dta);
+				}
+
 			}
 
 		}
@@ -1111,7 +1321,6 @@ public class TelaCadastroFuncionario extends JFrame {
 			funcionario.setNumero(nCasa);
 		}
 
-
 		Usuario usuario = new Usuario();
 		usuario = setarObjetoUsuario();
 		Endereco endereco = new Endereco();
@@ -1119,7 +1328,6 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		if (endereco != null && usuario != null) {
 			if (validacao.trim() != "") {
-				JOptionPane.showMessageDialog(null, validacao, "Adicione:", JOptionPane.ERROR_MESSAGE, null);
 				return null;
 			} else {
 				funcionario.setUsuario(usuario);
@@ -1128,7 +1336,6 @@ public class TelaCadastroFuncionario extends JFrame {
 
 			}
 		}
-		validacao = "";
 		return null;
 	}
 
@@ -1147,6 +1354,7 @@ public class TelaCadastroFuncionario extends JFrame {
 			validacao += " Cep\n";
 			telaCadastroFuncionario.getTxtCep().setBorder(new LineBorder(new Color(255, 00, 00), 4));
 		} else {
+			telaCadastroFuncionario.getTxtCep().setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			Integer cep = Integer.valueOf(cepString);
 			endereco.setCep(cep);
 		}
@@ -1155,23 +1363,22 @@ public class TelaCadastroFuncionario extends JFrame {
 			validacao += " Bairro\n";
 			telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(255, 00, 00), 4));
 		} else {
+			telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			endereco.setBairro(bairro);
 		}
 		if (cidade == null || cidade.trim() == "" || cidade.isEmpty()) {
 			validacao += " Cidade\n";
 			telaCadastroFuncionario.getTxtMunicipio().setBorder(new LineBorder(new Color(255, 00, 00), 4));
 		} else {
+			telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			endereco.setCidade(cidade);
 		}
 		if (rua == null || rua.trim() == "" || rua.isEmpty()) {
 			validacao += " Rua\n";
 			telaCadastroFuncionario.getTxtRua().setBorder(new LineBorder(new Color(255, 00, 00), 4));
 		} else {
+			telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			endereco.setRua(rua);
-		}
-
-		if (validacao.trim() != "") {
-			JOptionPane.showMessageDialog(null, validacao, "Dados inválidos:", JOptionPane.ERROR_MESSAGE, null);
 		}
 
 		int posicao = telaCadastroFuncionario.getCbxEstado().getSelectedIndex();
@@ -1181,8 +1388,9 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		if (validacao.trim() == "") {
 			return endereco;
+		} else {
+			return null;
 		}
-		return null;
 
 	}
 
