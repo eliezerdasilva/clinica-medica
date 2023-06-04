@@ -392,7 +392,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnBuscarCep.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_5.add(btnBuscarCep, "cell 3 0 2 1,grow");
 
-		JButton btnEditarEnderço = new JButton();	
+		JButton btnEditarEnderço = new JButton();
 		btnEditarEnderço.setForeground(new Color(255, 255, 255));
 		btnEditarEnderço.setBackground(new Color(149, 208, 157));
 		btnEditarEnderço.setIcon(new ImageIcon("src\\main\\resources\\imagens\\editar.png"));
@@ -505,7 +505,9 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_9.setBackground(new Color(240, 255, 240));
 		panel_9.setBorder(new LineBorder(new Color(143, 188, 143), 3));
 		panel_4.add(panel_9, "cell 0 2,grow");
-		panel_9.setLayout(new MigLayout("", "[80:n:80][200:n:200,grow][110:n:110][200:n:200,grow][10:n:10][][][214.00:n:200]", "[30:n:30][30:n:30]"));
+		panel_9.setLayout(
+				new MigLayout("", "[80:n:80][200:n:200,grow][110:n:110][200:n:200,grow][10:n:10][][][214.00:n:200]",
+						"[30:n:30][30:n:30]"));
 
 		JLabel lblNewLabel_23 = new JLabel("Login");
 		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
@@ -560,7 +562,8 @@ public class TelaCadastroFuncionario extends JFrame {
 				if (funcionario != null && usuario != null && endereco != null) {
 					StatusTela retorno = manterFuncionarioHelper.cadastrarFuncionario(funcionario);
 					if (StatusTela.USUARIOEXISTENTE == retorno) {
-						JOptionPane.showMessageDialog(null, "Usuário existente, informe outro","ERRO", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Usuário existente, informe outro", "ERRO",
+								JOptionPane.ERROR_MESSAGE);
 					} else {
 						if (StatusTela.FUNCIONARIOCADASTRADO == retorno) {
 							JOptionPane.showMessageDialog(null, "Funcionario cadastrado");
@@ -695,7 +698,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		contentPane.add(panelSairPerfil);
 		panelSairPerfil.setVisible(false);
-		
+
 		JButton btnLimpar = new JButton("   Limpar   ");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -727,7 +730,17 @@ public class TelaCadastroFuncionario extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 
-				
+				int position = table_1.getSelectedRow();
+
+				if (position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+
+				funcionarioClick = listaFuncionario.get(position);
+
+				preencherFuncionarioTabela(funcionarioClick);
+
 				funcionarioClick = new Funcionario();
 
 				btnCadastrarFuncionario.setVisible(false);
@@ -742,7 +755,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				voltar = new JButton("Cancelar");
 				voltar.setForeground(new Color(255, 255, 255));
 				voltar.setBackground(new Color(149, 208, 157));
-				
+
 				voltar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						limparBorda();
@@ -768,23 +781,12 @@ public class TelaCadastroFuncionario extends JFrame {
 				voltar.setFont(new Font("Tahoma", Font.BOLD, 16));
 				panel_6.add(voltar, "cell 1 5,growx");
 
-				int position = table_1.getSelectedRow();
-
-				if (position == -1) {
-					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
-					return;
-				}
-
-				funcionarioClick = listaFuncionario.get(position);
-				
-				preencherFuncionarioTabela(funcionarioClick);
-				
 				btnSalvar = new JButton("Salvar");
 				btnSalvar.setForeground(new Color(255, 255, 255));
 				btnSalvar.setBackground(new Color(149, 208, 157));
 				btnSalvar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+
 						validacao = "";
 
 						Funcionario funcionario = new Funcionario();
@@ -839,9 +841,6 @@ public class TelaCadastroFuncionario extends JFrame {
 				btnSalvar.setFont(new Font("Tahoma", Font.BOLD, 16));
 				panel_9.add(btnSalvar, "cell 7 1,grow");
 
-			
-			
-
 			}
 		});
 		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -888,12 +887,12 @@ public class TelaCadastroFuncionario extends JFrame {
 				}
 				if (result.equals("Yes")) {
 					boolean retorno = cadastroFuncionarioHelper.excluirFuncionario(funcionarioClick);
-					
+
 					if (retorno == true) {
 						JOptionPane.showMessageDialog(null, "Excluido com sucesso");
 						UsuarioDao usuarioDao = new UsuarioDao();
 						usuarioDao.deletarUsuario(funcionarioClick.getUsuario());
-						
+
 						AtualizarTabela();
 					} else {
 						JOptionPane.showMessageDialog(null, "Não foi possivel excluir:" + funcionarioClick.getNome(),
@@ -1145,9 +1144,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		txtNumero.setText(String.valueOf(funcionarioClick.getNumero()));
 		txtCpf.setEditable(false);
 		txtCpf.setText(String.valueOf(funcionarioClick.getCpf()));
-	
-		
-		
+
 		Long usuarioid = funcionarioClick.getUsuario().getId();
 		usuarioDao = new UsuarioDao();
 		Usuario usuario = usuarioDao.consultarUsuarioID(usuarioid);
@@ -1205,7 +1202,6 @@ public class TelaCadastroFuncionario extends JFrame {
 	}
 
 	public Funcionario setarObjetoFuncionario() {
-
 
 		Funcionario funcionario = new Funcionario();
 

@@ -125,14 +125,14 @@ public class Agenda extends JFrame {
 
 		contentPane = new JPanel();
 		setExtendedState(MAXIMIZED_BOTH);
-		contentPane.setBackground(new Color(144, 238, 144));
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBounds(100, 100, 2000, 1050);
 
 		setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 153, 0));
+		panel.setBackground(new Color(143, 188, 143));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -148,17 +148,17 @@ public class Agenda extends JFrame {
 		panel.setLayout(new MigLayout("", "[1300:n:1300,grow]", "[900:n:900,grow]"));
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(51, 153, 0), 6));
+		panel_1.setBorder(new LineBorder(new Color(143, 188, 143), 6));
 		panel.add(panel_1, "cell 0 0,grow");
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new MatteBorder(0, 0, 4, 0, (Color) new Color(51, 153, 0)));
-		panel_2.setBackground(new Color(51, 153, 0));
+		panel_2.setBorder(new MatteBorder(0, 0, 4, 0, (Color) new Color(143, 188, 143)));
+		panel_2.setBackground(new Color(143, 188, 143));
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 40));
 
-		JLabel lblNewLabel = new JLabel("Agenda");
+		JLabel lblNewLabel = new JLabel("Consulta");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 50));
 		panel_2.add(lblNewLabel);
@@ -170,8 +170,7 @@ public class Agenda extends JFrame {
 		panel_3.setBackground(new Color(236, 253, 232));
 		panel_1.add(panel_3, BorderLayout.WEST);
 
-		panel_3.setLayout(new MigLayout("", "[120:n:120,grow][][][][][200:n:200][][150:n:150][120:n:120]",
-				"[20:n:20][35:n:35][][35:n:35][][35:n:35][][350:n:350,grow][][35px:n:35px]"));
+		panel_3.setLayout(new MigLayout("", "[120:n:120,grow][][][][][200:n:200][][150:n:150][120:n:120]", "[20:n:20][35:n:35][][35:n:35][][35:n:35][][350:n:350,grow][][35px:n:35px]"));
 
 		JLabel lblNewLabel_2 = new JLabel("Nome: ");
 
@@ -194,6 +193,8 @@ public class Agenda extends JFrame {
 		txtCpf.setColumns(20);
 
 		JButton btnNewButton = new JButton("Buscar");
+		btnNewButton.setBackground(new Color( 149, 208, 157));
+		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -269,7 +270,7 @@ public class Agenda extends JFrame {
 		panel_4.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 972, 330);
+		scrollPane.setBounds(10, 11, 1028, 330);
 		panel_4.add(scrollPane);
 
 		table = new JTable();
@@ -278,12 +279,13 @@ public class Agenda extends JFrame {
 		scrollPane.setViewportView(table);
 
 		btnEditar = new JButton("Editar ");
+		btnEditar.setForeground(new Color(255, 255, 255));
+		btnEditar.setBackground(new Color(149, 208, 157));
 		btnEditar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 
-				alterarLayoutEditar();
-				;
+			
 
 				int position = table.getSelectedRow();
 
@@ -291,6 +293,7 @@ public class Agenda extends JFrame {
 					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
 					return;
 				}
+				alterarLayoutEditar();
 				consultaClick = listaConsulta.get(position);
 				
 
@@ -338,8 +341,7 @@ public class Agenda extends JFrame {
 
 			}
 		});
-		btnEditar.setBackground(new Color(240, 255, 240));
-		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnEditar, "cell 1 9,grow");
 
 		txtTipoConsulta = new JTextField();
@@ -351,6 +353,8 @@ public class Agenda extends JFrame {
 		txtHora.setColumns(10);
 
 		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setForeground(new Color(255, 255, 255));
+		btnCadastrar.setBackground(new Color(149, 208, 157));
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -376,11 +380,12 @@ public class Agenda extends JFrame {
 			}
 		});
 
-		btnCadastrar.setBackground(new Color(240, 255, 240));
 		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
 
 		btnVoltarMenuPrincipal = new JButton("Voltar");
+		btnVoltarMenuPrincipal.setBackground(new Color(149, 208, 157));
+		btnVoltarMenuPrincipal.setForeground(new Color(255, 255, 255));
 		btnVoltarMenuPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -390,40 +395,42 @@ public class Agenda extends JFrame {
 				dispose();
 			}
 		});
+		
+				btnExcluir = new JButton("Excluir");
+				btnExcluir.setBackground(new Color(149, 208, 157));
+				btnExcluir.setForeground(new Color(255, 255, 255));
+				btnExcluir.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
 
-		btnExcluir = new JButton("Excluir");
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+						int position = table.getSelectedRow();
 
-				int position = table.getSelectedRow();
+						if (position == -1) {
+							JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+							return;
+						}
+						consultaClick = new Consulta();
+						consultaClick = listConsulta.get(position);
 
-				if (position == -1) {
-					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
-					return;
-				}
-				consultaClick = new Consulta();
-				consultaClick = listConsulta.get(position);
+						int n = JOptionPane.showConfirmDialog(null, "Tem certeza que quer excluir?  " + " ", "",
+								JOptionPane.YES_NO_OPTION);
 
-				int n = JOptionPane.showConfirmDialog(null, "Tem certeza que quer excluir?  " + " ", "",
-						JOptionPane.YES_NO_OPTION);
+						if (n == JOptionPane.YES_OPTION) {
+							boolean retorno = agendaDao.excluirConsulta(consultaClick);
+							if (retorno != false) {
+								JOptionPane.showMessageDialog(null, "Consulta excluida com sucesso");
+							} else {
+								JOptionPane.showMessageDialog(null, "Erro ao excluir", " ERRO", JOptionPane.ERROR_MESSAGE);
+							}
 
-				if (n == JOptionPane.YES_OPTION) {
-					boolean retorno = agendaDao.excluirConsulta(consultaClick);
-					if (retorno != false) {
-						JOptionPane.showMessageDialog(null, "Consulta excluida com sucesso");
-					} else {
-						JOptionPane.showMessageDialog(null, "Erro ao excluir", " ERRO", JOptionPane.ERROR_MESSAGE);
+							atualizarTabela();
+
+						} 
+						limparTela();
+
 					}
-
-					atualizarTabela();
-
-				} 
-				limparTela();
-
-			}
-		});
-		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(btnExcluir, "cell 5 9,grow");
+				});
+				btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
+				panel_3.add(btnExcluir, "cell 3 9,grow");
 		btnVoltarMenuPrincipal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnVoltarMenuPrincipal, "cell 7 9,grow");
 
@@ -504,7 +511,7 @@ public class Agenda extends JFrame {
 
 	public void atualizarTabela() {
 
-		tabela = new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Medico", "Data", "Hora", "ee" });
+		tabela = new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Medico", "Data", "Hora", "Observação" });
 		// listConsulta.clear();
 		listaConsulta = new ArrayList<>();
 		listaConsulta = agendaDao.listConsulta();
@@ -681,6 +688,4 @@ public class Agenda extends JFrame {
 	public JComboBox<Medico> getCbxMedico() {
 		return cbxMedico;
 	}
-	// Caledar
-
 }

@@ -749,6 +749,16 @@ public class TelaCadastroMedico extends JFrame {
 		btn_editar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				
+				int position = table.getSelectedRow();
+
+				if (position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+				medicoClick = listaMedico.get(position);
+				EditarMedico(medicoClick);
+				
 
 				btnCadastrarMedico.setVisible(false);
 				panel_9.remove(btnCadastrarMedico);
@@ -759,7 +769,7 @@ public class TelaCadastroMedico extends JFrame {
 				btn_Excluir.setVisible(false);
 				panel_6.remove(btn_Excluir);
 
-				JButton voltar = new JButton("Volta");
+				JButton voltar = new JButton("Cancelar");
 				voltar.setForeground(new Color(255, 255, 255));
 				voltar.setBackground(new Color(149, 208, 157));
 				voltar.addActionListener(new ActionListener() {
@@ -787,14 +797,7 @@ public class TelaCadastroMedico extends JFrame {
 				voltar.setFont(new Font("Tahoma", Font.BOLD, 16));
 				panel_6.add(voltar, "cell 1 5,growx");
 
-				int position = table.getSelectedRow();
-
-				if (position == -1) {
-					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
-					return;
-				}
-				medicoClick = listaMedico.get(position);
-				EditarMedico(medicoClick);
+			
 
 				btnSalvar = new JButton("Salvar");
 				btnSalvar.setForeground(new Color(255, 255, 255));
@@ -812,7 +815,6 @@ public class TelaCadastroMedico extends JFrame {
 						StatusTela retorno = manterMedicoHelper.alterarMedico(medico);
 						if (retorno.USUARIOEXISTENTE == retorno) {
 							JOptionPane.showMessageDialog(null, "Usuário existente, Informe outro");
-
 						} else {
 							if (retorno.MEDICOEDITADO == retorno) {
 								JOptionPane.showMessageDialog(null, "Alteração com sucesso");
