@@ -592,13 +592,12 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_6.setBorder(new LineBorder(new Color(143, 188, 143), 3));
 		panel_4.add(panel_6, "cell 0 3,grow");
 		panel_6.setLayout(
-				new MigLayout("", "[80:n:80][200:n:200,grow][][100:n:100][200:n:200,grow][][220:n:220][230:n:230][]",
-						"[30:n:30][30:n:30][][200:n:200,grow][5:n:5][30:n:30]"));
+				new MigLayout("", "[80:n:80][200:n:200,grow][][100:n:100][200:n:200,grow][][220:n:220][230:n:230][230:n:230][]", "[30:n:30][30:n:30][][200:n:200,grow][5:n:5][30:n:30]"));
 
 		JLabel lblNewLabel_22 = new JLabel("Consultar");
 		lblNewLabel_22.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_22.setFont(new Font("Century Gothic", Font.BOLD, 25));
-		panel_6.add(lblNewLabel_22, "cell 0 0 8 1,alignx center");
+		panel_6.add(lblNewLabel_22, "cell 0 0 9 1,alignx center");
 
 		JLabel lblNewLabel_16 = new JLabel("CPF :\r\n");
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -708,11 +707,11 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnLimpar.setForeground(Color.WHITE);
 		btnLimpar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnLimpar.setBackground(new Color(149, 208, 157));
-		panel_6.add(btnLimpar, "cell 7 1");
+		panel_6.add(btnLimpar, "cell 7 1 2 1");
 		JPanel panel_7 = new JPanel();
 		panel_7.setBackground(new Color(240, 255, 240));
 		panel_7.setBorder(new LineBorder(new Color(143, 188, 143), 3));
-		panel_6.add(panel_7, "cell 1 3 7 1,grow");
+		panel_6.add(panel_7, "cell 1 3 8 1,grow");
 		panel_7.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -907,20 +906,20 @@ public class TelaCadastroFuncionario extends JFrame {
 		});
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btnExcluir, "cell 4 5,grow");
-
-		JButton btnVoltar = new JButton("     Voltar       ");
-		btnVoltar.setForeground(new Color(255, 255, 255));
-		btnVoltar.setBackground(new Color(149, 208, 157));
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaMenuPrincipal mp = new TelaMenuPrincipal(usuario);
-				mp.setLocationRelativeTo(null);
-				mp.setVisible(true);
-				dispose();
-			}
-		});
-		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_6.add(btnVoltar, "cell 7 5,alignx trailing,growy");
+				
+						JButton btnVoltar = new JButton("Voltar para o menu principal");
+						btnVoltar.setForeground(new Color(255, 255, 255));
+						btnVoltar.setBackground(new Color(149, 208, 157));
+						btnVoltar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								TelaMenuPrincipal mp = new TelaMenuPrincipal(usuario);
+								mp.setLocationRelativeTo(null);
+								mp.setVisible(true);
+								dispose();
+							}
+						});
+						btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 16));
+						panel_6.add(btnVoltar, "cell 7 5,grow");
 		contentPane.setLayout(null);
 
 		JPanel panel_8 = new JPanel();

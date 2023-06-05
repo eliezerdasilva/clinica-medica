@@ -912,7 +912,7 @@ public class TelaCadastroMedico extends JFrame {
 		btn_Excluir.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_6.add(btn_Excluir, "cell 3 5,grow");
 
-		btnVoltar = new JButton("Voltar");
+		btnVoltar = new JButton("Voltar para o menu principal");
 		btnVoltar.setForeground(new Color(255, 255, 255));
 		btnVoltar.setBackground(new Color(149, 208, 157));
 		btnVoltar.addActionListener(new ActionListener() {
@@ -924,7 +924,7 @@ public class TelaCadastroMedico extends JFrame {
 			}
 		});
 		btnVoltar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_6.add(btnVoltar, "cell 8 5,grow");
+		panel_6.add(btnVoltar, "cell 7 5 2 1,grow");
 		contentPane.setLayout(null);
 		contentPane.setLayout(null);
 		panel.setLayout(new MigLayout("", "[1164.00px:n:1300]", "[780:n:900]"));
