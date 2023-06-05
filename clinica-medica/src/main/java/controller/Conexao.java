@@ -11,7 +11,7 @@ public class Conexao {
 
 	private static final String DATABASE = "clinica";
 	private static final String USER = "root";
-	private static final String PSW = "170205joao";
+	private static final String PSW = "root";
 
 
 	private Conexao() {
@@ -27,7 +27,7 @@ public class Conexao {
 
 	public Connection conectar() {
 		try {
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost/" + DATABASE + "?serverTimezone=UTC", USER,
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3307/" + DATABASE + "?serverTimezone=UTC", USER,
 					PSW);
 		} catch (SQLException e) {
 			e.printStackTrace();

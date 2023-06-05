@@ -33,6 +33,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controller.AgendaDao;
+import controller.MedicoDao;
 import model.Consulta;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
@@ -95,6 +96,11 @@ public class TelaMenuPrincipal extends JFrame {
 	private Consulta consultaClick; 
 	private JLabel lblNewLabel_5;
 	private JLabel lblNewLabel_6;
+	private JButton btnCancelarPresenca;
+	private String quantidadeNaoPresente;
+	private int quantidadeMedicosCadastrados;
+	private JLabel iconeMedico;
+	private JLabel iconeFaltante;
 
 
 	/**
@@ -220,7 +226,7 @@ public class TelaMenuPrincipal extends JFrame {
 		
 		panelMenu = new JPanel();
 		panelMenu.setBorder(new LineBorder(new Color(255, 255, 255), 4));
-		panelMenu.setBackground(new Color(60, 179, 113));
+		panelMenu.setBackground(new Color(143, 188, 143));
 		panelMenu.setBounds(0, 80, 266, 930);
 		panelMenu.setForeground(Color.BLACK);
 		panelMenu.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][50:n][10:n][50:n][10:n][50:n]"));
@@ -312,16 +318,14 @@ public class TelaMenuPrincipal extends JFrame {
 		contentPane.add(panelSairPerfil);
 		panelSairPerfil.setVisible(false);
 
-		lblNewLabel = new JLabel("/");
+		lblNewLabel = new JLabel("Configurações");
 		lblNewLabel.setForeground(SystemColor.window);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panelSairPerfil.add(lblNewLabel, "cell 0 0,alignx center");
 
 		btnSair = new JButton("Sair do sistema ");
-		btnSair.setBackground(SystemColor.controlHighlight);
 		btnSair.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnSair.setBorder(null);
-		btnSair.setForeground(Color.BLACK);
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaLogin tl =  new TelaLogin();
@@ -334,7 +338,6 @@ public class TelaMenuPrincipal extends JFrame {
 		panelSairPerfil.add(btnSair, "cell 0 1,grow");
 
 		btnPerfil = new JButton("Perfil");
-		btnPerfil.setBackground(SystemColor.controlHighlight);
 		btnPerfil.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnPerfil.setBorder(null);
 		btnPerfil.addActionListener(new ActionListener() {
@@ -439,21 +442,50 @@ public class TelaMenuPrincipal extends JFrame {
 		panel_8.add(lblNewLabel_6);
 		
 		panel_9 = new JPanel();
+		panel_9.setLayout(null);
 		panel_9.setBorder(new LineBorder(new Color(0, 0, 0), 4));
 		panel_6.add(panel_9, "cell 0 5,grow");
 		
+		
+		var medicoDao = new MedicoDao();
+		quantidadeMedicosCadastrados = medicoDao.quantidadeDeMedico();
+		
+		JLabel stringpanel9 = new JLabel("Médicos cadastrados : "+quantidadeMedicosCadastrados);
+		stringpanel9.setFont(new Font("Tahoma", Font.BOLD, 16));
+		stringpanel9.setBounds(90, 47, 460, 14);
+		panel_9.add(stringpanel9);
+		
+		iconeMedico = new JLabel("");
+		iconeMedico.setIcon(new ImageIcon("src\\main\\resources\\imagens\\medico.png"));
+		iconeMedico.setBounds(32, 22, 57, 67);
+		panel_9.add(iconeMedico);
+		
+		
 		panel_11 = new JPanel();
 		panel_11.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
+		panel_11.setLayout(null);
 		panel_6.add(panel_11, "cell 0 7,grow");
 		
+		iconeFaltante = new JLabel("");
+		iconeFaltante.setIcon(new ImageIcon("src\\main\\resources\\imagens\\faltante.png"));
+		iconeFaltante.setBounds(32, 22, 57, 67);
+		panel_11.add(iconeFaltante);
+		
+		
+		JLabel stringpane11 = new JLabel("Pacientes não presentes : "+quantidadeNaoPresente);
+		stringpane11.setFont(new Font("Tahoma", Font.BOLD, 16));
+		stringpane11.setBounds(90, 47, 460, 14);
+		panel_11.add(stringpane11);
+
 		panel_1 = new JPanel();
 		panel_2.add(panel_1, "cell 1 4,grow");
-		panel_1.setLayout(new MigLayout("", "[700:n:700][190:n:190]", "[40:n:40]"));
+		panel_1.setLayout(new MigLayout("", "[510:n:510][190:n:190][190:n:190]", "[40:n:40]"));
 		
 		btnConfimarPresenca = new JButton("Confirmar Presença");
 		btnConfimarPresenca.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnConfimarPresenca.setForeground(new Color(255, 255, 255));
+		btnConfimarPresenca.setBackground(new Color(149, 208, 157));
 		btnConfimarPresenca.setBorder(new LineBorder(new Color(0, 0, 0), 4));
-		btnConfimarPresenca.setBackground(SystemColor.controlHighlight);
 		btnConfimarPresenca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -478,6 +510,37 @@ public class TelaMenuPrincipal extends JFrame {
 			}
 		});
 		panel_1.add(btnConfimarPresenca, "cell 1 0,grow");
+		
+		
+		btnCancelarPresenca = new JButton("Cancelar Presença");
+		btnCancelarPresenca.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnCancelarPresenca.setBorder(new LineBorder(new Color(0, 0, 0), 4));
+		btnCancelarPresenca.setForeground(new Color(255, 255, 255));
+		btnCancelarPresenca.setBackground(new Color(149, 208, 157));
+		btnCancelarPresenca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				consultaClick = new Consulta();
+				int position = table.getSelectedRow();
+
+				if (position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+				
+				consultaClick = listaConsulta.get(position);
+				
+				int n = JOptionPane.showConfirmDialog(null, "Deseja cancelar presença ?" + consultaClick.getPaciente().getNome()+ " ", "",
+						JOptionPane.YES_NO_OPTION);
+				if(n== JOptionPane.YES_OPTION) {
+					agendaDao = new AgendaDao();
+					agendaDao.cancelarPresença(consultaClick);
+					atualizarTabela();
+				}
+				
+			}
+		});
+		panel_1.add(btnCancelarPresenca, "cell 2 0,grow");
 		
 		
 		contentPane.setLayout(gl_contentPane);
@@ -530,9 +593,10 @@ public class TelaMenuPrincipal extends JFrame {
 			}
 		}
 		return "Erro";
-	
 		
-
+	}
+	private String quatidadefaltantes() {
+		return login;
 		
 	}
 }

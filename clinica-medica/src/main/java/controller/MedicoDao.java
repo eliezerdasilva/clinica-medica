@@ -248,4 +248,71 @@ public class MedicoDao implements InterfaceMedico {
 		}
 		return null;
 	}
+
+	public Integer quantidadeDeMedico() {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int resultado = 0 ;
+		try {
+			PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM medico;");
+			
+	
+
+			ResultSet rs = ps.executeQuery();
+			
+
+			while (rs.next()) {
+				 resultado = rs.getInt(1);
+			}
+		
+
+		} catch (Exception e) {
+
+		} finally {
+			con.fecharConexao();
+		}
+		return resultado;
+		
+	}
+	public Medico consultarUsuarioMedico(Usuario usuario) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		try {
+			PreparedStatement ps = c.prepareStatement("SELECT medico.* from usuario \r\n"  
+					+"join medico on usuario.idusuario = medico.usuario_idusuario \r\n"
+					+ "where login = ?;" );
+			ps.setString(1, usuario.getUsuario());
+			
+			ResultSet rs = ps.executeQuery();
+			Medico medico = new Medico();
+			while (rs.next()) {
+				Endereco endereco = new Endereco();
+				Usuario usuarioNovo = new Usuario();
+
+				medico.setCpf(rs.getLong("cpf"));
+				medico.setNome(rs.getString("nome"));
+				medico.setSexo(rs.getString("sexo"));
+				medico.setEmail(rs.getString("email"));
+				medico.setTelefone(rs.getString("telefone"));
+				medico.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				medico.setCrm(rs.getLong("crm"));
+				medico.setEspecializacao(rs.getString("especializacao"));
+				endereco.setCep(rs.getInt("endereco_cep"));
+				medico.setEndereco(endereco);
+				medico.setNumero(rs.getInt("numero"));
+				usuarioNovo.setId(rs.getLong("usuario_idusuario"));
+				medico.setUsuario(usuarioNovo);
+				medico.setComplemento(rs.getString("complemento"));
+
+				return medico;
+			}
+		return null;
+		
+	}catch (Exception e) {
+		// TODO: handle exception
+	}finally {
+		con.fecharConexao();	
+	}
+		return null;
+	}
 }

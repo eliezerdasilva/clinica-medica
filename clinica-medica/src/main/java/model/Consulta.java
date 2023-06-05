@@ -16,6 +16,7 @@ public class Consulta {
 	private Paciente paciente;
 	private Medico medico;
 	private String presença;
+	private String diagnostico; 
 
 	public Consulta() {
 	}
@@ -31,6 +32,21 @@ public class Consulta {
 		this.paciente = paciente;
 		this.medico = medico;
 		this.presença = presença;
+	}
+	
+
+	public Consulta(int id, LocalDate date, LocalTime hora, String servico, String observacao, Paciente paciente,
+			Medico medico, String presença, String diagnostico) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.hora = hora;
+		this.servico = servico;
+		this.observacao = observacao;
+		this.paciente = paciente;
+		this.medico = medico;
+		this.presença = presença;
+		this.diagnostico = diagnostico;
 	}
 
 	public int getId() {
@@ -96,6 +112,14 @@ public class Consulta {
 
 	public void setPresença(String presença) {
 		this.presença = presença;
+	}
+	
+	public String getDiagnostico() {
+		return diagnostico;
+	}
+
+	public void setDiagnostico(String diagnostico) {
+		this.diagnostico = diagnostico;
 	}
 
 	@Override

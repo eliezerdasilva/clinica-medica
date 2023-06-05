@@ -905,7 +905,7 @@ public class TelaCadastroPaciente extends JFrame {
 		contentPane.add(panelSairPerfil);
 		panelSairPerfil.setVisible(false);
 
-		lblNewLabel = new JLabel("/");
+		lblNewLabel = new JLabel("Configurações");
 		lblNewLabel.setForeground(SystemColor.window);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panelSairPerfil.add(lblNewLabel, "cell 0 0,alignx center");
@@ -945,6 +945,7 @@ public class TelaCadastroPaciente extends JFrame {
 		panelSairPerfil.setVisible(false);
 
 		JButton btnLoginSair = new JButton("");
+		btnLoginSair.setIcon(new ImageIcon("src\\main\\resources\\imagens\\login.png"));
 		btnLoginSair.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
