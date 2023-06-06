@@ -11,7 +11,7 @@ public class Conexao {
 
 	private static final String DATABASE = "clinica";
 	private static final String USER = "root";
-	private static final String PSW = "8-EeP&;ZIX";
+	private static final String PSW = "aluno";
 
 
 	private Conexao() {

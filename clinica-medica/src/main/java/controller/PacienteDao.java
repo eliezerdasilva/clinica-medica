@@ -385,4 +385,28 @@ public class PacienteDao implements InterfacePacienteDao {
 		return listaPaciente;
 	}
 
+	public long quantidadeDePaciente() {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int resultado = 0 ;
+		try {
+			PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM paciente;");
+			
+	
+
+			ResultSet rs = ps.executeQuery();
+			
+
+			while (rs.next()) {
+				 resultado = rs.getInt(1);
+			}
+		
+
+		} catch (Exception e) {
+
+		} finally {
+			con.fecharConexao();
+		}
+		return resultado;
+	}
 }

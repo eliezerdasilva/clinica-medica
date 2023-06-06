@@ -315,4 +315,9 @@ public class MedicoDao implements InterfaceMedico {
 	}
 		return null;
 	}
+
+	public long consultarTotalMedico() {
+		
+		return 0;
+	}
 }
