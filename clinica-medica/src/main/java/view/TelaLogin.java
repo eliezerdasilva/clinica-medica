@@ -99,7 +99,7 @@ public class TelaLogin extends JFrame {
 		layeredPane.add(lblNewLabel, "cell 2 1,growx");
 		
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\frete\\Documents\\Repositorios\\clinica-medica\\clinica-medica\\src\\main\\resources\\imagens\\pessoa3e.png"));
+		lblNewLabel_1.setIcon(new ImageIcon("src\\main\\resources\\imagens\\pessoa3e.png"));
 		layeredPane.add(lblNewLabel_1, "cell 2 3,alignx center");
 		
 		txtUsuario = new RoundJTextField(15);

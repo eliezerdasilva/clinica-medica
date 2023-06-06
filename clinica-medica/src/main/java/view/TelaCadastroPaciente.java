@@ -48,6 +48,7 @@ import javax.swing.event.AncestorListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
+import controller.AgendaDao;
 import controller.EnderecoDao;
 import controller.PacienteDao;
 import controller.UsuarioDao;
@@ -129,7 +130,6 @@ public class TelaCadastroPaciente extends JFrame {
 	private JButton btnVoltarCadastro;
 	private JButton btnVoltarEditar;
 	private TelaCadastroPaciente telaCadastroPaciente;
-	private JButton btnPerfil;
 	private JPanel panelSairPerfil;
 	private JButton btnSair;
 	private int sairPerfil;
@@ -843,31 +843,63 @@ public class TelaCadastroPaciente extends JFrame {
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int position = table.getSelectedRow();
+				
 				if (position == -1) {
 					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
 					return;
 				}
 
 				pacienteClick = listaPaciente.get(position);
-				if (btnEditar != null)
-					panel_5.remove(btnEditar);
-				if (pacienteClick != null) {
+				
+					
+			
+
+					AgendaDao agendaDao = new AgendaDao();
 
 					int n = JOptionPane.showConfirmDialog(null,
 							"Tem certeza que quer excluir?  " + pacienteClick.getNome(), "", JOptionPane.YES_NO_OPTION);
 
 					if (n == JOptionPane.YES_OPTION) {
-						Boolean result = pacienteDao.excluirPaciente(Long.valueOf(pacienteClick.getCpf()));
-						JOptionPane.showMessageDialog(null, "Excluindo");
+
+						boolean retorno = agendaDao
+								.consultaPacienteCadastradoNaConsulta(Long.valueOf(pacienteClick.getCpf()));
+
+						if (retorno == true) {
+							Boolean result = pacienteDao.excluirPaciente(Long.valueOf(pacienteClick.getCpf()));
+							JOptionPane.showMessageDialog(null, "Excluindo");
+							atualizarTabela();
+							limparTela();
+						} else {
+							n = JOptionPane.showConfirmDialog(null,
+									"Existe consultas relacionadas com o paciente, deseja excluir mesmo assim ?\n"
+											+ "Todos as consultas serão excluidas.",
+									"Informação", JOptionPane.YES_NO_OPTION);
+							if (n == JOptionPane.YES_OPTION) {
+								boolean retornoExcluir = agendaDao
+										.deletarConsultaReferenciadaPaciente(pacienteClick.getCpf());
+								if (retornoExcluir == true) {
+									Boolean result = pacienteDao.excluirPaciente(Long.valueOf(pacienteClick.getCpf()));
+									if (result == true) {
+										JOptionPane.showMessageDialog(null, "Excluindo");
+										atualizarTabela();
+										limparTela();
+									} else {
+										JOptionPane.showMessageDialog(null, " erro ao excluir");
+										limparTela();
+									}
+								} else {
+									JOptionPane.showMessageDialog(null, " erro ao excluir");
+									limparTela();
+								}
+
+							}
+						}
+
 						atualizarTabela();
 						limparTela();
-					} else {
-						JOptionPane.showMessageDialog(null, " erro ao excluir");
-						limparTela();
-
 					}
 
-				}
+				
 			}
 		});
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -899,7 +931,7 @@ public class TelaCadastroPaciente extends JFrame {
 		panelSairPerfil = new JPanel();
 		panelSairPerfil.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		panelSairPerfil.setBackground(new Color(143, 188, 143));
-		panelSairPerfil.setBounds(1650, 80, 266, 200);
+		panelSairPerfil.setBounds(1650, 80, 266, 100);
 		panelSairPerfil.setForeground(Color.BLACK);
 		panelSairPerfil.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][50:n][10:n][50:n][10:n][50:n]"));
 		contentPane.add(panelSairPerfil);
@@ -925,19 +957,6 @@ public class TelaCadastroPaciente extends JFrame {
 			}
 		});
 		panelSairPerfil.add(btnSair, "cell 0 1,grow");
-
-		btnPerfil = new JButton("Perfil");
-		btnPerfil.setBackground(SystemColor.controlHighlight);
-		btnPerfil.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnPerfil.setBorder(null);
-		btnPerfil.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		panelSairPerfil.add(btnPerfil, "cell 0 3,grow");
-		btnPerfil.setVisible(true);
 		btnSair.setVisible(true);
 		lblNewLabel.setVisible(true);
 

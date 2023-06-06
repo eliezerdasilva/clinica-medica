@@ -270,7 +270,7 @@ public class Agenda extends JFrame {
 		panel_4.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 1028, 330);
+		scrollPane.setBounds(10, 11, 1011, 330);
 		panel_4.add(scrollPane);
 
 		table = new JTable();

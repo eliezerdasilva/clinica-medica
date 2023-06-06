@@ -66,7 +66,6 @@ public class TelaMenuPrincipal extends JFrame {
 	private JPanel panelSairPerfil;
 	private JLabel lblNewLabel;
 	private JButton btnSair;
-	private JButton btnPerfil;	
 	private JPanel panelMenu;
 	private JPanel panel_2;
 	private JPanel panel_4;
@@ -94,13 +93,17 @@ public class TelaMenuPrincipal extends JFrame {
 	private ArrayList<Consulta> listaConsulta;
 	private AgendaDao agendaDao;
 	private Consulta consultaClick; 
-	private JLabel lblNewLabel_5;
+	private JLabel pacienteCadastrados;
 	private JLabel lblNewLabel_6;
 	private JButton btnCancelarPresenca;
 	private String quantidadeNaoPresente;
 	private int quantidadeMedicosCadastrados;
 	private JLabel iconeMedico;
 	private JLabel iconeFaltante;
+
+	private JLabel pacientesNaoPresentes;
+	private JLabel quantidadeDeConsulta;
+	private JLabel medicosCadastrados;
 
 
 	/**
@@ -312,9 +315,9 @@ public class TelaMenuPrincipal extends JFrame {
 		panelSairPerfil = new JPanel();
 		panelSairPerfil.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		panelSairPerfil.setBackground(new Color(143, 188, 143));
-		panelSairPerfil.setBounds(1650, 80, 266, 200);
+		panelSairPerfil.setBounds(1650, 80, 266, 100);
 		panelSairPerfil.setForeground(Color.BLACK);
-		panelSairPerfil.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][50:n][10:n][50:n][10:n][50:n]"));
+		panelSairPerfil.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][10:n]"));
 		contentPane.add(panelSairPerfil);
 		panelSairPerfil.setVisible(false);
 
@@ -324,8 +327,10 @@ public class TelaMenuPrincipal extends JFrame {
 		panelSairPerfil.add(lblNewLabel, "cell 0 0,alignx center");
 
 		btnSair = new JButton("Sair do sistema ");
+		
 		btnSair.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnSair.setBorder(null);
+		btnSair.setBackground(SystemColor.controlHighlight);
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaLogin tl =  new TelaLogin();
@@ -336,19 +341,6 @@ public class TelaMenuPrincipal extends JFrame {
 			}
 		});
 		panelSairPerfil.add(btnSair, "cell 0 1,grow");
-
-		btnPerfil = new JButton("Perfil");
-		btnPerfil.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnPerfil.setBorder(null);
-		btnPerfil.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-		
-
-			}
-		});
-		panelSairPerfil.add(btnPerfil, "cell 0 3,grow");
-		btnPerfil.setVisible(true);
 		btnSair.setVisible(true);
 		lblNewLabel.setVisible(true);
 		btnBotaoMenu.repaint();
@@ -399,7 +391,7 @@ public class TelaMenuPrincipal extends JFrame {
 
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Serviço","Medico", "Hora", "Data", "Presente" }));
-		atualizarTabela();
+	
 		scrollPane.setViewportView(table);
 		
 		panel_6 = new JPanel();
@@ -414,11 +406,11 @@ public class TelaMenuPrincipal extends JFrame {
 		panel_6.add(panel_7, "cell 0 1,grow");
 		panel_7.setLayout(null);
 		
-		String quantidadeConsulta = listaConsultaDia();
-		JLabel lblNewLabel_3 = new JLabel("Quantidade de consulta hoje : "+quantidadeConsulta);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_3.setBounds(90, 47, 460, 14);
-		panel_7.add(lblNewLabel_3);
+
+		quantidadeDeConsulta = new JLabel("  Quantidade de consulta hoje : ");
+		quantidadeDeConsulta.setFont(new Font("Tahoma", Font.BOLD, 16));
+		quantidadeDeConsulta.setBounds(0, 0, 550, 100);
+		panel_7.add(quantidadeDeConsulta);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon("src\\main\\resources\\imagens\\iconeConsulta.png"));
@@ -431,10 +423,10 @@ public class TelaMenuPrincipal extends JFrame {
 		panel_6.add(panel_8, "cell 0 3,grow");
 		panel_8.setLayout(null);
 		
-		lblNewLabel_5 = new JLabel("Pacientes cadastrados : ");
-		lblNewLabel_5.setBounds(99, 39, 320, 20);
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_8.add(lblNewLabel_5);
+		pacienteCadastrados = new JLabel(" Pacientes cadastrados : ");
+		pacienteCadastrados.setBounds(0, 0, 481, 100);
+		pacienteCadastrados.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_8.add(pacienteCadastrados);
 		
 		lblNewLabel_6 = new JLabel("");
 		lblNewLabel_6.setIcon(new ImageIcon("src\\main\\resources\\imagens\\pessoa.png"));
@@ -450,10 +442,10 @@ public class TelaMenuPrincipal extends JFrame {
 		var medicoDao = new MedicoDao();
 		quantidadeMedicosCadastrados = medicoDao.quantidadeDeMedico();
 		
-		JLabel stringpanel9 = new JLabel("Médicos cadastrados : "+quantidadeMedicosCadastrados);
-		stringpanel9.setFont(new Font("Tahoma", Font.BOLD, 16));
-		stringpanel9.setBounds(90, 47, 460, 14);
-		panel_9.add(stringpanel9);
+		medicosCadastrados = new JLabel("Médicos cadastrados : "+quantidadeMedicosCadastrados);
+		medicosCadastrados.setFont(new Font("Tahoma", Font.BOLD, 16));
+		medicosCadastrados.setBounds(0, 0, 481, 100);
+		panel_9.add(medicosCadastrados);
 		
 		iconeMedico = new JLabel("");
 		iconeMedico.setIcon(new ImageIcon("src\\main\\resources\\imagens\\medico.png"));
@@ -472,10 +464,10 @@ public class TelaMenuPrincipal extends JFrame {
 		panel_11.add(iconeFaltante);
 		
 		
-		JLabel stringpane11 = new JLabel("Pacientes não presentes : "+quantidadeNaoPresente);
-		stringpane11.setFont(new Font("Tahoma", Font.BOLD, 16));
-		stringpane11.setBounds(90, 47, 460, 14);
-		panel_11.add(stringpane11);
+		pacientesNaoPresentes = new JLabel("Pacientes não presentes : ");
+		pacientesNaoPresentes.setFont(new Font("Tahoma", Font.BOLD, 16));
+		pacientesNaoPresentes.setBounds(0, 0, 471, 100);
+		panel_11.add(pacientesNaoPresentes);
 
 		panel_1 = new JPanel();
 		panel_2.add(panel_1, "cell 1 4,grow");
@@ -545,7 +537,7 @@ public class TelaMenuPrincipal extends JFrame {
 		
 		contentPane.setLayout(gl_contentPane);
 		
-	
+		atualizarTabela();
 
 	}
 
@@ -555,6 +547,8 @@ public class TelaMenuPrincipal extends JFrame {
 		listaConsulta = new ArrayList<>();
 		agendaDao = new AgendaDao();
 		listaConsulta = agendaDao.listConsulta();
+		//
+		int quantidadePresente = 0 ;
 
 		for (int i = 0; i < listaConsulta.size(); i++) {
 
@@ -569,6 +563,19 @@ public class TelaMenuPrincipal extends JFrame {
 					});
 
 		}
+		for (Consulta consulta : listaConsulta) {
+			if(consulta.getPresença()=="Presente") {
+				quantidadePresente++;
+			}
+			
+		}
+		
+		
+		pacientesNaoPresentes.setText("Pacientes presentes : "+quantidadePresente);
+		quantidadeDeConsulta.setText(" Total de consultas hoje : "+listaConsulta.size());
+		pacientesNaoPresentes.setText("Quantidade de pacinetes nao presentes"+(listaConsulta.size()+quantidadeNaoPresente));
+		
+		
 		table.setModel(tabela);
 	}
 	

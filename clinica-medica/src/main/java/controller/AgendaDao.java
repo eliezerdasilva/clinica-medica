@@ -368,6 +368,76 @@ public class AgendaDao implements InterfaceConsulta {
 		return (valida == 0 ? false : true);
 	}
 
+	public boolean consultaMedicoCadastradoNaConsulta(Long cpf) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int i = 0;
+		try {
+			PreparedStatement ps = c.prepareStatement("Select * from consulta where medico_cpf = ?");
+			ps.setLong(1, cpf);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				 i++ ; 
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
+		return (i == 0 ? true : false);
+	}
+	public boolean deletarConsultaReferenciadaMedico(Long cpf) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int i = 0;
+		try {
+			PreparedStatement ps = c.prepareStatement("Delete from consulta where medico_cpf = ?");
+			ps.setLong(1, cpf);
+			ps.executeUpdate();
+		    return true; 
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
+		return false;
+	}
+	public boolean consultaPacienteCadastradoNaConsulta(Long cpf) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int i = 0;
+		try {
+			PreparedStatement ps = c.prepareStatement("Select * from consulta where paciente_cpf = ?");
+			ps.setLong(1, cpf);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				 i++ ; 
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
+		return (i == 0 ? true : false);
+	}
+	public boolean deletarConsultaReferenciadaPaciente(Long cpf) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int i = 0;
+		try {
+			PreparedStatement ps = c.prepareStatement("Delete from consulta where paciente_cpf = ? ");
+			ps.setLong(1, cpf);
+			ps.executeUpdate();
+		    return true; 
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
+		return false;
+	}
+		
+
 	
 
 }

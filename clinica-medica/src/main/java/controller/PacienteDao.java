@@ -60,21 +60,21 @@ public class PacienteDao implements InterfacePacienteDao {
 	public boolean excluirPaciente(Long cpf) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
-		boolean valida = true;
+
 		try {   
 		    String sql = "DELETE FROM paciente where cpf = ?";
 			    PreparedStatement stmt = c.prepareStatement(sql);
 			    stmt.setLong(1, cpf);
 	 
 			    stmt.executeUpdate();
-			     valida = stmt.execute();
-			
+			    stmt.execute();
+			return true; 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally {
 			con.fecharConexao();
 		}
-		return valida;
+		return false;
 	}
 
 	@Override

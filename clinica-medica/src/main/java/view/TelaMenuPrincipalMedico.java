@@ -65,7 +65,6 @@ public class TelaMenuPrincipalMedico extends JFrame {
 	private JPanel panelSairPerfil;
 	private JLabel lblNewLabel;
 	private JButton btnSair;
-	private JButton btnPerfil;
 	private int sairPerfil;
 	private JTextField txtNome;
 	private JTextField txtEmail;
@@ -191,7 +190,7 @@ public class TelaMenuPrincipalMedico extends JFrame {
 		panelSairPerfil = new JPanel();
 		panelSairPerfil.setBorder(new LineBorder(new Color(255, 255, 255), 4));
 		panelSairPerfil.setBackground(new Color(143, 188, 143));
-		panelSairPerfil.setBounds(1650, 80, 266, 200);
+		panelSairPerfil.setBounds(1650, 80, 266, 100);
 		panelSairPerfil.setForeground(Color.BLACK);
 		panelSairPerfil.setLayout(new MigLayout("", "[240:n]", "[][50:n][10:n][50:n][10:n][50:n][10:n][50:n]"));
 		contentPane.add(panelSairPerfil);
@@ -217,19 +216,6 @@ public class TelaMenuPrincipalMedico extends JFrame {
 			}
 		});
 		panelSairPerfil.add(btnSair, "cell 0 1,grow");
-
-		btnPerfil = new JButton("Perfil");
-		btnPerfil.setBackground(SystemColor.controlHighlight);
-		btnPerfil.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnPerfil.setBorder(null);
-		btnPerfil.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		panelSairPerfil.add(btnPerfil, "cell 0 3,grow");
-		btnPerfil.setVisible(true);
 		btnSair.setVisible(true);
 		lblNewLabel.setVisible(true);
 
