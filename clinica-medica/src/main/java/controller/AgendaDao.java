@@ -304,7 +304,7 @@ public class AgendaDao implements InterfaceConsulta {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
 		int valida = 0;
-		String antendido  = "Antendido";
+		String antendido  = "Atendido";
 		try {
 			PreparedStatement ps = c.prepareStatement("Update consulta set status = ? where id_consulta = ?;");
 			ps.setString(1, antendido);	
