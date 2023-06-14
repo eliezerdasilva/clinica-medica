@@ -1,8 +1,11 @@
 package controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Conexao {
 
@@ -12,7 +15,6 @@ public class Conexao {
 	private static final String DATABASE = "clinica";
 	private static final String USER = "root";
 	private static final String PSW = "root";
-
 
 	private Conexao() {
 
@@ -26,9 +28,27 @@ public class Conexao {
 	}
 
 	public Connection conectar() {
+		String configFilePath = "src\\main\\java\\controller\\config.txt";
+		String localhost = "";
+		String dbName = "";
+		String username = "";
+		String password = "";
+
 		try {
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3307/" + DATABASE + "?serverTimezone=UTC", USER,
-					PSW);
+		
+			File configFile = new File(configFilePath);
+			Scanner scanner = new Scanner(configFile);
+			localhost = scanner.nextLine();
+			dbName = scanner.nextLine();
+			username = scanner.nextLine();
+			password = scanner.nextLine();
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			conexao = DriverManager.getConnection("jdbc:mysql://"+localhost+"/" + dbName + "?serverTimezone=UTC", username,	password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
