@@ -1,7 +1,9 @@
 package controller;
-
+import java.io.BufferedReader;	
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,50 +14,53 @@ public class Conexao {
 	private static Connection conexao;
 	private static Conexao instancia;
 
-	private static final String DATABASE = "clinica";
-	private static final String USER = "root";
-	private static final String PSW = "root";
+	private static String DATABASE = null;
+	private static String USER = null;
+	private static String PSW = null;
 
 	private Conexao() {
-
+			
 	}
 
 	public static Conexao getInstacia() {
 		if (instancia == null) {
 			instancia = new Conexao();
+			lerArquivoBD();
 		}
 		return instancia;
 	}
-
-	public Connection conectar() {
-		String configFilePath = "src\\main\\java\\controller\\config.txt";
-		String localhost = "";
-		String dbName = "";
-		String username = "";
-		String password = "";
-
-		try {
 		
-			File configFile = new File(configFilePath);
-			Scanner scanner = new Scanner(configFile);
-			localhost = scanner.nextLine();
-			dbName = scanner.nextLine();
-			username = scanner.nextLine();
-			password = scanner.nextLine();
-			scanner.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
+	public Connection conectar() {
+		
 		try {
-			conexao = DriverManager.getConnection("jdbc:mysql://"+localhost+"/" + dbName + "?serverTimezone=UTC", username,	password);
-		} catch (SQLException e) {
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost/" + DATABASE + "?serverTimezone=UTC", USER,
+					PSW);
+			return conexao;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return conexao;
-
+		return null;
 	}
 
+	
+	public static void lerArquivoBD() {
+		// Lê as informações de login e senha do arquivo de texto
+		
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("credentials.txt"));
+			if (reader != null) {
+				DATABASE = reader.readLine(); 
+				USER = reader.readLine(); 
+				PSW = reader.readLine(); 
+			}
+			reader.close();
+
+		} catch (IOException e) {
+			System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+			return;
+		}
+	}			
+	
 	public boolean fecharConexao() {
 		try {
 			conexao.close();

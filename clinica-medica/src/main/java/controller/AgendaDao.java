@@ -437,6 +437,28 @@ public class AgendaDao implements InterfaceConsulta {
 		}
 		return false;
 	}
+
+	public boolean  consultarDataHora(Consulta consulta) {
+		con = Conexao.getInstacia();
+		Connection c = con.conectar();
+		int i = 0;
+		try {
+			PreparedStatement ps = c.prepareStatement("Select * from consulta where data_consulta = ? and hora_consulta =  ? and paciente_cpf = ? " );
+			ps.setDate(1, Date.valueOf(consulta.getDate()));
+			ps.setTime(2, Time.valueOf(consulta.getHora()));
+			ps.setLong(3, consulta.getPaciente().getCpf());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				 i++ ; 
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			con.fecharConexao();
+		}
+		return (i == 0 ? true : false);
+		
+	}
 		
 
 	

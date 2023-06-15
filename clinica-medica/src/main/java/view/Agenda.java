@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.Image;
+import java.awt.JobAttributes;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -363,7 +364,14 @@ public class Agenda extends JFrame {
 		panel_3.add(txtTipoConsulta, "flowx,cell 3 5,grow");
 		txtTipoConsulta.setColumns(10);
 
-		txtHora = new JTextField();
+		
+		
+		try {
+			txtHora = new JFormattedTextField(new MaskFormatter("##:##"));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Cpf inválido");
+			e.printStackTrace();
+		}
 		panel_3.add(txtHora, "cell 5 3,grow");
 		txtHora.setColumns(10);
 
@@ -379,6 +387,13 @@ public class Agenda extends JFrame {
 					return;
 				}
 				AgendaHelper agendaHelper = new AgendaHelper();
+				AgendaDao agendaDao = new AgendaDao();
+				boolean consultaExistente= agendaDao.consultarDataHora(consulta);
+				if(!consultaExistente) {
+					JOptionPane.showMessageDialog(null, "Consulta existente");
+					limparTela();
+					return;
+				}
 				boolean retorno = agendaHelper.cadastrarConsulta(consulta);
 				if (retorno) {
 					JOptionPane.showMessageDialog(null, "Consulta cadastrada");
@@ -421,8 +436,9 @@ public class Agenda extends JFrame {
 					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
 					return;
 				}
+				System.out.println(position);
 				consultaClick = new Consulta();
-				consultaClick = listConsulta.get(position);
+				consultaClick = listaConsulta.get(position);
 
 				int n = JOptionPane.showConfirmDialog(null, "Tem certeza que quer excluir?  " + " ", "",
 						JOptionPane.YES_NO_OPTION);
