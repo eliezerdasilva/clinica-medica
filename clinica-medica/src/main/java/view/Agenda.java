@@ -23,6 +23,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -36,6 +37,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import controller.AgendaDao;
 import controller.MedicoDao;
@@ -170,7 +172,8 @@ public class Agenda extends JFrame {
 		panel_3.setBackground(new Color(236, 253, 232));
 		panel_1.add(panel_3, BorderLayout.WEST);
 
-		panel_3.setLayout(new MigLayout("", "[120:n:120,grow][][][][][200:n:200][][150:n:150][120:n:120]", "[20:n:20][35:n:35][][35:n:35][][35:n:35][][350:n:350,grow][][35px:n:35px]"));
+		panel_3.setLayout(new MigLayout("", "[120:n:120,grow][][][][][200:n:200][][150:n:150][120:n:120]",
+				"[20:n:20][35:n:35][][35:n:35][][35:n:35][][350:n:350,grow][][35px:n:35px]"));
 
 		JLabel lblNewLabel_2 = new JLabel("Nome: ");
 
@@ -188,21 +191,31 @@ public class Agenda extends JFrame {
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_3.add(lblNewLabel_3, "flowx,cell 3 1,alignx left");
 
-		txtCpf = new JTextField();
+		try {
+			txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Cpf inválido");
+			e.printStackTrace();
+		}
 		panel_3.add(txtCpf, "cell 3 1,alignx left,growy");
 		txtCpf.setColumns(20);
 
 		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.setBackground(new Color( 149, 208, 157));
+		btnNewButton.setBackground(new Color(149, 208, 157));
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				String cpfString = txtCpf.getText();
+				String cpfString = txtCpf.getText().replace(".", "").replace("-", "");
 				agendaHelper = new AgendaHelper();
 				Paciente pacienteBusca = new Paciente();
 				pacienteBusca = agendaHelper.buscarPaciente(cpfString, usuario, agenda);
-				txtNome.setText(pacienteBusca.getNome());
+
+				if (pacienteBusca != null) {
+					txtNome.setText(pacienteBusca.getNome());
+				} else {
+					JOptionPane.showMessageDialog(null, "Paciente não cadastrado");
+				}
 
 			}
 		});
@@ -285,8 +298,6 @@ public class Agenda extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 
-			
-
 				int position = table.getSelectedRow();
 
 				if (position == -1) {
@@ -295,11 +306,12 @@ public class Agenda extends JFrame {
 				}
 				alterarLayoutEditar();
 				consultaClick = listaConsulta.get(position);
-				
 
 				setarDados(consultaClick);
 
-				voltar = new JButton("Calcelar");
+				voltar = new JButton("Cancelar");
+				voltar.setForeground(new Color(255, 255, 255));
+				voltar.setBackground(new Color(149, 208, 157));
 				voltar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
@@ -313,29 +325,32 @@ public class Agenda extends JFrame {
 				panel_3.add(voltar, "cell 7 9,grow");
 
 				btnsalvar = new JButton("Salvar");
+				btnsalvar.setBackground(new Color(149, 208, 157));
+				btnsalvar.setForeground(new Color(255, 255, 255));
 				btnsalvar.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
 
+						Consulta consulta = setarDadosConsulta();
+						if (consulta == null) {
+							JOptionPane.showMessageDialog(null, validacao, "ERRO", JOptionPane.ERROR_MESSAGE);
+							return;
+						}
 						AgendaHelper agendaHelper = new AgendaHelper();
-						Boolean resultado = agendaHelper.editarPaciente(agenda, consultaClick);
-
-						if (resultado != true) {
-							JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
-							alterarLayoutVoltarEditar();
-						} else {
-
-							JOptionPane.showMessageDialog(null, "Consulta editada com sucesso ");
-							alterarLayoutVoltarEditar();
+						boolean retorno = agendaHelper.editarPaciente(consulta);
+						if (retorno) {
+							JOptionPane.showMessageDialog(null, "Consulta Alterada");
 							atualizarTabela();
 							limparTela();
-
+						} else {
+							JOptionPane.showMessageDialog(null, "Erro ao  alterar consulta", "", JOptionPane.ERROR_MESSAGE);
+							atualizarTabela();
+							limparTela();
 						}
 
 					}
 				});
-				btnsalvar.setBackground(new Color(240, 255, 240));
 				btnsalvar.setFont(new Font("Tahoma", Font.BOLD, 16));
 				panel_3.add(btnsalvar, "cell 5 5 2 1,grow");
 
@@ -357,22 +372,20 @@ public class Agenda extends JFrame {
 		btnCadastrar.setBackground(new Color(149, 208, 157));
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
+				Consulta consulta = setarDadosConsulta();
+				if (consulta == null) {
+					JOptionPane.showMessageDialog(null, validacao, "ERRo", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				AgendaHelper agendaHelper = new AgendaHelper();
-				boolean retornoCadastro = agendaHelper.cadastrarConsulta(agenda);
-				
-				if (retornoCadastro != true) {
-					JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
-					int n = JOptionPane.showConfirmDialog(null, "Deseja limpar a tela" + " ", "",
-							JOptionPane.YES_NO_OPTION);
-
-					if (n == JOptionPane.YES_OPTION) {
-						limparTela();
-					}
-				} else {
-
+				boolean retorno = agendaHelper.cadastrarConsulta(consulta);
+				if (retorno) {
 					JOptionPane.showMessageDialog(null, "Consulta cadastrada");
 					atualizarTabela();
+					limparTela();
+				} else {
+					JOptionPane.showMessageDialog(null, "Erro ao  cadastrada consulta", "", JOptionPane.ERROR_MESSAGE);
 					atualizarTabela();
 					limparTela();
 				}
@@ -395,42 +408,42 @@ public class Agenda extends JFrame {
 				dispose();
 			}
 		});
-		
-				btnExcluir = new JButton("Excluir");
-				btnExcluir.setBackground(new Color(149, 208, 157));
-				btnExcluir.setForeground(new Color(255, 255, 255));
-				btnExcluir.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
 
-						int position = table.getSelectedRow();
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.setBackground(new Color(149, 208, 157));
+		btnExcluir.setForeground(new Color(255, 255, 255));
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-						if (position == -1) {
-							JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
-							return;
-						}
-						consultaClick = new Consulta();
-						consultaClick = listConsulta.get(position);
+				int position = table.getSelectedRow();
 
-						int n = JOptionPane.showConfirmDialog(null, "Tem certeza que quer excluir?  " + " ", "",
-								JOptionPane.YES_NO_OPTION);
+				if (position == -1) {
+					JOptionPane.showMessageDialog(null, "Nenhum paciente selecionado");
+					return;
+				}
+				consultaClick = new Consulta();
+				consultaClick = listConsulta.get(position);
 
-						if (n == JOptionPane.YES_OPTION) {
-							boolean retorno = agendaDao.excluirConsulta(consultaClick);
-							if (retorno != false) {
-								JOptionPane.showMessageDialog(null, "Consulta excluida com sucesso");
-							} else {
-								JOptionPane.showMessageDialog(null, "Erro ao excluir", " ERRO", JOptionPane.ERROR_MESSAGE);
-							}
+				int n = JOptionPane.showConfirmDialog(null, "Tem certeza que quer excluir?  " + " ", "",
+						JOptionPane.YES_NO_OPTION);
 
-							atualizarTabela();
-
-						} 
-						limparTela();
-
+				if (n == JOptionPane.YES_OPTION) {
+					boolean retorno = agendaDao.excluirConsulta(consultaClick);
+					if (retorno != false) {
+						JOptionPane.showMessageDialog(null, "Consulta excluida com sucesso");
+					} else {
+						JOptionPane.showMessageDialog(null, "Erro ao excluir", " ERRO", JOptionPane.ERROR_MESSAGE);
 					}
-				});
-				btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
-				panel_3.add(btnExcluir, "cell 3 9,grow");
+
+					atualizarTabela();
+
+				}
+				limparTela();
+
+			}
+		});
+		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panel_3.add(btnExcluir, "cell 3 9,grow");
 		btnVoltarMenuPrincipal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnVoltarMenuPrincipal, "cell 7 9,grow");
 
@@ -442,6 +455,8 @@ public class Agenda extends JFrame {
 		txtNome.setEditable(true);
 		txtCpf.setEditable(true);
 		panel_3.add(btnEditar);
+		btnEditar.setBackground(new Color(149, 208, 157));
+		btnEditar.setForeground(new Color(255, 255, 255));
 		btnEditar.setVisible(true);
 
 		panel_3.remove(voltar);
@@ -450,24 +465,25 @@ public class Agenda extends JFrame {
 		btnsalvar.setVisible(false);
 		panel_3.remove(btnsalvar);
 
-		panel_3.add(btnCadastrar);
-
-		btnCadastrar.setBackground(new Color(240, 255, 240));
-		btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnCadastrar.setBackground(new Color(149, 208, 157));
+		btnCadastrar.setForeground(new Color(255, 255, 255));
 		panel_3.add(btnCadastrar, "cell 5 5 2 1,grow");
 		btnCadastrar.setVisible(true);
 
-		btnExcluir.setBackground(new Color(240, 240, 240));
+		btnExcluir.setBackground(new Color(149, 208, 157));
+		btnExcluir.setForeground(new Color(255, 255, 255));
 		btnExcluir.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_3.add(btnExcluir, "cell 5 9,grow");
 		btnExcluir.setVisible(true);
 
+		btnVoltarMenuPrincipal.setBackground(new Color(149, 208, 157));
+		btnVoltarMenuPrincipal.setForeground(new Color(255, 255, 255));
 		btnVoltarMenuPrincipal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnVoltarMenuPrincipal, "cell 7 9,grow");
 
 		btnVoltarMenuPrincipal.setVisible(true);
-
-		btnEditar.setBackground(new Color(240, 255, 240));
+		btnEditar.setBackground(new Color(149, 208, 157));
+		btnEditar.setForeground(new Color(255, 255, 255));
 		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_3.add(btnEditar, "cell 1 9,grow");
 		btnEditar.setVisible(true);
@@ -476,15 +492,23 @@ public class Agenda extends JFrame {
 
 	public void alterarLayoutEditar() {
 
+		btnEditar.setForeground(new Color(255, 255, 255));
+		btnEditar.setBackground(new Color(149, 208, 157));
 		btnEditar.setVisible(false);
 		panel_3.remove(btnEditar);
 
+		btnCadastrar.setForeground(new Color(255, 255, 255));
+		btnCadastrar.setBackground(new Color(149, 208, 157));
 		btnCadastrar.setVisible(false);
 		panel_3.remove(btnCadastrar);
 
+		btnCadastrar.setForeground(new Color(255, 255, 255));
+		btnCadastrar.setBackground(new Color(149, 208, 157));
 		btnExcluir.setVisible(false);
 		panel_3.remove(btnExcluir);
 
+		btnVoltarMenuPrincipal.setForeground(new Color(255, 255, 255));
+		btnVoltarMenuPrincipal.setBackground(new Color(149, 208, 157));
 		btnVoltarMenuPrincipal.setVisible(false);
 		panel_3.remove(btnVoltarMenuPrincipal);
 
@@ -511,7 +535,8 @@ public class Agenda extends JFrame {
 
 	public void atualizarTabela() {
 
-		tabela = new DefaultTableModel(new Object[][] {}, new String[] { "Paciente", "Medico", "Data", "Hora", "Observação" });
+		tabela = new DefaultTableModel(new Object[][] {},
+				new String[] { "Paciente", "Medico", "Data", "Hora", "Observação" });
 		// listConsulta.clear();
 		listaConsulta = new ArrayList<>();
 		listaConsulta = agendaDao.listConsulta();
@@ -687,5 +712,94 @@ public class Agenda extends JFrame {
 
 	public JComboBox<Medico> getCbxMedico() {
 		return cbxMedico;
+	}
+
+	public Consulta setarDadosConsulta() {
+		validacao = "";
+
+		JTextField textField = new JTextField();
+
+		Date data = agenda.getTxtCaledar().getDate();
+		String nome = agenda.getTxtNome().getText();
+		String cpf = agenda.getTxtCpf().getText().replace(".", "").replace("-", "");
+		String tipoConsulta = agenda.getTxtTipoConsulta().getText();
+		String observacao = agenda.getTxtObservacao().getText();
+		String hora = agenda.getTxtHora().getText();
+
+		Consulta consulta = new Consulta();
+		Paciente paciente = new Paciente();
+		if (consultaClick != null) {
+			consulta.setId(consultaClick.getId());
+		}
+		if (nome == null || nome.trim() == "" || nome.isEmpty()) {
+			agenda.getTxtNome().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+
+			validacao += "Nome\n";
+		} else {
+			paciente.setNome(nome);
+		}
+
+		if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
+			agenda.getTxtCpf().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "CPF\n";
+		} else {
+			Long cpfLong = Long.valueOf(cpf);
+			paciente.setCpf(cpfLong);
+		}
+		consulta.setPaciente(paciente);
+
+		if (tipoConsulta == null || tipoConsulta.trim() == "" || tipoConsulta.isEmpty()) {
+			agenda.getTxtTipoConsulta().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Tipo consulta\n";
+		} else {
+			consulta.setServico(tipoConsulta);
+		}
+
+		if (data == null) {
+			agenda.getTxtCaledar().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Data\n";
+
+		} else {
+			SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+			String dataFormatada = formatador.format(data);
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate dataFormatadaNova = LocalDate.parse(dataFormatada, formatter);
+
+			LocalDate dataAtual = LocalDate.now();
+
+			if (dataFormatadaNova.isBefore(dataAtual)) {
+				validacao += "Informe uma data posterior";
+
+			} else {
+				consulta.setDate(dataFormatadaNova);
+			}
+
+		}
+		if (hora == null || hora.trim() == "" || hora.isEmpty()) {
+			agenda.getTxtHora().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+			validacao += "Hora\n";
+		} else {
+
+			LocalTime ts = LocalTime.parse(hora, DateTimeFormatter.ofPattern("HH:mm"));
+			consulta.setHora(ts);
+
+		}
+		Medico medico = (Medico) agenda.getCbxMedico().getSelectedItem();
+		Long cp = medico.getCpf();
+		medico.setCpf(cp);
+		consulta.setMedico(medico);
+
+		if (observacao == null || observacao.trim() == "" || observacao.isEmpty()) {
+			agenda.getTxtObservacao().setBorder(new LineBorder(new Color(255, 00, 00), 4));
+		} else {
+			consulta.setObservacao(observacao);
+		}
+		if (validacao.trim() == "") {
+			return consulta;
+		}
+		return null;
+
 	}
 }

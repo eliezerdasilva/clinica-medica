@@ -419,13 +419,21 @@ public class TelaCadastroMedico extends JFrame {
 						ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
 						if (result.equals("Yes")) {
 							consultaEndereco = setarObjetoEndereco();
+							if(consultaEndereco==null) {
+								JOptionPane.showMessageDialog(null, validacao,"Erro",JOptionPane.ERROR_MESSAGE);
+								return;
+							}
 							if (consultaEndereco != null) {
 								boolean retorno = enderecoDao.inserirEndereco(consultaEndereco);
 								if (retorno == true) {
 									JOptionPane.showMessageDialog(null, "Endereço cadastrado com sucesso!");
+									limpaBordaEndereco();
+									limparEndereco();
 								} else {
 									JOptionPane.showMessageDialog(null, "Falha ao cadastrar!", "Erro",
 											JOptionPane.ERROR_MESSAGE);
+									limpaBordaEndereco();
+									limparEndereco();
 								}
 							}
 
@@ -454,20 +462,32 @@ public class TelaCadastroMedico extends JFrame {
 				ManterMedicoHelper cadastroMedicoHelper = new ManterMedicoHelper();
 				StatusTela retornoStatusTela = null;
 				Endereco retornoEndereco = setarObjetoEndereco();
+				if(retornoEndereco==null) {
+					JOptionPane.showMessageDialog(null, validacao,"Erro",JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				if (retornoEndereco != null) {
 					ManterEndereco manterEndereco = new ManterEndereco();
 					retornoStatusTela = manterEndereco.consultarEndereco(retornoEndereco);
 				}
 				if (StatusTela.ENDERECOALTERADO == retornoStatusTela) {
 					JOptionPane.showMessageDialog(null, "Endereço alterado");
+					limparEndereco();
+					limpaBordaEndereco();
 				} else {
 					if (StatusTela.ENDERECOCADASTRADO == retornoStatusTela) {
 						JOptionPane.showMessageDialog(null, "Endereço cadastrado");
+						limparEndereco();
+						limpaBordaEndereco();
 					} else {
 						if (StatusTela.ERROALTERARENDERECO == retornoStatusTela) {
 							JOptionPane.showMessageDialog(null, "Erro ao alterar o endereço ");
+							limparEndereco();
+							limpaBordaEndereco();
 						} else {
 							JOptionPane.showMessageDialog(null, "Erro ao cadastrar o endereço ");
+							limparEndereco();
+							limpaBordaEndereco();
 						}
 
 					}
@@ -957,6 +977,7 @@ public class TelaCadastroMedico extends JFrame {
 		contentPane.add(panel_8_1);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Manter médico");
+		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 
 		JButton btnNewButton_3 = new JButton("");

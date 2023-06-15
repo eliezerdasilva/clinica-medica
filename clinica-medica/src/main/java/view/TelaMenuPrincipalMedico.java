@@ -164,7 +164,7 @@ public class TelaMenuPrincipalMedico extends JFrame {
 				consultaClick = listConulta.get(position);
 
 				int n = JOptionPane.showConfirmDialog(null,
-						"Deseja confirma Atendimento" + consultaClick.getPaciente().getNome() + " ", "",
+						" Deseja confirma Atendimento " + consultaClick.getPaciente().getNome() + " ", "",
 						JOptionPane.YES_NO_OPTION);
 				if (n == JOptionPane.YES_OPTION) {
 					agendaDao = new AgendaDao();
@@ -279,6 +279,7 @@ public class TelaMenuPrincipalMedico extends JFrame {
 		panel_8.setBackground(new Color(143, 188, 143));
 
 		JLabel lblNewLabel_1_1 = new JLabel("Bem vindo :  " + usuario.getUsuario());
+		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 
 		GroupLayout gl_panel_8 = new GroupLayout(panel_8);

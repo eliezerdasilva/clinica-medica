@@ -9,7 +9,7 @@ public class ManterEndereco {
 	private EnderecoDao enderecoDao;
 	
 	public StatusTela consultarEndereco(Endereco endereco) {
-		
+		enderecoDao = new EnderecoDao();
 		Endereco enderecoBD = enderecoDao.consultarEndereco(endereco);
 		if(endereco.equals(enderecoBD)) {
 			

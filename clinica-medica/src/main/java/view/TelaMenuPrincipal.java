@@ -195,6 +195,7 @@ public class TelaMenuPrincipal extends JFrame {
 		}
 		lblNewLabel_1 = new JLabel(
 				"Bem vindo : " + usuario.getUsuario() + "                Seu cargo é : " + verificaNivelAcesso);
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -351,11 +352,13 @@ public class TelaMenuPrincipal extends JFrame {
 				"[][::50px,grow][::700,grow][][grow][][]"));
 
 		panel_4 = new JPanel();
+		panel_4.setForeground(new Color(255, 255, 255));
 		panel_4.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
 		panel_4.setBackground(new Color(143, 188, 143));
 		panel_2.add(panel_4, "cell 1 1,grow");
 
 		lblNewLabel_2 = new JLabel("Consultas do dia ");
+		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_4.add(lblNewLabel_2);
 

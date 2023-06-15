@@ -49,98 +49,20 @@ public class AgendaHelper {
 		return null;
 	}
 
-	public boolean editarPaciente(Agenda agendaTela, Consulta consultaClick) {
+	public boolean editarPaciente(Consulta consulta) {
 
-		Consulta consulta = coletarDados(agendaTela, consultaClick);
-		agendaDao = new AgendaDao();
+		AgendaDao agendaDao = new AgendaDao();
+		boolean alterarConsulta = agendaDao.alterarConsulta(consulta);
 
-		boolean cadastroConsulta = agendaDao.alterarConsulta(consulta);
-
-		return cadastroConsulta;
+		return alterarConsulta;
 
 	}
 
-	public static Consulta coletarDados(Agenda agendaTela, Consulta consultaClick) {
 
-		JTextField textField = new JTextField();
-
-		Date data = agendaTela.getTxtCaledar().getDate();
-		String nome = agendaTela.getTxtNome().getText();
-		String cpf = agendaTela.getTxtCpf().getText();
-		String tipoConsulta = agendaTela.getTxtTipoConsulta().getText();
-		String observacao = agendaTela.getTxtObservacao().getText();
-		String validacao = "";
-		String hora = agendaTela.getTxtHora().getText();
-
-		Consulta consulta = new Consulta();
-		Paciente paciente = new Paciente();
-		if (consultaClick != null) {
-			consulta.setId(consultaClick.getId());
-		}
-		if (nome == null || nome.trim() == "" || nome.isEmpty()) {
-			agendaTela.getTxtNome().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-
-			validacao += "Nome\n";
-		} else {
-			paciente.setNome(nome);
-		}
-
-		if (cpf == null || cpf.trim() == "" || cpf.isEmpty()) {
-			agendaTela.getTxtCpf().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			validacao += "CPF\n";
-		} else {
-			Long cpfLong = Long.valueOf(cpf);
-			paciente.setCpf(cpfLong);
-		}
-		consulta.setPaciente(paciente);
-
-		if (tipoConsulta == null || tipoConsulta.trim() == "" || tipoConsulta.isEmpty()) {
-			agendaTela.getTxtTipoConsulta().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			validacao += "Tipo consulta\n";
-		} else {
-			consulta.setServico(tipoConsulta);
-		}
-
-		if (data == null) {
-			agendaTela.getTxtCaledar().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-			validacao += "Dat\n";
-
-		} else {
-			SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-
-			String dataFormatada = formatador.format(data);
-
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			LocalDate dataFormatadaNova = LocalDate.parse(dataFormatada, formatter);
-			consulta.setDate(dataFormatadaNova);
-		}
-		if (hora == null || hora.trim() == "" || hora.isEmpty()) {
-			agendaTela.getTxtHora().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-		} else {
-
-			LocalTime ts = LocalTime.parse(hora, DateTimeFormatter.ofPattern("HH:mm"));
-			consulta.setHora(ts);
-
-		}
-		Medico medico = (Medico) agendaTela.getCbxMedico().getSelectedItem();
-		Long cp = medico.getCpf();
-		medico.setCpf(cp);
-		consulta.setMedico(medico);
-
-		if (observacao == null || observacao.trim() == "" || observacao.isEmpty()) {
-			agendaTela.getTxtObservacao().setBorder(new LineBorder(new Color(255, 00, 00), 4));
-		} else {
-			consulta.setObservacao(observacao);
-		}
-		return consulta;
-
-	}
-	public boolean cadastrarConsulta(Agenda dadosTelaConsulta) {
+	public boolean cadastrarConsulta(Consulta consulta) {
 		
-		Consulta retornoColetaDados = coletarDados(dadosTelaConsulta,null);
-		
-		agendaDao = new AgendaDao();
-		boolean cadastroConsulta = agendaDao.cadastraConsulta(retornoColetaDados);
+		AgendaDao agendaDao = new AgendaDao();
+		boolean cadastroConsulta = agendaDao.cadastraConsulta(consulta);
 		
 		
 		return cadastroConsulta;

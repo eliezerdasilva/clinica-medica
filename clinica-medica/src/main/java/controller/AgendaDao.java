@@ -263,6 +263,7 @@ public class AgendaDao implements InterfaceConsulta {
 				consulta.setServico(rs.getString("tipo_consulta"));
 				consulta.setId(rs.getInt("id_consulta"));
 				medico.setCpf(rs.getLong("cpf_medico"));
+				consulta.setDiagnostico(rs.getString("sobre_consulta"));
 				consulta.setPresença(rs.getString("status"));
 				consulta.setPaciente(paciente);
 				consulta.setMedico(medico);

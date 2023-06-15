@@ -37,7 +37,7 @@ public class TelaConsultaMedico extends JFrame {
 	private JTextField txtHora;
 	private JTextField txtData;
 	private Consulta consultaClick;
-	private JComponent txtObservacao;
+	private JTextPane txtObservacao;
 	private JTextPane txtDiagnostico;
 	private Usuario usuario;
 
@@ -83,6 +83,7 @@ public class TelaConsultaMedico extends JFrame {
 		panel_2.setBackground(new Color(143, 188, 143));
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Situação da consulta : ");
+		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
@@ -194,6 +195,7 @@ public class TelaConsultaMedico extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				AgendaDao agendaDao = new AgendaDao(); 
+				consultaClick.setObservacao(txtObservacao.getText());
 				consultaClick.setDiagnostico(txtDiagnostico.getText());
 				boolean resultado = agendaDao.alterarConsultaMedico(consultaClick);
 				if(resultado=true) {
@@ -236,8 +238,7 @@ public class TelaConsultaMedico extends JFrame {
 		String date = String.valueOf(consulta.getDate());
 		txtData.setText(date);
 		txtData.setEditable(false);
-		txtObservacao.setToolTipText(consulta.getObservacao());
-		txtObservacao.setFocusable(false);
+		txtObservacao.setText(consulta.getObservacao());
 		txtTelefone.setText(consulta.getPaciente().getTelefone());
 		txtTelefone.setEditable(false);
 		txtHora.setText(String.valueOf(consulta.getHora()));

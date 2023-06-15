@@ -366,11 +366,17 @@ public class TelaCadastroFuncionario extends JFrame {
 						ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
 						if (result.equals("Yes")) {
 							consultaEndereco = setarObjetoEndereco();
+							if(consultaEndereco==null) {
+								JOptionPane.showMessageDialog(null, validacao,"Erro",JOptionPane.ERROR_MESSAGE);
+								return;
+							}
 							if (consultaEndereco != null) {
 								boolean retorno = enderecoDao.inserirEndereco(consultaEndereco);
 								if (retorno == true) {
 									JOptionPane.showMessageDialog(null, "Endereço cadastrado com sucesso!");
+									limparEndereco();
 								} else {
+									limparEndereco();
 									JOptionPane.showMessageDialog(null, "Falha ao cadastrar!", "Erro",
 											JOptionPane.ERROR_MESSAGE);
 								}
@@ -396,23 +402,36 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnEditarEnderço.setIcon(new ImageIcon("src\\main\\resources\\imagens\\editar.png"));
 		btnEditarEnderço.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				validacao = "";
 				ManterFuncionarioHelper cadastroFuncionarioHelper = new ManterFuncionarioHelper();
 				StatusTela retornoStatusTela = null;
 				Endereco retornoEndereco = setarObjetoEndereco();
+				if(retornoEndereco==null) {
+					JOptionPane.showMessageDialog(null, validacao,"Erro",JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				if (retornoEndereco != null) {
 					ManterEndereco manterEndereco = new ManterEndereco();
 					retornoStatusTela = manterEndereco.consultarEndereco(retornoEndereco);
 				}
 				if (StatusTela.ENDERECOALTERADO == retornoStatusTela) {
 					JOptionPane.showMessageDialog(null, "Endereço alterado");
+					limparEndereco();
+					limpaBordaEndereco();
 				} else {
 					if (StatusTela.ENDERECOCADASTRADO == retornoStatusTela) {
 						JOptionPane.showMessageDialog(null, "Endereço cadastrado");
+						limparEndereco();
+						limpaBordaEndereco();
 					} else {
 						if (StatusTela.ERROALTERARENDERECO == retornoStatusTela) {
 							JOptionPane.showMessageDialog(null, "Erro ao alterar o endereço ");
+							limparEndereco();
+							limpaBordaEndereco();
 						} else {
 							JOptionPane.showMessageDialog(null, "Erro ao cadastrar o endereço ");
+							limpaBordaEndereco();
+							limparEndereco();
 						}
 
 					}
@@ -779,6 +798,7 @@ public class TelaCadastroFuncionario extends JFrame {
 						funcionario = setarObjetoFuncionario();
 						endereco = setarObjetoEndereco();
 						usuario = setarObjetoUsuario();
+						
 
 						if (funcionario != null && usuario != null && endereco != null) {
 
@@ -912,6 +932,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_8.setBackground(new Color(143, 188, 143));
 
 		JLabel lblNewLabel_1_1 = new JLabel("Manter funcionário ");
+		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 
 		JButton btnLoginSair = new JButton("");
@@ -1350,14 +1371,14 @@ public class TelaCadastroFuncionario extends JFrame {
 			validacao += " Cidade\n";
 			telaCadastroFuncionario.getTxtMunicipio().setBorder(new LineBorder(new Color(255, 00, 00), 4));
 		} else {
-			telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			telaCadastroFuncionario.getTxtMunicipio().setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			endereco.setCidade(cidade);
 		}
 		if (rua == null || rua.trim() == "" || rua.isEmpty()) {
 			validacao += " Rua\n";
 			telaCadastroFuncionario.getTxtRua().setBorder(new LineBorder(new Color(255, 00, 00), 4));
 		} else {
-			telaCadastroFuncionario.getTxtBairro().setBorder(new LineBorder(new Color(00, 00, 00), 1));
+			telaCadastroFuncionario.getTxtRua().setBorder(new LineBorder(new Color(00, 00, 00), 1));
 			endereco.setRua(rua);
 		}
 
