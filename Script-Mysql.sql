@@ -185,7 +185,7 @@ INSERT INTO convenio(id,convenio) values (8, "Intermédica Saúde");
 
 
 insert into paciente(cpf,nome,sexo,email,telefone,profissao,convenio_id,data_nascimento,endereco_cep,numero,complemento)values
-(12345678998,"Paciente","M","paciente@gmail.com","47123456789","carteiro",2,'1990-01-01', 89110001, 123, 'Apartamento 1');
+	(12345678998,"Paciente","M","paciente@gmail.com","47123456789","carteiro",2,'1990-01-01', 89110001, 123, 'Apartamento 1');
 
 insert into medico(cpf,nome,sexo,email,telefone,data_nascimento,endereco_cep,numero,complemento,usuario_idusuario,crm,especializacao)values
 (98765432145,"Medico","F","medico@gmail.com","47987654321",'1990-02-02', 89110002, 1234, 'Apartamento 2',1,654321,"podólogo ");

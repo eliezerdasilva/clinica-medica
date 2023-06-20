@@ -187,12 +187,12 @@ public class TelaCadastroPaciente extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("Cadastro Paciente");
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 32));
+		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblNewLabel, "name_169020969106100");
 
 		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(204, 255, 204));
+		panel_4.setBackground(new Color(255, 255, 255));
 		panel_1.add(panel_4, BorderLayout.SOUTH);
 		panel_4.setLayout(new MigLayout("", "[1150:n:1150,grow]", "[150:n:150,grow][200:n:210,grow][400:n:380,grow]"));
 

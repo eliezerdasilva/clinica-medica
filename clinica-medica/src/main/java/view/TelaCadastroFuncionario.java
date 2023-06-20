@@ -194,7 +194,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_2.add(lblNewLabel, "name_169020969106100");
 
 		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(204, 255, 204));
+		panel_4.setBackground(new Color(255, 255, 255));
 		panel_1.add(panel_4, BorderLayout.CENTER);
 		panel_4.setLayout(
 				new MigLayout("", "[1142.00:n:1134,grow]", "[][160:n:160,grow][100:n:100,grow][380:n:390,grow]"));
