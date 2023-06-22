@@ -200,24 +200,23 @@ public class TelaCadastroPaciente extends JFrame {
 		panel_3.setBorder(new LineBorder(new Color(143, 188, 143), 3));
 		panel_3.setBackground(new Color(240, 255, 240));
 		panel_4.add(panel_3, "cell 0 0,grow");
-		panel_3.setLayout(new MigLayout("", "[][300:n:300,grow][][300:n:300][][][150:n:150,grow]",
-				"[][30:n:30][][30:n:30][][30:n:30][]"));
+		panel_3.setLayout(new MigLayout("", "[][300:n:300,grow][][300:n:300][][][150:n:150,grow]", "[][][30:n:30][][30:n:30][][30:n:30][]"));
 
 		JLabel lblNewLabel_1 = new JLabel("Nome : ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_1, "cell 0 1,alignx center,growy");
-
-		txtNome = new JTextField();
-		panel_3.add(txtNome, "cell 1 1,grow");
-		txtNome.setColumns(10);
+		panel_3.add(lblNewLabel_1, "cell 0 2,alignx center,growy");
+		
+				txtNome = new JTextField();
+				panel_3.add(txtNome, "cell 1 2,grow");
+				txtNome.setColumns(10);
 
 		JLabel lblNewLabel_4 = new JLabel("Data :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_4, "flowx,cell 3 1,growx");
+		panel_3.add(lblNewLabel_4, "flowx,cell 3 2,growx");
 
 		JLabel lblNewLabel_7 = new JLabel("Convênio :");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_7, "cell 5 1,alignx trailing");
+		panel_3.add(lblNewLabel_7, "cell 5 2,alignx trailing");
 
 		cbxConvenio = new JComboBox<Convenio>();
 		cbxConvenio.addAncestorListener(new AncestorListener() {
@@ -237,7 +236,7 @@ public class TelaCadastroPaciente extends JFrame {
 			}
 		});
 
-		panel_3.add(cbxConvenio, "cell 6 1,grow");
+		panel_3.add(cbxConvenio, "cell 6 2,grow");
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(240, 255, 240));
@@ -257,31 +256,31 @@ public class TelaCadastroPaciente extends JFrame {
 
 		JLabel lblNewLabel_2 = new JLabel("E-mail :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_2, "cell 0 3,alignx center");
+		panel_3.add(lblNewLabel_2, "cell 0 4,alignx center");
 
 		txtEmail = new JTextField();
-		panel_3.add(txtEmail, "cell 1 3,grow");
+		panel_3.add(txtEmail, "cell 1 4,grow");
 		txtEmail.setColumns(10);
 
 		JLabel lblNewLabel_5 = new JLabel("Cpf :    ");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_5, "flowx,cell 3 3,grow");
+		panel_3.add(lblNewLabel_5, "flowx,cell 3 4,grow");
 
 		JLabel lblNewLabel_8 = new JLabel("Sexo :");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_8, "cell 5 3");
+		panel_3.add(lblNewLabel_8, "cell 5 4");
 
 		jrbMasc = new JRadioButton("M");
 		buttonGroup.add(jrbMasc);
 		jrbMasc.setBackground(new Color(240, 255, 240));
-		panel_3.add(jrbMasc, "flowx,cell 6 3,grow");
+		panel_3.add(jrbMasc, "flowx,cell 6 4,grow");
 
 		JLabel lblNewLabel_3 = new JLabel("Profissão :");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_3, "cell 0 5,alignx trailing");
+		panel_3.add(lblNewLabel_3, "cell 0 6,alignx trailing");
 
 		txtProfissao = new JTextField();
-		panel_3.add(txtProfissao, "cell 1 5,grow");
+		panel_3.add(txtProfissao, "cell 1 6,grow");
 		txtProfissao.setColumns(10);
 
 		try {
@@ -352,7 +351,7 @@ public class TelaCadastroPaciente extends JFrame {
 			JOptionPane.showMessageDialog(null, "Data inválida");
 			e2.printStackTrace();
 		}
-		panel_3.add(txtData, "cell 3 1,grow");
+		panel_3.add(txtData, "cell 3 2,grow");
 		txtData.setColumns(22);
 
 		try {
@@ -361,12 +360,12 @@ public class TelaCadastroPaciente extends JFrame {
 			JOptionPane.showMessageDialog(null, "CPF inválido");
 			e4.printStackTrace();
 		}
-		panel_3.add(txtCpf, "cell 3 3,grow");
+		panel_3.add(txtCpf, "cell 3 4,grow");
 		txtCpf.setColumns(23);
 
 		JLabel lblNewLabel_6 = new JLabel("Telefone :");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(lblNewLabel_6, "flowx,cell 3 5");
+		panel_3.add(lblNewLabel_6, "flowx,cell 3 6");
 
 		try {
 			txtTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
@@ -374,13 +373,13 @@ public class TelaCadastroPaciente extends JFrame {
 			JOptionPane.showMessageDialog(null, "Telefone inválido");
 			e5.printStackTrace();
 		}
-		panel_3.add(txtTelefone, "cell 3 5,grow");
+		panel_3.add(txtTelefone, "cell 3 6,grow");
 		txtTelefone.setColumns(10);
 
 		jrbFemi = new JRadioButton("F");
 		buttonGroup.add(jrbFemi);
 		jrbFemi.setBackground(new Color(240, 255, 240));
-		panel_3.add(jrbFemi, "cell 6 3,grow");
+		panel_3.add(jrbFemi, "cell 6 4,grow");
 
 		JLabel lblNewLabel_9 = new JLabel("CEP :");
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);

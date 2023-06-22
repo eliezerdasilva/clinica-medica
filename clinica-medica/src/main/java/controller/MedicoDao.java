@@ -87,44 +87,64 @@ public class MedicoDao implements InterfaceMedico {
 	}
 
 	@Override
-	public Medico consultarDadosMedicoCRM(Long crm) {
+	public Medico consultarDadosMedicoCRM(Long crm, Long cpf) {
 		con = Conexao.getInstacia();
 		Connection c = con.conectar();
+		Medico medico = new Medico();
 		try {
-			PreparedStatement ps = c.prepareStatement("select * from medico where crm = ? ");
+
+			PreparedStatement ps = c.prepareStatement("select medico.*,endereco.*,usuario.* from medico\r\n"
+					+ "join endereco on medico.endereco_cep = endereco.cep\r\n"
+					+ "join usuario on medico.usuario_idusuario = usuario.idusuario \r\n"
+					+ "where crm = ? or cpf = ? ; ");
 			ps.setLong(1, crm);
-		
-
+			ps.setLong(2, cpf);
+			
 			ResultSet rs = ps.executeQuery();
-			Medico medico1 = new Medico();
-
 			while (rs.next()) {
-				Long medCrm = rs.getLong("crm");
-				String nome = rs.getString("nome");
-				String sexo = rs.getString("sexo");
-				String email = rs.getString("email");
-				String telefone = rs.getString("telefone");
-				Date data_nascimento = rs.getDate("data_nascimento");
-				String especializacao = rs.getString("especializacao");
-				Long cpf1 = rs.getLong("cpf");
 
-				medico1.setCrm(medCrm);
-				medico1.setNome(nome);
-				medico1.setSexo(sexo);
-				medico1.setEmail(email);
-				medico1.setTelefone(telefone);
-				medico1.setDataNascimento(data_nascimento.toLocalDate());
-				medico1.setEspecializacao(especializacao);
-				medico1.setCpf(cpf1);
+				
+				Endereco endereco = new Endereco();
+				var estado = new Estado();
+				Usuario usuario = new Usuario();
+
+				// Medico
+				medico.setCpf(rs.getLong("cpf"));
+				medico.setNome(rs.getString("nome"));
+				medico.setSexo(rs.getString("sexo"));
+				medico.setEmail(rs.getString("email"));
+				medico.setTelefone(rs.getString("telefone"));
+				medico.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				medico.setCrm(rs.getLong("crm"));
+				medico.setEspecializacao(rs.getString("especializacao"));
+
+				// Endereco
+				endereco.setCep(rs.getInt("cep"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setBairro(rs.getString("bairro"));
+				endereco.setRua(rs.getString("rua"));
+				estado.setId(rs.getInt("id_estado"));
+				endereco.setEstado(estado);
+				medico.setNumero(rs.getInt("numero"));
+				medico.setComplemento(rs.getString("complemento"));
+				medico.setEndereco(endereco);
+
+				// Usuario
+				usuario.setId(rs.getLong("idusuario"));
+				usuario.setUsuario(rs.getString("login"));
+				usuario.setSenha(rs.getString("senha"));
+				usuario.setNivelAcesso(rs.getInt("tipo_usuario"));
+				medico.setUsuario(usuario);
+
+				
+
 			}
-			return medico1;
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			con.fecharConexao();
 		}
-		return null;
+		return medico;
 	}
 
 	@Override

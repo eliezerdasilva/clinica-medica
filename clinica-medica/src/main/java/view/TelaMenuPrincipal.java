@@ -472,7 +472,7 @@ public class TelaMenuPrincipal extends JFrame {
 				consultaClick = listaConsulta.get(position);
 
 				int n = JOptionPane.showConfirmDialog(null,
-						"Deseja confirma presença" + consultaClick.getPaciente().getNome() + " ", "",
+						"Deseja confirma presença de : " + consultaClick.getPaciente().getNome() + " ", "",
 						JOptionPane.YES_NO_OPTION);
 				if (n == JOptionPane.YES_OPTION) {
 					agendaDao = new AgendaDao();

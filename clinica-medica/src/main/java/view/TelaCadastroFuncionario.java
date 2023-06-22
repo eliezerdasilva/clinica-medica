@@ -649,13 +649,11 @@ public class TelaCadastroFuncionario extends JFrame {
 
 				if ((cpf != null && nome != null) || (cpf != null && nome == null) || (cpf == null && nome != null)) {
 					ArrayList<Funcionario> listfuncionario = new ArrayList<>();
-					if (cpf.trim() == "") {
-						cpf = "0";
-
-					}
-					if (nome.trim() == "") {
+					
+					if(nome.equals("")) {
 						nome = "0";
-
+					}else {
+						cpf = "0";
 					}
 					listfuncionario = funcionarioDao.consultaCPFNome(nome, Long.parseLong(cpf));
 					listaTabelaBusca(listfuncionario);
@@ -948,6 +946,7 @@ public class TelaCadastroFuncionario extends JFrame {
 			}
 		});
 		btnLoginSair.setBackground(Color.WHITE);
+		btnLoginSair.setIcon(new ImageIcon("src\\main\\resources\\imagens\\login.png"));
 		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
 		gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_8.createSequentialGroup().addGap(73)

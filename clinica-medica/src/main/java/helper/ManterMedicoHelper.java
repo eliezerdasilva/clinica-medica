@@ -35,10 +35,11 @@ public class ManterMedicoHelper {
 		endereco = enderecoDao.consultarEndereco(medico.getEndereco());
 		usuario = usuarioDao.consultarUsuario(medico.getUsuario());
 
-		if (endereco.getCep() == null) {
+		if (endereco == null) {
 			int i = JOptionPane.showConfirmDialog(null, "Deseja cadastrar o cep ?");
 			if (i == JOptionPane.YES_OPTION) {
 				boolean retorno = enderecoDao.inserirEndereco(medico.getEndereco());
+				endereco = medico.getEndereco();
 				if (retorno == true) {
 					JOptionPane.showMessageDialog(null, "Endereço cadastrado");
 				} else {

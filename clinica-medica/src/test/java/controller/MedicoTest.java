@@ -51,7 +51,7 @@ class MedicoTest {
 		boolean result = medicoDao.cadastrarMedico(medico);
 		assertTrue(result);
 		
-		Medico med = medicoDao.consultarDadosMedicoCRM(medico.getCpf());
+		Medico med = medicoDao.consultarDadosMedicoCRM(medico.getCrm(),medico.getCpf());
 		assertNotNull(med);		
 		
 		usuarioDao.deletarUsuario(user);
@@ -100,7 +100,7 @@ class MedicoTest {
 		medico.setCpf(Long.valueOf(12345678965l));
 		medico.setCrm(Long.valueOf(777777));
 		
-		Medico resultado = medicoDao.consultarDadosMedicoCRM(medico.getCrm());
+		Medico resultado = medicoDao.consultarDadosMedicoCRM(medico.getCrm(),medico.getCpf());
 		assertNotNull(resultado);
 		assertEquals(medico.getNome(), resultado.getNome());
 		
@@ -121,13 +121,13 @@ class MedicoTest {
 		medico.setCpf(Long.valueOf(12345678965l));
 		medico.setCrm(Long.valueOf(777777));
 		
-		Medico resultad = medicoDao.consultarDadosMedicoCRM(medico.getCrm());
+		Medico resultad = medicoDao.consultarDadosMedicoCRM(medico.getCrm(),medico.getCpf());
 		assertNotNull(resultad.getCpf());
 		
 		boolean result = medicoDao.excluirMedico(medico.getCpf());
 		assertTrue(result);
 		
-		Medico resultado = medicoDao.consultarDadosMedicoCRM(medico.getCrm());
+		Medico resultado = medicoDao.consultarDadosMedicoCRM(medico.getCrm(),medico.getCpf());
 		assertNull(resultado.getCpf());
 		
 	}

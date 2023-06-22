@@ -205,7 +205,7 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 			PreparedStatement ps = c.prepareStatement("select funcionario.*, usuario.*, endereco.* from funcionario\r\n"
 					+ "join usuario on funcionario.usuario_idusuario = usuario.idusuario\r\n"
 					+ "join endereco on funcionario.endereco_cep = endereco.cep\r\n"
-					+ "where cpf = ? or nome = ? ");
+					+ "where cpf = ? or nome = ? ;");
 			
 			ps.setLong(1, cpf);
 			ps.setString(2, nome);
@@ -250,6 +250,7 @@ public class FuncionarioDao implements InterfaceFuncionarioDao {
 				
 				funcionario.setEndereco(endereco);
 				funcionario.setUsuario(usuario);
+				listaFuncionarios.add(funcionario);
 
 			}
 			return listaFuncionarios;

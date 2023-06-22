@@ -14,7 +14,7 @@ public interface  InterfaceMedico {
 	
 	public boolean alterarMedico(Medico medico);
 
-	public Medico consultarDadosMedicoCRM(Long crm);
+	public Medico consultarDadosMedicoCRM(Long crm,Long cpf);
 	
 	public ArrayList<Medico> listaMedicos();
 	

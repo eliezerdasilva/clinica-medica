@@ -183,12 +183,12 @@ insert into usuario(idusuario, login, senha, tipo_usuario) values (17,"Jonas","1
 insert into usuario(idusuario, login, senha, tipo_usuario) values (18,"Ivete","1234",2);
 insert into usuario(idusuario, login, senha , tipo_usuario) values (19,"Admin","1234",0);
 
-select * from endereco;
+
 INSERT INTO `clinica`.`endereco` (`cep`, `cidade`, `bairro`, `rua`, `id_estado`)
 VALUES 
-    (89110100, 'Gaspar', 'Centro', 'Avenida Paulista', 18),
-    (89110200, 'Gaspar', 'Copacabana', 'Rua Barata Ribeiro', 2),
-    (89110300, 'Gaspar', 'Savassi', 'Rua Pernambuco', 20),
+    (89110100, 'Gaspar', 'Centro', 'Santa helena', 24),
+    (89110200, 'Gaspar', 'Bela Vista', 'Rua  Ribeiro', 24),
+    (89110300, 'Gaspar', 'Gasparinho', 'Rua Pernambuco', 24),
     (89110400, 'Gaspar', 'Moinhos de Vento', 'Rua Padre Chagas', 25),
     (89110500, 'Gaspar', 'Barra', 'Avenida Oceânica', 24),
     (89110600, 'Gaspar', 'Batel', 'Rua Bispo Dom José', 8),
@@ -293,29 +293,29 @@ VALUES (56789123450, 'Dra. Amanda Rodrigues', 'Feminino', 'amanda.rodrigues@exam
 -- funcionario
 
 INSERT INTO `clinica`.`funcionario` (`cpf`, `nome`, `sexo`, `email`, `telefone`, `data_nascimento`, `endereco_cep`, `numero`, `complemento`, `usuario_idusuario`) 
-VALUES (12345678901, 'Fulano Silva', 'Masculino', 'fulano.silva@example.com', '1234567890', '1990-01-01', 89110100, 10, 'Bloco A', 10);
+VALUES (12345678901, 'Bernado da Silva', 'Masculino', 'Bernado.silva@example.com', '1234567890', '1990-01-01', 89110100, 10, 'Bloco A', 10);
 
 
 INSERT INTO `clinica`.`funcionario` (`cpf`, `nome`, `sexo`, `email`, `telefone`, `data_nascimento`, `endereco_cep`, `numero`, `complemento`, `usuario_idusuario`) 
-VALUES (98765432109, 'Beltrana Santos', 'Feminino', 'beltrana.santos@example.com', '9876543210', '1985-05-10', 89110100, 20, 'Bloco B',11);
+VALUES (98765432109, 'Sabrina Santos', 'Feminino', 'Sabrina.santos@example.com', '9876543210', '1985-05-10', 89110100, 20, 'Bloco B',11);
 
 INSERT INTO `clinica`.`funcionario` (`cpf`, `nome`, `sexo`, `email`, `telefone`, `data_nascimento`, `endereco_cep`, `numero`, `complemento`, `usuario_idusuario`) 
-VALUES (56789012345, 'Ciclano Oliveira', 'Masculino', 'ciclano.oliveira@example.com', '5678901234', '1995-07-15', 89110100, 5, 'Bloco C', 12);
+VALUES (56789012345, 'Elizeu Oliveira', 'Masculino', 'Elizeu.oliveira@example.com', '5678901234', '1995-07-15', 89110100, 5, 'Bloco C', 12);
 
 INSERT INTO `clinica`.`funcionario` (`cpf`, `nome`, `sexo`, `email`, `telefone`, `data_nascimento`, `endereco_cep`, `numero`, `complemento`, `usuario_idusuario`) 
-VALUES (54321098765, 'Beltrano Rodrigues', 'Masculino', 'beltrano.rodrigues@example.com', '5432109876', '1980-03-20', 89110100, 15, 'Bloco D', 13);
+VALUES (54321098765, 'Kaue Rodrigues', 'Masculino', 'Kaue.rodrigues@example.com', '5432109876', '1980-03-20', 89110100, 15, 'Bloco D', 13);
 
 INSERT INTO `clinica`.`funcionario` (`cpf`, `nome`, `sexo`, `email`, `telefone`, `data_nascimento`, `endereco_cep`, `numero`, `complemento`, `usuario_idusuario`) 
-VALUES (13579246801, 'Ciclana Lima', 'Feminino', 'ciclana.lima@example.com', '1357924680', '1992-11-05', 89110100, 25, 'Bloco E', 14);
+VALUES (13579246801, 'Eliandra Lima', 'Feminino', 'Eliandra.lima@example.com', '1357924680', '1992-11-05', 89110100, 25, 'Bloco E', 14);
 
 INSERT INTO `clinica`.`funcionario` (`cpf`, `nome`, `sexo`, `email`, `telefone`, `data_nascimento`, `endereco_cep`, `numero`, `complemento`, `usuario_idusuario`) 
-VALUES (24681357904, 'Beltrana Costa', 'Feminino', 'beltrana.costa@example.com', '2468135790', '1988-09-14', 89110100, 30, 'Bloco F', 15);
+VALUES (24681357904, 'Sandra Costa', 'Feminino', 'Sandra.costa@example.com', '2468135790', '1988-09-14', 89110100, 30, 'Bloco F', 15);
 
 INSERT INTO `clinica`.`funcionario` (`cpf`, `nome`, `sexo`, `email`, `telefone`, `data_nascimento`, `endereco_cep`, `numero`, `complemento`, `usuario_idusuario`) 
-VALUES (86420975301, 'Cicrano Santos', 'Masculino', 'cicrano.santos@example.com', '8642097530', '1991-02-18', 89110100, 8, 'Bloco G', 16);
+VALUES (86420975301, 'Levi Santos', 'Masculino', 'levi.santos@example.com', '8642097530', '1991-02-18', 89110100, 8, 'Bloco G', 16);
 
 INSERT INTO `clinica`.`funcionario` (`cpf`, `nome`, `sexo`, `email`, `telefone`, `data_nascimento`, `endereco_cep`, `numero`, `complemento`, `usuario_idusuario`) 
-VALUES (12345098765, 'Ciclano Martins', 'Masculino', 'ciclano.Martins@example.com', '1234509876', '1990-07-30', 89110100, 12, 'Bloco I', 17);
+VALUES (12345098765, 'Arthur Martins', 'Masculino', 'Arthur.Martins@example.com', '1234509876', '1990-07-30', 89110100, 12, 'Bloco I', 17);
 
 INSERT INTO `clinica`.`funcionario` (`cpf`, `nome`, `sexo`, `email`, `telefone`, `data_nascimento`, `endereco_cep`, `numero`, `complemento`, `usuario_idusuario`) 
 VALUES (56789123450, 'Beltrana Rodrigues', 'Feminino', 'beltrana.rodrigues@example.com', '5678912345', '1986-12-07', 89110100, 22, 'Bloco J', 18);
@@ -323,7 +323,7 @@ VALUES (56789123450, 'Beltrana Rodrigues', 'Feminino', 'beltrana.rodrigues@examp
 INSERT INTO consulta (data_consulta, hora_consulta, paciente_cpf, sobre_consulta, tipo_consulta, medico_cpf, observacao)
 VALUES 
     (CURRENT_DATE(), '14:00', '12345678901', 'Consulta de rotina', 'Consulta médica', '12345678901', 'Nenhuma observação no momento'),
-    (CURRENT_DATE() - INTERVAL 1 DAY, '10:30', '12345678901', 'Acompanhamento pós-operatório', 'Consulta médica', '12345678901', 'Realizar exames de sangue'),
+    (CURRENT_DATE() - INTERVAL 1 DAY, '10:30', '13579246801', 'Acompanhamento pós-operatório', 'Consulta médica', '12345678901', 'Realizar exames de sangue'),
     (CURRENT_DATE() - INTERVAL 2 DAY, '16:45', '98765432109', 'Dor abdominal intensa', 'Consulta médica', '56789012345', 'Receitar medicamentos para alívio da dor'),
     (CURRENT_DATE() - INTERVAL 3 DAY, '08:15', '56789012345', 'Avaliação odontológica', 'Consulta odontológica', '54321098765', 'Agendar procedimento de limpeza'),
     (CURRENT_DATE() - INTERVAL 4 DAY, '11:30', '54321098765', 'Consulta pediátrica', 'Consulta médica', '56789012345', 'Verificar peso e altura da criança'),
@@ -333,7 +333,7 @@ VALUES
     (CURRENT_DATE() - INTERVAL 8 DAY, '16:30', '13579246801', 'Acompanhamento de diabetes', 'Consulta médica', '54321098765', 'Ajustar dosagem de insulina'),
     (CURRENT_DATE() - INTERVAL 9 DAY, '10:00', '98765432109', 'Consulta ginecológica', 'Consulta médica', '54321098765', 'Realizar exame de ultrassom'),
     (CURRENT_DATE() - INTERVAL 10 DAY, '15:30', '13579246801', 'Consulta dermatológica', 'Consulta médica', '54321098765', 'Prescrever tratamento para acne'),
-    (CURRENT_DATE() - INTERVAL 11 DAY, '14:45', '12345678901', 'Consulta de psiquiatria', 'Consulta médica', '54321098765', 'Ajustar medicação para transtorno de ansiedade'),
+    (CURRENT_DATE() - INTERVAL 11 DAY, '14:45', '56789123450', 'Consulta de psiquiatria', 'Consulta médica', '54321098765', 'Ajustar medicação para transtorno de ansiedade'),
     (CURRENT_DATE() - INTERVAL 12 DAY, '11:15', '98765432109', 'Avaliação oftalmológica', 'Consulta médica', '54321098765', 'Realizar exame de acuidade visual'),
     (CURRENT_DATE() - INTERVAL 13 DAY, '09:30', '54321098765', 'Consulta de ortopedia', 'Consulta médica', '12345678901', 'Solicitar ressonância magnética'),
     (CURRENT_DATE() - INTERVAL 14 DAY, '12:30', '56789123450', 'Consulta de alergologia', 'Consulta médica', '12345678901', 'Realizar teste de alergia');
